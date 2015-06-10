@@ -1,13 +1,13 @@
 package concentric.medalarm;
 
 import android.app.Activity;
-import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -19,7 +19,7 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 
-public class MainActivity extends ActionBarActivity
+public class MainActivity extends AppCompatActivity
         implements NavigationDrawerFragment.NavigationDrawerCallbacks {
 
     /**
