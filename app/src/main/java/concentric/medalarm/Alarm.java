@@ -5,6 +5,10 @@ package concentric.medalarm;
  */
 public class Alarm {
 
+    public void playAlarm() {
+        // things n stuff
+    }
+
 
 
 }
