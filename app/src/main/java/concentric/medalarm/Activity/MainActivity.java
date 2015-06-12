@@ -1,4 +1,4 @@
-package concentric.medalarm;
+package concentric.medalarm.Activity;
 
 import android.graphics.drawable.Drawable;
 import android.support.annotation.Nullable;
@@ -18,6 +18,8 @@ import com.mikepenz.materialdrawer.model.DividerDrawerItem;
 import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
 import com.mikepenz.materialdrawer.model.SecondaryDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
+
+import concentric.medalarm.R;
 
 
 public class MainActivity extends AppCompatActivity {
