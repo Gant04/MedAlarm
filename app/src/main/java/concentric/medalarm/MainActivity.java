@@ -27,22 +27,27 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        if (null != toolbar) {
+            setSupportActionBar(toolbar);
+            //set the back arrow in the toolbar
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }
+
         Drawer result = new DrawerBuilder()
                 .withActivity(this)
-                .withTranslucentStatusBar(false)
-                .withActionBarDrawerToggle(false)
-                .withActionBarDrawerToggleAnimated(true)
+                .withToolbar(toolbar)
                 .addDrawerItems(
-                    new PrimaryDrawerItem().withName("STUFF")
-    //                    new DividerDrawerItem(),
-    //                    new SecondaryDrawerItem().withName(R.string.drawer_item_settings)
-                )
-    /*            .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
+                        new PrimaryDrawerItem().withName("First Item"),
+                        new DividerDrawerItem(),
+                        new SecondaryDrawerItem().withName("Second Item")
+                )/*
+                .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
                     @Override
                     public boolean onItemClick(AdapterView<?> parent, View view, int position, long id, IDrawerItem drawerItem) {
                         // do something with the clicked item :D
                     }
-                })*/
+                }) */
                 .build();
 
 //use the result object to get different views of the drawer or modify it's data
@@ -51,7 +56,6 @@ public class MainActivity extends AppCompatActivity {
         result.openDrawer();
         result.closeDrawer();
         result.isDrawerOpen();
-        //result.addItem(..);
 
     }
 
