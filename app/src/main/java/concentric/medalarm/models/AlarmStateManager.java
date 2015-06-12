@@ -283,10 +283,7 @@ public final class AlarmStateManager extends BroadcastReceiver{
     public void setAlarmState(Context context, Alarm instance, int state) {
 
     }
-    @Override
-    public void onReceive(final Context context, final Intent intent) {
 
-    }
     private void handleIntent(Context context, Intent intent) {
 
     }
@@ -296,6 +293,21 @@ public final class AlarmStateManager extends BroadcastReceiver{
      */
     public static Intent createIndicatorIntent(Context context) {
         return null;
+    }
+
+
+    // Matthew's Code
+    public static void setAlarms(Context context) {
+
+    }
+
+    public static void cancelAlarms(Context context) {
+        
+    }
+
+    @Override
+    public void onReceive(final Context context, final Intent intent) {
+        setAlarmState(context, instance, );
     }
 }
 
