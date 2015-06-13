@@ -23,6 +23,7 @@ dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     compile 'com.mikepenz:materialdrawer:3.0.7@aar'
     compile 'com.doomonafireball.betterpickers:library:1.6.0'
+    compile 'org.jraf:android-switch-backport:1.4.0@aar'
     compile 'com.android.support:appcompat-v7:22.2.0'
     compile 'com.android.support:design:22.2.0'
 }
