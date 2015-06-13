@@ -32,6 +32,10 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="concentric.medalarm.activity.MainActivity" />
         </activity>
+        <activity
+            android:name=".activity.activity_details"
+            android:label="@string/title_activity_activity_details" >
+        </activity>
     </application>
 
 </manifest>

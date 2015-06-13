@@ -10,7 +10,7 @@ import concentric.medalarm.models.AlarmStateManager;
 /**
  * Created by MatthewAry on 6/12/2015.
  */
-public abstract class AlarmService extends Service {
+public class AlarmService {
     public static final int SUNDAY = 0;
     public static final int MONDAY = 1;
     public static final int TUESDAY = 2;

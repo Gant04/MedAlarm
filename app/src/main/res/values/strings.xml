@@ -15,4 +15,5 @@
 
     <string name="hello_world">Hello world!</string>
     <string name="title_activity_create_alarm">CreateAlarm</string>
+    <string name="title_activity_activity_details">activity_details</string>
 </resources>
