@@ -19,6 +19,6 @@ public class AlarmService extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        AlarmStateManager.set
+        return 0;
     }
 }

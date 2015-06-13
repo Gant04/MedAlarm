@@ -23,11 +23,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        if (null != toolbar) {
-            setSupportActionBar(toolbar);
-            //set the back arrow in the toolbar
-            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        }
+        setSupportActionBar(toolbar);
 
         Drawer result = new DrawerBuilder()
                 .withActivity(this)

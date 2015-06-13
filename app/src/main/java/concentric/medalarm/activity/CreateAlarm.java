@@ -1,18 +1,56 @@
 package concentric.medalarm.activity;
 
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.mikepenz.materialdrawer.Drawer;
+import com.mikepenz.materialdrawer.DrawerBuilder;
+import com.mikepenz.materialdrawer.model.DividerDrawerItem;
+import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
+import com.mikepenz.materialdrawer.model.SecondaryDrawerItem;
+
 import concentric.medalarm.R;
 
-public class CreateAlarm extends ActionBarActivity {
+public class CreateAlarm extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_alarm);
+
+
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        if (null != toolbar) {
+            setSupportActionBar(toolbar);
+            //set the back arrow in the toolbar
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }
+
+        Drawer result = new DrawerBuilder()
+                .withActivity(this)
+                .withToolbar(toolbar)
+                .addDrawerItems(
+                        new PrimaryDrawerItem().withName("First Item"),
+                        new DividerDrawerItem(),
+                        new SecondaryDrawerItem().withName("Second Item")
+                )/*
+                .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
+                    @Override
+                    public boolean onItemClick(AdapterView<?> parent, View view, int position, long id, IDrawerItem drawerItem) {
+                        // do something with the clicked item :D
+                    }
+                }) */
+                .build();
+
+//use the result object to get different views of the drawer or modify it's data
+//some sample calls
+        result.setSelectionByIdentifier(1);
+        result.openDrawer();
+        result.closeDrawer();
+        result.isDrawerOpen();
     }
 
     @Override
