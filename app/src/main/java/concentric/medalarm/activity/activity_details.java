@@ -7,16 +7,17 @@ import android.view.MenuItem;
 import android.widget.LinearLayout;
 
 import concentric.medalarm.AlarmAttributes;
+import concentric.medalarm.AlarmService;
 import concentric.medalarm.R;
 
 public class activity_details extends ActionBarActivity {
-    private AlarmAttributes alarmDetails;
+    private AlarmService alarmDetails;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_details);
-        alarmDetails = new AlarmAttributes();
+        alarmDetails = new AlarmService();
     }
 
     @Override
