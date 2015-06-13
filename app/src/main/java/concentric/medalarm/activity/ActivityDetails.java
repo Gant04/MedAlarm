@@ -10,7 +10,7 @@ import concentric.medalarm.AlarmAttributes;
 import concentric.medalarm.AlarmService;
 import concentric.medalarm.R;
 
-public class activity_details extends ActionBarActivity {
+public class ActivityDetails extends ActionBarActivity {
     private AlarmService alarmDetails;
 
     @Override
