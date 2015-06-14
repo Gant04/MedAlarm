@@ -13,10 +13,8 @@ public class AlarmTest {
 
     public void runTest(){
         Alarm alarm = new Alarm(hour, minute, daysToRepeat, repeatWeekly);
-        // Tests
-        assert( hour >= 0 && hour < 24 );
-        assert( minute >= 0 && minute < 60);
-
+        assert( alarm.getHour() >= 0 && alarm.getHour() < 24 );
+        assert( alarm.getMinute() >= 0 && alarm.getMinute() < 60);
         assert(alarm.TABLE_NAME == "alarm");
         assert(alarm.COLUMN_NAME_ALARM_GROUP == "group");
         assert(alarm.COLUMN_NAME_ALARM_ID == "id");
