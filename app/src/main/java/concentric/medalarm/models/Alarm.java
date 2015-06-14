@@ -19,10 +19,10 @@ public class Alarm {
     private static boolean repeatWeekly;
 
     Alarm(int hour, int minute, int[] daysToRepeat, boolean repeatWeekly) {
-        this.hour = hour;
-        this.minute = minute;
-        this.daysToRepeat = daysToRepeat;
-        this.repeatWeekly = repeatWeekly;
+        Alarm.hour = hour;
+        Alarm.minute = minute;
+        Alarm.daysToRepeat = daysToRepeat;
+        Alarm.repeatWeekly = repeatWeekly;
     }
 
     public static String getTableName() {
