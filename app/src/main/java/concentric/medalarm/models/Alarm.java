@@ -22,10 +22,10 @@ public class Alarm {
      * Non-Default Alarm Constructor
      * This constructor allows an alarm to be created.
      *
-     * @param hour
-     * @param minute
-     * @param daysToRepeat
-     * @param repeatWeekly
+     * @param hour Set the hour
+     * @param minute Set the minute
+     * @param daysToRepeat A boolean array to set the days to repeat.
+     * @param repeatWeekly A boolean to set if repeat weekly.
      */
     public Alarm(int hour, int minute, boolean[] daysToRepeat, boolean repeatWeekly) {
         this.hour = hour;
@@ -33,7 +33,6 @@ public class Alarm {
         this.daysToRepeat = daysToRepeat;
         this.repeatWeekly = repeatWeekly;
     }
-
 
     public static String getTableName() {
         return TABLE_NAME;
