@@ -19,8 +19,9 @@ public class AlarmDBHelper extends SQLiteOpenHelper {
                      Alarm.COLUMN_NAME_ALARM_TIME_MINUTE + " INTEGER," +
                      Alarm.COLUMN_NAME_ALARM_REPEATS_DAYS + " TEXT," +
                      Alarm.COLUMN_NAME_ALARM_REPEATS_WEEKLY + " BOOLEAN," + " ) " +
-            "CREATE TABLE " + AlarmGroup.COLUMN_NAME_ALARM_GROUP_NAME + " TEXT," +
-              " (" + AlarmGroup.COLUMN_NAME_ALARM_GROUP_ID + " INTEGER PRIMARY KEY," +
+            "CREATE TABLE " + AlarmGroup.TABLE_NAME +
+              " (" + AlarmGroup.COLUMN_NAME_ALARM_GROUP_NAME + " TEXT," +
+                     AlarmGroup.COLUMN_NAME_ALARM_GROUP_ID + " INTEGER PRIMARY KEY," +
                      AlarmGroup.COLUMN_NAME_ALARM_GROUP_ENABLED + " BOOLEAN," +
                      AlarmGroup.COLUMN_NAME_ALARM_GROUP_TYPE + " INTEGER," +
                      AlarmGroup.COLUMN_NAME_ALARM_GROUP_RINGTONE + " TEXT," +
