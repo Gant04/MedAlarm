@@ -18,7 +18,7 @@ public class Alarm {
     private static int[] daysToRepeat;
     private static boolean repeatWeekly;
 
-    Alarm(int hour, int minute, int[] daysToRepeat, boolean repeatWeekly) {
+    public Alarm(int hour, int minute, int[] daysToRepeat, boolean repeatWeekly) {
         Alarm.hour = hour;
         Alarm.minute = minute;
         Alarm.daysToRepeat = daysToRepeat;
