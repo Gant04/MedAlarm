@@ -9,8 +9,8 @@ public class Alarm {
     public static String COLUMN_NAME_ALARM_NAME = "";
     public static String COLUMN_NAME_ALARM_TIME_HOUR = "0";
     public static String COLUMN_NAME_ALARM_TIME_MINUTE = "0";
-    public static String COLUMN_NAME_ALARM_REPEAT_DAYS = "0";
-    public static String COLUMN_NAME_ALARM_REPEAT_WEEKLY = "0";
+    public static String COLUMN_NAME_ALARM_REPEATS_DAYS = "0";
+    public static String COLUMN_NAME_ALARM_REPEATS_WEEKLY = "0";
     public static String COLUMN_NAME_ALARM_TONE = "0";
     public static String COLUMN_NAME_ALARM_ENABLED = "0";
 
@@ -43,19 +43,19 @@ public class Alarm {
     }
 
     public static String getColumnNameAlarmRepeatDays() {
-        return COLUMN_NAME_ALARM_REPEAT_DAYS;
+        return COLUMN_NAME_ALARM_REPEATS_DAYS;
     }
 
     public static void setColumnNameAlarmRepeatDays(String columnNameAlarmRepeatDays) {
-        COLUMN_NAME_ALARM_REPEAT_DAYS = columnNameAlarmRepeatDays;
+        COLUMN_NAME_ALARM_REPEATS_DAYS = columnNameAlarmRepeatDays;
     }
 
     public static String getColumnNameAlarmRepeatWeekly() {
-        return COLUMN_NAME_ALARM_REPEAT_WEEKLY;
+        return COLUMN_NAME_ALARM_REPEATS_WEEKLY;
     }
 
     public static void setColumnNameAlarmRepeatWeekly(String columnNameAlarmRepeatWeekly) {
-        COLUMN_NAME_ALARM_REPEAT_WEEKLY = columnNameAlarmRepeatWeekly;
+        COLUMN_NAME_ALARM_REPEATS_WEEKLY = columnNameAlarmRepeatWeekly;
     }
 
     public static String getColumnNameAlarmTone() {
