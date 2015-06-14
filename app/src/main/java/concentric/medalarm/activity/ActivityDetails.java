@@ -1,7 +1,7 @@
 package concentric.medalarm.activity;
 
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.LinearLayout;
@@ -10,7 +10,7 @@ import concentric.medalarm.AlarmAttributes;
 import concentric.medalarm.AlarmService;
 import concentric.medalarm.R;
 
-public class ActivityDetails extends ActionBarActivity {
+public class ActivityDetails extends AppCompatActivity {
     private AlarmService alarmDetails;
 
     @Override
