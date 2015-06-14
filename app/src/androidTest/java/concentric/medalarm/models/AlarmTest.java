@@ -7,6 +7,11 @@ import junit.framework.TestCase;
  */
 public class AlarmTest extends TestCase {
 
+    int hour = 5;
+    int minute = 30;
+    boolean daysToRepeat[] = new boolean[]{false, true, false, true, false, true, false};
+    boolean repeatWeekly = false;
+
     public void testGetTableName() throws Exception {
 
     }
@@ -66,4 +71,19 @@ public class AlarmTest extends TestCase {
     public void testSetColumnNameAlarmEnabled() throws Exception {
 
     }
-}
+
+    public void runTest() {
+        Alarm alarm = new Alarm(hour, minute, daysToRepeat, repeatWeekly);
+        // Tests
+        assert (hour >= 0 || hour < 24);
+        assert (minute >= 0 || minute < 60);
+
+        assert (Alarm.TABLE_NAME == "alarm");
+        assert (Alarm.COLUMN_NAME_ALARM_GROUP == "group");
+        assert (Alarm.COLUMN_NAME_ALARM_ID == "id");
+        assert (Alarm.COLUMN_NAME_ALARM_TIME_HOUR == "hour");
+        assert (Alarm.COLUMN_NAME_ALARM_TIME_MINUTE == "minute");
+        assert (Alarm.COLUMN_NAME_ALARM_REPEATS_DAYS == "repeatDays");
+        assert (Alarm.COLUMN_NAME_ALARM_REPEATS_WEEKLY == "repeatWeeks");
+    }
+    }
