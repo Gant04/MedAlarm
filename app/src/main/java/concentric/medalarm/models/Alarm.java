@@ -11,8 +11,8 @@ public class Alarm {
     public static String COLUMN_NAME_ALARM_TIME_MINUTE = "0";
     public static String COLUMN_NAME_ALARM_REPEAT_DAYS = "0";
     public static String COLUMN_NAME_ALARM_REPEAT_WEEKLY = "0";
-    public static String COLUMN_NAME_ALARM_TONE = "";
-    public static String COLUMN_NAME_ALARM_ENABLED = "";
+    public static String COLUMN_NAME_ALARM_TONE = "0";
+    public static String COLUMN_NAME_ALARM_ENABLED = "0";
 
     public static String getTableName() {
         return TABLE_NAME;
