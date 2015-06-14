@@ -63,35 +63,35 @@ public class Alarm {
         return COLUMN_NAME_ALARM_REPEATS_WEEKLY;
     }
 
-    public static int getHour() {
-        return hour;
+    public int getHour() {
+        return this.hour;
     }
 
-    public static void setHour(int hour) {
-        Alarm.hour = hour;
+    public void setHour(int hour) {
+        this.hour = hour;
     }
 
-    public static int getMinute() {
-        return minute;
+    public int getMinute() {
+        return this.minute;
     }
 
-    public static void setMinute(int minute) {
-        Alarm.minute = minute;
+    public void setMinute(int minute) {
+        this.minute = minute;
     }
 
-    public static boolean[] getDaysToRepeat() {
-        return daysToRepeat;
+    public boolean[] getDaysToRepeat() {
+        return this.daysToRepeat;
     }
 
-    public static void setDaysToRepeat(boolean[] daysToRepeat) {
-        Alarm.daysToRepeat = daysToRepeat;
+    public void setDaysToRepeat(boolean[] daysToRepeat) {
+        this.daysToRepeat = daysToRepeat;
     }
 
-    public static boolean isRepeatWeekly() {
-        return repeatWeekly;
+    public boolean isRepeatWeekly() {
+        return this.repeatWeekly;
     }
 
-    public static void setRepeatWeekly(boolean repeatWeekly) {
-        Alarm.repeatWeekly = repeatWeekly;
+    public void setRepeatWeekly(boolean repeatWeekly) {
+        this.repeatWeekly = repeatWeekly;
     }
 }
