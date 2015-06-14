@@ -5,17 +5,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import concentric.medalarm.AlarmAttributes;
 import concentric.medalarm.R;
 
 public class ActivityDetails extends AppCompatActivity {
-    private AlarmAttributes alarmDetails;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_details);
-        alarmDetails = new AlarmAttributes();
     }
 
     @Override
