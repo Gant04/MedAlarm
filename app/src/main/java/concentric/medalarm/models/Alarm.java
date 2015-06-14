@@ -13,10 +13,10 @@ public class Alarm {
     public static final String COLUMN_NAME_ALARM_REPEATS_DAYS = "repeatDays";
     public static final String COLUMN_NAME_ALARM_REPEATS_WEEKLY = "repeatWeeks";
 
-    private static int hour;
-    private static int minute;
-    private static boolean[] daysToRepeat = new boolean[7];
-    private static boolean repeatWeekly;
+    private int hour;
+    private int minute;
+    private boolean[] daysToRepeat = new boolean[7];
+    private boolean repeatWeekly;
 
     /**
      * Non-Default Alarm Constructor
@@ -28,11 +28,12 @@ public class Alarm {
      * @param repeatWeekly
      */
     public Alarm(int hour, int minute, boolean[] daysToRepeat, boolean repeatWeekly) {
-        Alarm.hour = hour;
-        Alarm.minute = minute;
-        Alarm.daysToRepeat = daysToRepeat;
-        Alarm.repeatWeekly = repeatWeekly;
+        this.hour = hour;
+        this.minute = minute;
+        this.daysToRepeat = daysToRepeat;
+        this.repeatWeekly = repeatWeekly;
     }
+
 
     public static String getTableName() {
         return TABLE_NAME;
