@@ -16,6 +16,7 @@ public class AlarmTest extends TestCase {
         Alarm alarm = new Alarm(hour, minute, daysToRepeat, repeatWeekly);
         assert (alarm.getHour() >= 0 && alarm.getHour() < 24);
         assert (alarm.getMinute() >= 0 && alarm.getMinute() < 60);
+        assert (!alarm.isRepeatWeekly());
         assert (Alarm.TABLE_NAME.equals("alarm"));
         assert (Alarm.COLUMN_NAME_ALARM_GROUP.equals("group"));
         assert (Alarm.COLUMN_NAME_ALARM_ID.equals("id"));
