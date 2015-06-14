@@ -14,7 +14,28 @@ public class Alarm {
     public static String COLUMN_NAME_ALARM_TONE = "0";
     public static String COLUMN_NAME_ALARM_ENABLED = "0";
 
-    public Alarm() {
+    /**
+     * Non-Default Constructor for the Alarm Class
+     * This constructor builds the data for the AlarmDB
+     *
+     * @param ALARM_NAME          The alarm name/medication name
+     * @param ALARM_TIME_HOUR     The hour for dose
+     * @param ALARM_TIME_MINUTE   The minute for dose
+     * @param ALARM_REPEAT_DAYS   The days to repeat alarm
+     * @param ALARM_REPEAT_WEEKLY The weeks to repeat.
+     * @param ALARM_TONE          The alarm tone.
+     * @param ALARM_ENABLED       Alarm enable
+     */
+    public Alarm(String ALARM_NAME, String ALARM_TIME_HOUR, String ALARM_TIME_MINUTE,
+                 String ALARM_REPEAT_DAYS, String ALARM_REPEAT_WEEKLY,
+                 String ALARM_TONE, String ALARM_ENABLED) {
+        COLUMN_NAME_ALARM_NAME = ALARM_NAME;
+        COLUMN_NAME_ALARM_TIME_HOUR = ALARM_TIME_HOUR;
+        COLUMN_NAME_ALARM_TIME_MINUTE = ALARM_TIME_MINUTE;
+        COLUMN_NAME_ALARM_REPEAT_DAYS = ALARM_REPEAT_DAYS;
+        COLUMN_NAME_ALARM_REPEAT_WEEKLY = ALARM_REPEAT_WEEKLY;
+        COLUMN_NAME_ALARM_TONE = ALARM_TONE;
+        COLUMN_NAME_ALARM_ENABLED = ALARM_ENABLED;
     }
 
     public static String getTableName() {
