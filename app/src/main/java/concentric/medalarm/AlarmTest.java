@@ -6,7 +6,7 @@ import concentric.medalarm.models.Alarm;
  * Created by Thom on 6/13/2015.
  */
 public class AlarmTest {
-    int hour = 5;
+    int hour = 24;
     int minute = 30;
     boolean daysToRepeat[] = new boolean[] {false, true, false, true, false, true, false};
     boolean repeatWeekly = false;
@@ -14,8 +14,8 @@ public class AlarmTest {
     public void runTest(){
         Alarm alarm = new Alarm(hour, minute, daysToRepeat, repeatWeekly);
         // Tests
-        assert( hour >= 0 || hour < 24 );
-        assert( minute >= 0 || minute < 60);
+        assert( hour >= 0 && hour < 24 );
+        assert( minute >= 0 && minute < 60);
 
         assert(alarm.TABLE_NAME == "alarm");
         assert(alarm.COLUMN_NAME_ALARM_GROUP == "group");
