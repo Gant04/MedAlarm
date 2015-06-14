@@ -13,25 +13,25 @@ public class Alarm {
     public static final String COLUMN_NAME_ALARM_REPEATS_DAYS = "repeatDays";
     public static final String COLUMN_NAME_ALARM_REPEATS_WEEKLY = "repeatWeeks";
 
-    private static int hour;
-    private static int minute;
-    private static boolean[] daysToRepeat = new boolean[7];
-    private static boolean repeatWeekly;
+    private int hour;
+    private int minute;
+    private boolean[] daysToRepeat = new boolean[7];
+    private boolean repeatWeekly;
 
     /**
      * Non-Default Alarm Constructor
      * This constructor allows an alarm to be created.
      *
-     * @param hour
-     * @param minute
-     * @param daysToRepeat
-     * @param repeatWeekly
+     * @param hour Set the hour
+     * @param minute Set the minute
+     * @param daysToRepeat A boolean array to set the days to repeat.
+     * @param repeatWeekly A boolean to set if repeat weekly.
      */
     public Alarm(int hour, int minute, boolean[] daysToRepeat, boolean repeatWeekly) {
-        Alarm.hour = hour;
-        Alarm.minute = minute;
-        Alarm.daysToRepeat = daysToRepeat;
-        Alarm.repeatWeekly = repeatWeekly;
+        this.hour = hour;
+        this.minute = minute;
+        this.daysToRepeat = daysToRepeat;
+        this.repeatWeekly = repeatWeekly;
     }
 
     public static String getTableName() {
@@ -62,35 +62,35 @@ public class Alarm {
         return COLUMN_NAME_ALARM_REPEATS_WEEKLY;
     }
 
-    public static int getHour() {
-        return hour;
+    public int getHour() {
+        return this.hour;
     }
 
-    public static void setHour(int hour) {
-        Alarm.hour = hour;
+    public void setHour(int hour) {
+        this.hour = hour;
     }
 
-    public static int getMinute() {
-        return minute;
+    public int getMinute() {
+        return this.minute;
     }
 
-    public static void setMinute(int minute) {
-        Alarm.minute = minute;
+    public void setMinute(int minute) {
+        this.minute = minute;
     }
 
-    public static boolean[] getDaysToRepeat() {
-        return daysToRepeat;
+    public boolean[] getDaysToRepeat() {
+        return this.daysToRepeat;
     }
 
-    public static void setDaysToRepeat(boolean[] daysToRepeat) {
-        Alarm.daysToRepeat = daysToRepeat;
+    public void setDaysToRepeat(boolean[] daysToRepeat) {
+        this.daysToRepeat = daysToRepeat;
     }
 
-    public static boolean isRepeatWeekly() {
-        return repeatWeekly;
+    public boolean isRepeatWeekly() {
+        return this.repeatWeekly;
     }
 
-    public static void setRepeatWeekly(boolean repeatWeekly) {
-        Alarm.repeatWeekly = repeatWeekly;
+    public void setRepeatWeekly(boolean repeatWeekly) {
+        this.repeatWeekly = repeatWeekly;
     }
 }

@@ -7,63 +7,22 @@ import junit.framework.TestCase;
  */
 public class AlarmTest extends TestCase {
 
-    public void testGetTableName() throws Exception {
+    int hour = 23;
+    int minute = 90;
+    boolean daysToRepeat[] = new boolean[]{false, true, false, true, false, true, false};
+    boolean repeatWeekly = false;
 
-    }
-
-    public void testGetColumnNameAlarmName() throws Exception {
-
-    }
-
-    public void testSetColumnNameAlarmName() throws Exception {
-
-    }
-
-    public void testGetColumnNameAlarmTimeHour() throws Exception {
-
-    }
-
-    public void testSetColumnNameAlarmTimeHour() throws Exception {
-
-    }
-
-    public void testGetColumnNameAlarmTimeMinute() throws Exception {
-
-    }
-
-    public void testSetColumnNameAlarmTimeMinute() throws Exception {
-
-    }
-
-    public void testGetColumnNameAlarmRepeatDays() throws Exception {
-
-    }
-
-    public void testSetColumnNameAlarmRepeatDays() throws Exception {
-
-    }
-
-    public void testGetColumnNameAlarmRepeatWeekly() throws Exception {
-
-    }
-
-    public void testSetColumnNameAlarmRepeatWeekly() throws Exception {
-
-    }
-
-    public void testGetColumnNameAlarmTone() throws Exception {
-
-    }
-
-    public void testSetColumnNameAlarmTone() throws Exception {
-
-    }
-
-    public void testGetColumnNameAlarmEnabled() throws Exception {
-
-    }
-
-    public void testSetColumnNameAlarmEnabled() throws Exception {
-
+    public void runTest() {
+        Alarm alarm = new Alarm(hour, minute, daysToRepeat, repeatWeekly);
+        assert (alarm.getHour() >= 0 && alarm.getHour() < 23);
+        assert (alarm.getMinute() >= 0 && alarm.getMinute() < 60);
+        assert (!alarm.isRepeatWeekly());
+        assert (Alarm.TABLE_NAME.equals("alarm"));
+        assert (Alarm.COLUMN_NAME_ALARM_GROUP.equals("group"));
+        assert (Alarm.COLUMN_NAME_ALARM_ID.equals("id"));
+        assert (Alarm.COLUMN_NAME_ALARM_TIME_HOUR.equals("hour"));
+        assert (Alarm.COLUMN_NAME_ALARM_TIME_MINUTE.equals("minute"));
+        assert (Alarm.COLUMN_NAME_ALARM_REPEATS_DAYS.equals("days"));
+        assert (Alarm.COLUMN_NAME_ALARM_REPEATS_WEEKLY.equals("repeatWeeks"));
     }
 }
