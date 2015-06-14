@@ -6,5 +6,5 @@
 /build
 /captures
 *.iml
-
-app/app.iml
+MedAlarm.iml
+app.iml
