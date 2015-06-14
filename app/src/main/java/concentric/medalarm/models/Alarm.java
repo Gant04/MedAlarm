@@ -14,6 +14,9 @@ public class Alarm {
     public static String COLUMN_NAME_ALARM_TONE = "0";
     public static String COLUMN_NAME_ALARM_ENABLED = "0";
 
+    public Alarm() {
+    }
+
     public static String getTableName() {
         return TABLE_NAME;
     }
