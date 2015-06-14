@@ -7,14 +7,14 @@ import junit.framework.TestCase;
  */
 public class AlarmTest extends TestCase {
 
-    int hour = 5;
-    int minute = 30;
+    int hour = 23;
+    int minute = 90;
     boolean daysToRepeat[] = new boolean[]{false, true, false, true, false, true, false};
     boolean repeatWeekly = false;
 
     public void runTest() {
         Alarm alarm = new Alarm(hour, minute, daysToRepeat, repeatWeekly);
-        assert (alarm.getHour() >= 0 && alarm.getHour() < 24);
+        assert (alarm.getHour() >= 0 && alarm.getHour() < 23);
         assert (alarm.getMinute() >= 0 && alarm.getMinute() < 60);
         assert (!alarm.isRepeatWeekly());
         assert (Alarm.TABLE_NAME.equals("alarm"));
