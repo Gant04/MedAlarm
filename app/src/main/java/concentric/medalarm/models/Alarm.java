@@ -15,10 +15,19 @@ public class Alarm {
 
     private static int hour;
     private static int minute;
-    private static int[] daysToRepeat;
+    private static boolean[] daysToRepeat = new boolean[7];
     private static boolean repeatWeekly;
 
-    public Alarm(int hour, int minute, int[] daysToRepeat, boolean repeatWeekly) {
+    /**
+     * Non-Default Alarm Constructor
+     * This constructor allows an alarm to be created.
+     *
+     * @param hour
+     * @param minute
+     * @param daysToRepeat
+     * @param repeatWeekly
+     */
+    public Alarm(int hour, int minute, boolean[] daysToRepeat, boolean repeatWeekly) {
         Alarm.hour = hour;
         Alarm.minute = minute;
         Alarm.daysToRepeat = daysToRepeat;
@@ -69,11 +78,11 @@ public class Alarm {
         Alarm.minute = minute;
     }
 
-    public static int[] getDaysToRepeat() {
+    public static boolean[] getDaysToRepeat() {
         return daysToRepeat;
     }
 
-    public static void setDaysToRepeat(int[] daysToRepeat) {
+    public static void setDaysToRepeat(boolean[] daysToRepeat) {
         Alarm.daysToRepeat = daysToRepeat;
     }
 
