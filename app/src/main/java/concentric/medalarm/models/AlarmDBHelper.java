@@ -11,15 +11,20 @@ public class AlarmDBHelper extends SQLiteOpenHelper {
     public static final int DATABASE_VERSION = 1;
     public static final String DATABASE_NAME = "alarmclock.db";
 
-    private static final String SQL_CREATE_ALARM =
+    private static final String SQL_CREATE =
             "CREATE TABLE " + Alarm.TABLE_NAME +
-              "(" + Alarm.COLUMN_NAME_ALARM_NAME + " TEXT," +
-                    Alarm.COLUMN_NAME_ALARM_TIME_HOUR + " INTEGER," +
-                    Alarm.COLUMN_NAME_ALARM_TIME_MINUTE + " INTEGER," +
-                    Alarm.COLUMN_NAME_ALARM_REPEATS_DAYS + " TEXT," +
-                    Alarm.COLUMN_NAME_ALARM_REPEATS_WEEKLY + " BOOLEAN," +
-                    Alarm.COLUMN_NAME_ALARM_TONE + " TEXT," +
-                    Alarm.COLUMN_NAME_ALARM_ENABLED + " BOOLEAN," + " )";
+              " (" + Alarm.COLUMN_NAME_ALARM_ID + " INTEGER PRIMARY KEY," +
+                     Alarm.COLUMN_NAME_ALARM_GROUP + " INTEGER," +
+                     Alarm.COLUMN_NAME_ALARM_TIME_HOUR + " INTEGER," +
+                     Alarm.COLUMN_NAME_ALARM_TIME_MINUTE + " INTEGER," +
+                     Alarm.COLUMN_NAME_ALARM_REPEATS_DAYS + " TEXT," +
+                     Alarm.COLUMN_NAME_ALARM_REPEATS_WEEKLY + " BOOLEAN," + " ) " +
+            "CREATE TABLE " + AlarmGroup.COLUMN_NAME_ALARM_GROUP_NAME + " TEXT," +
+              " (" + AlarmGroup.COLUMN_NAME_ALARM_GROUP_ID + " INTEGER PRIMARY KEY," +
+                     AlarmGroup.COLUMN_NAME_ALARM_GROUP_ENABLED + " BOOLEAN," +
+                     AlarmGroup.COLUMN_NAME_ALARM_GROUP_TYPE + " INTEGER," +
+                     AlarmGroup.COLUMN_NAME_ALARM_GROUP_RINGTONE + " TEXT," +
+                     AlarmGroup.COLUMN_NAME_ALARM_GROUP_OFFSET + " BOOLEAN," + " )";
 
     private static final String SQL_DELETE_ALARM =
             "DROP TABLE IF EXISTS " + Alarm.TABLE_NAME;
@@ -30,7 +35,7 @@ public class AlarmDBHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL(SQL_CREATE_ALARM);
+        db.execSQL(SQL_CREATE);
     }
 
     @Override
