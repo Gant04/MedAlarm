@@ -11,13 +11,13 @@ import concentric.medalarm.AlarmService;
 import concentric.medalarm.R;
 
 public class ActivityDetails extends ActionBarActivity {
-    private AlarmService alarmDetails;
+    private AlarmAttributes alarmDetails;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_details);
-        alarmDetails = new AlarmService();
+        alarmDetails = new AlarmAttributes();
     }
 
     @Override
