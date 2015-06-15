@@ -14,15 +14,24 @@ public class AlarmGroup {
     private int type = 0;
     private boolean offset = false;
     private boolean enabled = false;
+    private boolean vibrate = false;
 
-    public AlarmGroup(String groupName, String ringTone, int type, boolean offset, boolean enabled) {
+    public AlarmGroup() {
+        // Do nothing.
+    }
 
+    public AlarmGroup(String groupName, String ringTone, String type, boolean offset, boolean enabled) {
+        setGroupName(groupName);
+        setRingTone(ringTone);
+        setAlarmType(type);
+        setOffset(offset);
+        setEnabled(enabled);
     }
 
     /*
     * Create Alarm Group with Ringtone.
     */
-    public AlarmGroup(String groupName, int type, boolean offset, boolean enabled) {
+    public AlarmGroup(String groupName, String type, boolean offset, boolean enabled) {
 
     }
 
@@ -37,14 +46,9 @@ public class AlarmGroup {
         return groupName;
     }
 
-    public boolean setRingTone(String ringTone) {
+    public void setRingTone(String ringTone) {
         // Check to see if the ringtone path is valid
-        if (true) {
-            this.ringTone = ringTone;
-            return true;
-        } else {
-            return false;
-        }
+        this.ringTone = ringTone;
     }
 
     public String getRingTone() {
@@ -65,6 +69,14 @@ public class AlarmGroup {
 
     public boolean getEnabled() {
         return enabled;
+    }
+
+    public void setVibrate(boolean vibrate) {
+        this.vibrate = vibrate;
+    }
+
+    public boolean getVibrate() {
+        return vibrate;
     }
 
     public boolean setAlarmType(String type) {

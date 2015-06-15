@@ -13,7 +13,7 @@ public class AlarmDBHelper extends SQLiteOpenHelper {
 
     private static final String SQL_CREATE =
             "CREATE TABLE " + Alarm.TABLE_NAME +
-              " (" + Alarm.COLUMN_NAME_ALARM_ID + " INTEGER PRIMARY KEY," +
+              " (" + Alarm.COLUMN_NAME_ALARM_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
                      Alarm.COLUMN_NAME_ALARM_GROUP + " INTEGER," +
                      Alarm.COLUMN_NAME_ALARM_TIME_HOUR + " INTEGER," +
                      Alarm.COLUMN_NAME_ALARM_TIME_MINUTE + " INTEGER," +
@@ -21,7 +21,7 @@ public class AlarmDBHelper extends SQLiteOpenHelper {
                      Alarm.COLUMN_NAME_ALARM_REPEATS_WEEKLY + " BOOLEAN," + " ) " +
             "CREATE TABLE " + AlarmGroup.TABLE_NAME +
               " (" + AlarmGroup.COLUMN_NAME_ALARM_GROUP_NAME + " TEXT," +
-                     AlarmGroup.COLUMN_NAME_ALARM_GROUP_ID + " INTEGER PRIMARY KEY," +
+                     AlarmGroup.COLUMN_NAME_ALARM_GROUP_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
                      AlarmGroup.COLUMN_NAME_ALARM_GROUP_ENABLED + " BOOLEAN," +
                      AlarmGroup.COLUMN_NAME_ALARM_GROUP_TYPE + " INTEGER," +
                      AlarmGroup.COLUMN_NAME_ALARM_GROUP_RINGTONE + " TEXT," +
