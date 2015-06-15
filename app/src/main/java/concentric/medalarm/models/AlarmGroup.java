@@ -20,6 +20,9 @@ public class AlarmGroup {
         // Do nothing.
     }
 
+    /*
+    * Create Alarm Group with Ringtone.
+    */
     public AlarmGroup(String groupName, String ringTone, String type, boolean offset, boolean enabled) {
         setGroupName(groupName);
         setRingTone(ringTone);
@@ -29,15 +32,12 @@ public class AlarmGroup {
     }
 
     /*
-    * Create Alarm Group with Ringtone.
+    * Create Alarm Group with default Ringtone.
     */
     public AlarmGroup(String groupName, String type, boolean offset, boolean enabled) {
 
     }
 
-    /*
-    * Create Alarm Group with default Ringtone.
-    */
     public void setGroupName(String groupName) {
         this.groupName = groupName;
     }
@@ -47,7 +47,7 @@ public class AlarmGroup {
     }
 
     public void setRingTone(String ringTone) {
-        // Check to see if the ringtone path is valid
+        // Check to see if the ringtone path is valid.. Maybe...
         this.ringTone = ringTone;
     }
 
