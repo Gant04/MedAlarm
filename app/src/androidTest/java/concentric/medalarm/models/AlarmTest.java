@@ -1,6 +1,5 @@
 package concentric.medalarm.models;
 
-import junit.framework.TestCase;
 import junit.framework.Assert;
 import android.test.AndroidTestCase;
 
@@ -16,7 +15,7 @@ public class AlarmTest extends AndroidTestCase {
 
     public void testAlarm() throws Throwable{
         Alarm alarm = new Alarm(hour, minute, daysToRepeat, repeatWeekly);
-        Assert.assertTrue (alarm.getHour() >= 0);
+        Assert.assertTrue(alarm.getHour() >= 0);
         Assert.assertTrue(alarm.getHour() < 24);
         Assert.assertTrue(alarm.getMinute() >= 0);
         Assert.assertTrue(alarm.getMinute() < 60);
