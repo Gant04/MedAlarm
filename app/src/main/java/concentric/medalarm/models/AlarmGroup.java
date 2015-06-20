@@ -21,7 +21,7 @@ public class AlarmGroup {
     }
 
     /*
-    * Create Alarm Group with Ringtone.
+    * Create Alarm Group with Custom Ringtone.
     */
     public AlarmGroup(String groupName, String ringTone, String type, boolean offset, boolean enabled) {
         setGroupName(groupName);
@@ -38,21 +38,21 @@ public class AlarmGroup {
 
     }
 
+    public String getGroupName() {
+        return groupName;
+    }
+
     public void setGroupName(String groupName) {
         this.groupName = groupName;
     }
 
-    public String getGroupName() {
-        return groupName;
+    public String getRingTone() {
+        return ringTone;
     }
 
     public void setRingTone(String ringTone) {
         // Check to see if the ringtone path is valid.. Maybe...
         this.ringTone = ringTone;
-    }
-
-    public String getRingTone() {
-        return ringTone;
     }
 
     public void setOffset(boolean toggle) {
@@ -63,20 +63,20 @@ public class AlarmGroup {
         return offset;
     }
 
-    public void setEnabled(boolean toggle) {
-        enabled = toggle;
-    }
-
     public boolean getEnabled() {
         return enabled;
     }
 
-    public void setVibrate(boolean vibrate) {
-        this.vibrate = vibrate;
+    public void setEnabled(boolean toggle) {
+        enabled = toggle;
     }
 
     public boolean getVibrate() {
         return vibrate;
+    }
+
+    public void setVibrate(boolean vibrate) {
+        this.vibrate = vibrate;
     }
 
     public boolean setAlarmType(String type) {
