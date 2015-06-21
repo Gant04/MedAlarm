@@ -13,8 +13,6 @@ public class EventFactory {
             case ("notification"):
                 eventHandler = new NotificationHandler();
                 return eventHandler;
-            case ("sound"):
-                break;
             default:
                 break;
         }
