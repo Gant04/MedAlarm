@@ -1,5 +1,7 @@
 package concentric.medalarm.models;
 
+import java.util.StringTokenizer;
+
 /**
  * Created by mike on 6/13/15.
  */
@@ -17,6 +19,9 @@ public class Alarm {
     private int minute;
     private boolean[] daysToRepeat = new boolean[7];
     private boolean repeatWeekly;
+
+    private String alarmTone;
+    private String alarmMessage;
 
     /**
      * Non-Default Alarm Constructor
@@ -92,5 +97,31 @@ public class Alarm {
 
     public void setRepeatWeekly(boolean repeatWeekly) {
         this.repeatWeekly = repeatWeekly;
+    }
+
+    public String getAlarmTime(){
+        return Integer.toString(this.getHour()) + ":" + Integer.toString(getMinute());
+    }
+
+    public void setAlarmTime(String alarmTime){
+        StringTokenizer stringTokenizer = new StringTokenizer(alarmTime,":");
+        this.setHour(Integer.parseInt(stringTokenizer.nextToken()));
+        this.setMinute(Integer.parseInt(stringTokenizer.nextToken()));
+    }
+
+    public String getAlarmTone (){
+        return this.alarmTone;
+    }
+
+    public void setAlarmTone(String alarmTone){
+        this.alarmTone = alarmTone;
+    }
+
+    public String getAlarmMessage() {
+        return alarmMessage;
+    }
+
+    public void setAlarmMessage(String alarmMessage) {
+        this.alarmMessage = alarmMessage;
     }
 }

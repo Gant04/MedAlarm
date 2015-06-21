@@ -19,24 +19,25 @@ public class AlarmPlayer extends Activity {
         this.isPlaying = isPlaying;
     }
 
-    public String getTone() {
-        return tone;
-    }
-
-    public void setTone(String tone) {
-        this.tone = tone;
-    }
     //private MediaPlayer mediaPlayer = MediaPlayer.create(getApplicationContext(),R.raw.alarm1);
 
-    public void startAlarmSound() {
+    public void startAlarm() {
         //mediaPlayer.start();
         setIsPlaying(true);
     }
 
-    public void stopAlarmSound() {
+    public void stopAlarm() {
         if (isPlaying()) {
             //mediaPlayer.stop();
             setIsPlaying(false);
         }
+    }
+
+    public String getAlarmSound() {
+        return this.tone;
+    }
+
+    public void setAlarmSound(String tone) {
+        this.tone = tone;
     }
 }
