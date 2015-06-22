@@ -1,12 +1,14 @@
 package concentric.medalarm.models;
 
+import android.database.sqlite.SQLiteDatabase;
+
 import java.util.StringTokenizer;
 
 /**
  * Created by mike on 6/13/15.
  */
 public class Alarm {
-
+    // DB names
     public static final String TABLE_NAME = "alarm";
     public static final String COLUMN_NAME_ALARM_GROUP = "group";
     public static final String COLUMN_NAME_ALARM_ID = "id";
@@ -22,6 +24,9 @@ public class Alarm {
 
     private String alarmTone;
     private String alarmMessage;
+    private SQLiteDatabase database;
+    private DBHelper dbHelper;
+
 
     /**
      * Non-Default Alarm Constructor
@@ -39,68 +44,42 @@ public class Alarm {
         this.repeatWeekly = repeatWeekly;
     }
 
-    public static String getTableName() {
-        return TABLE_NAME;
-    }
-
-    public static String getColumnNameAlarmGroup() {
-        return COLUMN_NAME_ALARM_GROUP;
-    }
-
-    public static String getColumnNameAlarmId() {
-        return COLUMN_NAME_ALARM_ID;
-    }
-
-    public static String getColumnNameAlarmTimeHour() {
-        return COLUMN_NAME_ALARM_TIME_HOUR;
-    }
-
-    public static String getColumnNameAlarmTimeMinute() {
-        return COLUMN_NAME_ALARM_TIME_MINUTE;
-    }
-
-    public static String getColumnNameAlarmRepeatsDays() {
-        return COLUMN_NAME_ALARM_REPEATS_DAYS;
-    }
-
-    public static String getColumnNameAlarmRepeatsWeekly() {
-        return COLUMN_NAME_ALARM_REPEATS_WEEKLY;
-    }
-
     public int getHour() {
         return this.hour;
-    }
-
-    public void setHour(int hour) {
-        this.hour = hour;
     }
 
     public int getMinute() {
         return this.minute;
     }
 
-    public void setMinute(int minute) {
-        this.minute = minute;
-    }
-
     public boolean[] getDaysToRepeat() {
         return this.daysToRepeat;
+    }
+
+
+    public boolean isRepeatWeekly() {
+        return this.repeatWeekly;
+    }
+
+    public String getAlarmTime(){
+        return Integer.toString(this.getHour()) + ":" + Integer.toString(getMinute());
+    }
+
+    public String getAlarmTone (){
+        return this.alarmTone;
+    }
+
+
+    public void setMinute(int minute) {
+        this.minute = minute;
     }
 
     public void setDaysToRepeat(boolean[] daysToRepeat) {
         this.daysToRepeat = daysToRepeat;
     }
 
-    public boolean isRepeatWeekly() {
-        return this.repeatWeekly;
-    }
-
     public void setRepeatWeekly(boolean repeatWeekly) {
         this.repeatWeekly = repeatWeekly;
-    }
-
-    public String getAlarmTime(){
-        return Integer.toString(this.getHour()) + ":" + Integer.toString(getMinute());
     }
 
     public void setAlarmTime(String alarmTime){
@@ -109,19 +88,16 @@ public class Alarm {
         this.setMinute(Integer.parseInt(stringTokenizer.nextToken()));
     }
 
-    public String getAlarmTone (){
-        return this.alarmTone;
-    }
-
     public void setAlarmTone(String alarmTone){
         this.alarmTone = alarmTone;
-    }
-
-    public String getAlarmMessage() {
-        return alarmMessage;
     }
 
     public void setAlarmMessage(String alarmMessage) {
         this.alarmMessage = alarmMessage;
     }
+
+    public void setHour(int hour) {
+        this.hour = hour;
+    }
+
 }
