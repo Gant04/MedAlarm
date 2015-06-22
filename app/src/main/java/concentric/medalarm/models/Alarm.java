@@ -14,9 +14,10 @@ public class Alarm {
     public static final String COLUMN_NAME_ALARM_ID = "id";
     public static final String COLUMN_NAME_ALARM_TIME_HOUR = "hour";
     public static final String COLUMN_NAME_ALARM_TIME_MINUTE = "minute";
-    public static final String COLUMN_NAME_ALARM_REPEATS_DAYS = "repeatDays";
-    public static final String COLUMN_NAME_ALARM_REPEATS_WEEKLY = "repeatWeeks";
+    public static final String COLUMN_NAME_ALARM_REPEATS = "repeats";
 
+    private long id;
+    private long groupID;
     private int hour;
     private int minute;
     private boolean[] daysToRepeat = new boolean[7];
@@ -37,11 +38,18 @@ public class Alarm {
      * @param daysToRepeat A boolean array to set the days to repeat.
      * @param repeatWeekly A boolean to set if repeat weekly.
      */
-    public Alarm(int hour, int minute, boolean[] daysToRepeat, boolean repeatWeekly) {
-        this.hour = hour;
-        this.minute = minute;
-        this.daysToRepeat = daysToRepeat;
-        this.repeatWeekly = repeatWeekly;
+    public Alarm(long id, long groupID, int hour, int minute, boolean[] daysToRepeat,
+                 boolean repeatWeekly) {
+        setId(id);
+        setGroupID(groupID);
+        setHour(hour);
+        setMinute(minute);
+        setDaysToRepeat(daysToRepeat);
+        setRepeatWeekly(repeatWeekly);
+    }
+
+    public Alarm() {
+        // Do nothing.
     }
 
     public int getHour() {
@@ -69,7 +77,17 @@ public class Alarm {
         return this.alarmTone;
     }
 
+    public long getGroupID() {
+        return this.groupID;
+    }
 
+    public long getId() {
+        return this.id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
     public void setMinute(int minute) {
         this.minute = minute;
     }
@@ -98,6 +116,14 @@ public class Alarm {
 
     public void setHour(int hour) {
         this.hour = hour;
+    }
+
+    public void setGroupID(long id) {
+        this.groupID = id;
+    }
+
+    public void disableAlarm() {
+        // Disable an alarm from the system scheduler.
     }
 
 }

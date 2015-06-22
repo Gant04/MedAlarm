@@ -1,9 +1,11 @@
 package concentric.medalarm.models;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
-import android.database.sqlite.SQLiteCursor;
+
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -15,12 +17,13 @@ import java.util.List;
 public class AlarmGroupDataSource {
     private SQLiteDatabase database;
     private DBHelper dbHelper;
-    private String[] allColumns = { AlarmGroup.COLUMN_NAME_ALARM_GROUP_ID,
-                                    AlarmGroup.COLUMN_NAME_ALARM_GROUP_NAME,
-                                    AlarmGroup.COLUMN_NAME_ALARM_GROUP_TYPE,
-                                    AlarmGroup.COLUMN_NAME_ALARM_GROUP_RINGTONE,
-                                    AlarmGroup.COLUMN_NAME_ALARM_GROUP_OFFSET,
-                                    AlarmGroup.COLUMN_NAME_ALARM_GROUP_ENABLED };
+    private String[] allColumns = {
+            AlarmGroup.COLUMN_NAME_ALARM_GROUP_ID,
+            AlarmGroup.COLUMN_NAME_ALARM_GROUP_NAME,
+            AlarmGroup.COLUMN_NAME_ALARM_GROUP_TYPE,
+            AlarmGroup.COLUMN_NAME_ALARM_GROUP_RINGTONE,
+            AlarmGroup.COLUMN_NAME_ALARM_GROUP_OFFSET,
+            AlarmGroup.COLUMN_NAME_ALARM_GROUP_ENABLED };
 
     public AlarmGroupDataSource(Context context) {
         dbHelper = new DBHelper(context);
@@ -34,17 +37,40 @@ public class AlarmGroupDataSource {
         dbHelper.close();
     }
 
-    public AlarmGroup createGroup() {
-        AlarmGroup group = new AlarmGroup();
+    public AlarmGroup createAlarmGroup(String groupName, String type, boolean offset,
+                                       boolean enabled) {
+        ContentValues values = new ContentValues();
+        values.put(AlarmGroup.COLUMN_NAME_ALARM_GROUP_NAME, groupName);
+        values.put(AlarmGroup.COLUMN_NAME_ALARM_GROUP_TYPE, type);
+        values.put(AlarmGroup.COLUMN_NAME_ALARM_GROUP_OFFSET, offset);
+        values.put(AlarmGroup.COLUMN_NAME_ALARM_GROUP_ENABLED, enabled);
+        long insertId = database.insert(AlarmGroup.TABLE_NAME, null, values);
+        Cursor cursor = database.query(AlarmGroup.TABLE_NAME, allColumns,
+                                       AlarmGroup.COLUMN_NAME_ALARM_GROUP_ID +
+                                       " = " + insertId, null, null, null, null);
+        cursor.moveToFirst();
+        AlarmGroup group = cursorToGroup(cursor);
         return group;
     }
 
     public void deleteGroup(AlarmGroup group) {
-
+        long id = group.getId();
+        Log.w(AlarmGroupDataSource.class.getName(),
+                "Deleting AlarmGroup ID" + id + ".");
+        database.delete(AlarmGroup.TABLE_NAME, Alarm.COLUMN_NAME_ALARM_ID + " = " + id, null);
     }
 
     public List<AlarmGroup> getAllAlarmGroups() {
         List<AlarmGroup> alarmGroups = new ArrayList<AlarmGroup>();
+        Cursor cursor = database.query(AlarmGroup.TABLE_NAME, allColumns,
+                                       null, null, null, null, null);
+        cursor.moveToFirst();
+        while(!cursor.isAfterLast()) {
+            AlarmGroup group = cursorToGroup(cursor);
+            alarmGroups.add(group);
+            cursor.moveToNext();
+        }
+        cursor.close();
         return alarmGroups;
     }
 

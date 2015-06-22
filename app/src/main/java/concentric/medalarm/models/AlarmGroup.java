@@ -8,9 +8,12 @@ public class AlarmGroup {
     public static final String COLUMN_NAME_ALARM_GROUP_TYPE = "type";
     public static final String COLUMN_NAME_ALARM_GROUP_OFFSET = "offset";
     public static final String COLUMN_NAME_ALARM_GROUP_ENABLED = "enabled";
+    public static final String COLUMN_NAME_ALARM_REPEAT_NUMBER = "repeatNumber";
+    public static final String COLUMN_NAME_ALARM_TIMES_REPEATED = "timesRepeated";
 
-    private String groupName = "";
-    private String ringTone = "";
+    private String groupName;
+    private String ringTone;
+    private long id;
     private int type = 0;
     private boolean offset = false;
     private boolean enabled = false;
@@ -23,7 +26,9 @@ public class AlarmGroup {
     /*
     * Create Alarm Group with Custom Ringtone.
     */
-    public AlarmGroup(String groupName, String ringTone, String type, boolean offset, boolean enabled) {
+    public AlarmGroup(long id, String groupName, String ringTone, String type, boolean offset,
+                      boolean enabled) {
+        setId(id);
         setGroupName(groupName);
         setRingTone(ringTone);
         setAlarmType(type);
@@ -38,6 +43,9 @@ public class AlarmGroup {
 
     }
 
+    public void setId(long id) {
+        this.id = id;
+    }
     public String getGroupName() {
         return groupName;
     }
@@ -79,6 +87,10 @@ public class AlarmGroup {
         this.vibrate = vibrate;
     }
 
+    public long getId() {
+        return id;
+    }
+
     public boolean setAlarmType(String type) {
         boolean valid = false;
         switch (type) {
@@ -103,4 +115,20 @@ public class AlarmGroup {
         }
         return valid;
     }
+
+    // After every alarm goes off we will need to perform operations on the alarm depending on the
+    // Group type.
+    public void checkAlarms() {
+        // If the alarm only can go off a certain number of times, increment increment the times
+        // repeated. If the times repeated = the repeat number, disable alarm.
+
+        // If not disabled, after an alarm goes off, schedule the next alarm in the group.
+
+    }
+
+    public void disableAlarms() {
+        // Disable all alarms in the group
+    }
+
+
 }

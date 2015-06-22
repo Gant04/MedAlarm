@@ -17,19 +17,19 @@ public class DBHelper extends SQLiteOpenHelper {
             "DROP TABLE IF EXISTS " + AlarmGroup.TABLE_NAME + ";";
     private static final String SQL_CREATE =
             "CREATE TABLE " + Alarm.TABLE_NAME +
-              " (" + Alarm.COLUMN_NAME_ALARM_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
-                     Alarm.COLUMN_NAME_ALARM_GROUP + " INTEGER," +
-                     Alarm.COLUMN_NAME_ALARM_TIME_HOUR + " INTEGER," +
-                     Alarm.COLUMN_NAME_ALARM_TIME_MINUTE + " INTEGER," +
-                     Alarm.COLUMN_NAME_ALARM_REPEATS_DAYS + " TEXT," +
-                     Alarm.COLUMN_NAME_ALARM_REPEATS_WEEKLY + " BOOLEAN," + " ) " +
+              " (" + Alarm.COLUMN_NAME_ALARM_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                     Alarm.COLUMN_NAME_ALARM_GROUP + " INTEGER, " +
+                     Alarm.COLUMN_NAME_ALARM_TIME_HOUR + " INTEGER, " +
+                     Alarm.COLUMN_NAME_ALARM_TIME_MINUTE + " INTEGER, " + "); " +
             "CREATE TABLE " + AlarmGroup.TABLE_NAME +
               " (" + AlarmGroup.COLUMN_NAME_ALARM_GROUP_NAME + " TEXT," +
-                     AlarmGroup.COLUMN_NAME_ALARM_GROUP_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
-                     AlarmGroup.COLUMN_NAME_ALARM_GROUP_ENABLED + " BOOLEAN," +
-                     AlarmGroup.COLUMN_NAME_ALARM_GROUP_TYPE + " INTEGER," +
-                     AlarmGroup.COLUMN_NAME_ALARM_GROUP_RINGTONE + " TEXT," +
-                     AlarmGroup.COLUMN_NAME_ALARM_GROUP_OFFSET + " BOOLEAN," + " )";
+                     AlarmGroup.COLUMN_NAME_ALARM_GROUP_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                     AlarmGroup.COLUMN_NAME_ALARM_GROUP_ENABLED + " BOOLEAN, " +
+                     AlarmGroup.COLUMN_NAME_ALARM_GROUP_TYPE + " INTEGER, " +
+                     AlarmGroup.COLUMN_NAME_ALARM_GROUP_RINGTONE + " TEXT, " +
+                     AlarmGroup.COLUMN_NAME_ALARM_GROUP_OFFSET + " BOOLEAN, " +
+                     AlarmGroup.COLUMN_NAME_ALARM_REPEAT_NUMBER + " INTEGER " +
+                     AlarmGroup.COLUMN_NAME_ALARM_TIMES_REPEATED + " INTEGER " + ");";
 
 
     public DBHelper(Context context) {
