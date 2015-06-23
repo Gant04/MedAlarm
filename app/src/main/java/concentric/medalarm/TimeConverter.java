@@ -17,12 +17,4 @@ public class TimeConverter {
 
         return millis;
     }
-
-    public static long secondsToMillis(int minute) {
-        long millis = 0;
-
-
-        return millis;
-    }
-
 }
