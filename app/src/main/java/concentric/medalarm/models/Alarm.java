@@ -14,7 +14,8 @@ public class Alarm {
     public static final String COLUMN_NAME_ALARM_ID = "id";
     public static final String COLUMN_NAME_ALARM_TIME_HOUR = "hour";
     public static final String COLUMN_NAME_ALARM_TIME_MINUTE = "minute";
-    public static final String COLUMN_NAME_ALARM_REPEATS = "repeats";
+    public static final String COLUMN_NAME_ALARM_REPEATS_HOURS = "repeats_hours";
+    public static final String COLUMN_NAME_ALARM_REPEATS_MINUTES = "repeats_minutes";
 
     private long id;
     private long groupID;

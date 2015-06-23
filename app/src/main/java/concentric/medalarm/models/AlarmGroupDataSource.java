@@ -23,7 +23,10 @@ public class AlarmGroupDataSource {
             AlarmGroup.COLUMN_NAME_ALARM_GROUP_TYPE,
             AlarmGroup.COLUMN_NAME_ALARM_GROUP_RINGTONE,
             AlarmGroup.COLUMN_NAME_ALARM_GROUP_OFFSET,
-            AlarmGroup.COLUMN_NAME_ALARM_GROUP_ENABLED };
+            AlarmGroup.COLUMN_NAME_ALARM_GROUP_ENABLED,
+            AlarmGroup.COLUMN_NAME_ALARM_REPEATS,
+            AlarmGroup.COLUMN_NAME_ALARM_TIMES_REPEATED };
+
 
     public AlarmGroupDataSource(Context context) {
         dbHelper = new DBHelper(context);

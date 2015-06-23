@@ -16,7 +16,10 @@ public class AlarmDataSource {
             Alarm.COLUMN_NAME_ALARM_ID,
             Alarm.COLUMN_NAME_ALARM_GROUP,
             Alarm.COLUMN_NAME_ALARM_TIME_HOUR,
-            Alarm.COLUMN_NAME_ALARM_TIME_MINUTE };
+            Alarm.COLUMN_NAME_ALARM_TIME_MINUTE,
+            Alarm.COLUMN_NAME_ALARM_REPEATS_HOURS,
+            Alarm.COLUMN_NAME_ALARM_REPEATS_MINUTES };
+
 
     public AlarmDataSource(Context context) {
         dbHelper = new DBHelper(context);
