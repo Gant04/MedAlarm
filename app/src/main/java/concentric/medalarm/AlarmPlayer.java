@@ -2,12 +2,13 @@ package concentric.medalarm;
 
 
 import android.app.Activity;
+import android.util.Log;
+
 
 /**
  * Created by mike on 6/10/15.
  */
 public class AlarmPlayer extends Activity {
-
     private boolean isPlaying = false;
     private String tone = "";
 
@@ -24,12 +25,14 @@ public class AlarmPlayer extends Activity {
     public void startAlarm() {
         //mediaPlayer.start();
         setIsPlaying(true);
+        Log.i(getClass().getName() + " startAlarm", "Alarm is playing");
     }
 
     public void stopAlarm() {
         if (isPlaying()) {
             //mediaPlayer.stop();
             setIsPlaying(false);
+            Log.i(getClass().getName() + " stopAlarm", "Alarm stopped");
         }
     }
 

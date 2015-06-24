@@ -54,6 +54,7 @@ public class AlarmGroupDataSource {
                                        " = " + insertId, null, null, null, null);
         cursor.moveToFirst();
         AlarmGroup group = cursorToGroup(cursor);
+        Log.i(getClass().getName() + " createAlarmGroup", "Alarm group creation");
         return group;
     }
 
@@ -62,6 +63,7 @@ public class AlarmGroupDataSource {
         Log.w(AlarmGroupDataSource.class.getName(),
                 "Deleting AlarmGroup ID" + id + ".");
         database.delete(AlarmGroup.TABLE_NAME, Alarm.COLUMN_NAME_ALARM_ID + " = " + id, null);
+        Log.i(getClass().getName() + " deleteGroup", "Alarm group deletion");
     }
 
     public List<AlarmGroup> getAllAlarmGroups() {
@@ -75,11 +77,13 @@ public class AlarmGroupDataSource {
             cursor.moveToNext();
         }
         cursor.close();
+        Log.i(getClass().getName() + " getAllAlarmGroups", "Retrieve the list of alarms");
         return alarmGroups;
     }
 
     public AlarmGroup cursorToGroup(Cursor cursor) {
         AlarmGroup group = new AlarmGroup();
+        Log.i(getClass().getName() + " cursorToGroup", "Gets Something...");
         return group;
     }
 }
