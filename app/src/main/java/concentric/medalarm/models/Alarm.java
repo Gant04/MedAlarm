@@ -1,6 +1,7 @@
 package concentric.medalarm.models;
 
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 
 import java.util.StringTokenizer;
 
@@ -108,7 +109,14 @@ public class Alarm {
     }
 
     public void setHour(int hour) {
-        this.hour = hour;
+        if (hour > 23 || hour < 0) {
+            Log.e(getClass().getName() + " setHour", "An attempt to set the hour to an invalid" +
+                  " value was made.\nHour should be between 0 and 23.\n\n" +
+                  "This function was instructed to set the hour to: " + hour + ".");
+        } else {
+            this.hour = hour;
+        }
+
     }
 
     public void setGroupID(long id) {
