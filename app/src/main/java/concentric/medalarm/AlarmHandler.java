@@ -63,7 +63,8 @@ public class AlarmHandler extends Activity {
     }
 
     @SuppressLint("NewApi")
-    public AlarmHandler createAlarm(int hour, int minute, int alarmRepeatTimeInMillis, Boolean repeating) {
+    public AlarmHandler createAlarm(int hour, int minute, int alarmRepeatTimeInMillis,
+                                    Boolean repeating) {
 
         alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
 
