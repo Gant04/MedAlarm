@@ -11,9 +11,9 @@ public class AlarmPlayerTest extends AndroidTestCase {
     public void testAlarmPlayer() throws Throwable {
         AlarmPlayer alarmPlayer = new AlarmPlayer();
         Assert.assertFalse(alarmPlayer.isPlaying());
-        alarmPlayer.startAlarmSound();
+        alarmPlayer.startAlarm();
         Assert.assertTrue(alarmPlayer.isPlaying());
-        alarmPlayer.stopAlarmSound();
+        alarmPlayer.stopAlarm();
         Assert.assertFalse(alarmPlayer.isPlaying());
     }
 }
