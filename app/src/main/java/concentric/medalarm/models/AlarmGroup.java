@@ -67,7 +67,13 @@ public class AlarmGroup {
     }
 
     public void setOffset(boolean toggle) {
-        offset = toggle;
+        if (this.offset && toggle) {
+            Log.i(getClass().getName() + " setOffset", "Offset was already true!");
+        } else if (!this.offset & !toggle) {
+            Log.i(getClass().getName() + " setOffset", "Offset was already false!");
+        } else {
+            offset = toggle;
+        }
     }
 
     public boolean getOffset(boolean toggle) {
@@ -79,7 +85,13 @@ public class AlarmGroup {
     }
 
     public void setEnabled(boolean toggle) {
-        enabled = toggle;
+        if (this.enabled && toggle) {
+            Log.i(getClass().getName() + " setEnabled", "Enabled was already true!");
+        } else if (!this.enabled & !toggle) {
+            Log.i(getClass().getName() + " setEnabled", "Enabled was already false!");
+        } else {
+            enabled = toggle;
+        }
     }
 
     public boolean getVibrate() {
@@ -87,7 +99,13 @@ public class AlarmGroup {
     }
 
     public void setVibrate(boolean vibrate) {
-        this.vibrate = vibrate;
+        if (this.vibrate && vibrate) {
+            Log.i(getClass().getName() + " setVibrate", "Vibrate was already true!");
+        } else if (!this.vibrate & !vibrate) {
+            Log.i(getClass().getName() + " setVibrate", "Vibrate was already false!");
+        } else {
+            this.vibrate = vibrate;
+        }
     }
 
     public long getId() {
