@@ -8,7 +8,8 @@ public class AlarmGroup {
     public static final String COLUMN_NAME_ALARM_GROUP_TYPE = "type";
     public static final String COLUMN_NAME_ALARM_GROUP_OFFSET = "offset";
     public static final String COLUMN_NAME_ALARM_GROUP_ENABLED = "enabled";
-    public static final String COLUMN_NAME_ALARM_REPEATS = "repeatNumber";
+    public static final String COLUMN_NAME_ALARM_REPEATABLE = "repeatable";
+    public static final String COLUMN_NAME_ALARM_NUMBER_OF_REPEATS = "numberOfRepeats";
     public static final String COLUMN_NAME_ALARM_TIMES_REPEATED = "timesRepeated";
 
     private String groupName;

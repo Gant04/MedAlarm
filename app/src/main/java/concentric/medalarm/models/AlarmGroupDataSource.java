@@ -24,7 +24,8 @@ public class AlarmGroupDataSource {
             AlarmGroup.COLUMN_NAME_ALARM_GROUP_RINGTONE,
             AlarmGroup.COLUMN_NAME_ALARM_GROUP_OFFSET,
             AlarmGroup.COLUMN_NAME_ALARM_GROUP_ENABLED,
-            AlarmGroup.COLUMN_NAME_ALARM_REPEATS,
+            AlarmGroup.COLUMN_NAME_ALARM_REPEATABLE,
+            AlarmGroup.COLUMN_NAME_ALARM_NUMBER_OF_REPEATS,
             AlarmGroup.COLUMN_NAME_ALARM_TIMES_REPEATED };
 
 

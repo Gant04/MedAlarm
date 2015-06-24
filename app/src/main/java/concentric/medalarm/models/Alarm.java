@@ -21,7 +21,6 @@ public class Alarm {
     private long groupID;
     private int hour;
     private int minute;
-    private boolean[] daysToRepeat = new boolean[7];
     private boolean repeatWeekly;
 
     private String alarmTone;
@@ -36,16 +35,15 @@ public class Alarm {
      *
      * @param hour Set the hour
      * @param minute Set the minute
-     * @param daysToRepeat A boolean array to set the days to repeat.
-     * @param repeatWeekly A boolean to set if repeat weekly.
+     *
+     *
      */
-    public Alarm(long id, long groupID, int hour, int minute, boolean[] daysToRepeat,
+    public Alarm(long id, long groupID, int hour, int minute,
                  boolean repeatWeekly) {
         setId(id);
         setGroupID(groupID);
         setHour(hour);
         setMinute(minute);
-        setDaysToRepeat(daysToRepeat);
         setRepeatWeekly(repeatWeekly);
     }
 
@@ -61,9 +59,6 @@ public class Alarm {
         return this.minute;
     }
 
-    public boolean[] getDaysToRepeat() {
-        return this.daysToRepeat;
-    }
 
 
     public boolean isRepeatWeekly() {
@@ -93,9 +88,6 @@ public class Alarm {
         this.minute = minute;
     }
 
-    public void setDaysToRepeat(boolean[] daysToRepeat) {
-        this.daysToRepeat = daysToRepeat;
-    }
 
     public void setRepeatWeekly(boolean repeatWeekly) {
         this.repeatWeekly = repeatWeekly;
