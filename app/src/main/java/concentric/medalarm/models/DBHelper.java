@@ -30,7 +30,8 @@ public class DBHelper extends SQLiteOpenHelper {
                      AlarmGroup.COLUMN_NAME_ALARM_GROUP_TYPE + " NOT NULL INTEGER, " +
                      AlarmGroup.COLUMN_NAME_ALARM_GROUP_RINGTONE + " NOT NULL TEXT, " +
                      AlarmGroup.COLUMN_NAME_ALARM_GROUP_OFFSET + " NOT NULL BOOLEAN, " +
-                     AlarmGroup.COLUMN_NAME_ALARM_REPEATS + " INTEGER, " +
+                     AlarmGroup.COLUMN_NAME_ALARM_REPEATABLE + " NOT NULL BOOLEAN, " +
+                     AlarmGroup.COLUMN_NAME_ALARM_NUMBER_OF_REPEATS + " INTEGER, " +
                      AlarmGroup.COLUMN_NAME_ALARM_TIMES_REPEATED + " INTEGER " + ");";
 
 

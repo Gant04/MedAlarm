@@ -1,5 +1,7 @@
 package concentric.medalarm.models;
 
+import android.util.Log;
+
 public class AlarmGroup {
     public static final String TABLE_NAME = "alarmGroup";
     public static final String COLUMN_NAME_ALARM_GROUP_ID = "id";
@@ -65,7 +67,13 @@ public class AlarmGroup {
     }
 
     public void setOffset(boolean toggle) {
-        offset = toggle;
+        if (this.offset && toggle) {
+            Log.i(getClass().getName() + " setOffset", "Offset was already true!");
+        } else if (!this.offset & !toggle) {
+            Log.i(getClass().getName() + " setOffset", "Offset was already false!");
+        } else {
+            offset = toggle;
+        }
     }
 
     public boolean getOffset(boolean toggle) {
@@ -77,7 +85,13 @@ public class AlarmGroup {
     }
 
     public void setEnabled(boolean toggle) {
-        enabled = toggle;
+        if (this.enabled && toggle) {
+            Log.i(getClass().getName() + " setEnabled", "Enabled was already true!");
+        } else if (!this.enabled & !toggle) {
+            Log.i(getClass().getName() + " setEnabled", "Enabled was already false!");
+        } else {
+            enabled = toggle;
+        }
     }
 
     public boolean getVibrate() {
@@ -85,7 +99,13 @@ public class AlarmGroup {
     }
 
     public void setVibrate(boolean vibrate) {
-        this.vibrate = vibrate;
+        if (this.vibrate && vibrate) {
+            Log.i(getClass().getName() + " setVibrate", "Vibrate was already true!");
+        } else if (!this.vibrate & !vibrate) {
+            Log.i(getClass().getName() + " setVibrate", "Vibrate was already false!");
+        } else {
+            this.vibrate = vibrate;
+        }
     }
 
     public long getId() {
@@ -112,6 +132,8 @@ public class AlarmGroup {
                 this.type = 4;
                 break;
             default:
+                Log.e(getClass().getName() + " setAlarmType", "Tried to set an invalid alarm type."
+                      + "\nThe type received was: " + type);
                 break;
         }
         return valid;

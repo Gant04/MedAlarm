@@ -85,8 +85,25 @@ public class Alarm {
     public void setId(long id) {
         this.id = id;
     }
+
     public void setMinute(int minute) {
-        this.minute = minute;
+        if (minute > 59 || minute < 0) {
+            Log.e(getClass().getName() + " setMinute", "An attempt to set the minutes to an invalid" +
+                    " value was made.\nMinutes should be between 0 and 59.\n\n" +
+                    "This function was instructed to set the minutes to: " + minute + ".");
+        } else {
+            this.minute = minute;
+        }
+    }
+
+    public void setHour(int hour) {
+        if (hour > 23 || hour < 0) {
+            Log.e(getClass().getName() + " setHour", "An attempt to set the hour to an invalid" +
+                    " value was made.\nHour should be between 0 and 23.\n\n" +
+                    "This function was instructed to set the hour to: " + hour + ".");
+        } else {
+            this.hour = hour;
+        }
     }
 
 
@@ -106,17 +123,6 @@ public class Alarm {
 
     public void setAlarmMessage(String alarmMessage) {
         this.alarmMessage = alarmMessage;
-    }
-
-    public void setHour(int hour) {
-        if (hour > 23 || hour < 0) {
-            Log.e(getClass().getName() + " setHour", "An attempt to set the hour to an invalid" +
-                  " value was made.\nHour should be between 0 and 23.\n\n" +
-                  "This function was instructed to set the hour to: " + hour + ".");
-        } else {
-            this.hour = hour;
-        }
-
     }
 
     public void setGroupID(long id) {

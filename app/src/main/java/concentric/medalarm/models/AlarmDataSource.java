@@ -48,7 +48,7 @@ public class AlarmDataSource {
         long insertId = database.insert(Alarm.TABLE_NAME, null, values);
         Cursor cursor = database.query(Alarm.TABLE_NAME, allColumns, Alarm.COLUMN_NAME_ALARM_ID +
                 " = " + insertId, null, null, null, null);
-        Alarm alarm = cursorTo;
+        Alarm alarm = cursorToAlarm(cursor);
         return alarm;
     }
 
@@ -62,6 +62,6 @@ public class AlarmDataSource {
         alarm.setGroupID(cursor.getLong(cursor.getColumnIndex(Alarm.COLUMN_NAME_ALARM_GROUP)));
         alarm.setHour(cursor.getInt(cursor.getColumnIndex(Alarm.COLUMN_NAME_ALARM_TIME_HOUR)));
         alarm.setMinute(cursor.getInt(cursor.getColumnIndex(Alarm.COLUMN_NAME_ALARM_TIME_MINUTE)));
-
+        return alarm;
     }
 }
