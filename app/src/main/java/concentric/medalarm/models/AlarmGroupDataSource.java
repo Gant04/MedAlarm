@@ -60,8 +60,7 @@ public class AlarmGroupDataSource {
 
     public void deleteGroup(AlarmGroup group) {
         long id = group.getId();
-        Log.w(AlarmGroupDataSource.class.getName(),
-                "Deleting AlarmGroup ID" + id + ".");
+        Log.w(getClass().getName() + " deleteGroup", "Deleting AlarmGroup ID" + id + ".");
         database.delete(AlarmGroup.TABLE_NAME, Alarm.COLUMN_NAME_ALARM_ID + " = " + id, null);
         Log.i(getClass().getName() + " deleteGroup", "Alarm group deletion");
     }

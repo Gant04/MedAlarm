@@ -4,6 +4,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 
 import java.sql.SQLException;
 
@@ -53,7 +54,9 @@ public class AlarmDataSource {
     }
 
     public void deleteAlarm(Alarm alarm) {
-
+        long dId = alarm.getId();
+        Log.e(getClass().getName() + " deleteAlarm", "Deleting alarm with id of " + dId);
+        database.delete(Alarm.TABLE_NAME, Alarm.COLUMN_NAME_ALARM_ID + " = " + dId, null);
     }
 
     private Alarm cursorToAlarm(Cursor cursor) {
