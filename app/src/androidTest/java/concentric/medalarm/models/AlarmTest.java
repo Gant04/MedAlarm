@@ -14,7 +14,7 @@ public class AlarmTest extends AndroidTestCase {
     private long id = 2;
 
     public void testAlarm() throws Throwable{
-        Alarm alarm = new Alarm(id, groupId, hour, minute, true);
+        Alarm alarm = new Alarm(id, groupId, hour, minute, false);
         Assert.assertTrue(alarm.getHour() >= 0);
         Assert.assertTrue(alarm.getHour() < 24);
         Assert.assertTrue(alarm.getMinute() >= 0);
