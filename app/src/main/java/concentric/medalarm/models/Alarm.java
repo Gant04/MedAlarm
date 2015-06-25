@@ -22,7 +22,6 @@ public class Alarm {
     private long groupID;
     private int hour;
     private int minute;
-    private boolean repeatWeekly;
 
     private String alarmTone;
     private String alarmMessage;
@@ -37,13 +36,11 @@ public class Alarm {
      * @param hour   Set the hour
      * @param minute Set the minute
      */
-    public Alarm(long id, long groupID, int hour, int minute,
-                 boolean repeatWeekly) {
+    public Alarm(long id, long groupID, int hour, int minute) {
         setId(id);
         setGroupID(groupID);
         setHour(hour);
         setMinute(minute);
-        setRepeatWeekly(repeatWeekly);
     }
 
     public Alarm() {
@@ -56,11 +53,6 @@ public class Alarm {
 
     public int getMinute() {
         return this.minute;
-    }
-
-
-    public boolean isRepeatWeekly() {
-        return this.repeatWeekly;
     }
 
     public String getAlarmTime() {
@@ -103,11 +95,6 @@ public class Alarm {
         } else {
             this.hour = hour;
         }
-    }
-
-
-    public void setRepeatWeekly(boolean repeatWeekly) {
-        this.repeatWeekly = repeatWeekly;
     }
 
     public void setAlarmTime(String alarmTime) {
