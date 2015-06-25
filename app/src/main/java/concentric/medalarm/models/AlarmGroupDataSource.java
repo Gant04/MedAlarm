@@ -26,7 +26,7 @@ public class AlarmGroupDataSource {
             AlarmGroup.COLUMN_NAME_ALARM_GROUP_ENABLED,
             AlarmGroup.COLUMN_NAME_ALARM_REPEATABLE,
             AlarmGroup.COLUMN_NAME_ALARM_NUMBER_OF_REPEATS,
-            AlarmGroup.COLUMN_NAME_ALARM_TIMES_REPEATED };
+            AlarmGroup.COLUMN_NAME_ALARM_TIMES_REPEATED};
 
 
     public AlarmGroupDataSource(Context context) {
@@ -70,7 +70,7 @@ public class AlarmGroupDataSource {
         Cursor cursor = database.query(AlarmGroup.TABLE_NAME, allColumns,
                                        null, null, null, null, null);
         cursor.moveToFirst();
-        while(!cursor.isAfterLast()) {
+        while (!cursor.isAfterLast()) {
             AlarmGroup group = cursorToGroup(cursor);
             alarmGroups.add(group);
             cursor.moveToNext();

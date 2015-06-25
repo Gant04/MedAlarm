@@ -34,10 +34,8 @@ public class Alarm {
      * Non-Default Alarm Constructor
      * This constructor allows an alarm to be created.
      *
-     * @param hour Set the hour
+     * @param hour   Set the hour
      * @param minute Set the minute
-     *
-     *
      */
     public Alarm(long id, long groupID, int hour, int minute,
                  boolean repeatWeekly) {
@@ -61,16 +59,15 @@ public class Alarm {
     }
 
 
-
     public boolean isRepeatWeekly() {
         return this.repeatWeekly;
     }
 
-    public String getAlarmTime(){
+    public String getAlarmTime() {
         return Integer.toString(this.getHour()) + ":" + Integer.toString(getMinute());
     }
 
-    public String getAlarmTone (){
+    public String getAlarmTone() {
         return this.alarmTone;
     }
 
@@ -88,9 +85,10 @@ public class Alarm {
 
     public void setMinute(int minute) {
         if (minute > 59 || minute < 0) {
-            Log.e(getClass().getName() + " setMinute", "An attempt to set the minutes to an invalid" +
-                    " value was made.\nMinutes should be between 0 and 59.\n\n" +
-                    "This function was instructed to set the minutes to: " + minute + ".");
+            Log.e(getClass().getName() + " setMinute",
+                  "An attempt to set the minutes to an invalid" +
+                  " value was made.\nMinutes should be between 0 and 59.\n\n" +
+                  "This function was instructed to set the minutes to: " + minute + ".");
         } else {
             this.minute = minute;
         }
@@ -99,8 +97,9 @@ public class Alarm {
     public void setHour(int hour) {
         if (hour > 23 || hour < 0) {
             Log.e(getClass().getName() + " setHour", "An attempt to set the hour to an invalid" +
-                    " value was made.\nHour should be between 0 and 23.\n\n" +
-                    "This function was instructed to set the hour to: " + hour + ".");
+                                                     " value was made.\nHour should be between 0 and 23.\n\n" +
+                                                     "This function was instructed to set the hour to: " +
+                                                     hour + ".");
         } else {
             this.hour = hour;
         }
@@ -111,13 +110,13 @@ public class Alarm {
         this.repeatWeekly = repeatWeekly;
     }
 
-    public void setAlarmTime(String alarmTime){
-        StringTokenizer stringTokenizer = new StringTokenizer(alarmTime,":");
+    public void setAlarmTime(String alarmTime) {
+        StringTokenizer stringTokenizer = new StringTokenizer(alarmTime, ":");
         this.setHour(Integer.parseInt(stringTokenizer.nextToken()));
         this.setMinute(Integer.parseInt(stringTokenizer.nextToken()));
     }
 
-    public void setAlarmTone(String alarmTone){
+    public void setAlarmTone(String alarmTone) {
         this.alarmTone = alarmTone;
     }
 

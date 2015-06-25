@@ -49,6 +49,7 @@ public class AlarmGroup {
     public void setId(long id) {
         this.id = id;
     }
+
     public String getGroupName() {
         return groupName;
     }
@@ -115,25 +116,25 @@ public class AlarmGroup {
     public boolean setAlarmType(String type) {
         boolean valid = false;
         switch (type) {
-            case "Day" :
+            case "Day":
                 valid = true;
                 this.type = 1;
                 break;
-            case "Week" :
+            case "Week":
                 valid = true;
                 this.type = 2;
                 break;
-            case "Interval" :
+            case "Interval":
                 valid = true;
                 this.type = 3;
                 break;
-            case "Once" :
+            case "Once":
                 valid = true;
                 this.type = 4;
                 break;
             default:
                 Log.e(getClass().getName() + " setAlarmType", "Tried to set an invalid alarm type."
-                      + "\nThe type received was: " + type);
+                                                              + "\nThe type received was: " + type);
                 break;
         }
         return valid;
