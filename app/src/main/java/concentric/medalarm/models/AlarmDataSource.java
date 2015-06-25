@@ -20,7 +20,7 @@ public class AlarmDataSource {
             Alarm.COLUMN_NAME_ALARM_TIME_HOUR,
             Alarm.COLUMN_NAME_ALARM_TIME_MINUTE,
             Alarm.COLUMN_NAME_ALARM_REPEATS_HOURS,
-            Alarm.COLUMN_NAME_ALARM_REPEATS_MINUTES };
+            Alarm.COLUMN_NAME_ALARM_REPEATS_MINUTES};
 
 
     public AlarmDataSource(Context context) {
@@ -48,7 +48,8 @@ public class AlarmDataSource {
         }
         long insertId = database.insert(Alarm.TABLE_NAME, null, values);
         Cursor cursor = database.query(Alarm.TABLE_NAME, allColumns, Alarm.COLUMN_NAME_ALARM_ID +
-                " = " + insertId, null, null, null, null);
+                                                                     " = " + insertId, null, null,
+                                       null, null);
         Alarm alarm = cursorToAlarm(cursor);
         return alarm;
     }
