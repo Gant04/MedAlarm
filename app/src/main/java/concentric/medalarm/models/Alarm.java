@@ -22,6 +22,8 @@ public class Alarm {
     private long groupID;
     private int hour;
     private int minute;
+    private int rHour;
+    private int rMinute;
 
     private String alarmTone;
     private String alarmMessage;
@@ -36,6 +38,14 @@ public class Alarm {
      * @param hour   Set the hour
      * @param minute Set the minute
      */
+    public Alarm(long id, long groupID, int hour, int minute, boolean repeats, int rHour,
+                 int rMinute) {
+        setId(id);
+        setGroupID(groupID);
+        setHour(hour);
+        setMinute(minute);
+    }
+
     public Alarm(long id, long groupID, int hour, int minute) {
         setId(id);
         setGroupID(groupID);
