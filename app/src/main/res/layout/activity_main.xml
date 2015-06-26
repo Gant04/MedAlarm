@@ -26,10 +26,10 @@
             android:layout_height="wrap_content"
             android:text="@string/createalarm"
             android:id="@+id/button"
-            android:onClick="onClick"
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
-            android:layout_marginBottom="154dp"/>
+            android:layout_marginBottom="154dp"
+            />
     </RelativeLayout>
 
 </RelativeLayout>

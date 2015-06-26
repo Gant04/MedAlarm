@@ -17,6 +17,7 @@ import com.mikepenz.materialdrawer.model.SecondaryDrawerItem;
 
 import concentric.medalarm.CreateAlarmTestClass;
 import concentric.medalarm.R;
+import concentric.medalarm.models.Alarm;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -27,7 +28,15 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        Button createButton = (Button)findViewById(R.id.button);
+
+        final Button button = (Button) findViewById(R.id.button);
+
+        button.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Intent intent = new Intent(v.getContext(), AlarmActivity.class);
+                startActivity(intent);
+            }
+        });
 
         Drawer result = new DrawerBuilder()
                 .withActivity(this)
@@ -51,14 +60,6 @@ public class MainActivity extends AppCompatActivity {
         result.openDrawer();
         result.closeDrawer();
         result.isDrawerOpen();
-
-        createButton.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, AlarmActivity.class);
-                startActivity(intent);
-                finish();
-            }
-        });
     }
 
     @Override
@@ -82,6 +83,4 @@ public class MainActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
-
-
 }
