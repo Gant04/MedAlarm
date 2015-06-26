@@ -29,6 +29,7 @@ public class AlarmActivity extends AppCompatActivity {
     private static AlarmActivity inst;
     private TextView alarmTextView;
     private Toolbar toolbar;
+    private ToggleButton alarmToggle;
 
     public static AlarmActivity instance() {
         return inst;
@@ -43,7 +44,7 @@ public class AlarmActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_alarm);
         toolbar = (Toolbar)findViewById(R.id.toolbar);
         if (toolbar != null) {
             setSupportActionBar(toolbar);
@@ -52,7 +53,7 @@ public class AlarmActivity extends AppCompatActivity {
 
         alarmTimePicker = (TimePicker) findViewById(R.id.time_picker);
         alarmTextView = (TextView) findViewById(R.id.text);
-        ToggleButton alarmToggle = (ToggleButton) findViewById(R.id.alarmToggle);
+        alarmToggle = (ToggleButton) findViewById(R.id.toggleButton);
         alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
     }
 
