@@ -20,7 +20,6 @@ import concentric.medalarm.R;
 
 
 public class MainActivity extends AppCompatActivity {
-    Button createButton = (Button)findViewById(R.id.button);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,7 +27,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
+        Button createButton = (Button)findViewById(R.id.button);
         Intent intent = new Intent(this, CreateAlarmTestClass.class);
 
         Drawer result = new DrawerBuilder()
