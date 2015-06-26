@@ -3,6 +3,8 @@ package concentric.medalarm.models;
 import junit.framework.Assert;
 import android.test.AndroidTestCase;
 
+import java.util.List;
+
 /**
  * Created by MatthewAry on 6/13/2015.
  */
@@ -12,8 +14,6 @@ public class AlarmTest extends AndroidTestCase {
     private int minute = 50;
     private long groupId = 5;
     private long id = 2;
-
-    private AlarmDataSource aDataSource;
 
     public void testAlarm() throws Throwable{
         // Basic Tests
@@ -28,12 +28,26 @@ public class AlarmTest extends AndroidTestCase {
         Assert.assertFalse(alarm.getMinute() == 60);
 
         // Database Tests
-        aDataSource = new AlarmDataSource(getContext());
+        AlarmDataSource aDataSource = new AlarmDataSource(getContext());
         aDataSource.open();
 
+        // Testing the creation of one row
         alarm = aDataSource.createAlarm(5, 2, 17, false, 0, 0);
         Assert.assertTrue(alarm.getGroupID() == 5);
         Assert.assertTrue(alarm.getHour() == 2);
         Assert.assertTrue(alarm.getMinute() == 17);
+
+        // Testing the one to many query
+        aDataSource.createAlarm(5, 6, 17, false, 0, 0);
+        List<Alarm> aGroupList = aDataSource.getGroupAlarms(5);
+        System.out.println("Size of aGroupList is: " + aGroupList.size());
+        alarm = aGroupList.get(0);
+        Assert.assertTrue(alarm.getGroupID() == 5);
+        Assert.assertTrue(alarm.getHour() == 2);
+        Assert.assertTrue(alarm.getMinute() == 17);
+
+
+
+        aDataSource.close();
     }
 }
