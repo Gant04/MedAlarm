@@ -66,7 +66,7 @@ public class AlarmGroupDataSource {
     }
 
     public List<AlarmGroup> getAllAlarmGroups() {
-        List<AlarmGroup> alarmGroups = new ArrayList<AlarmGroup>();
+        List<AlarmGroup> alarmGroups = new ArrayList<>();
         Cursor cursor = database.query(AlarmGroup.TABLE_NAME, allColumns,
                                        null, null, null, null, null);
         cursor.moveToFirst();
@@ -76,7 +76,7 @@ public class AlarmGroupDataSource {
             cursor.moveToNext();
         }
         cursor.close();
-        Log.i(getClass().getName() + " getAllAlarmGroups", "Retrieve the list of alarms");
+        Log.i(getClass().getName() + " getAllAlarmGroups", "Obtained a list of all AlarmGroups");
         return alarmGroups;
     }
 

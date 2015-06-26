@@ -11,7 +11,7 @@ import java.util.StringTokenizer;
 public class Alarm {
     // DB names
     public static final String TABLE_NAME = "alarm";
-    public static final String COLUMN_NAME_ALARM_GROUP = "group";
+    public static final String COLUMN_NAME_ALARM_GROUP = "_group";
     public static final String COLUMN_NAME_ALARM_ID = "id";
     public static final String COLUMN_NAME_ALARM_TIME_HOUR = "hour";
     public static final String COLUMN_NAME_ALARM_TIME_MINUTE = "minute";
@@ -22,7 +22,8 @@ public class Alarm {
     private long groupID;
     private int hour;
     private int minute;
-    private boolean repeatWeekly;
+    private int rHour;
+    private int rMinute;
 
     private String alarmTone;
     private String alarmMessage;
@@ -37,13 +38,19 @@ public class Alarm {
      * @param hour   Set the hour
      * @param minute Set the minute
      */
-    public Alarm(long id, long groupID, int hour, int minute,
-                 boolean repeatWeekly) {
+    public Alarm(long id, long groupID, int hour, int minute, boolean repeats, int rHour,
+                 int rMinute) {
         setId(id);
         setGroupID(groupID);
         setHour(hour);
         setMinute(minute);
-        setRepeatWeekly(repeatWeekly);
+    }
+
+    public Alarm(long id, long groupID, int hour, int minute) {
+        setId(id);
+        setGroupID(groupID);
+        setHour(hour);
+        setMinute(minute);
     }
 
     public Alarm() {
@@ -56,11 +63,6 @@ public class Alarm {
 
     public int getMinute() {
         return this.minute;
-    }
-
-
-    public boolean isRepeatWeekly() {
-        return this.repeatWeekly;
     }
 
     public String getAlarmTime() {
@@ -103,11 +105,6 @@ public class Alarm {
         } else {
             this.hour = hour;
         }
-    }
-
-
-    public void setRepeatWeekly(boolean repeatWeekly) {
-        this.repeatWeekly = repeatWeekly;
     }
 
     public void setAlarmTime(String alarmTime) {
