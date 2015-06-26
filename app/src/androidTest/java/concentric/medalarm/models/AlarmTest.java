@@ -31,6 +31,9 @@ public class AlarmTest extends AndroidTestCase {
         aDataSource = new AlarmDataSource(getContext());
         aDataSource.open();
 
-        //Alarm alarm = aDataSource.createAlarm(5, 2, 0);
+        alarm = aDataSource.createAlarm(5, 2, 17, false, 0, 0);
+        Assert.assertTrue(alarm.getGroupID() == 5);
+        Assert.assertTrue(alarm.getHour() == 2);
+        Assert.assertTrue(alarm.getMinute() == 17);
     }
 }

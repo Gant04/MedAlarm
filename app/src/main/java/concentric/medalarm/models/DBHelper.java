@@ -15,24 +15,25 @@ public class DBHelper extends SQLiteOpenHelper {
             "DROP TABLE IF EXISTS " + Alarm.TABLE_NAME + ";";
     private static final String SQL_DELETE_ALARMGROUP =
             "DROP TABLE IF EXISTS " + AlarmGroup.TABLE_NAME + ";";
-    private static final String SQL_CREATE =
+    private final String SQL_CREATE_ALARM =
             "CREATE TABLE " + Alarm.TABLE_NAME +
-            " (" + Alarm.COLUMN_NAME_ALARM_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
-            Alarm.COLUMN_NAME_ALARM_GROUP + " NOT NULL INTEGER, " +
-            Alarm.COLUMN_NAME_ALARM_TIME_HOUR + " NOT NULL INTEGER, " +
-            Alarm.COLUMN_NAME_ALARM_TIME_MINUTE + " NOT NULL INTEGER, " +
-            Alarm.COLUMN_NAME_ALARM_REPEATS_HOURS + " INTEGER, " +
-            Alarm.COLUMN_NAME_ALARM_REPEATS_MINUTES + " INTEGER " + "); " +
+            "(" + Alarm.COLUMN_NAME_ALARM_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
+            Alarm.COLUMN_NAME_ALARM_GROUP + " INTEGER NOT NULL," +
+            Alarm.COLUMN_NAME_ALARM_TIME_HOUR + " INTEGER NOT NULL," +
+            Alarm.COLUMN_NAME_ALARM_TIME_MINUTE + " INTEGER NOT NULL," +
+            Alarm.COLUMN_NAME_ALARM_REPEATS_HOURS + " INTEGER," +
+            Alarm.COLUMN_NAME_ALARM_REPEATS_MINUTES + " INTEGER" + ");";
+    private final String SQL_CREATE_ALARM_GROUP =
             "CREATE TABLE " + AlarmGroup.TABLE_NAME +
-            " (" + AlarmGroup.COLUMN_NAME_ALARM_GROUP_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+            "(" + AlarmGroup.COLUMN_NAME_ALARM_GROUP_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
             AlarmGroup.COLUMN_NAME_ALARM_GROUP_NAME + " TEXT," +
-            AlarmGroup.COLUMN_NAME_ALARM_GROUP_ENABLED + " NOT NULL BOOLEAN, " +
-            AlarmGroup.COLUMN_NAME_ALARM_GROUP_TYPE + " NOT NULL INTEGER, " +
-            AlarmGroup.COLUMN_NAME_ALARM_GROUP_RINGTONE + " NOT NULL TEXT, " +
-            AlarmGroup.COLUMN_NAME_ALARM_GROUP_OFFSET + " NOT NULL BOOLEAN, " +
-            AlarmGroup.COLUMN_NAME_ALARM_REPEATABLE + " NOT NULL BOOLEAN, " +
-            AlarmGroup.COLUMN_NAME_ALARM_NUMBER_OF_REPEATS + " INTEGER, " +
-            AlarmGroup.COLUMN_NAME_ALARM_TIMES_REPEATED + " INTEGER " + ");";
+            AlarmGroup.COLUMN_NAME_ALARM_GROUP_ENABLED + " BOOLEAN NOT NULL," +
+            AlarmGroup.COLUMN_NAME_ALARM_GROUP_TYPE + " INTEGER NOT NULL," +
+            AlarmGroup.COLUMN_NAME_ALARM_GROUP_RINGTONE + " TEXT NOT NULL," +
+            AlarmGroup.COLUMN_NAME_ALARM_GROUP_OFFSET + " BOOLEAN NOT NULL," +
+            AlarmGroup.COLUMN_NAME_ALARM_REPEATABLE + " BOOLEAN NOT NULL," +
+            AlarmGroup.COLUMN_NAME_ALARM_NUMBER_OF_REPEATS + " INTEGER," +
+            AlarmGroup.COLUMN_NAME_ALARM_TIMES_REPEATED + " INTEGER" + ");";
 
 
     public DBHelper(Context context) {
@@ -41,7 +42,8 @@ public class DBHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL(SQL_CREATE);
+        db.execSQL(SQL_CREATE_ALARM);
+        db.execSQL(SQL_CREATE_ALARM_GROUP);
     }
 
     @Override

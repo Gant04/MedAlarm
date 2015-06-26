@@ -51,7 +51,9 @@ public class AlarmDataSource {
         Cursor cursor = database.query(Alarm.TABLE_NAME, allColumns, Alarm.COLUMN_NAME_ALARM_ID +
                                                                      " = " + insertId, null, null,
                                        null, null);
+        cursor.moveToFirst();
         Alarm alarm = cursorToAlarm(cursor);
+        cursor.close();
         return alarm;
     }
 
