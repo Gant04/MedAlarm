@@ -18,4 +18,7 @@
     <string name="title_activity_activity_details">activity_details</string>
     <string name="setAlarm">Set Alarm</string>
     <string name="cancelAlarm">Cancel Alarm</string>
+    <string name="onButton">On</string>
+    <string name="createalarm">Create Alarm</string>
+    <string name="title_activity_alarm">AlarmActivity</string>
 </resources>

@@ -1,72 +1,46 @@
 package concentric.medalarm;
 
-import android.app.Service;
-import android.content.Intent;
-import android.net.Uri;
-import android.os.IBinder;
-
-import android.app.Activity;
-import android.app.AlarmManager;
+import android.app.IntentService;
+import android.app.NotificationManager;
 import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
-import android.os.Bundle;
+import android.support.v4.app.NotificationCompat;
 import android.util.Log;
-import android.view.View;
-import android.widget.TextView;
-import android.widget.TimePicker;
-import android.widget.ToggleButton;
 
-import concentric.medalarm.models.AlarmStateManager;
+import concentric.medalarm.activity.AlarmActivity;
 
 /**
  * Created by MatthewAry on 6/12/2015.
  */
-public class AlarmService extends Activity {
-/*
-    AlarmManager alarmManager;
-    private PendingIntent pendingIntent;
-    private TimePicker alarmTimePicker;
-    private static AlarmService inst;
-    private TextView alarmTextView;
+public class AlarmService extends IntentService {
+    private NotificationManager alarmNotificationManager;
 
-    public static AlarmService instance() {
-        return inst;
+    public AlarmService() {
+        super("AlarmService");
     }
 
     @Override
-    public void onStart() {
-        super.onStart();
-        inst = this;
+    public void onHandleIntent(Intent intent) {
+        sendNotification("Wake Up! Wake Up!");
     }
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_my);
-        alarmTimePicker = (TimePicker) findViewById(R.id.alarmTimePicker);
-        alarmTextView = (TextView) findViewById(R.id.alarmText);
-        ToggleButton alarmToggle = (ToggleButton) findViewById(R.id.alarmToggle);
-        alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
-    }
+    private void sendNotification(String msg) {
+        Log.d("AlarmService", "Preparing to send notification...: " + msg);
+        alarmNotificationManager = (NotificationManager) this
+                .getSystemService(Context.NOTIFICATION_SERVICE);
 
-    public void onToggleClicked(View view) {
-        if (((ToggleButton) view).isChecked()) {
-            Log.d("MyActivity", "Alarm On");
-            Calendar calendar = Calendar.getInstance();
-            calendar.set(Calendar.HOUR_OF_DAY, alarmTimePicker.getCurrentHour());
-            calendar.set(Calendar.MINUTE, alarmTimePicker.getCurrentMinute());
-            Intent myIntent = new Intent(AlarmActivity.this, AlarmReceiver.class);
-            pendingIntent = PendingIntent.getBroadcast(AlarmActivity.this, 0, myIntent, 0);
-            alarmManager.set(AlarmManager.RTC, calendar.getTimeInMillis(), pendingIntent);
-        } else {
-            alarmManager.cancel(pendingIntent);
-            setAlarmText("");
-            Log.d("MyActivity", "Alarm Off");
-        }
-    }
+        PendingIntent contentIntent = PendingIntent.getActivity(this, 0,
+                                                                new Intent(this, AlarmActivity.class), 0);
 
-    public void setAlarmText(String alarmText) {
-        alarmTextView.setText(alarmText);
+        NotificationCompat.Builder alamNotificationBuilder = new NotificationCompat.Builder(
+                this).setContentTitle("Alarm").setSmallIcon(R.mipmap.ic_launcher)
+                .setStyle(new NotificationCompat.BigTextStyle().bigText(msg))
+                .setContentText(msg);
+
+
+        alamNotificationBuilder.setContentIntent(contentIntent);
+        alarmNotificationManager.notify(1, alamNotificationBuilder.build());
+        Log.d("AlarmService", "Notification sent.");
     }
-    */
 }

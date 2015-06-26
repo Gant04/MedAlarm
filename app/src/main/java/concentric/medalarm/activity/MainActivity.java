@@ -6,6 +6,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 
 import com.mikepenz.materialdrawer.Drawer;
 import com.mikepenz.materialdrawer.DrawerBuilder;
@@ -25,8 +27,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-        Intent intent = new Intent(this, CreateAlarmTestClass.class);
+        Button createButton = (Button)findViewById(R.id.button);
 
         Drawer result = new DrawerBuilder()
                 .withActivity(this)
@@ -51,8 +52,13 @@ public class MainActivity extends AppCompatActivity {
         result.closeDrawer();
         result.isDrawerOpen();
 
-
-
+        createButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, AlarmActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
     }
 
     @Override
@@ -76,4 +82,6 @@ public class MainActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
+
 }
