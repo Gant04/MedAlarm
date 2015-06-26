@@ -1,7 +1,8 @@
 package concentric.medalarm.activity;
 
-import android.app.Activity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -20,13 +21,14 @@ import java.util.Calendar;
 import concentric.medalarm.AlarmBroadcastReceiver;
 import concentric.medalarm.R;
 
-public class AlarmActivity extends Activity {
+public class AlarmActivity extends AppCompatActivity {
 
     AlarmManager alarmManager;
     private PendingIntent pendingIntent;
     private TimePicker alarmTimePicker;
     private static AlarmActivity inst;
     private TextView alarmTextView;
+    private Toolbar toolbar;
 
     public static AlarmActivity instance() {
         return inst;
@@ -42,6 +44,12 @@ public class AlarmActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        toolbar = (Toolbar)findViewById(R.id.toolbar);
+        if (toolbar != null) {
+            setSupportActionBar(toolbar);
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }
+
         alarmTimePicker = (TimePicker) findViewById(R.id.time_picker);
         alarmTextView = (TextView) findViewById(R.id.text);
         ToggleButton alarmToggle = (ToggleButton) findViewById(R.id.alarmToggle);
