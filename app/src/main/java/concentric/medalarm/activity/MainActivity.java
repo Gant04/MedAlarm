@@ -28,7 +28,6 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         Button createButton = (Button)findViewById(R.id.button);
-        Intent intent = new Intent(this, CreateAlarmTestClass.class);
 
         Drawer result = new DrawerBuilder()
                 .withActivity(this)

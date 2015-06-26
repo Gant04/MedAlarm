@@ -17,8 +17,8 @@ public class CreateAlarmTestClass extends Activity implements OnClickListener{
     protected void onCreate(Bundle savedInstanceState) {
         setAlarm = (Button) findViewById(R.id.button);
         setAlarm.setOnClickListener(this);
-        cancelAlarm = (Button) findViewById(R.id.button2);
-        cancelAlarm.setOnClickListener(this);
+        //cancelAlarm = (Button) findViewById(R.id.button);
+        //cancelAlarm.setOnClickListener(this);
     }
 
 
@@ -30,10 +30,10 @@ public class CreateAlarmTestClass extends Activity implements OnClickListener{
                 break;
             }
 
-            case R.id.button2: { //CancelAlarm
+            //case R.id.button: { //CancelAlarm
 
-                break;
-            }
+                //break;
+            //}
 
         }
     }
