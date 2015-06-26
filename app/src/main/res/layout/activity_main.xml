@@ -28,7 +28,7 @@
             android:layout_marginBottom="45dp"
             android:layout_alignParentBottom="true"
             android:layout_alignLeft="@+id/timePicker"
-            android:layout_alignStart="@+id/timePicker"/>
+            android:layout_alignStart="@+id/timePicker"></Button>
 
         <Button
             android:layout_width="wrap_content"
@@ -37,7 +37,7 @@
             android:id="@+id/button2"
             android:layout_below="@+id/timePicker"
             android:layout_alignRight="@+id/timePicker"
-            android:layout_alignEnd="@+id/timePicker"/>
+            android:layout_alignEnd="@+id/timePicker"></Button>
 
         <TimePicker
             android:layout_width="wrap_content"
