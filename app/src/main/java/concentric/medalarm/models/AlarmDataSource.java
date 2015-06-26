@@ -43,7 +43,6 @@ public class AlarmDataSource {
         values.put(Alarm.COLUMN_NAME_ALARM_GROUP, groupID);
         values.put(Alarm.COLUMN_NAME_ALARM_TIME_HOUR, hour);
         values.put(Alarm.COLUMN_NAME_ALARM_TIME_MINUTE, minute);
-        values.put(Alarm.COLUMN_NAME_ALARM_REPEATS_HOURS, hour);
         if (repeats) {
             values.put(Alarm.COLUMN_NAME_ALARM_REPEATS_HOURS, rHours);
             values.put(Alarm.COLUMN_NAME_ALARM_REPEATS_MINUTES, rMinutes);
