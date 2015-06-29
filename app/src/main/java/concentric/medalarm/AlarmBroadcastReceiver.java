@@ -7,7 +7,9 @@ import android.content.Intent;
 import android.media.Ringtone;
 import android.media.RingtoneManager;
 import android.net.Uri;
+import android.os.SystemClock;
 import android.support.v4.content.WakefulBroadcastReceiver;
+import android.util.Log;
 import android.widget.Toast;
 
 import concentric.medalarm.activity.AlarmActivity;
@@ -18,7 +20,11 @@ import concentric.medalarm.activity.AlarmActivity;
 public class AlarmBroadcastReceiver extends WakefulBroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
-        Toast.makeText(context, "Running Alarm", Toast.LENGTH_SHORT).show();
+        Intent service = new Intent(context, AlarmBroadcastReceiver.class);
+
+        Log.d("AlarmBroadcastReceiver", "Starting service @" + SystemClock.elapsedRealtime());
+        startWakefulService(context,service);
+        /*Toast.makeText(context, "Running Alarm", Toast.LENGTH_SHORT).show();
         //this will update the UI with message
         AlarmActivity inst = AlarmActivity.instance();
         inst.setAlarmText("Alarm! Wake up! Wake up!");
@@ -37,6 +43,6 @@ public class AlarmBroadcastReceiver extends WakefulBroadcastReceiver {
         ComponentName comp = new ComponentName(context.getPackageName(),
                                                AlarmService.class.getName());
         startWakefulService(context, (intent.setComponent(comp)));
-        setResultCode(Activity.RESULT_OK);
+        setResultCode(Activity.RESULT_OK);*/
     }
 }

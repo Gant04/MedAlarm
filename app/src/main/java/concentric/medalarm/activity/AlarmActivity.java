@@ -51,25 +51,34 @@ public class AlarmActivity extends AppCompatActivity {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
 
-        alarmTimePicker = (TimePicker) findViewById(R.id.time_picker);
+        alarmTimePicker = (TimePicker) findViewById(R.id.timePicker2);
         alarmTextView = (TextView) findViewById(R.id.text);
         alarmToggle = (ToggleButton) findViewById(R.id.toggleButton);
         alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
     }
 
     public void onToggleClicked(View view) {
+        Log.d("AlarmActivity", "On Toggle Clicked");
         if (((ToggleButton) view).isChecked()) {
-            Log.d("MyActivity", "Alarm On");
+//            Log.d("AlarmActivity", "Alarm On");
             Calendar calendar = Calendar.getInstance();
+//            Log.d("AlarmActivity", "Create new calendar");
             calendar.set(Calendar.HOUR_OF_DAY, alarmTimePicker.getCurrentHour());
+//            Log.d("AlarmActivity", "Set calendar HOURS");
             calendar.set(Calendar.MINUTE, alarmTimePicker.getCurrentMinute());
+//            Log.d("AlarmActivity", "Set calendar MINUTES");
             Intent myIntent = new Intent(AlarmActivity.this, AlarmBroadcastReceiver.class);
+//            Log.d("AlarmActivity", "Sending myIntent");
             pendingIntent = PendingIntent.getBroadcast(AlarmActivity.this, 0, myIntent, 0);
+//            Log.d("AlarmActivity", "Pending Intent");
             alarmManager.set(AlarmManager.RTC, calendar.getTimeInMillis(), pendingIntent);
+//            Log.d("AlarmActivity", "Alarm Manager set");
         } else {
+            Log.d("AlarmActivity", "Alarm Off");
             alarmManager.cancel(pendingIntent);
-            setAlarmText("");
-            Log.d("MyActivity", "Alarm Off");
+            Log.d("AlarmActivity", "Alarm cancel");
+            //alarmTextView.setText("");
+            Log.d("AlarmActivity", "Alarm Off");
         }
     }
 
