@@ -29,7 +29,8 @@ public class AlarmTest extends AndroidTestCase {
         Assert.assertFalse(alarm.getMinute() == 60);
 
         // Database Tests
-        AlarmDataSource aDataSource = new AlarmDataSource(getContext());
+        DBHelper.getInstance(getContext());
+        AlarmDataSource aDataSource = new AlarmDataSource();
         aDataSource.open();
 
         // Testing the creation of one row

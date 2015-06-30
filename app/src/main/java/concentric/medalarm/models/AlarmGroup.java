@@ -2,6 +2,8 @@ package concentric.medalarm.models;
 
 import android.util.Log;
 
+import java.sql.SQLException;
+
 public class AlarmGroup {
     public static final String TABLE_NAME = "alarmGroup";
     public static final String COLUMN_NAME_ALARM_GROUP_ID = "id";
@@ -113,6 +115,11 @@ public class AlarmGroup {
         return id;
     }
 
+    /**
+     *
+     * @param type
+     * @return
+     */
     public boolean setAlarmType(String type) {
         boolean valid = false;
         switch (type) {
@@ -152,6 +159,35 @@ public class AlarmGroup {
 
     public void disableAlarms() {
         // Disable all alarms in the group
+    }
+
+
+    /**
+     * addAlarm
+     * This allows you to create an alarm from the AlarmGroup class.
+     * TODO: Should this function do more like register an alarm with the system?
+     * @param hour      Hour it goes off.
+     * @param minute    Minute it goes off.
+     * @param repeats   If it repeats
+     * @param rHours    Hour interval it repeats.
+     * @param rMinutes  Minute interval it repeats.
+     */
+
+    public void addAlarm(int hour, int minute, boolean repeats, int rHours,
+                         int rMinutes) {
+        long id = getId();
+        AlarmDataSource dataSource = new AlarmDataSource();
+
+        try {
+            dataSource.open();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        // TODO: Figure out where in the class stack Repeating alarms should be handled.
+        dataSource.createAlarm(id, hour, minute, repeats, rHours, rMinutes);
+
+        dataSource.close();
     }
 
 

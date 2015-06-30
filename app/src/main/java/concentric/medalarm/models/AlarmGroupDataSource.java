@@ -42,6 +42,11 @@ public class AlarmGroupDataSource {
     }
 
     public AlarmGroup createAlarmGroup(String groupName, String ringTone, String type, boolean offset,
+                                   boolean enabled, boolean repeatable) {
+        return createAlarmGroup(groupName, ringTone, type, offset, enabled, repeatable, 0, 0);
+    }
+
+    public AlarmGroup createAlarmGroup(String groupName, String ringTone, String type, boolean offset,
                                        boolean enabled, boolean repeatable, int numRepeats,
                                        int timesRepeated) {
         ContentValues values = new ContentValues();
