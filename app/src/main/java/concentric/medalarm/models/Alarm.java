@@ -5,9 +5,15 @@ import android.util.Log;
 
 import java.util.StringTokenizer;
 
-/**
- * Created by mike on 6/13/15.
- */
+/*
+* Alarm Class
+* This class models the information required to create an alarm.
+* An alarm requires that they are made through the use of the createAlarm function in the
+* AlarmDataSource class. Alarms should not be created directly through this class.
+*
+* @author Matthew Ary
+*
+* */
 public class Alarm {
     // DB names
     public static final String TABLE_NAME = "alarm";
@@ -34,9 +40,15 @@ public class Alarm {
     /**
      * Non-Default Alarm Constructor
      * This constructor allows an alarm to be created.
+     * Only the AlarmDataSource should use the Alarm constructors.
      *
-     * @param hour   Set the hour
-     * @param minute Set the minute
+     * @param id        Set the record id (this is for the database)
+     * @param groupID   Set the alarm's group id. (this is for the database)
+     * @param hour      Set the hour
+     * @param minute    Set the minute
+     * @param repeats   Boolean. Does this alarm repeat? Set true if it does.
+     * @param rHour     Set the repeat interval in hours
+     * @param rMinute   Set the repeat interval in minutes TODO: Investigate if this is necessary.
      */
     public Alarm(long id, long groupID, int hour, int minute, boolean repeats, int rHour,
                  int rMinute) {
