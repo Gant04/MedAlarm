@@ -25,8 +25,8 @@ public class AlarmDataSource {
             Alarm.COLUMN_NAME_ALARM_REPEATS_MINUTES};
 
 
-    public AlarmDataSource(Context context) {
-        dbHelper = new DBHelper(context);
+    public AlarmDataSource() {
+        dbHelper = DBHelper.getInstance();
     }
 
     public void open() throws SQLException {

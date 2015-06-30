@@ -29,8 +29,8 @@ public class AlarmGroupDataSource {
             AlarmGroup.COLUMN_NAME_ALARM_TIMES_REPEATED};
 
 
-    public AlarmGroupDataSource(Context context) {
-        dbHelper = new DBHelper(context);
+    public AlarmGroupDataSource() {
+        dbHelper = DBHelper.getInstance();
     }
 
     public void open() throws SQLException {

@@ -54,6 +54,16 @@ public class DBHelper extends SQLiteOpenHelper {
         return instance;
     }
 
+    public static DBHelper getInstance() {
+        if (instance == null) {
+            Log.wtf(DBHelper.class.getName(), "DB HELPER DOES NOT EXIST MEANING THE MAIN ACTIVITY" +
+                   " WAS NEVER USED!!!");
+        } else {
+            return instance;
+        }
+        return null;
+    }
+
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(SQL_CREATE_ALARM_GROUP);
