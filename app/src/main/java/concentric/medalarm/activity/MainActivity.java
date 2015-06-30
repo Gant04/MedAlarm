@@ -1,19 +1,26 @@
 package concentric.medalarm.activity;
 
+import android.app.ActionBar;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.ImageButton;
 
 import com.mikepenz.materialdrawer.Drawer;
 import com.mikepenz.materialdrawer.DrawerBuilder;
 import com.mikepenz.materialdrawer.model.DividerDrawerItem;
 import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
 import com.mikepenz.materialdrawer.model.SecondaryDrawerItem;
+import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
+
+import java.util.ArrayList;
 
 import concentric.medalarm.CreateAlarmTestClass;
 import concentric.medalarm.R;
@@ -29,9 +36,9 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        final Button button = (Button) findViewById(R.id.button);
+        FloatingActionButton floatingActionButton = (FloatingActionButton) findViewById(R.id.actionButton);
 
-        button.setOnClickListener(new View.OnClickListener() {
+        floatingActionButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Intent intent = new Intent(v.getContext(), AlarmActivity.class);
                 startActivity(intent);
@@ -45,13 +52,14 @@ public class MainActivity extends AppCompatActivity {
                         new PrimaryDrawerItem().withName("First Item"),
                         new DividerDrawerItem(),
                         new SecondaryDrawerItem().withName("Second Item")
-                )/*
+                )
+                /*
                 .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
                     @Override
                     public boolean onItemClick(AdapterView<?> parent, View view, int position, long id, IDrawerItem drawerItem) {
                         // do something with the clicked item :D
                     }
-                }) */
+                })*/
                 .build();
 
 //use the result object to get different views of the drawer or modify it's data
