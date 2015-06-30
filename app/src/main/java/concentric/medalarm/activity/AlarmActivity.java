@@ -28,7 +28,6 @@ public class AlarmActivity extends AppCompatActivity {
     private TimePicker alarmTimePicker;
     private static AlarmActivity inst;
     private TextView alarmTextView;
-    private Toolbar toolbar;
     private ToggleButton alarmToggle;
 
     public static AlarmActivity instance() {
@@ -45,7 +44,9 @@ public class AlarmActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_alarm);
-        toolbar = (Toolbar)findViewById(R.id.toolbar);
+        Toolbar toolbar = (Toolbar)findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
         if (toolbar != null) {
             setSupportActionBar(toolbar);
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
