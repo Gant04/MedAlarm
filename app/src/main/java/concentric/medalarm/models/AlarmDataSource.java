@@ -62,11 +62,13 @@ public class AlarmDataSource {
         Log.e(getClass().getName() + " deleteAlarm", "Deleting alarm with id of " + dId);
         database.delete(Alarm.TABLE_NAME, Alarm.COLUMN_NAME_ALARM_ID + " = " + dId, null);
     }
-    public List<Alarm> getGroupAlarms(int groupID) {
+
+    public List<Alarm> getGroupAlarms(long groupID) {
         List<Alarm> alarms = new ArrayList<>();
-        Cursor cursor = database.rawQuery("SELECT * FROM " + Alarm.TABLE_NAME + " WHERE " +
-                                          AlarmGroup.COLUMN_NAME_ALARM_GROUP_ID + " = '" +
-                                          Integer.toString(groupID) + "'", null);
+        Cursor cursor = database.query(Alarm.TABLE_NAME, allColumns, Alarm.COLUMN_NAME_ALARM_GROUP +
+                                      " = ?", new String[] {String.valueOf(groupID)}, null, null,
+                                       null);
+
         if (cursor.getCount() > 0) {
             cursor.moveToFirst();
             while (!cursor.isAfterLast()) {
@@ -77,11 +79,11 @@ public class AlarmDataSource {
             cursor.close();
             Log.i(getClass().getName() + " getGroupAlarms",
                   "Obtained a list of all alarms belonging to AlarmGroup with ID: " +
-                  Integer.toString(groupID));
+                  Long.toString(groupID));
         } else {
             Log.e(getClass().getName() + " getGroupAlarms",
                   "There are no Alarms belonging to AlarmGroup with ID: " +
-                  Integer.toString(groupID));
+                  Long.toString(groupID));
         }
         return alarms;
     }

@@ -11,7 +11,7 @@ import java.util.StringTokenizer;
 public class Alarm {
     // DB names
     public static final String TABLE_NAME = "alarm";
-    public static final String COLUMN_NAME_ALARM_GROUP = "_group";
+    public static final String COLUMN_NAME_ALARM_GROUP = "group_id";
     public static final String COLUMN_NAME_ALARM_ID = "id";
     public static final String COLUMN_NAME_ALARM_TIME_HOUR = "hour";
     public static final String COLUMN_NAME_ALARM_TIME_MINUTE = "minute";
