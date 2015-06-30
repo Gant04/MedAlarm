@@ -20,11 +20,8 @@ import concentric.medalarm.activity.AlarmActivity;
 public class AlarmBroadcastReceiver extends WakefulBroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
-        Intent service = new Intent(context, AlarmBroadcastReceiver.class);
 
-        Log.d("AlarmBroadcastReceiver", "Starting service @" + SystemClock.elapsedRealtime());
-        startWakefulService(context,service);
-        /*Toast.makeText(context, "Running Alarm", Toast.LENGTH_SHORT).show();
+        Toast.makeText(context, "Running Alarm", Toast.LENGTH_SHORT).show();
         //this will update the UI with message
         AlarmActivity inst = AlarmActivity.instance();
         inst.setAlarmText("Alarm! Wake up! Wake up!");
@@ -43,6 +40,6 @@ public class AlarmBroadcastReceiver extends WakefulBroadcastReceiver {
         ComponentName comp = new ComponentName(context.getPackageName(),
                                                AlarmService.class.getName());
         startWakefulService(context, (intent.setComponent(comp)));
-        setResultCode(Activity.RESULT_OK);*/
+        setResultCode(Activity.RESULT_OK);
     }
 }
