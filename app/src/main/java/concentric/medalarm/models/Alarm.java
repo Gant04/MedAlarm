@@ -1,8 +1,10 @@
 package concentric.medalarm.models;
 
+import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
+import java.sql.SQLException;
 import java.util.StringTokenizer;
 
 /*
@@ -40,7 +42,7 @@ public class Alarm {
     /**
      * Non-Default Alarm Constructor
      * This constructor allows an alarm to be created.
-     * Only the AlarmDataSource should use the Alarm constructors.
+     * Only the AlarmDataSource should use this constructor.
      *
      * @param id        Set the record id (this is for the database)
      * @param groupID   Set the alarm's group id. (this is for the database)
@@ -58,6 +60,9 @@ public class Alarm {
         setMinute(minute);
     }
 
+    /*
+    * TODO: Remove this and the tests connected with it.
+    * */
     public Alarm(long id, long groupID, int hour, int minute) {
         setId(id);
         setGroupID(groupID);

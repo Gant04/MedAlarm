@@ -41,13 +41,17 @@ public class AlarmGroupDataSource {
         dbHelper.close();
     }
 
-    public AlarmGroup createAlarmGroup(String groupName, String type, boolean offset,
-                                       boolean enabled) {
+    public AlarmGroup createAlarmGroup(String groupName, String ringTone, String type, boolean offset,
+                                       boolean enabled, boolean repeatable, int numRepeats,
+                                       int timesRepeated) {
         ContentValues values = new ContentValues();
         values.put(AlarmGroup.COLUMN_NAME_ALARM_GROUP_NAME, groupName);
         values.put(AlarmGroup.COLUMN_NAME_ALARM_GROUP_TYPE, type);
         values.put(AlarmGroup.COLUMN_NAME_ALARM_GROUP_OFFSET, offset);
         values.put(AlarmGroup.COLUMN_NAME_ALARM_GROUP_ENABLED, enabled);
+        values.put(AlarmGroup.COLUMN_NAME_ALARM_REPEATABLE, repeatable);
+        values.put(AlarmGroup.COLUMN_NAME_ALARM_NUMBER_OF_REPEATS, numRepeats);
+        values.put(AlarmGroup.COLUMN_NAME_ALARM_TIMES_REPEATED, timesRepeated);
         long insertId = database.insert(AlarmGroup.TABLE_NAME, null, values);
         Cursor cursor = database.query(AlarmGroup.TABLE_NAME, allColumns,
                                        AlarmGroup.COLUMN_NAME_ALARM_GROUP_ID +

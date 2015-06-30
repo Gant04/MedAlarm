@@ -38,8 +38,20 @@ public class DBHelper extends SQLiteOpenHelper {
             AlarmGroup.COLUMN_NAME_ALARM_TIMES_REPEATED + " INTEGER" + ");";
 
 
-    public DBHelper(Context context) {
+    private volatile static DBHelper instance;
+    private DBHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
+    }
+
+    public static DBHelper getInstance(Context context) {
+        if (instance == null) {
+            synchronized (DBHelper.class) {
+                if (instance == null) {
+                    instance = new DBHelper(context);
+                }
+            }
+        }
+        return instance;
     }
 
     @Override

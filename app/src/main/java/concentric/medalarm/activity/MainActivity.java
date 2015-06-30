@@ -25,6 +25,7 @@ import java.util.ArrayList;
 import concentric.medalarm.CreateAlarmTestClass;
 import concentric.medalarm.R;
 import concentric.medalarm.models.Alarm;
+import concentric.medalarm.models.DBHelper;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -33,6 +34,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        DBHelper.getInstance(this);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
