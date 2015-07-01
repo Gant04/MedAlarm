@@ -74,6 +74,11 @@ public class AlarmGroupDataSource {
         Log.i(getClass().getName() + " deleteGroup", "Alarm group deletion");
     }
 
+    /**
+     * The main activity needs to display a list view of all alarm groups currently in the database.
+     * This function returns all alarm groups.
+     * @return ArrayList of AlarmGroup objects.
+     */
     public List<AlarmGroup> getAllAlarmGroups() {
         List<AlarmGroup> alarmGroups = new ArrayList<>();
         Cursor cursor = database.query(AlarmGroup.TABLE_NAME, allColumns,
