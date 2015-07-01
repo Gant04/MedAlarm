@@ -23,11 +23,4 @@
     <string name="title_activity_alarm">AlarmActivity</string>
     <string name="IntroText">Click here to get Started</string>
     <string name="medName">Medication Name</string>
-    <string name="checkBox_Sunday">Su</string>
-    <string name="checkBox_Monday">M</string>
-    <string name="checkBox_Tuesday">T</string>
-    <string name="checkBox_Wednesday">W</string>
-    <string name="checkBox_Thursday">Th</string>
-    <string name="checkBox_Friday">F</string>
-    <string name="checkBox_Saturday">Sa</string>
 </resources>
