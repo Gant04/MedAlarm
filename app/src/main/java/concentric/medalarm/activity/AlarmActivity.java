@@ -52,9 +52,9 @@ public class AlarmActivity extends AppCompatActivity {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
 
-        alarmTimePicker = (TimePicker) findViewById(R.id.timePicker2);
+//        alarmTimePicker = (TimePicker) findViewById(R.id.timePicker2);
         alarmTextView = (TextView) findViewById(R.id.text);
-        alarmToggle = (ToggleButton) findViewById(R.id.toggleButton);
+//        alarmToggle = (ToggleButton) findViewById(R.id.toggleButton);
         alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
     }
 
