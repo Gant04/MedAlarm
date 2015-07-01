@@ -8,7 +8,11 @@ import android.support.v7.app.AppCompatActivity;
  * Created by mike on 6/20/15.
  */
 public class EventFactory {
-
+    /**
+     *
+     * @param eventType
+     * @return
+     */
     public static EventHandler OnCreate(String eventType) {
         EventHandler eventHandler = null;
         switch (eventType) {

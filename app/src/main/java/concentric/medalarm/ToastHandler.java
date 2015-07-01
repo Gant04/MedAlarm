@@ -13,16 +13,27 @@ public class ToastHandler implements EventHandler {
 
     private static String LOG_TOAST_HANDLER = "ToastHandler: ";
 
+    /**
+     *
+     * @return
+     */
     @Override
     public String getNotificationText() {
         return null;
     }
 
+    /**
+     *
+     * @param notificationText
+     */
     @Override
     public void setNotificationText(String notificationText) {
 
     }
 
+    /**
+     *
+     */
     @Override
     public void displayNotification() {
         Log.d(LOG_TOAST_HANDLER, "Creating a Toast with the following text: ");

@@ -10,10 +10,18 @@ public class MedicationDelayHandler {
         return delay;
     }
 
+    /**
+     *
+     * @param delay
+     */
     public void setDelay(int delay) {
         this.delay = delay;
     }
 
+    /**
+     *
+     * @return
+     */
     public int calculateOffset() {
         int offset = 0;
         return offset;
