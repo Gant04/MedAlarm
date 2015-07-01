@@ -33,19 +33,48 @@ public class AlarmGroupDataSource {
         dbHelper = DBHelper.getInstance();
     }
 
+    /**
+     *
+     * @throws SQLException
+     */
     public void open() throws SQLException {
         database = dbHelper.getWritableDatabase();
     }
 
+    /**
+     *
+     */
     public void close() {
         dbHelper.close();
     }
 
+    /**
+     *
+     * @param groupName
+     * @param ringTone
+     * @param type
+     * @param offset
+     * @param enabled
+     * @param repeatable
+     * @return
+     */
     public AlarmGroup createAlarmGroup(String groupName, String ringTone, String type, boolean offset,
                                    boolean enabled, boolean repeatable) {
         return createAlarmGroup(groupName, ringTone, type, offset, enabled, repeatable, 0, 0);
     }
 
+    /**
+     *
+     * @param groupName
+     * @param ringTone
+     * @param type
+     * @param offset
+     * @param enabled
+     * @param repeatable
+     * @param numRepeats
+     * @param timesRepeated
+     * @return
+     */
     public AlarmGroup createAlarmGroup(String groupName, String ringTone, String type, boolean offset,
                                        boolean enabled, boolean repeatable, int numRepeats,
                                        int timesRepeated) {

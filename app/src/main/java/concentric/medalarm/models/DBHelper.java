@@ -43,6 +43,11 @@ public class DBHelper extends SQLiteOpenHelper {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 
+    /**
+     *
+     * @param context
+     * @return
+     */
     public static DBHelper getInstance(Context context) {
         if (instance == null) {
             synchronized (DBHelper.class) {

@@ -18,6 +18,11 @@ import concentric.medalarm.activity.AlarmActivity;
  * Created by mike on 6/22/15.
  */
 public class AlarmBroadcastReceiver extends WakefulBroadcastReceiver {
+    /**
+     *
+     * @param context
+     * @param intent
+     */
     @Override
     public void onReceive(Context context, Intent intent) {
 
