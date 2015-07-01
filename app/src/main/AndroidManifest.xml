@@ -32,12 +32,6 @@
             </intent-filter>
         </activity>
 
-        <receiver android:name=".models.AlarmStateManager" >
-            <intent-filter>
-                <action android:name="android.intent.action.BOOT_COMPLETED" />
-            </intent-filter>
-        </receiver>
-
         <activity
             android:name=".activity.CreateAlarm"
             android:label="@string/title_activity_create_alarm">

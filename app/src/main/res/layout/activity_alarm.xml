@@ -39,7 +39,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/checkBox_Wednesday"
                 android:id="@+id/wednesday"
-                />
+                android:singleLine="false"/>
 
             <CheckBox
                 android:visibility="visible"
