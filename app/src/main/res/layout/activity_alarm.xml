@@ -27,7 +27,7 @@
     <CheckBox
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="W"
+        android:text="@string/checkBox_Wednesday"
         android:id="@+id/wednesday"
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true"/>
@@ -35,7 +35,7 @@
     <CheckBox
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Th"
+        android:text="@string/checkBox_Thursday"
         android:id="@+id/thursday"
         android:layout_centerVertical="true"
         android:layout_toRightOf="@+id/wednesday"/>
@@ -43,7 +43,7 @@
     <CheckBox
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="F"
+        android:text="@string/checkBox_Friday"
         android:id="@+id/friday"
         android:layout_centerVertical="true"
         android:layout_toRightOf="@+id/thursday"/>
@@ -51,7 +51,7 @@
     <CheckBox
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Sa"
+        android:text="@string/checkBox_Saturday"
         android:id="@+id/saturday"
         android:layout_centerVertical="true"
         android:layout_toRightOf="@+id/friday"/>
@@ -59,7 +59,7 @@
     <CheckBox
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Tu"
+        android:text="@string/checkBox_Tuesday"
         android:id="@+id/tuesday"
         android:layout_centerVertical="true"
         android:layout_toLeftOf="@+id/wednesday"/>
@@ -67,7 +67,7 @@
     <CheckBox
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="M"
+        android:text="@string/checkBox_Monday"
         android:id="@+id/monday"
         android:layout_centerVertical="true"
         android:layout_toLeftOf="@+id/tuesday"/>
@@ -75,9 +75,10 @@
     <CheckBox
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Su"
-        android:id="@+id/thelordsday"
+        android:text="@string/checkBox_Sunday"
+        android:id="@+id/sunday"
         android:layout_centerVertical="true"
-        android:layout_toLeftOf="@+id/monday"/>
+        android:layout_toLeftOf="@+id/monday"
+        android:focusableInTouchMode="true"/>
 
 </RelativeLayout>
