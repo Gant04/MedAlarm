@@ -6,10 +6,18 @@ package concentric.medalarm;
 public class DelayNotificationHandler {
     private String dialogText;
 
+    /**
+     *
+     * @return
+     */
     public String getDialogText() {
         return dialogText;
     }
 
+    /**
+     *
+     * @param dialogText
+     */
     public void setDialogText(String dialogText) {
         this.dialogText = dialogText;
     }

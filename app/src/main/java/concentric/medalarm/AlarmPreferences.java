@@ -1,5 +1,6 @@
 package concentric.medalarm;
 
+// TODO: Is this needed?
 /**
  * Created by Thom on 6/10/2015.
  */
@@ -11,6 +12,10 @@ public class AlarmPreferences {
         return isRepeatable;
     }
 
+    /**
+     *
+     * @param isRepeatable
+     */
     public void setIsRepeatable(boolean isRepeatable) {
         this.isRepeatable = isRepeatable;
     }
@@ -19,6 +24,10 @@ public class AlarmPreferences {
         return daysToRepeat;
     }
 
+    /**
+     *
+     * @param daysToRepeat
+     */
     public void setDaysToRepeat(boolean[] daysToRepeat) {
         this.daysToRepeat = daysToRepeat;
     }

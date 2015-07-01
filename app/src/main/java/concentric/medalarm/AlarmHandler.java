@@ -20,6 +20,10 @@ public class AlarmHandler extends Activity {
     private AlarmManager alarmManager;
     private Context context;
 
+    /**
+     *
+     * @param alarmHandler
+     */
     public AlarmHandler(AlarmHandler alarmHandler) {
         this.pendingIntent = alarmHandler.getPendingIntent();
         this.alarmIntent = alarmHandler.getAlarmIntent();
@@ -27,6 +31,10 @@ public class AlarmHandler extends Activity {
         this.context = alarmHandler.getContext();
     }
 
+    /**
+     *
+     * @param context
+     */
     public AlarmHandler(Context context) {
         this.context = context;
 
@@ -34,6 +42,10 @@ public class AlarmHandler extends Activity {
         pendingIntent = PendingIntent.getBroadcast(AlarmHandler.this, 0, alarmIntent, 0);
     }
 
+    /**
+     *
+     * @param alarmHandler
+     */
     public static void cancelAlarmStatic(AlarmHandler alarmHandler) {
 
         AlarmHandler tmp = new AlarmHandler(alarmHandler);
@@ -57,12 +69,23 @@ public class AlarmHandler extends Activity {
         return context;
     }
 
+    /**
+     *
+     */
     public void cancelAlarm() {
         alarmManager.cancel(pendingIntent);
         Toast.makeText(this, "Alarm Canceled", Toast.LENGTH_SHORT).show();
     }
 
-    @SuppressLint("NewApi")
+    /**
+     *
+     * @param hour
+     * @param minute
+     * @param alarmRepeatTimeInMillis
+     * @param repeating
+     * @return
+     */
+    @SuppressLint("NewApi") // TODO: What is this?
     public AlarmHandler createAlarm(int hour, int minute, int alarmRepeatTimeInMillis,
                                     Boolean repeating) {
 

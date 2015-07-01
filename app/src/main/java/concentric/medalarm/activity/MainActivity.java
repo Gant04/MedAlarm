@@ -63,6 +63,10 @@ public class MainActivity extends AppCompatActivity {
         result.isDrawerOpen();
     }
 
+    /**
+     *
+     * @param v
+     */
     public void onClickActionButton(View v) {
         Intent intent = new Intent(v.getContext(), AlarmActivity.class);
         startActivity(intent);

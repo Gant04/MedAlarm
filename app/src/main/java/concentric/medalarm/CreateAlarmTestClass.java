@@ -22,6 +22,10 @@ public class CreateAlarmTestClass extends Activity implements OnClickListener{
     }
 
 
+    /**
+     *
+     * @param v
+     */
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
