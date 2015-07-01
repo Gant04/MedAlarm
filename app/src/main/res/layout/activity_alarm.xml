@@ -14,87 +14,89 @@
         android:background="@color/colorPrimary"
         android:elevation="4dp"/>
 
-    <EditText
+    <TableLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="@string/medName"
-        android:textAlignment="center"
-        android:id="@+id/editText"
+        android:layout_height="match_parent"
         android:layout_below="@+id/toolbar"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="27dp"/>
+        android:layout_margin="10dp">
 
-    <CheckBox
-        android:visibility="invisible"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/checkBox_Wednesday"
-        android:id="@+id/wednesday"
-        android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true"/>
+        <EditText
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/medName"
+            android:textAlignment="center"
+            android:id="@+id/editText"
+            android:layout_below="@+id/toolbar"
+            />
 
-    <CheckBox
-        android:visibility="invisible"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/checkBox_Thursday"
-        android:id="@+id/thursday"
-        android:layout_centerVertical="true"
-        android:layout_toRightOf="@+id/wednesday"/>
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-    <CheckBox
-        android:visibility="invisible"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/checkBox_Friday"
-        android:id="@+id/friday"
-        android:layout_centerVertical="true"
-        android:layout_toRightOf="@+id/thursday"/>
+            <CheckBox
+                android:visibility="visible"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/checkBox_Wednesday"
+                android:id="@+id/wednesday"
+                />
 
-    <CheckBox
-        android:visibility="invisible"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/checkBox_Saturday"
-        android:id="@+id/saturday"
-        android:layout_centerVertical="true"
-        android:layout_toRightOf="@+id/friday"/>
+            <CheckBox
+                android:visibility="visible"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/checkBox_Thursday"
+                android:id="@+id/thursday"
+                />
 
-    <CheckBox
-        android:visibility="invisible"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/checkBox_Tuesday"
-        android:id="@+id/tuesday"
-        android:layout_centerVertical="true"
-        android:layout_toLeftOf="@+id/wednesday"/>
+            <CheckBox
+                android:visibility="visible"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/checkBox_Friday"
+                android:id="@+id/friday"
+                />
 
-    <CheckBox
-        android:visibility="invisible"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/checkBox_Monday"
-        android:id="@+id/monday"
-        android:layout_centerVertical="true"
-        android:layout_toLeftOf="@+id/tuesday"/>
+            <CheckBox
+                android:visibility="visible"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/checkBox_Saturday"
+                android:id="@+id/saturday"
+                />
 
-    <CheckBox
-        android:visibility="invisible"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/checkBox_Sunday"
-        android:id="@+id/sunday"
-        android:layout_centerVertical="true"
-        android:layout_toLeftOf="@+id/monday"
-        android:focusableInTouchMode="true"/>
+            <CheckBox
+                android:visibility="visible"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/checkBox_Tuesday"
+                android:id="@+id/tuesday"
+                />
 
-    <Spinner
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/spinner"
-        android:layout_below="@+id/editText"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"/>
+            <CheckBox
+                android:visibility="visible"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/checkBox_Monday"
+                android:id="@+id/monday"
+                />
+
+            <CheckBox
+                android:visibility="visible"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/checkBox_Sunday"
+                android:id="@+id/sunday"
+                android:focusableInTouchMode="true"/>
+        </TableRow>
+
+        <Spinner
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/spinner"
+            android:visibility="visible"/>
+
+    </TableLayout>
 
     <Spinner
         android:layout_width="wrap_content"
