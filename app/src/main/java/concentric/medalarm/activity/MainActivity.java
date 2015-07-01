@@ -38,15 +38,6 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton floatingActionButton = (FloatingActionButton) findViewById(R.id.actionButton);
-
-        floatingActionButton.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                Intent intent = new Intent(v.getContext(), AlarmActivity.class);
-                startActivity(intent);
-            }
-        });
-
         Drawer result = new DrawerBuilder()
                 .withActivity(this)
                 .withToolbar(toolbar)
@@ -70,6 +61,11 @@ public class MainActivity extends AppCompatActivity {
         result.openDrawer();
         result.closeDrawer();
         result.isDrawerOpen();
+    }
+
+    public void onClickActionButton(View v) {
+        Intent intent = new Intent(v.getContext(), AlarmActivity.class);
+        startActivity(intent);
     }
 
     @Override
