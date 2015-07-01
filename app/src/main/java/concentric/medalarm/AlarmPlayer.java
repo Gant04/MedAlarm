@@ -22,12 +22,18 @@ public class AlarmPlayer extends Activity {
 
     //private MediaPlayer mediaPlayer = MediaPlayer.create(getApplicationContext(),R.raw.alarm1);
 
+    /**
+     *
+     */
     public void startAlarm() {
         //mediaPlayer.start();
         setIsPlaying(true);
         Log.i(getClass().getName() + " startAlarm", "Alarm is playing");
     }
 
+    /**
+     *
+     */
     public void stopAlarm() {
         if (isPlaying()) {
             //mediaPlayer.stop();
@@ -40,6 +46,10 @@ public class AlarmPlayer extends Activity {
         return this.tone;
     }
 
+    /**
+     *
+     * @param tone
+     */
     public void setAlarmSound(String tone) {
         this.tone = tone;
     }

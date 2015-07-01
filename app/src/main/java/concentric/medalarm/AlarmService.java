@@ -10,9 +10,6 @@ import android.util.Log;
 
 import concentric.medalarm.activity.AlarmActivity;
 
-/**
- * Created by MatthewAry on 6/12/2015.
- */
 public class AlarmService extends IntentService {
     private NotificationManager alarmNotificationManager;
 
@@ -20,11 +17,19 @@ public class AlarmService extends IntentService {
         super("AlarmService");
     }
 
+    /**
+     *
+     * @param intent
+     */
     @Override
     public void onHandleIntent(Intent intent) {
         sendNotification("Wake Up! Wake Up!");
     }
 
+    /**
+     *
+     * @param msg
+     */
     private void sendNotification(String msg) {
         Log.d("AlarmService", "Preparing to send notification...: " + msg);
         alarmNotificationManager = (NotificationManager) this

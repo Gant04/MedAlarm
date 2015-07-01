@@ -59,6 +59,10 @@ public class DBHelper extends SQLiteOpenHelper {
         return instance;
     }
 
+    /**
+     *
+     * @return
+     */
     public static DBHelper getInstance() {
         if (instance == null) {
             Log.wtf(DBHelper.class.getName(), "DB HELPER DOES NOT EXIST MEANING THE MAIN ACTIVITY" +
@@ -69,12 +73,22 @@ public class DBHelper extends SQLiteOpenHelper {
         return null;
     }
 
+    /**
+     *
+     * @param db
+     */
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(SQL_CREATE_ALARM_GROUP);
         db.execSQL(SQL_CREATE_ALARM);
     }
 
+    /**
+     *
+     * @param db
+     * @param oldVersion
+     * @param newVersion
+     */
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         Log.w(DBHelper.class.getName(), "Upgrading database from version " + oldVersion +
