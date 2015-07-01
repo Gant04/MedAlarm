@@ -1,5 +1,6 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 xmlns:tools="http://schemas.android.com/tools"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 tools:context="concentric.medalarm.activity.AlarmActivity"
@@ -13,23 +14,80 @@
         android:background="@color/colorPrimary"
         android:elevation="4dp"/>
 
-    <ToggleButton
-        android:layout_width="wrap_content"
+    <EditText
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/onButton"
-        android:id="@+id/toggleButton"
-        android:onClick="onToggleClicked"
-        android:layout_below="@+id/timePicker2"
-        android:layout_centerHorizontal="true"/>
-
-    <TimePicker
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/timePicker2"
+        android:hint="@string/medName"
+        android:textAlignment="center"
+        android:id="@+id/editText"
         android:layout_below="@+id/toolbar"
-        android:layout_alignLeft="@+id/timePicker2"
-        android:layout_alignStart="@+id/timePicker2"
-        android:layout_marginTop="44dp"
-        android:layout_centerHorizontal="true"/>
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="27dp"/>
+
+    <ExpandableListView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/expandableListView"
+        android:layout_below="@+id/editText"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"/>
+
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Su"
+        android:id="@+id/checkBox"
+        android:layout_centerVertical="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"/>
+
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="M"
+        android:textAlignment="above"
+        android:id="@+id/checkBox2"
+        android:layout_toRightOf="@+id/checkBox"/>
+
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="T"
+        android:id="@+id/checkBox3"
+        android:layout_centerVertical="true"
+        android:layout_toRightOf="@+id/checkBox2"/>
+
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="W"
+        android:id="@+id/checkBox4"
+        android:layout_centerVertical="true"
+        android:layout_toRightOf="@+id/checkBox3"/>
+
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Th"
+        android:id="@+id/checkBox5"
+        android:layout_centerVertical="true"
+        android:layout_toRightOf="@+id/checkBox4"/>
+
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="F"
+        android:id="@+id/checkBox6"
+        android:layout_centerVertical="true"
+        android:layout_toRightOf="@+id/checkBox5"/>
+
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Sa"
+        android:id="@+id/checkBox7"
+        android:layout_centerVertical="true"
+        android:layout_toRightOf="@+id/checkBox6"
+        android:layout_alignEnd="@+id/checkBox6"/>
 
 </RelativeLayout>
