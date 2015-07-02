@@ -96,6 +96,20 @@
             android:id="@+id/spinner"
             android:visibility="visible"/>
 
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Set Time"
+                android:id="@+id/button"
+                android:layout_column="1"
+                android:layout_span="6"
+                android:onClick="onSetAlarmClick"/>
+        </TableRow>
+
     </TableLayout>
 
 </RelativeLayout>

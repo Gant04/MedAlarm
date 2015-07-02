@@ -109,4 +109,8 @@ public class AlarmActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    public void onSetAlarmClick(View view) {
+        //Intent intent = new Intent(view.getContext(), CreateAlarm.class);
+        //startActivity(intent);
+    }
 }
