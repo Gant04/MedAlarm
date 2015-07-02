@@ -8,10 +8,9 @@
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"
-        style="@style/ActionBar"
+        style="@style/ToolBar"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:background="@color/colorPrimary"
         android:elevation="4dp"/>
 
     <TableLayout

@@ -2,12 +2,15 @@
 
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+    <style name="AppTheme" parent="Theme.MedTheme">
+
         <!-- Customize your theme here. -->
     </style>
 
-    <style name="ActionBar" parent="MaterialDrawerTheme.Light.DarkToolbar.TranslucentStatus">
-        <item name="android:textColor">@color/md_white_1000</item>
+    <style name="ToolBar" parent="Theme.MedTheme">
+        <item name="android:background">@color/primary</item>
+        <item name="android:textColorPrimary">@color/icons</item>
+        <item name="android:textColorSecondary">@color/icons</item>
     </style>
 
 </resources>
