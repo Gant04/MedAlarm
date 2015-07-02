@@ -13,6 +13,7 @@ import android.content.Intent;
 
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.ToggleButton;
@@ -29,7 +30,6 @@ public class AlarmActivity extends AppCompatActivity {
     private TimePicker alarmTimePicker;
     private static AlarmActivity inst;
     private TextView alarmTextView;
-    private ToggleButton alarmToggle;
 
     public static AlarmActivity instance() {
         return inst;
@@ -48,14 +48,34 @@ public class AlarmActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar)findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        Button b = (Button) findViewById(R.id.actionButton);
+        b.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // TODO: GET FIELD DATA FROM TIME PICKER HERE.
+                alarmTimePicker = (TimePicker) findViewById(R.id.timePicker2);
+                Log.d("AlarmActivity", "Alarm On");
+                Calendar calendar = Calendar.getInstance();
+                Log.d("AlarmActivity", "Create new calendar");
+                calendar.set(Calendar.HOUR_OF_DAY, alarmTimePicker.getCurrentHour());
+                Log.d("AlarmActivity", "Set calendar HOURS");
+                calendar.set(Calendar.MINUTE, alarmTimePicker.getCurrentMinute());
+                Log.d("AlarmActivity", "Set calendar MINUTES");
+                Intent myIntent = new Intent(AlarmActivity.this, AlarmBroadcastReceiver.class);
+                Log.d("AlarmActivity", "Sending myIntent");
+                pendingIntent = PendingIntent.getBroadcast(AlarmActivity.this, 0, myIntent, 0);
+                Log.d("AlarmActivity", "Pending Intent");
+                alarmManager.set(AlarmManager.RTC, calendar.getTimeInMillis(), pendingIntent);
+                Log.d("AlarmActivity", "Alarm Manager set");
+            }
+        });
+
         if (toolbar != null) {
             setSupportActionBar(toolbar);
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
 
-//        alarmTimePicker = (TimePicker) findViewById(R.id.timePicker2);
         alarmTextView = (TextView) findViewById(R.id.text);
-//        alarmToggle = (ToggleButton) findViewById(R.id.toggleButton);
         alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
     }
 
