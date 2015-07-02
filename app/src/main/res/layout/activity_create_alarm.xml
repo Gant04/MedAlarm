@@ -11,7 +11,7 @@
         android:id="@+id/toolbar"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        style="@style/ToolBar" />
+        style="@style/AppTheme.ToolBar" />
 
     <FrameLayout
         android:layout_width="match_parent"

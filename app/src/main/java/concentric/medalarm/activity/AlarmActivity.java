@@ -1,6 +1,7 @@
 package concentric.medalarm.activity;
 
 import android.os.Bundle;
+import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -58,6 +59,7 @@ public class AlarmActivity extends AppCompatActivity {
         alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
     }
 
+
     public void onToggleClicked(View view) {
         Log.d("AlarmActivity", "On Toggle Clicked");
         if (((ToggleButton) view).isChecked()) {
@@ -99,18 +101,14 @@ public class AlarmActivity extends AppCompatActivity {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                Log.d("AlarmActivity", "onOptionsItemSelected nav up");
+                NavUtils.navigateUpFromSameTask(this);
+                return true;
         }
-
         return super.onOptionsItemSelected(item);
     }
 
-    public void onSetAlarmClick(View view) {
-        //Intent intent = new Intent(view.getContext(), CreateAlarm.class);
-        //startActivity(intent);
-    }
+
 }

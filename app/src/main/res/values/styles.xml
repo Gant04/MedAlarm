@@ -3,14 +3,20 @@
 
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.MedTheme">
-
         <!-- Customize your theme here. -->
     </style>
 
-    <style name="ToolBar" parent="Theme.MedTheme">
-        <item name="android:background">@color/primary</item>
-        <item name="android:textColorPrimary">@color/icons</item>
-        <item name="android:textColorSecondary">@color/icons</item>
+    <style name="AppTheme.ToolBar" parent="Theme.MedTheme">
+        <item name="android:textColorPrimary">@color/white</item>
+        <item name="android:textColorSecondary">@color/white</item>
+        <item name="android:textColor">@color/primary_text</item>
+        <item name="android:popupMenuStyle">@style/AppTheme.ToolBar.Popup</item>
+    </style>
+
+    <style name="AppTheme.ToolBar.Popup"
+           parent="Widget.AppCompat.Light.ListPopupWindow">
+        <item name="android:divider">@color/divider</item>
+        <item name="android:popupBackground">@color/white</item>
     </style>
 
 </resources>

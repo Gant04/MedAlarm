@@ -7,7 +7,7 @@
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="@dimen/abc_action_bar_default_height_material"
         android:elevation="4dp"
         android:layout_alignParentStart="false"
         android:layout_alignParentLeft="false"
@@ -15,7 +15,9 @@
         android:layout_alignParentRight="false"
         android:layout_toStartOf="@android:id/home"
         android:layout_toLeftOf="@android:id/home"
-        android:theme="@style/ToolBar"/>
+        android:theme="@style/AppTheme.ToolBar"
+        style="@style/AppTheme.ToolBar"
+        android:background="@color/primary"/>
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/actionButton"
@@ -28,7 +30,9 @@
         android:layout_alignParentEnd="true"
         android:layout_marginRight="5dp"
         android:layout_marginEnd="5dp"
-        android:onClick="onClickActionButton"/>
+        app:elevation="@dimen/fab_button_elevation"
+        android:cropToPadding="false"
+        android:focusable="false"/>
 
     <ListView
         android:layout_width="wrap_content"
