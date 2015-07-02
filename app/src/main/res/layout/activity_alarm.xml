@@ -31,14 +31,23 @@
             android:layout_below="@+id/toolbar"
             android:layout_marginBottom="5dp"/>
 
+        <TimePicker
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/timePicker2"
+            android:layout_below="@+id/editText"
+            android:layout_centerHorizontal="true"
+            android:layout_alignParentEnd="false"/>
+
         <TableLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/editText"
+            android:layout_below="@+id/timePicker2"
             android:id="@+id/dayTable"
             android:layout_centerHorizontal="true"
             android:stretchColumns="1,2,3,4,5,6,7"
-            android:shrinkColumns="0">
+            android:shrinkColumns="0"
+            android:visibility="gone">
 
             <TableRow
                 android:layout_width="match_parent"
@@ -180,12 +189,6 @@
             android:onClick="onSetAlarmClick"
             android:layout_below="@+id/dayTable"/>
 
-        <Spinner
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/spinner"
-            android:visibility="visible"
-            android:layout_below="@+id/button"/>
     </RelativeLayout>
 
 </RelativeLayout>
