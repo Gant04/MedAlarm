@@ -30,4 +30,5 @@
     <string name="checkBox_Thursday">Th</string>
     <string name="checkBox_Friday">F</string>
     <string name="checkBox_Saturday">Sa</string>
+    <string name="setTime">Set Time</string>
 </resources>
