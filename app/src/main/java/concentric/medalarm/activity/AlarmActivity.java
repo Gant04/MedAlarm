@@ -146,12 +146,12 @@ public class AlarmActivity extends AppCompatActivity {
         final View cancelButton = findViewById(R.id.actionCancel);
 
         ObjectAnimator createAnimator;
-        createAnimator = ObjectAnimator.ofFloat(createButton, "translationY", -150);
+        createAnimator = ObjectAnimator.ofFloat(createButton, "translationY", -165);
         createAnimator.setInterpolator(new DecelerateInterpolator());
         createAnimator.setRepeatCount(0);
         createAnimator.setDuration(500);
 
-        final ObjectAnimator cancelAnimator = ObjectAnimator.ofFloat(cancelButton, "translationY", -150);
+        final ObjectAnimator cancelAnimator = ObjectAnimator.ofFloat(cancelButton, "translationY", -300);
         cancelAnimator.setInterpolator(new DecelerateInterpolator());
         cancelAnimator.setRepeatCount(0);
         cancelAnimator.setDuration(500);
@@ -164,6 +164,7 @@ public class AlarmActivity extends AppCompatActivity {
 
             @Override
             public void onAnimationEnd(Animator animation) {
+                cancelButton.setVisibility(View.VISIBLE);
                 cancelAnimator.start();
             }
 
@@ -183,7 +184,6 @@ public class AlarmActivity extends AppCompatActivity {
 
         if (!menuClicked) {
             createButton.setVisibility(View.VISIBLE);
-            cancelButton.setVisibility(View.VISIBLE);
             createAnimator.start();
             // runOnUiThread(createAlarmButton);
             //runOnUiThread(createCancelButton);

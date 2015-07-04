@@ -1,5 +1,7 @@
 package concentric.medalarm.activity;
 
+import android.animation.AnimatorSet;
+import android.animation.ObjectAnimator;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -7,6 +9,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.animation.DecelerateInterpolator;
 
 import concentric.medalarm.R;
 import concentric.medalarm.models.DBHelper;
@@ -14,8 +17,8 @@ import concentric.medalarm.models.DBHelper;
 
 public class MainActivity extends AppCompatActivity {
 
-    private boolean menuClicked = false;
     private boolean alarmSelected = true;
+    private boolean menuClicked = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,64 +53,73 @@ public class MainActivity extends AppCompatActivity {
         result.isDrawerOpen();*/
     }
 
-    /**
-     * @param v the view.
-     */
-    public void onClickActionCreateAlarm(View v) {
-
-        Intent intent = new Intent(v.getContext(), AlarmActivity.class);
-        startActivity(intent);
-    }
-
     public void onClickActionMenu(View view) {
+
+        int translationA = -165;
+        int translationB = -135;
+
+        if (menuClicked) {
+            translationA = 0;
+            translationB = 0;
+        }
 
         final View createButton = findViewById(R.id.actionCreate);
         final View deleteButton = findViewById(R.id.actionDelete);
+        final View editButton = findViewById(R.id.actionEdit);
 
-        Thread createAlarmButton = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                createButton.setVisibility(View.VISIBLE);
-                createButton.setAlpha((float) 0);
-                createButton.setTranslationY(150);
-                createButton.animate().translationY(0).alpha(1).setDuration(500).start();
-                menuClicked = true;
-            }
-        });
+        ObjectAnimator createAnimator = ObjectAnimator.ofFloat(createButton, "translationY", translationA);
+        createAnimator.setInterpolator(new DecelerateInterpolator());
+        createAnimator.setRepeatCount(0);
+        createAnimator.setDuration(500);
 
-        Thread createDeleteButton = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                deleteButton.setVisibility(View.VISIBLE);
-                deleteButton.setAlpha(0);
-                deleteButton.setTranslationY(300);
-                deleteButton.animate().translationY(0).alpha(1).setDuration(750).start();
-            }
-        });
+        ObjectAnimator deleteAnimator = ObjectAnimator.ofFloat(deleteButton, "translationX", translationA);
+        deleteAnimator.setInterpolator(new DecelerateInterpolator());
+        deleteAnimator.setRepeatCount(0);
+        deleteAnimator.setDuration(500);
+        deleteAnimator.setStartDelay(100);
 
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.KITKAT) {
-            if (!menuClicked) {
-                runOnUiThread(createAlarmButton);
-                if (alarmSelected) {
-                    runOnUiThread(createDeleteButton);
-                }
+        ObjectAnimator editAnimator1 = ObjectAnimator.ofFloat(editButton, "translationX", translationB);
+        editAnimator1.setInterpolator(new DecelerateInterpolator());
+        editAnimator1.setRepeatCount(0);
+        editAnimator1.setDuration(500);
 
-            } else {
-                deleteButton.setVisibility(View.GONE);
-                createButton.setVisibility(View.GONE);
-                menuClicked = false;
-            }
-        } else {
-            View delete = findViewById(R.id.actionDelete);
-            View create = findViewById(R.id.actionCreate);
-            if (alarmSelected) {
-                delete.setVisibility(View.VISIBLE);
-            }
-            create.setVisibility(View.VISIBLE);
+        ObjectAnimator editAnimator2 = ObjectAnimator.ofFloat(editButton, "translationY", translationB);
+        editAnimator2.setInterpolator(new DecelerateInterpolator());
+        editAnimator2.setRepeatCount(0);
+        editAnimator2.setDuration(500);
+
+        createButton.setVisibility(View.VISIBLE);
+
+        if (alarmSelected) {
+            deleteButton.setVisibility(View.VISIBLE);
+            editButton.setVisibility(View.VISIBLE);
         }
+
+        AnimatorSet editGroup = new AnimatorSet();
+        editGroup.play(editAnimator1).with(editAnimator2);
+
+        AnimatorSet buttonGroup = new AnimatorSet();
+        buttonGroup.play(createAnimator).before(deleteAnimator);
+        buttonGroup.play(deleteAnimator).before(editGroup);
+        buttonGroup.start();
+
+        menuClicked = !menuClicked;
+
     }
 
     public void onClickActionDeleteAlarm(View view) {
+
+    }
+
+    public void onClickActionEditAlarm(View view) {
+
+    }
+
+    public void onClickActionCreateAlarm(View v) {
+        onClickActionMenu(v);
+        Intent intent = new Intent(v.getContext(), AlarmActivity.class);
+        startActivity(intent);
+
 
     }
 
@@ -132,6 +144,4 @@ public class MainActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
-
-
 }
