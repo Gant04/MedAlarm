@@ -196,19 +196,6 @@
     </RelativeLayout>
 
     <!-- THIS IS THE MENU BUTTON -->
-    <android.support.design.widget.FloatingActionButton xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/actionMenu"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:layout_margin="20dp"
-        android:onClick="onClickActionMenu"
-        android:src="@drawable/ic_menu_white_48dp"
-        app:borderWidth="0dp"
-        app:elevation="@dimen/fab_button_elevation"
-        app:pressedTranslationZ="@dimen/fab_translation_z_pressed"
-        app:rippleColor="@color/colorPrimaryDark" />
 
     <!-- THIS IS THE SAVE/CONFIRM BUTTON -->
     <android.support.design.widget.FloatingActionButton xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -228,7 +215,6 @@
         app:pressedTranslationZ="@dimen/fab_translation_z_pressed"
         app:rippleColor="@color/colorPrimaryDark" />
 
-    <!-- THIS IS THE CANCEL BUTTON -->
     <android.support.design.widget.FloatingActionButton xmlns:app="http://schemas.android.com/apk/res-auto"
         android:id="@+id/actionCancel"
         android:layout_width="40dp"
@@ -241,6 +227,22 @@
         android:onClick="onClickCancelChanges"
         android:visibility="gone"
         app:backgroundTint="#FF4719"
+        app:borderWidth="0dp"
+        app:elevation="@dimen/fab_button_elevation"
+        app:pressedTranslationZ="@dimen/fab_translation_z_pressed"
+        app:rippleColor="@color/colorPrimaryDark" />
+
+    <!-- THIS IS THE CANCEL BUTTON -->
+
+    <android.support.design.widget.FloatingActionButton xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/actionMenu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_margin="20dp"
+        android:onClick="onClickActionMenu"
+        android:src="@drawable/ic_menu_white_48dp"
         app:borderWidth="0dp"
         app:elevation="@dimen/fab_button_elevation"
         app:pressedTranslationZ="@dimen/fab_translation_z_pressed"

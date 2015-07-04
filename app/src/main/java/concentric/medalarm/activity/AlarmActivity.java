@@ -1,6 +1,6 @@
 package concentric.medalarm.activity;
 
-import android.animation.Animator;
+import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.app.AlarmManager;
 import android.app.PendingIntent;
@@ -142,56 +142,34 @@ public class AlarmActivity extends AppCompatActivity {
 
     public void onClickActionMenu(View view) {
 
+        int translation = -165;
+
+        if (menuClicked) {
+            translation = 0;
+        }
+
         final View createButton = findViewById(R.id.actionConfirm);
         final View cancelButton = findViewById(R.id.actionCancel);
 
         ObjectAnimator createAnimator;
-        createAnimator = ObjectAnimator.ofFloat(createButton, "translationY", -165);
+        createAnimator = ObjectAnimator.ofFloat(createButton, "translationY", translation);
         createAnimator.setInterpolator(new DecelerateInterpolator());
         createAnimator.setRepeatCount(0);
         createAnimator.setDuration(500);
 
-        final ObjectAnimator cancelAnimator = ObjectAnimator.ofFloat(cancelButton, "translationY", -300);
+        final ObjectAnimator cancelAnimator = ObjectAnimator.ofFloat(cancelButton, "translationX", translation);
         cancelAnimator.setInterpolator(new DecelerateInterpolator());
         cancelAnimator.setRepeatCount(0);
         cancelAnimator.setDuration(500);
 
-        Animator.AnimatorListener listener = new Animator.AnimatorListener() {
-            @Override
-            public void onAnimationStart(Animator animation) {
+        createButton.setVisibility(View.VISIBLE);
+        cancelButton.setVisibility(View.VISIBLE);
 
-            }
+        AnimatorSet buttonGroup = new AnimatorSet();
+        buttonGroup.play(createAnimator).before(cancelAnimator);
+        buttonGroup.start();
 
-            @Override
-            public void onAnimationEnd(Animator animation) {
-                cancelButton.setVisibility(View.VISIBLE);
-                cancelAnimator.start();
-            }
-
-            @Override
-            public void onAnimationCancel(Animator animation) {
-
-            }
-
-            @Override
-            public void onAnimationRepeat(Animator animation) {
-
-            }
-        };
-
-        createAnimator.addListener(listener);
-
-
-        if (!menuClicked) {
-            createButton.setVisibility(View.VISIBLE);
-            createAnimator.start();
-            // runOnUiThread(createAlarmButton);
-            //runOnUiThread(createCancelButton);
-        } else {
-            createButton.setVisibility(View.GONE);
-            cancelButton.setVisibility(View.GONE);
-            menuClicked = false;
-        }
+        menuClicked = !menuClicked;
     }
 
     public void onClickCreateAlarm(View view) {
