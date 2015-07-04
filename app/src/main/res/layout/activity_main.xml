@@ -6,18 +6,18 @@
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"
+        style="@style/AppTheme.ToolBar"
         android:layout_width="fill_parent"
         android:layout_height="@dimen/abc_action_bar_default_height_material"
-        android:elevation="4dp"
-        android:layout_alignParentStart="false"
-        android:layout_alignParentLeft="false"
         android:layout_alignParentEnd="false"
+        android:layout_alignParentLeft="false"
         android:layout_alignParentRight="false"
-        android:layout_toStartOf="@android:id/home"
+        android:layout_alignParentStart="false"
         android:layout_toLeftOf="@android:id/home"
-        android:theme="@style/AppTheme.ToolBar"
-        style="@style/AppTheme.ToolBar"
-        android:background="@color/primary"/>
+        android:layout_toStartOf="@android:id/home"
+        android:background="@color/primary"
+        android:elevation="4dp"
+        android:theme="@style/AppTheme.ToolBar" />
 
     <!-- THIS IS THE MENU BUTTON -->
     <android.support.design.widget.FloatingActionButton
@@ -28,57 +28,57 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
         android:layout_margin="20dp"
+        android:onClick="onClickActionMenu"
         android:src="@drawable/ic_menu_white_48dp"
+        app:borderWidth="0dp"
         app:elevation="@dimen/fab_button_elevation"
         app:pressedTranslationZ="@dimen/fab_translation_z_pressed"
-        app:borderWidth="0dp"
-        app:rippleColor="@color/colorPrimaryDark"
-        android:onClick="onClickActionMenu"/>
+        app:rippleColor="@color/colorPrimaryDark" />
 
     <!-- THIS IS THE CREATE BUTTON -->
     <android.support.design.widget.FloatingActionButton
-        android:visibility="gone"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:id="@+id/actionCreate"
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
+        android:layout_marginBottom="82dp"
+        android:layout_marginRight="28dp"
         android:background="@drawable/ic_add_alert_white_48dp"
+        android:onClick="onClickActionCreateAlarm"
+        android:visibility="gone"
+        app:backgroundTint="#6CDA6C"
+        app:borderWidth="0dp"
         app:elevation="@dimen/fab_button_elevation"
         app:pressedTranslationZ="@dimen/fab_translation_z_pressed"
-        app:borderWidth="0dp"
-        app:rippleColor="@color/colorPrimaryDark"
-        android:onClick="onClickActionCreateAlarm"
-        android:layout_marginRight="28dp"
-        android:layout_marginBottom="82dp"
-        app:backgroundTint="#6CDA6C" />
+        app:rippleColor="@color/colorPrimaryDark" />
 
     <!-- THIS IS THE DELETE BUTTON -->
     <android.support.design.widget.FloatingActionButton
-        android:visibility="gone"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:id="@+id/actionDelete"
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
+        android:layout_marginBottom="124dp"
+        android:layout_marginRight="28dp"
         android:background="@drawable/ic_cancel_white_48dp"
+        android:onClick="onClickActionDeleteAlarm"
+        android:visibility="gone"
+        app:backgroundTint="#FF4719"
+        app:borderWidth="0dp"
         app:elevation="@dimen/fab_button_elevation"
         app:pressedTranslationZ="@dimen/fab_translation_z_pressed"
-        app:borderWidth="0dp"
-        app:rippleColor="@color/colorPrimaryDark"
-        android:onClick="onClickActionDeleteAlarm"
-        android:layout_marginRight="28dp"
-        android:layout_marginBottom="124dp"
-        app:backgroundTint="#FF4719"/>
+        app:rippleColor="@color/colorPrimaryDark" />
 
     <ListView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:id="@+id/listView"
-        android:layout_below="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"/>
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/toolbar" />
 
 </RelativeLayout>

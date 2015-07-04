@@ -8,12 +8,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
-import com.mikepenz.materialdrawer.Drawer;
-import com.mikepenz.materialdrawer.DrawerBuilder;
-import com.mikepenz.materialdrawer.model.DividerDrawerItem;
-import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
-import com.mikepenz.materialdrawer.model.SecondaryDrawerItem;
-
 import concentric.medalarm.R;
 import concentric.medalarm.models.DBHelper;
 
@@ -31,7 +25,7 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        Drawer result = new DrawerBuilder()
+/*        Drawer result = new DrawerBuilder()
                 .withActivity(this)
                 .withToolbar(toolbar)
                 .addDrawerItems(
@@ -39,13 +33,13 @@ public class MainActivity extends AppCompatActivity {
                         new DividerDrawerItem(),
                         new SecondaryDrawerItem().withName("Second Item")
                 )
-                /*
+                *//*
                 .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
                     @Override
                     public boolean onItemClick(AdapterView<?> parent, View view, int position, long id, IDrawerItem drawerItem) {
                         // do something with the clicked item :D
                     }
-                })*/
+                })*//*
                 .build();
 
 //use the result object to get different views of the drawer or modify it's data
@@ -53,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
         result.setSelectionByIdentifier(1);
         result.openDrawer();
         result.closeDrawer();
-        result.isDrawerOpen();
+        result.isDrawerOpen();*/
     }
 
     /**
