@@ -64,6 +64,7 @@ public class MainActivity extends AppCompatActivity {
      * @param v
      */
     public void onClickActionCreateAlarm(View v) {
+
         Intent intent = new Intent(v.getContext(), AlarmActivity.class);
         startActivity(intent);
     }
