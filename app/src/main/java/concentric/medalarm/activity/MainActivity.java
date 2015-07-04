@@ -7,7 +7,6 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ImageView;
 
 import com.mikepenz.materialdrawer.Drawer;
 import com.mikepenz.materialdrawer.DrawerBuilder;
@@ -31,8 +30,6 @@ public class MainActivity extends AppCompatActivity {
         DBHelper.getInstance(this);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-        ImageView imageView = (ImageView) findViewById(R.drawable.web_hi_res_512);
 
         Drawer result = new DrawerBuilder()
                 .withActivity(this)
@@ -61,7 +58,7 @@ public class MainActivity extends AppCompatActivity {
 
     /**
      *
-     * @param v
+     * @param v the view.
      */
     public void onClickActionCreateAlarm(View v) {
 
