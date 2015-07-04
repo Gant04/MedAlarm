@@ -31,14 +31,6 @@
             android:layout_below="@+id/toolbar"
             android:layout_marginBottom="5dp"/>
 
-        <TimePicker
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/timePicker2"
-            android:layout_below="@+id/editText"
-            android:layout_centerHorizontal="true"
-            android:layout_alignParentEnd="false"/>
-
         <TableLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -187,7 +179,39 @@
             android:text="@string/setTime"
             android:id="@+id/button"
             android:onClick="onSetAlarmClick"
-            android:layout_below="@+id/dayTable"/>
+            android:layout_below="@+id/editText"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true" />
+
+        <android.support.design.widget.FloatingActionButton
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/actionConfirm"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_margin="20dp"
+            android:src="@drawable/ic_add_alert_white_48dp"
+            app:elevation="@dimen/fab_button_elevation"
+            app:pressedTranslationZ="@dimen/fab_translation_z_pressed"
+            app:borderWidth="0dp"
+            app:rippleColor="@color/colorPrimaryLight"
+            android:onClick="onClickActionButton"/>
+
+        <android.support.design.widget.FloatingActionButton
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/actionCancel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_add_alert_white_48dp"
+            app:elevation="@dimen/fab_button_elevation"
+            app:pressedTranslationZ="@dimen/fab_translation_z_pressed"
+            app:borderWidth="0dp"
+            app:rippleColor="@color/colorPrimaryLight"
+            android:onClick="onClickActionButton"
+            android:layout_alignTop="@+id/actionConfirm"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
 
     </RelativeLayout>
 

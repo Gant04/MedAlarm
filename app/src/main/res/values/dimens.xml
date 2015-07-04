@@ -12,4 +12,10 @@
     <dimen name="fab_button_press_elevation">4dp</dimen>
     <dimen name="fab_button_margin_bottom">16dp</dimen>
     <dimen name="fab_button_margin_right">16dp</dimen>
+
+    <dimen name="fab_option_diameter">56dp</dimen>
+    <dimen name="fab_option_elevation">2dp</dimen>
+    <dimen name="fab_option_press_elevation">4dp</dimen>
+    <dimen name="fab_option_margin_bottom">16dp</dimen>
+    <dimen name="fab_option_margin_right">16dp</dimen>
 </resources>

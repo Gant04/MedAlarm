@@ -30,6 +30,9 @@ import concentric.medalarm.models.DBHelper;
 
 public class MainActivity extends AppCompatActivity {
 
+    private boolean menuClicked = true;
+    private boolean alarmSelected = true;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,15 +40,6 @@ public class MainActivity extends AppCompatActivity {
         DBHelper.getInstance(this);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-        FloatingActionButton b = (FloatingActionButton) findViewById(R.id.actionButton);
-        b.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(v.getContext(), AlarmActivity.class);
-                startActivity(intent);
-            }
-        });
 
         Drawer result = new DrawerBuilder()
                 .withActivity(this)
@@ -76,9 +70,62 @@ public class MainActivity extends AppCompatActivity {
      *
      * @param v
      */
-    public void onClickActionButton(View v) {
+    public void onClickActionCreateAlarm(View v) {
         Intent intent = new Intent(v.getContext(), AlarmActivity.class);
         startActivity(intent);
+    }
+
+    public void onClickActionMenu(View view) {
+
+        final View createButton = findViewById(R.id.actionCreate);
+        final View deleteButton = findViewById(R.id.actionDelete);
+
+        Thread createAlarmButton = new Thread( new Runnable() {
+            @Override
+            public void run() {
+                createButton.setVisibility(View.VISIBLE);
+                createButton.setAlpha((float) 0);
+                createButton.setTranslationY(150);
+                createButton.animate().translationY(0).alpha(1).setDuration(500).start();
+                menuClicked=false;
+            }
+        });
+
+        Thread createDeleteButton = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                deleteButton.setVisibility(View.VISIBLE);
+                deleteButton.setAlpha(0);
+                deleteButton.setTranslationY(300);
+                deleteButton.animate().translationY(0).alpha(1).setDuration(750).start();
+            }
+        });
+
+        if (menuClicked){
+            runOnUiThread(createAlarmButton);
+            try {
+                createAlarmButton.join();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+
+            if(alarmSelected){
+                runOnUiThread(createDeleteButton);
+                try {
+                    createDeleteButton.join();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+
+        } else {
+            deleteButton.setVisibility(View.GONE);
+            createButton.setVisibility(View.GONE);
+        }
+    }
+
+    public void onClickActionDeleteAlarm(View view) {
+
     }
 
     @Override
@@ -102,4 +149,6 @@ public class MainActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
+
 }

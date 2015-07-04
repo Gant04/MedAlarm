@@ -19,19 +19,59 @@
         style="@style/AppTheme.ToolBar"
         android:background="@color/primary"/>
 
+    <!-- THIS IS THE MENU BUTTON -->
     <android.support.design.widget.FloatingActionButton
         xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/actionButton"
+        android:id="@+id/actionMenu"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
         android:layout_margin="20dp"
-        android:src="@drawable/ic_add_alert_white_48dp"
+        android:src="@drawable/ic_menu_white_48dp"
         app:elevation="@dimen/fab_button_elevation"
         app:pressedTranslationZ="@dimen/fab_translation_z_pressed"
         app:borderWidth="0dp"
-        app:rippleColor="@color/colorPrimaryLight"/>
+        app:rippleColor="@color/colorPrimaryDark"
+        android:onClick="onClickActionMenu"/>
+
+    <!-- THIS IS THE CREATE BUTTON -->
+    <android.support.design.widget.FloatingActionButton
+        android:visibility="gone"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/actionCreate"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:background="@drawable/ic_add_alert_white_48dp"
+        app:elevation="@dimen/fab_button_elevation"
+        app:pressedTranslationZ="@dimen/fab_translation_z_pressed"
+        app:borderWidth="0dp"
+        app:rippleColor="@color/colorPrimaryDark"
+        android:onClick="onClickActionCreateAlarm"
+        android:layout_marginRight="28dp"
+        android:layout_marginBottom="82dp"
+        app:backgroundTint="#6CDA6C" />
+
+    <!-- THIS IS THE DELETE BUTTON -->
+    <android.support.design.widget.FloatingActionButton
+        android:visibility="gone"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/actionDelete"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:background="@drawable/ic_cancel_white_48dp"
+        app:elevation="@dimen/fab_button_elevation"
+        app:pressedTranslationZ="@dimen/fab_translation_z_pressed"
+        app:borderWidth="0dp"
+        app:rippleColor="@color/colorPrimaryDark"
+        android:onClick="onClickActionDeleteAlarm"
+        android:layout_marginRight="28dp"
+        android:layout_marginBottom="124dp"
+        app:backgroundTint="#FF4719"/>
 
     <ListView
         android:layout_width="wrap_content"

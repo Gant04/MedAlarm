@@ -48,7 +48,7 @@ public class AlarmActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar)findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        Button b = (Button) findViewById(R.id.actionButton);
+/*        Button b = (Button) findViewById(R.id.actionButton);
         b.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -68,7 +68,7 @@ public class AlarmActivity extends AppCompatActivity {
                 alarmManager.set(AlarmManager.RTC, calendar.getTimeInMillis(), pendingIntent);
                 Log.d("AlarmActivity", "Alarm Manager set");
             }
-        });
+        });*/
 
         if (toolbar != null) {
             setSupportActionBar(toolbar);
