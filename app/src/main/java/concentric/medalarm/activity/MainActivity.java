@@ -1,36 +1,27 @@
 package concentric.medalarm.activity;
 
-import android.app.ActionBar;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.Button;
-import android.widget.ImageButton;
+import android.widget.ImageView;
 
 import com.mikepenz.materialdrawer.Drawer;
 import com.mikepenz.materialdrawer.DrawerBuilder;
 import com.mikepenz.materialdrawer.model.DividerDrawerItem;
 import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
 import com.mikepenz.materialdrawer.model.SecondaryDrawerItem;
-import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 
-import java.util.ArrayList;
-
-import concentric.medalarm.CreateAlarmTestClass;
 import concentric.medalarm.R;
-import concentric.medalarm.models.Alarm;
 import concentric.medalarm.models.DBHelper;
 
 
 public class MainActivity extends AppCompatActivity {
 
-    private boolean menuClicked = true;
+    private boolean menuClicked = false;
     private boolean alarmSelected = true;
 
     @Override
@@ -40,6 +31,8 @@ public class MainActivity extends AppCompatActivity {
         DBHelper.getInstance(this);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        ImageView imageView = (ImageView) findViewById(R.raw.pill);
 
         Drawer result = new DrawerBuilder()
                 .withActivity(this)
@@ -87,7 +80,7 @@ public class MainActivity extends AppCompatActivity {
                 createButton.setAlpha((float) 0);
                 createButton.setTranslationY(150);
                 createButton.animate().translationY(0).alpha(1).setDuration(500).start();
-                menuClicked=false;
+                menuClicked = true;
             }
         });
 
@@ -101,14 +94,13 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        if (menuClicked){
+        if (!menuClicked) {
             runOnUiThread(createAlarmButton);
             try {
                 createAlarmButton.join();
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-
             if(alarmSelected){
                 runOnUiThread(createDeleteButton);
                 try {
@@ -121,6 +113,7 @@ public class MainActivity extends AppCompatActivity {
         } else {
             deleteButton.setVisibility(View.GONE);
             createButton.setVisibility(View.GONE);
+            menuClicked = false;
         }
     }
 

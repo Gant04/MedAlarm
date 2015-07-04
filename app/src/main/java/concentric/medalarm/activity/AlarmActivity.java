@@ -1,19 +1,19 @@
 package concentric.medalarm.activity;
 
-import android.os.Bundle;
-import android.support.v4.app.NavUtils;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
-import android.view.Menu;
-import android.view.MenuItem;
-
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Intent;
-
+import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
+import android.support.v4.app.NavUtils;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.ToggleButton;
@@ -21,15 +21,31 @@ import android.widget.ToggleButton;
 import java.util.Calendar;
 
 import concentric.medalarm.AlarmBroadcastReceiver;
+import concentric.medalarm.AlarmTimePickerDialogFragment;
 import concentric.medalarm.R;
 
 public class AlarmActivity extends AppCompatActivity {
 
+    private static AlarmActivity inst;
     AlarmManager alarmManager;
     private PendingIntent pendingIntent;
     private TimePicker alarmTimePicker;
-    private static AlarmActivity inst;
     private TextView alarmTextView;
+    private int hour;
+    private int minute;
+    private Handler timePickerHandler = new Handler() {
+        @Override
+        public void handleMessage(Message m) {
+            Bundle bundle = m.getData();
+            hour = bundle.getInt("set_hour");
+            minute = bundle.getInt("set_minute");
+
+            EditText editText = (EditText) findViewById(R.id.timeText);
+            editText.setText(hour + ":" + minute);
+
+
+        }
+    };
 
     public static AlarmActivity instance() {
         return inst;
@@ -131,4 +147,17 @@ public class AlarmActivity extends AppCompatActivity {
     }
 
 
+    public void onSetAlarmTime(View view) {
+        Bundle bundle = new Bundle();
+        bundle.putInt("set_hour", hour);
+        bundle.putInt("set_minute", minute);
+
+        AlarmTimePickerDialogFragment timePickerDialogFragment = new AlarmTimePickerDialogFragment();
+        timePickerDialogFragment.setHandler(timePickerHandler);
+        timePickerDialogFragment.setArguments(bundle);
+        android.support.v4.app.FragmentManager fragmentManager = getSupportFragmentManager();
+        android.support.v4.app.FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.add(timePickerDialogFragment, "time_picker");
+        fragmentTransaction.commit();
+    }
 }

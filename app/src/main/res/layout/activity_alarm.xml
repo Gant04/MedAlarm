@@ -1,20 +1,17 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                xmlns:app="http://schemas.android.com/apk/res-auto"
-                android:layout_width="match_parent"
+    android:layout_width="match_parent"
                 android:layout_height="match_parent"
     >
 
-    <android.support.v7.widget.Toolbar
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
+    <android.support.v7.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/toolbar"
         style="@style/AppTheme.ToolBar"
-        android:theme="@style/AppTheme.ToolBar"
         android:layout_width="fill_parent"
         android:layout_height="@dimen/abc_action_bar_default_height_material"
+        android:background="@color/primary"
         android:elevation="4dp"
-        android:transitionGroup="false"
-        android:background="@color/primary"/>
+        android:theme="@style/AppTheme.ToolBar"
+        android:transitionGroup="false" />
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -23,195 +20,178 @@
         android:padding="15dp">
 
         <EditText
+            android:id="@+id/editText"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/medName"
-            android:textAlignment="center"
-            android:id="@+id/editText"
             android:layout_below="@+id/toolbar"
-            android:layout_marginBottom="5dp"/>
+            android:layout_marginBottom="5dp"
+            android:hint="@string/medName"
+            android:textAlignment="center" />
 
-        <TableLayout
+        <EditText
+            android:id="@+id/timeText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/timePicker2"
+            android:layout_alignEnd="@+id/editText"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignRight="@+id/editText"
+            android:layout_below="@+id/editText"
+            android:editable="false"
+            android:ems="10"
+            android:hint="@string/alarmTimeUnset"
+            android:inputType="time" />
+
+        <Button
+            android:id="@+id/button"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/timeText"
+            android:onClick="onSetAlarmTime"
+            android:text="@string/setTime" />
+
+        <TableLayout
             android:id="@+id/dayTable"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
-            android:stretchColumns="1,2,3,4,5,6,7"
             android:shrinkColumns="0"
+            android:stretchColumns="1,2,3,4,5,6,7"
             android:visibility="gone">
 
             <TableRow
+                android:id="@+id/dayLabels"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:id="@+id/dayLabels">
+                android:layout_height="match_parent">
 
                 <TextView
+                    android:id="@+id/labelSunday"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/checkBox_Sunday"
-                    android:id="@+id/labelSunday"
                     android:layout_column="1"
                     android:layout_gravity="bottom|center_horizontal"
-                    android:labelFor="@+id/checkBox_Sunday"/>
+                    android:labelFor="@+id/checkBox_Sunday"
+                    android:text="@string/checkBox_Sunday" />
 
                 <TextView
+                    android:id="@+id/labelMonday"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/checkBox_Monday"
-                    android:id="@+id/labelMonday"
                     android:layout_column="2"
                     android:layout_gravity="bottom|center_horizontal"
-                    android:labelFor="@+id/checkBox_Monday"/>
+                    android:labelFor="@+id/checkBox_Monday"
+                    android:text="@string/checkBox_Monday" />
 
                 <TextView
+                    android:id="@+id/labelTuesday"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/checkBox_Tuesday"
-                    android:id="@+id/labelTuesday"
                     android:layout_column="3"
                     android:layout_gravity="bottom|center_horizontal"
-                    android:labelFor="@+id/checkBox_Tuesday"/>
+                    android:labelFor="@+id/checkBox_Tuesday"
+                    android:text="@string/checkBox_Tuesday" />
 
                 <TextView
+                    android:id="@+id/labelWednesday"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/checkBox_Wednesday"
-                    android:id="@+id/labelWednesday"
                     android:layout_column="4"
                     android:layout_gravity="bottom|center_horizontal"
-                    android:labelFor="@+id/checkBox_Wednesday"/>
+                    android:labelFor="@+id/checkBox_Wednesday"
+                    android:text="@string/checkBox_Wednesday" />
 
                 <TextView
+                    android:id="@+id/labelThursday"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/checkBox_Thursday"
-                    android:id="@+id/labelThursday"
                     android:layout_column="5"
                     android:layout_gravity="bottom|center_horizontal"
-                    android:labelFor="@+id/checkBox_Thursday"/>
+                    android:labelFor="@+id/checkBox_Thursday"
+                    android:text="@string/checkBox_Thursday" />
 
                 <TextView
+                    android:id="@+id/labelFriday"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/checkBox_Friday"
-                    android:id="@+id/labelFriday"
                     android:layout_column="6"
                     android:layout_gravity="bottom|center_horizontal"
-                    android:textAlignment="gravity"
-                    android:labelFor="@+id/checkBox_Friday"/>
+                    android:labelFor="@+id/checkBox_Friday"
+                    android:text="@string/checkBox_Friday"
+                    android:textAlignment="gravity" />
 
                 <TextView
+                    android:id="@+id/labelSaturday"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/checkBox_Sunday"
-                    android:id="@+id/labelSaturday"
                     android:layout_column="7"
-                    android:textAlignment="gravity"
                     android:layout_gravity="bottom|center_horizontal"
-                    android:labelFor="@+id/checkBox_Saturday"/>
+                    android:labelFor="@+id/checkBox_Saturday"
+                    android:text="@string/checkBox_Sunday"
+                    android:textAlignment="gravity" />
             </TableRow>
 
             <TableRow
+                android:id="@+id/dayCheckboxes"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
                 android:baselineAligned="false"
-                android:id="@+id/dayCheckboxes">
+                android:orientation="horizontal">
 
 
                 <CheckBox
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
                     android:id="@+id/checkBox_Sunday"
-                    android:checked="false"
-                    android:layout_column="1"
-                    android:layout_gravity="top|center_horizontal"/>
-
-                <CheckBox
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_column="1"
+                    android:layout_gravity="top|center_horizontal"
+                    android:checked="false" />
+
+                <CheckBox
                     android:id="@+id/checkBox_Monday"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_column="2"
                     android:layout_gravity="top|center_horizontal"/>
 
                 <CheckBox
+                    android:id="@+id/checkBox_Tuesday"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@+id/checkBox_Tuesday"
                     android:layout_column="3"
                     android:layout_gravity="top|center_horizontal"/>
 
                 <CheckBox
+                    android:id="@+id/checkBox_Wednesday"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@+id/checkBox_Wednesday"
                     android:layout_column="4"
                     android:layout_gravity="top|center_horizontal"/>
 
                 <CheckBox
+                    android:id="@+id/checkBox_Thursday"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@+id/checkBox_Thursday"
                     android:layout_column="5"
                     android:layout_gravity="top|center_horizontal"/>
 
                 <CheckBox
+                    android:id="@+id/checkBox_Friday"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@+id/checkBox_Friday"
                     android:layout_column="6"
                     android:layout_gravity="top|center_horizontal"/>
 
                 <CheckBox
+                    android:id="@+id/checkBox_Saturday"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@+id/checkBox_Saturday"
                     android:layout_column="7"
                     android:layout_gravity="top|center_horizontal"/>
             </TableRow>
 
         </TableLayout>
-
-        <Button
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/setTime"
-            android:id="@+id/button"
-            android:onClick="onSetAlarmClick"
-            android:layout_below="@+id/editText"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true" />
-
-        <android.support.design.widget.FloatingActionButton
-            xmlns:app="http://schemas.android.com/apk/res-auto"
-            android:id="@+id/actionConfirm"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentRight="true"
-            android:layout_margin="20dp"
-            android:src="@drawable/ic_add_alert_white_48dp"
-            app:elevation="@dimen/fab_button_elevation"
-            app:pressedTranslationZ="@dimen/fab_translation_z_pressed"
-            app:borderWidth="0dp"
-            app:rippleColor="@color/colorPrimaryLight"
-            android:onClick="onClickActionButton"/>
-
-        <android.support.design.widget.FloatingActionButton
-            xmlns:app="http://schemas.android.com/apk/res-auto"
-            android:id="@+id/actionCancel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_add_alert_white_48dp"
-            app:elevation="@dimen/fab_button_elevation"
-            app:pressedTranslationZ="@dimen/fab_translation_z_pressed"
-            app:borderWidth="0dp"
-            app:rippleColor="@color/colorPrimaryLight"
-            android:onClick="onClickActionButton"
-            android:layout_alignTop="@+id/actionConfirm"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true" />
 
     </RelativeLayout>
 
