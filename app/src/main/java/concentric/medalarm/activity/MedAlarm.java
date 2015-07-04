@@ -46,6 +46,16 @@ public class MedAlarm extends Activity {
     private static final int HIDER_FLAGS = SystemUiHider.FLAG_HIDE_NAVIGATION;
     Handler mHideHandler = new Handler();
     /**
+     * The instance of the {@link SystemUiHider} for this activity.
+     */
+    private SystemUiHider mSystemUiHider;
+    Runnable mHideRunnable = new Runnable() {
+        @Override
+        public void run() {
+            mSystemUiHider.hide();
+        }
+    };
+    /**
      * Touch listener to use for in-layout UI controls to delay hiding the
      * system UI. This is to prevent the jarring behavior of controls going away
      * while interacting with activity UI.
@@ -57,16 +67,6 @@ public class MedAlarm extends Activity {
                 delayedHide(AUTO_HIDE_DELAY_MILLIS);
             }
             return false;
-        }
-    };
-    /**
-     * The instance of the {@link SystemUiHider} for this activity.
-     */
-    private SystemUiHider mSystemUiHider;
-    Runnable mHideRunnable = new Runnable() {
-        @Override
-        public void run() {
-            mSystemUiHider.hide();
         }
     };
 
@@ -144,8 +144,8 @@ public class MedAlarm extends Activity {
         logo.setImageResource(R.drawable.medalarm_logo);
 
         RotateAnimation rotateAnimation;
-        rotateAnimation = new RotateAnimation(0.0f, -10f * 360f, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
-        rotateAnimation.setDuration(2 * 1500);
+        rotateAnimation = new RotateAnimation(0.0f, -1f * 360f, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
+        rotateAnimation.setDuration(1 * 1000);
         rotateAnimation.setRepeatCount(0);
         rotateAnimation.setAnimationListener(new Animation.AnimationListener() {
             @Override
