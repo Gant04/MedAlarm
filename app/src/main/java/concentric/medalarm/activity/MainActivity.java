@@ -51,7 +51,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     *
      * @param v the view.
      */
     public void onClickActionCreateAlarm(View v) {
@@ -65,7 +64,7 @@ public class MainActivity extends AppCompatActivity {
         final View createButton = findViewById(R.id.actionCreate);
         final View deleteButton = findViewById(R.id.actionDelete);
 
-        Thread createAlarmButton = new Thread( new Runnable() {
+        Thread createAlarmButton = new Thread(new Runnable() {
             @Override
             public void run() {
                 createButton.setVisibility(View.VISIBLE);
@@ -86,26 +85,25 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        if (!menuClicked) {
-            runOnUiThread(createAlarmButton);
-            try {
-                createAlarmButton.join();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-            if(alarmSelected){
-                runOnUiThread(createDeleteButton);
-                try {
-                    createDeleteButton.join();
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.KITKAT) {
+            if (!menuClicked) {
+                runOnUiThread(createAlarmButton);
+                if (alarmSelected) {
+                    runOnUiThread(createDeleteButton);
                 }
-            }
 
+            } else {
+                deleteButton.setVisibility(View.GONE);
+                createButton.setVisibility(View.GONE);
+                menuClicked = false;
+            }
         } else {
-            deleteButton.setVisibility(View.GONE);
-            createButton.setVisibility(View.GONE);
-            menuClicked = false;
+            View delete = findViewById(R.id.actionDelete);
+            View create = findViewById(R.id.actionCreate);
+            if (alarmSelected) {
+                delete.setVisibility(View.VISIBLE);
+            }
+            create.setVisibility(View.VISIBLE);
         }
     }
 

@@ -1,5 +1,7 @@
 package concentric.medalarm.activity;
 
+import android.animation.Animator;
+import android.animation.ObjectAnimator;
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Intent;
@@ -13,6 +15,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.animation.DecelerateInterpolator;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.TimePicker;
@@ -28,6 +31,7 @@ public class AlarmActivity extends AppCompatActivity {
 
     private static AlarmActivity inst;
     AlarmManager alarmManager;
+    boolean menuClicked = false;
     private PendingIntent pendingIntent;
     private TimePicker alarmTimePicker;
     private TextView alarmTextView;
@@ -41,9 +45,14 @@ public class AlarmActivity extends AppCompatActivity {
             minute = bundle.getInt("set_minute");
 
             EditText editText = (EditText) findViewById(R.id.timeText);
-            editText.setText(hour + ":" + minute);
 
-
+            if (hour >= 12) {
+                editText.setText((hour - 12) + ":" + String.format("%02d", minute) + " PM");
+            } else if (hour == 0) {
+                editText.setText(12 + ":" + String.format("%02d", minute) + " AM");
+            } else {
+                editText.setText(hour + ":" + String.format("%02d", minute) + " AM");
+            }
         }
     };
 
@@ -63,36 +72,6 @@ public class AlarmActivity extends AppCompatActivity {
         setContentView(R.layout.activity_alarm);
         Toolbar toolbar = (Toolbar)findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-/*        Button b = (Button) findViewById(R.id.actionButton);
-        b.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // TODO: GET FIELD DATA FROM TIME PICKER HERE.
-                alarmTimePicker = (TimePicker) findViewById(R.id.timePicker2);
-                Log.d("AlarmActivity", "Alarm On");
-                Calendar calendar = Calendar.getInstance();
-                Log.d("AlarmActivity", "Create new calendar");
-                calendar.set(Calendar.HOUR_OF_DAY, alarmTimePicker.getCurrentHour());
-                Log.d("AlarmActivity", "Set calendar HOURS");
-                calendar.set(Calendar.MINUTE, alarmTimePicker.getCurrentMinute());
-                Log.d("AlarmActivity", "Set calendar MINUTES");
-                Intent myIntent = new Intent(AlarmActivity.this, AlarmBroadcastReceiver.class);
-                Log.d("AlarmActivity", "Sending myIntent");
-                pendingIntent = PendingIntent.getBroadcast(AlarmActivity.this, 0, myIntent, 0);
-                Log.d("AlarmActivity", "Pending Intent");
-                alarmManager.set(AlarmManager.RTC, calendar.getTimeInMillis(), pendingIntent);
-                Log.d("AlarmActivity", "Alarm Manager set");
-            }
-        });*/
-
-        if (toolbar != null) {
-            setSupportActionBar(toolbar);
-            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        }
-
-        alarmTextView = (TextView) findViewById(R.id.text);
-        alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
     }
 
 
@@ -159,5 +138,67 @@ public class AlarmActivity extends AppCompatActivity {
         android.support.v4.app.FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.add(timePickerDialogFragment, "time_picker");
         fragmentTransaction.commit();
+    }
+
+    public void onClickActionMenu(View view) {
+
+        final View createButton = findViewById(R.id.actionConfirm);
+        final View cancelButton = findViewById(R.id.actionCancel);
+
+        ObjectAnimator createAnimator;
+        createAnimator = ObjectAnimator.ofFloat(createButton, "translationY", -150);
+        createAnimator.setInterpolator(new DecelerateInterpolator());
+        createAnimator.setRepeatCount(0);
+        createAnimator.setDuration(500);
+
+        final ObjectAnimator cancelAnimator = ObjectAnimator.ofFloat(cancelButton, "translationY", -150);
+        cancelAnimator.setInterpolator(new DecelerateInterpolator());
+        cancelAnimator.setRepeatCount(0);
+        cancelAnimator.setDuration(500);
+
+        Animator.AnimatorListener listener = new Animator.AnimatorListener() {
+            @Override
+            public void onAnimationStart(Animator animation) {
+
+            }
+
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                cancelAnimator.start();
+            }
+
+            @Override
+            public void onAnimationCancel(Animator animation) {
+
+            }
+
+            @Override
+            public void onAnimationRepeat(Animator animation) {
+
+            }
+        };
+
+        createAnimator.addListener(listener);
+
+
+        if (!menuClicked) {
+            createButton.setVisibility(View.VISIBLE);
+            cancelButton.setVisibility(View.VISIBLE);
+            createAnimator.start();
+            // runOnUiThread(createAlarmButton);
+            //runOnUiThread(createCancelButton);
+        } else {
+            createButton.setVisibility(View.GONE);
+            cancelButton.setVisibility(View.GONE);
+            menuClicked = false;
+        }
+    }
+
+    public void onClickCreateAlarm(View view) {
+
+    }
+
+    public void onClickCancelChanges(View view) {
+        finish();
     }
 }
