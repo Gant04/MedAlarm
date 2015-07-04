@@ -71,7 +71,10 @@ public class AlarmActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_alarm);
         Toolbar toolbar = (Toolbar)findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+        if (toolbar != null) {
+            setSupportActionBar(toolbar);
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }
     }
 
 
@@ -179,4 +182,5 @@ public class AlarmActivity extends AppCompatActivity {
     public void onClickCancelChanges(View view) {
         finish();
     }
+
 }

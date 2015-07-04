@@ -70,23 +70,22 @@ public class MainActivity extends AppCompatActivity {
         ObjectAnimator createAnimator = ObjectAnimator.ofFloat(createButton, "translationY", translationA);
         createAnimator.setInterpolator(new DecelerateInterpolator());
         createAnimator.setRepeatCount(0);
-        createAnimator.setDuration(500);
+        createAnimator.setDuration(200);
 
         ObjectAnimator deleteAnimator = ObjectAnimator.ofFloat(deleteButton, "translationX", translationA);
         deleteAnimator.setInterpolator(new DecelerateInterpolator());
         deleteAnimator.setRepeatCount(0);
-        deleteAnimator.setDuration(500);
-        deleteAnimator.setStartDelay(100);
+        deleteAnimator.setDuration(200);
 
         ObjectAnimator editAnimator1 = ObjectAnimator.ofFloat(editButton, "translationX", translationB);
         editAnimator1.setInterpolator(new DecelerateInterpolator());
         editAnimator1.setRepeatCount(0);
-        editAnimator1.setDuration(500);
+        editAnimator1.setDuration(200);
 
         ObjectAnimator editAnimator2 = ObjectAnimator.ofFloat(editButton, "translationY", translationB);
         editAnimator2.setInterpolator(new DecelerateInterpolator());
         editAnimator2.setRepeatCount(0);
-        editAnimator2.setDuration(500);
+        editAnimator2.setDuration(200);
 
         createButton.setVisibility(View.VISIBLE);
 
