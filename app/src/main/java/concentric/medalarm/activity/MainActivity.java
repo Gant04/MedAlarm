@@ -32,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        ImageView imageView = (ImageView) findViewById(R.raw.pill);
+        ImageView imageView = (ImageView) findViewById(R.drawable.web_hi_res_512);
 
         Drawer result = new DrawerBuilder()
                 .withActivity(this)

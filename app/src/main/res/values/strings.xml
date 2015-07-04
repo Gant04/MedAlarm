@@ -32,4 +32,10 @@
     <string name="checkBox_Saturday">Sa</string>
     <string name="setTime">Set Time</string>
     <string name="alarmTimeUnset">Alarm time is unset.</string>
+
+    <string name="title_activity_med_alarm">MedAlarm</string>
+    <string name="dummy_button">Dummy Button</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
+    <string name="loadScreen">load screen</string>
+    <string name="Logo">logo</string>
 </resources>
