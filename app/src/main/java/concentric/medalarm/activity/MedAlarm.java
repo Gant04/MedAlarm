@@ -100,7 +100,7 @@ public class MedAlarm extends Activity {
         });
 
         ImageView icon = (ImageView) findViewById(R.id.fullscreen_content);
-        icon.setImageResource(R.drawable.web_hi_res_512);
+        icon.setImageResource(R.drawable.web_hi_res_512_pill);
 
         final ImageView logo = (ImageView) findViewById(R.id.imageView);
         logo.setImageResource(R.drawable.medalarm_logo);
