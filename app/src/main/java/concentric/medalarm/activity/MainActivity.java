@@ -236,7 +236,7 @@ public class MainActivity extends AppCompatActivity {
         float maxVolume = (float) audioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC);
         final float volume = actVolume / maxVolume;
 
-        /* TODO This should be placed in a different class*/
+        /* TODO This should be placed in a different class - here because fast and quick*/
         BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
             @Override
             public void onReceive(Context context, Intent intent) {
