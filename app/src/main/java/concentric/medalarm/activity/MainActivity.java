@@ -235,6 +235,7 @@ public class MainActivity extends AppCompatActivity {
         float maxVolume = (float) audioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC);
         final float volume = actVolume / maxVolume;
 
+        /* TODO This should be placed in a different class*/
         BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
             @Override
             public void onReceive(Context context, Intent intent) {
@@ -260,12 +261,12 @@ public class MainActivity extends AppCompatActivity {
             }
         };
 
-
         registerReceiver(broadcastReceiver, new IntentFilter("com.concentric.alarmIntent." + med));
         createAlarm(bundle);
     }
 
-    //here because beta ;p
+    /*
+    TODO This should be moved into a different class with the build and store method from above but its here because beta ;p */
     private void createAlarm(Bundle bundle) {
         final String med = bundle.getString("medicationName");
         Calendar calendar = Calendar.getInstance();
