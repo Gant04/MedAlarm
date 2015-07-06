@@ -285,7 +285,7 @@ public class MainActivity extends AppCompatActivity {
         Long longTime = longHours + longMinutes;
 
         //Calculate difference between current time and future time AKA difference
-
+        // TODO: Time is depreciated. Change to something else.
         Time time = new Time();
         time.setToNow();
 
