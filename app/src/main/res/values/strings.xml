@@ -40,4 +40,6 @@
     <string name="Logo">logo</string>
     <string name="setStartDate">Select Start Date</string>
     <string name="setEndDate">Select End Date</string>
+    <string name="repeatSelectorText">Repeat: </string>
+    <string name="weeklySelectorText">Repeat on: </string>
 </resources>

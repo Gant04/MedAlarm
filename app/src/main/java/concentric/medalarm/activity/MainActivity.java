@@ -58,14 +58,26 @@ public class MainActivity extends AppCompatActivity {
         int translationA = -165;
         int translationB = -135;
 
+        int rotationBegin = 0;
+        int rotationEnd = 45;
+
         if (menuClicked) {
             translationA = 0;
             translationB = 0;
+            int tmp = rotationBegin;
+            rotationBegin = rotationEnd;
+            rotationEnd = tmp;
         }
 
         final View createButton = findViewById(R.id.actionCreate);
         final View deleteButton = findViewById(R.id.actionDelete);
         final View editButton = findViewById(R.id.actionEdit);
+        final View menuButton = findViewById(R.id.actionMenu);
+
+        ObjectAnimator menuAnimator = ObjectAnimator.ofFloat(menuButton, "rotation", rotationBegin, rotationEnd * 3);
+        menuAnimator.setInterpolator(new DecelerateInterpolator());
+        menuAnimator.setRepeatCount(0);
+        menuAnimator.setDuration(200);
 
         ObjectAnimator createAnimator = ObjectAnimator.ofFloat(createButton, "translationY", translationA);
         createAnimator.setInterpolator(new DecelerateInterpolator());
@@ -98,6 +110,7 @@ public class MainActivity extends AppCompatActivity {
         editGroup.play(editAnimator1).with(editAnimator2);
 
         AnimatorSet buttonGroup = new AnimatorSet();
+        buttonGroup.play(menuAnimator).before(createAnimator);
         buttonGroup.play(createAnimator).before(deleteAnimator);
         buttonGroup.play(deleteAnimator).before(editGroup);
         buttonGroup.start();

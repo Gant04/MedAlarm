@@ -44,7 +44,8 @@ public class AlarmActivity extends AppCompatActivity {
     private int minute;
 
     private Spinner repeatSelection;
-    private Spinner biWeeklySelection;
+    private Spinner weeklySelection;
+    private boolean biWeekly = false;
 
     private Handler timePickerHandler = new Handler() {
         @Override
@@ -87,6 +88,7 @@ public class AlarmActivity extends AppCompatActivity {
 
         addItemsToRepeatSpinner();
         addListenerToRepeatSpinner();
+        addDaysToBiWeeklySpinner();
     }
 
 
@@ -141,7 +143,7 @@ public class AlarmActivity extends AppCompatActivity {
     }
 
 
-    private void onSetAlarmTime(View view) {
+    public void onSetAlarmTime(View view) {
         Bundle bundle = new Bundle();
         bundle.putInt("set_hour", hour);
         bundle.putInt("set_minute", minute);
@@ -158,13 +160,25 @@ public class AlarmActivity extends AppCompatActivity {
     public void onClickActionMenu(View view) {
 
         int translation = -165;
+        int rotationBegin = 0;
+        int rotationEnd = 45;
 
         if (menuClicked) {
             translation = 0;
+            int tmp = rotationBegin;
+            rotationBegin = rotationEnd;
+            rotationEnd = tmp;
         }
 
         final View createButton = findViewById(R.id.actionConfirm);
         final View cancelButton = findViewById(R.id.actionCancel);
+
+        final View menuButton = findViewById(R.id.actionMenu);
+
+        ObjectAnimator menuAnimator = ObjectAnimator.ofFloat(menuButton, "rotation", rotationBegin, rotationEnd * 3);
+        menuAnimator.setInterpolator(new DecelerateInterpolator());
+        menuAnimator.setRepeatCount(0);
+        menuAnimator.setDuration(200);
 
         ObjectAnimator createAnimator;
         createAnimator = ObjectAnimator.ofFloat(createButton, "translationY", translation);
@@ -181,6 +195,7 @@ public class AlarmActivity extends AppCompatActivity {
         cancelButton.setVisibility(View.VISIBLE);
 
         AnimatorSet buttonGroup = new AnimatorSet();
+        buttonGroup.play(menuAnimator).before(createAnimator);
         buttonGroup.play(createAnimator).before(cancelAnimator);
         buttonGroup.start();
 
@@ -188,14 +203,15 @@ public class AlarmActivity extends AppCompatActivity {
     }
 
     private void addItemsToRepeatSpinner() {
-        repeatSelection = (Spinner) findViewById(R.id.spinner);
+        repeatSelection = (Spinner) findViewById(R.id.RepeatSpinner);
         List<String> list = new ArrayList<>();
+        list.add("");
+        list.add("Daily");
+        list.add("Once Bi-Weekly");
+        list.add("Once a Week");
+        list.add("Once a Month");
 
-        list.add("Repeat Unselected");
-        list.add("Repeat Daily");
-        list.add("Repeat Bi-Weekly");
-        list.add("Repeat Weekly");
-        list.add("Repeat Once Monthly");
+        repeatSelection.setPrompt("Select Alarm Repeat Type");
 
         ArrayAdapter<String> listAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, list);
         listAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -203,9 +219,10 @@ public class AlarmActivity extends AppCompatActivity {
     }
 
     private void addDaysToBiWeeklySpinner() {
-        biWeeklySelection = (Spinner) findViewById(R.id.spinner2);
+        weeklySelection = (Spinner) findViewById(R.id.weeklySpinner);
 
         List<String> list = new ArrayList<>();
+        list.add("");
         list.add("Sunday");
         list.add("Monday");
         list.add("Tuesday");
@@ -214,16 +231,24 @@ public class AlarmActivity extends AppCompatActivity {
         list.add("Friday");
         list.add("Saturday");
 
+        weeklySelection.setPrompt("Select Day to Repeat");
+
+        ArrayAdapter<String> listAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, list);
+        listAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        weeklySelection.setAdapter(listAdapter);
     }
 
     private void addListenerToRepeatSpinner() {
-        repeatSelection = (Spinner) findViewById(R.id.spinner);
+        repeatSelection = (Spinner) findViewById(R.id.RepeatSpinner);
         repeatSelection.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 View dayTable = findViewById(R.id.dayTable);
+                View weeklySelectorLayout = findViewById(R.id.weeklySelectorLayout);
+                weeklySelectorLayout.setVisibility(View.GONE);
                 dayTable.setVisibility(View.GONE);
+                biWeekly = false;
                 //Toast.makeText(AlarmActivity.this, "OnItemSelectedListener : " + parent.getItemAtPosition(position).toString(),Toast.LENGTH_SHORT).show();
 
                 String selection = parent.getItemAtPosition(position).toString();
@@ -235,12 +260,26 @@ public class AlarmActivity extends AppCompatActivity {
 //                list.add("Repeat Once Monthly");
 
                 switch (selection) {
-                    case "Repeat Unselected":
+                    case "":
                         break;
-                    case "Repeat Daily": {
+                    case "Daily": {
                         dayTable.setVisibility(View.VISIBLE);
                         break;
                     }
+                    case "Bi-Weekly": {
+                        weeklySelectorLayout.setVisibility(View.VISIBLE);
+                        biWeekly = true;
+                        break;
+                    }
+                    case "Weekly": {
+                        weeklySelectorLayout.setVisibility(View.VISIBLE);
+                    }
+
+                    case "Once Monthly": {
+
+                    }
+
+
                     default:
                         break;
 
