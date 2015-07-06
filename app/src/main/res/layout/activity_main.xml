@@ -89,6 +89,7 @@
         android:layout_alignParentRight="true"
         android:layout_alignWithParentIfMissing="false"
         android:layout_margin="20dp"
+        android:longClickable="true"
         android:onClick="onClickActionMenu"
         android:src="@drawable/ic_add_white_48dp"
         app:borderWidth="0dp"

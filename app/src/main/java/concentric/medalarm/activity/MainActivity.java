@@ -55,6 +55,17 @@ public class MainActivity extends AppCompatActivity {
         listAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_activated_1, medList);
         alarmList.setAdapter(listAdapter);
 
+        final View menuButton = findViewById(R.id.actionMenu);
+
+        //Theres no where else for this to go. SINCE THERE IS NO onLongClick in xml.
+        menuButton.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                alarmSelected = !alarmSelected;
+                return true;
+            }
+        });
+
 /*        Drawer result = new DrawerBuilder()
                 .withActivity(this)
                 .withToolbar(toolbar)
@@ -128,10 +139,9 @@ public class MainActivity extends AppCompatActivity {
 
         createButton.setVisibility(View.VISIBLE);
 
-        if (alarmList.isSelected()) {
+        if (alarmSelected) {
             deleteButton.setVisibility(View.VISIBLE);
             editButton.setVisibility(View.VISIBLE);
-            createButton.setVisibility(View.GONE);
         }
 
         AnimatorSet editGroup = new AnimatorSet();
@@ -142,6 +152,11 @@ public class MainActivity extends AppCompatActivity {
         buttonGroup.play(createAnimator).before(deleteAnimator);
         buttonGroup.play(deleteAnimator).before(editGroup);
         buttonGroup.start();
+
+        if (!alarmSelected) {
+            deleteButton.setVisibility(View.GONE);
+            editButton.setVisibility(View.GONE);
+        }
 
         menuClicked = !menuClicked;
 
@@ -156,6 +171,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void onClickActionCreateAlarm(View v) {
+
         Intent intent = new Intent(v.getContext(), AlarmActivity.class);
         startActivityForResult(intent, createAlarmRequestCode);
         onClickActionMenu(v);
