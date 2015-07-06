@@ -209,6 +209,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    //TODO Move buildAndStoreAndDisplay into its own class. Somehow, eventually.
     private void buildStoreAndDisplayAlarm(final Bundle bundle) {
         alarmList.clearChoices();
         final String med = bundle.getString("medicationName");
@@ -241,7 +242,7 @@ public class MainActivity extends AppCompatActivity {
             public void onReceive(Context context, Intent intent) {
                 Toast.makeText(context, "Alarm: " + med + " is going off.", Toast.LENGTH_LONG).show();
 
-                //Broken attempt at an alarm sound.
+                //TODO fix this broken attempt at an alarm sound player.
                 SoundPool.Builder soundPoolBuilder = new SoundPool.Builder();
                 soundPoolBuilder.setMaxStreams(10);
                 SoundPool soundPool = soundPoolBuilder.build();
