@@ -35,26 +35,16 @@ import concentric.medalarm.R;
 public class AlarmActivity extends AppCompatActivity {
 
     private static AlarmActivity inst;
-    AlarmManager alarmManager;
-    boolean menuClicked = false;
-    private PendingIntent pendingIntent;
-    private TimePicker alarmTimePicker;
-    private TextView alarmMedicationName;
-    private int hour;
-    private int minute;
-
-    private Spinner repeatSelection;
-    private Spinner weeklySelection;
-    private boolean biWeekly = false;
-
-    private Handler timePickerHandler = new Handler() {
+    private static int hour;
+    private static int minute;
+    private static EditText editText;
+    private static Handler timePickerHandler = new Handler() {
         @Override
         public void handleMessage(Message m) {
             Bundle bundle = m.getData();
             hour = bundle.getInt("set_hour");
             minute = bundle.getInt("set_minute");
 
-            EditText editText = (EditText) findViewById(R.id.timeText);
 
             if (hour >= 12) {
                 editText.setText((hour - 12) + ":" + String.format("%02d", minute) + " PM");
@@ -65,6 +55,14 @@ public class AlarmActivity extends AppCompatActivity {
             }
         }
     };
+    AlarmManager alarmManager;
+    boolean menuClicked = false;
+    private PendingIntent pendingIntent;
+    private TimePicker alarmTimePicker;
+    private TextView alarmMedicationName;
+    private Spinner repeatSelection;
+    private Spinner weeklySelection;
+    private boolean biWeekly = false;
 
     public static AlarmActivity instance() {
         return inst;
@@ -86,6 +84,7 @@ public class AlarmActivity extends AppCompatActivity {
             //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
 
+        editText = (EditText) findViewById(R.id.timeText);
         alarmMedicationName = (TextView) findViewById(R.id.medicationNameText);
 
         addItemsToRepeatSpinner();

@@ -26,7 +26,9 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_below="@+id/toolbar"
-        android:choiceMode="singleChoice" />
+        android:choiceMode="singleChoice"
+        android:clickable="true"
+        android:nestedScrollingEnabled="false" />
 
     <android.support.design.widget.FloatingActionButton xmlns:app="http://schemas.android.com/apk/res-auto"
         android:id="@+id/actionCreate"

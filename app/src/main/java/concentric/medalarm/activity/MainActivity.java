@@ -2,10 +2,17 @@ package concentric.medalarm.activity;
 
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
+import android.app.AlarmManager;
+import android.app.PendingIntent;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.format.Time;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -15,21 +22,22 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import concentric.medalarm.R;
+import concentric.medalarm.TimeConverter;
 import concentric.medalarm.models.DBHelper;
 
 
 public class MainActivity extends AppCompatActivity {
 
     private final int createAlarmRequestCode = 1;
+    AlarmManager alarmManager;
     private ListView alarmList;
     private List<String> medList;
     private ArrayAdapter<String> listAdapter;
-
-
-    private boolean alarmSelected = true;
+    private boolean alarmSelected = false;
     private boolean menuClicked = false;
 
     @Override
@@ -40,9 +48,12 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-
         medList = new ArrayList<>();
         alarmList = (ListView) findViewById(R.id.listView);
+        alarmList.setSelector(R.color.colorPrimary);
+
+        listAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_activated_1, medList);
+        alarmList.setAdapter(listAdapter);
 
 /*        Drawer result = new DrawerBuilder()
                 .withActivity(this)
@@ -90,7 +101,7 @@ public class MainActivity extends AppCompatActivity {
         final View editButton = findViewById(R.id.actionEdit);
         final View menuButton = findViewById(R.id.actionMenu);
 
-        ObjectAnimator menuAnimator = ObjectAnimator.ofFloat(menuButton, "rotation", rotationBegin, rotationEnd * 3);
+        ObjectAnimator menuAnimator = ObjectAnimator.ofFloat(menuButton, "rotation", rotationBegin, rotationEnd);
         menuAnimator.setInterpolator(new DecelerateInterpolator());
         menuAnimator.setRepeatCount(0);
         menuAnimator.setDuration(200);
@@ -117,9 +128,10 @@ public class MainActivity extends AppCompatActivity {
 
         createButton.setVisibility(View.VISIBLE);
 
-        if (alarmSelected) {
+        if (alarmList.isSelected()) {
             deleteButton.setVisibility(View.VISIBLE);
             editButton.setVisibility(View.VISIBLE);
+            createButton.setVisibility(View.GONE);
         }
 
         AnimatorSet editGroup = new AnimatorSet();
@@ -177,14 +189,70 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    private void buildStoreAndDisplayAlarm(Bundle bundle) {
-        String med = bundle.getString("medicationName");
+    private void buildStoreAndDisplayAlarm(final Bundle bundle) {
+        alarmList.clearChoices();
+        final String med = bundle.getString("medicationName");
         Toast.makeText(getApplicationContext(), "Alarm created: " + med + ".", Toast.LENGTH_SHORT).show();
         medList.add(med);
-        listAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, medList);
-        alarmList.setAdapter(listAdapter);
+        listAdapter.notifyDataSetChanged();
 
+        //this is here for the time being.
+        int hour = bundle.getInt("hour");
+        int minute = bundle.getInt("minute");
+
+        Long longHours = TimeConverter.hoursToMillis(hour);
+        Long longMinutes = TimeConverter.minutesToMillis(minute);
+
+        Long longTime = longHours + longMinutes;
+
+        //Calculate difference between current time and future time AKA longtime
+
+        long diffTime = System.currentTimeMillis() + longTime;
+        Log.d("Time Difference: ", Long.toString(diffTime));
+
+        BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                Toast.makeText(context, "Alarm: " + med + " is going off.", Toast.LENGTH_LONG).show();
+            }
+        };
+
+        registerReceiver(broadcastReceiver, new IntentFilter("alarmWakeyWakey"));
+        createAlarm(bundle);
     }
+
+    //here because beta ;p
+    private void createAlarm(Bundle bundle) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(System.currentTimeMillis());
+
+        //this is here for the time being.
+        int hour = bundle.getInt("hour");
+        int minute = bundle.getInt("minute");
+
+        Long longHours = TimeConverter.hoursToMillis(hour);
+        Long longMinutes = TimeConverter.minutesToMillis(minute);
+
+        Long longTime = longHours + longMinutes;
+
+        //Calculate difference between current time and future time AKA difference
+
+        Time time = new Time();
+        time.setToNow();
+
+        calendar.set(Calendar.HOUR_OF_DAY, hour);
+        calendar.set(Calendar.MINUTE, minute);
+
+        final long difference = calendar.getTimeInMillis() - time.toMillis(true);
+        Log.d("Time Difference: ", Long.toString(difference));
+
+
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0, new Intent("alarmWakeyWakey"), 0);
+        alarmManager = (AlarmManager) (this.getSystemService(Context.ALARM_SERVICE));
+        alarmManager.setExact(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
+    }
+
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
