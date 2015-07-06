@@ -245,10 +245,10 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(context, "Alarm: " + med + " is going off.", Toast.LENGTH_LONG).show();
 
                 //TODO fix this broken attempt at an alarm sound player.
-                SoundPool.Builder soundPoolBuilder = new SoundPool.Builder();
-                soundPoolBuilder.setMaxStreams(10);
-                SoundPool soundPool = soundPoolBuilder.build();
-
+                //SoundPool.Builder soundPoolBuilder = new SoundPool.Builder();
+                //soundPoolBuilder.setMaxStreams(10);
+                //SoundPool soundPool = soundPoolBuilder.build();
+/*
                 soundPool.setOnLoadCompleteListener(new SoundPool.OnLoadCompleteListener() {
                     @Override
                     public void onLoadComplete(SoundPool soundPool, int sampleId, int status) {
@@ -260,7 +260,7 @@ public class MainActivity extends AppCompatActivity {
 
                 if (soundLoaded) {
                     soundPool.play(sound, volume, volume, 1, 0, 1f);
-                }
+                }*/
             }
         };
 
