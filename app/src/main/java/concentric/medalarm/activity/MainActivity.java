@@ -292,6 +292,11 @@ public class MainActivity extends AppCompatActivity {
         Log.d("Time Difference: ", Long.toString(difference));
 
 
+        /*
+        new Intent("com.concentric.alarmIntent." + med)
+        this allows to generate new intents on the fly.
+        */
+
         PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0, new Intent("com.concentric.alarmIntent." + med), 0);
         alarmManager = (AlarmManager) (this.getSystemService(Context.ALARM_SERVICE));
         alarmManager.setExact(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
