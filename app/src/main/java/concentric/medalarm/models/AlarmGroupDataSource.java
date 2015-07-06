@@ -34,7 +34,7 @@ public class AlarmGroupDataSource {
     }
 
     /**
-     *
+     * Database opening operation.
      * @throws SQLException
      */
     public void open() throws SQLException {
@@ -42,38 +42,38 @@ public class AlarmGroupDataSource {
     }
 
     /**
-     *
+     * Database closing operation.
      */
     public void close() {
         dbHelper.close();
     }
 
     /**
-     *
-     * @param groupName
-     * @param ringTone
-     * @param type
-     * @param offset
-     * @param enabled
-     * @param repeatable
-     * @return
+     * Constructor to be used by an activity. Used if the alarm is not repeatable.
+     * Uses the complete constructor.
+     * @param groupName The name of the group.
+     * @param ringTone String file reference of the sound to be played upon alarm firing.
+     * @param type TODO: Firm up this description.
+     * @param offset Does this alarm group get offset functionality?
+     * @param enabled Is this alarm group active?
+     * @return AlarmGroup object.
      */
     public AlarmGroup createAlarmGroup(String groupName, String ringTone, String type, boolean offset,
-                                   boolean enabled, boolean repeatable) {
-        return createAlarmGroup(groupName, ringTone, type, offset, enabled, repeatable, 0, 0);
+                                   boolean enabled) {
+        return createAlarmGroup(groupName, ringTone, type, offset, enabled, false, 0, 0);
     }
 
     /**
-     *
-     * @param groupName
-     * @param ringTone
-     * @param type
-     * @param offset
-     * @param enabled
-     * @param repeatable
-     * @param numRepeats
-     * @param timesRepeated
-     * @return
+     * The complete AlarmGroup constructor.
+     * @param groupName Essentially a message, or name of this alarm group
+     * @param ringTone A string reference to the ringtone that will be played upon alarm firing.
+     * @param type TODO: Firm up this definition.
+     * @param offset Does this alarm group use the offset feature?
+     * @param enabled Is this alarm group active?
+     * @param repeatable TODO: Do we need this here or at the alarm level?
+     * @param numRepeats How many times should the alarms go off?
+     * @param timesRepeated The number of how many times it has gone off.
+     * @return Returns a newly created AlarmGroup object.
      */
     public AlarmGroup createAlarmGroup(String groupName, String ringTone, String type, boolean offset,
                                        boolean enabled, boolean repeatable, int numRepeats,
@@ -96,6 +96,11 @@ public class AlarmGroupDataSource {
         return group;
     }
 
+    /**
+     * Allows you to delete an alarm group by its object.
+     * TODO: When an alarm group is deleted, deleted associated alarms too.
+     * @param group an AlarmGroup object to be deleted from the DB.
+     */
     public void deleteGroup(AlarmGroup group) {
         long id = group.getId();
         Log.w(getClass().getName() + " deleteGroup", "Deleting AlarmGroup ID" + id + ".");
@@ -123,6 +128,13 @@ public class AlarmGroupDataSource {
         return alarmGroups;
     }
 
+    /**
+     * TODO: Should this be private?
+     * This function is used to work with data returned by the database. Converts a query into an
+     * AlarmGroup object. This is a helper function.
+     * @param cursor See android documentation.
+     * @return AlarmGroup object.
+     */
     public AlarmGroup cursorToGroup(Cursor cursor) {
         AlarmGroup group = new AlarmGroup();
         Log.i(getClass().getName() + " cursorToGroup", "Gets Something...");
