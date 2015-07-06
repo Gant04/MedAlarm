@@ -16,12 +16,17 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.DecelerateInterpolator;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.ToggleButton;
 
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 import concentric.medalarm.AlarmBroadcastReceiver;
 import concentric.medalarm.AlarmTimePickerDialogFragment;
@@ -37,6 +42,10 @@ public class AlarmActivity extends AppCompatActivity {
     private TextView alarmTextView;
     private int hour;
     private int minute;
+
+    private Spinner repeatSelection;
+    private Spinner biWeeklySelection;
+
     private Handler timePickerHandler = new Handler() {
         @Override
         public void handleMessage(Message m) {
@@ -73,8 +82,11 @@ public class AlarmActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar)findViewById(R.id.toolbar);
         if (toolbar != null) {
             setSupportActionBar(toolbar);
-            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
+
+        addItemsToRepeatSpinner();
+        addListenerToRepeatSpinner();
     }
 
 
@@ -129,7 +141,7 @@ public class AlarmActivity extends AppCompatActivity {
     }
 
 
-    public void onSetAlarmTime(View view) {
+    private void onSetAlarmTime(View view) {
         Bundle bundle = new Bundle();
         bundle.putInt("set_hour", hour);
         bundle.putInt("set_minute", minute);
@@ -173,6 +185,73 @@ public class AlarmActivity extends AppCompatActivity {
         buttonGroup.start();
 
         menuClicked = !menuClicked;
+    }
+
+    private void addItemsToRepeatSpinner() {
+        repeatSelection = (Spinner) findViewById(R.id.spinner);
+        List<String> list = new ArrayList<>();
+
+        list.add("Repeat Unselected");
+        list.add("Repeat Daily");
+        list.add("Repeat Bi-Weekly");
+        list.add("Repeat Weekly");
+        list.add("Repeat Once Monthly");
+
+        ArrayAdapter<String> listAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, list);
+        listAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        repeatSelection.setAdapter(listAdapter);
+    }
+
+    private void addDaysToBiWeeklySpinner() {
+        biWeeklySelection = (Spinner) findViewById(R.id.spinner2);
+
+        List<String> list = new ArrayList<>();
+        list.add("Sunday");
+        list.add("Monday");
+        list.add("Tuesday");
+        list.add("Wednesday");
+        list.add("Thursday");
+        list.add("Friday");
+        list.add("Saturday");
+
+    }
+
+    private void addListenerToRepeatSpinner() {
+        repeatSelection = (Spinner) findViewById(R.id.spinner);
+        repeatSelection.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                View dayTable = findViewById(R.id.dayTable);
+                dayTable.setVisibility(View.GONE);
+                //Toast.makeText(AlarmActivity.this, "OnItemSelectedListener : " + parent.getItemAtPosition(position).toString(),Toast.LENGTH_SHORT).show();
+
+                String selection = parent.getItemAtPosition(position).toString();
+
+//                list.add("Repeat Unselected");
+//                list.add("Repeat Daily");
+//                list.add("Repeat Bi-Weekly");
+//                list.add("Repeat Weekly");
+//                list.add("Repeat Once Monthly");
+
+                switch (selection) {
+                    case "Repeat Unselected":
+                        break;
+                    case "Repeat Daily": {
+                        dayTable.setVisibility(View.VISIBLE);
+                        break;
+                    }
+                    default:
+                        break;
+
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
     }
 
     public void onClickCreateAlarm(View view) {

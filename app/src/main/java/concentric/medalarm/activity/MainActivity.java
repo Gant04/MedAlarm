@@ -115,11 +115,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void onClickActionCreateAlarm(View v) {
-        onClickActionMenu(v);
         Intent intent = new Intent(v.getContext(), AlarmActivity.class);
         startActivity(intent);
-
-
+        onClickActionMenu(v);
     }
 
     @Override

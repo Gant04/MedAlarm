@@ -38,4 +38,6 @@
     <string name="dummy_content">DUMMY\nCONTENT</string>
     <string name="loadScreen">load screen</string>
     <string name="Logo">logo</string>
+    <string name="setStartDate">Select Start Date</string>
+    <string name="setEndDate">Select End Date</string>
 </resources>
