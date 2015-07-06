@@ -31,6 +31,8 @@ import concentric.medalarm.R;
 import concentric.medalarm.TimeConverter;
 import concentric.medalarm.models.DBHelper;
 
+//TODO We should go through and check to see which of the classes we actually need/use and remove those that aren't being used.
+//TODO We should also remove any unused variables and methods if possible.
 
 public class MainActivity extends AppCompatActivity {
 
