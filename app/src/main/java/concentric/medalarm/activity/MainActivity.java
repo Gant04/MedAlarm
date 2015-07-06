@@ -8,6 +8,8 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.media.AudioManager;
+import android.media.SoundPool;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -39,6 +41,7 @@ public class MainActivity extends AppCompatActivity {
     private ArrayAdapter<String> listAdapter;
     private boolean alarmSelected = false;
     private boolean menuClicked = false;
+    private boolean soundLoaded = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -196,9 +199,10 @@ public class MainActivity extends AppCompatActivity {
             if (resultCode == RESULT_CANCELED) {
 
                 if (alarmList.isSelected()) {
-                    Toast.makeText(getApplicationContext(), "Edits to: " + alarmList.getSelectedItem().toString() + ".", Toast.LENGTH_SHORT);
+                    Toast.makeText(getApplicationContext(), "Edits to: " + alarmList.getSelectedItem().toString() + " were canceled.", Toast.LENGTH_SHORT);
                 } else {
                     Toast.makeText(MainActivity.this, "Alarm creation canceled.", Toast.LENGTH_SHORT).show();
+
                 }
             }
         }
@@ -226,12 +230,36 @@ public class MainActivity extends AppCompatActivity {
         long diffTime = System.currentTimeMillis() + longTime;
         Log.d("Time Difference: ", Long.toString(diffTime));
 
+        AudioManager audioManager = (AudioManager) getSystemService(AUDIO_SERVICE);
+        float actVolume = (float) audioManager.getStreamVolume(AudioManager.STREAM_MUSIC);
+        float maxVolume = (float) audioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC);
+        final float volume = actVolume / maxVolume;
+
         BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
             @Override
             public void onReceive(Context context, Intent intent) {
                 Toast.makeText(context, "Alarm: " + med + " is going off.", Toast.LENGTH_LONG).show();
+
+                //Broken attempt at an alarm sound.
+                SoundPool.Builder soundPoolBuilder = new SoundPool.Builder();
+                soundPoolBuilder.setMaxStreams(10);
+                SoundPool soundPool = soundPoolBuilder.build();
+
+                soundPool.setOnLoadCompleteListener(new SoundPool.OnLoadCompleteListener() {
+                    @Override
+                    public void onLoadComplete(SoundPool soundPool, int sampleId, int status) {
+                        soundLoaded = true;
+                    }
+                });
+
+                int sound = soundPool.load(getApplicationContext(), R.raw.alarm1, 1);
+
+                if (soundLoaded) {
+                    soundPool.play(sound, volume, volume, 1, 0, 1f);
+                }
             }
         };
+
 
         registerReceiver(broadcastReceiver, new IntentFilter("alarmWakeyWakey"));
         createAlarm(bundle);
