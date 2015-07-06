@@ -39,7 +39,7 @@ public class AlarmActivity extends AppCompatActivity {
     boolean menuClicked = false;
     private PendingIntent pendingIntent;
     private TimePicker alarmTimePicker;
-    private TextView alarmTextView;
+    private TextView alarmMedicationName;
     private int hour;
     private int minute;
 
@@ -86,6 +86,8 @@ public class AlarmActivity extends AppCompatActivity {
             //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
 
+        alarmMedicationName = (TextView) findViewById(R.id.medicationNameText);
+
         addItemsToRepeatSpinner();
         addListenerToRepeatSpinner();
         addDaysToBiWeeklySpinner();
@@ -118,7 +120,7 @@ public class AlarmActivity extends AppCompatActivity {
     }
 
     public void setAlarmText(String alarmText) {
-        alarmTextView.setText(alarmText);
+        alarmMedicationName.setText(alarmText);
     }
 
     @Override
@@ -294,10 +296,21 @@ public class AlarmActivity extends AppCompatActivity {
     }
 
     public void onClickCreateAlarm(View view) {
+        Bundle alarmData = new Bundle();
+        alarmData.putInt("hour", hour);
+        alarmData.putInt("minute", minute);
+        alarmData.putString("medicationName", alarmMedicationName.getText().toString());
 
+        Intent returnIntent = new Intent();
+        returnIntent.putExtras(alarmData);
+
+        setResult(RESULT_OK, returnIntent);
+        finish();
     }
 
     public void onClickCancelChanges(View view) {
+        Intent returnIntent = new Intent();
+        setResult(RESULT_CANCELED, returnIntent);
         finish();
     }
 

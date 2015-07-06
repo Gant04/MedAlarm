@@ -10,12 +10,24 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.DecelerateInterpolator;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
+import android.widget.Toast;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import concentric.medalarm.R;
 import concentric.medalarm.models.DBHelper;
 
 
 public class MainActivity extends AppCompatActivity {
+
+    private final int createAlarmRequestCode = 1;
+    private ListView alarmList;
+    private List<String> medList;
+    private ArrayAdapter<String> listAdapter;
+
 
     private boolean alarmSelected = true;
     private boolean menuClicked = false;
@@ -27,6 +39,10 @@ public class MainActivity extends AppCompatActivity {
         DBHelper.getInstance(this);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+
+        medList = new ArrayList<>();
+        alarmList = (ListView) findViewById(R.id.listView);
 
 /*        Drawer result = new DrawerBuilder()
                 .withActivity(this)
@@ -129,7 +145,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void onClickActionCreateAlarm(View v) {
         Intent intent = new Intent(v.getContext(), AlarmActivity.class);
-        startActivity(intent);
+        startActivityForResult(intent, createAlarmRequestCode);
         onClickActionMenu(v);
     }
 
@@ -138,6 +154,36 @@ public class MainActivity extends AppCompatActivity {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
+
+        if (requestCode == createAlarmRequestCode) {
+            if (resultCode == RESULT_OK) {
+                Bundle bundle = intent.getExtras();
+                buildStoreAndDisplayAlarm(bundle);
+
+            }
+            if (resultCode == RESULT_CANCELED) {
+
+                if (alarmList.isSelected()) {
+                    Toast.makeText(getApplicationContext(), "Edits to: " + alarmList.getSelectedItem().toString() + ".", Toast.LENGTH_SHORT);
+                } else {
+                    Toast.makeText(MainActivity.this, "Alarm creation canceled.", Toast.LENGTH_SHORT).show();
+                }
+            }
+        }
+
+    }
+
+    private void buildStoreAndDisplayAlarm(Bundle bundle) {
+        String med = bundle.getString("medicationName");
+        Toast.makeText(getApplicationContext(), "Alarm created: " + med + ".", Toast.LENGTH_SHORT).show();
+        medList.add(med);
+        listAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, medList);
+        alarmList.setAdapter(listAdapter);
+
     }
 
     @Override
