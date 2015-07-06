@@ -261,12 +261,13 @@ public class MainActivity extends AppCompatActivity {
         };
 
 
-        registerReceiver(broadcastReceiver, new IntentFilter("alarmWakeyWakey"));
+        registerReceiver(broadcastReceiver, new IntentFilter("com.concentric.alarmIntent." + med));
         createAlarm(bundle);
     }
 
     //here because beta ;p
     private void createAlarm(Bundle bundle) {
+        final String med = bundle.getString("medicationName");
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(System.currentTimeMillis());
 
@@ -291,7 +292,7 @@ public class MainActivity extends AppCompatActivity {
         Log.d("Time Difference: ", Long.toString(difference));
 
 
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0, new Intent("alarmWakeyWakey"), 0);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0, new Intent("com.concentric.alarmIntent." + med), 0);
         alarmManager = (AlarmManager) (this.getSystemService(Context.ALARM_SERVICE));
         alarmManager.setExact(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
     }
