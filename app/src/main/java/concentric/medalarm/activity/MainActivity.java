@@ -96,6 +96,12 @@ public class MainActivity extends AppCompatActivity {
         result.isDrawerOpen();*/
     }
 
+
+    /**
+     * This is the on click method for the floating action menu button
+     *
+     * @param view this is a view.
+     */
     public void onClickActionMenu(View view) {
 
         int translationA = -165;
