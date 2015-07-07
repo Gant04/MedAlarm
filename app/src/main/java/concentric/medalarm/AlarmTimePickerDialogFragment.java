@@ -29,6 +29,12 @@ public class AlarmTimePickerDialogFragment extends DialogFragment {
         this.handler = handler;
     }
 
+    /**
+     * Creates the TimePicker floater.
+     *
+     * @param savedInstanceState takes the saved instance state.
+     * @return TimePickerDialog
+     */
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState){
         Bundle bundle = getArguments();
