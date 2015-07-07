@@ -172,7 +172,6 @@ public class AlarmGroup {
      * @param rHours    Hour interval it repeats.
      * @param rMinutes  Minute interval it repeats.
      */
-
     public void addAlarm(int hour, int minute, boolean repeats, int rHours,
                          int rMinutes) {
         long id = getId();

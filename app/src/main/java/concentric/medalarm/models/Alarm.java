@@ -102,6 +102,7 @@ public class Alarm {
         this.id = id;
     }
 
+
     public void setMinute(int minute) {
         if (minute > 59 || minute < 0) {
             Log.e(getClass().getName() + " setMinute",
@@ -113,6 +114,10 @@ public class Alarm {
         }
     }
 
+    /**
+     * Sets the hour and ensures its valid.
+     * @param hour
+     */
     public void setHour(int hour) {
         if (hour > 23 || hour < 0) {
             Log.e(getClass().getName() + " setHour", "An attempt to set the hour to an invalid" +
@@ -124,24 +129,45 @@ public class Alarm {
         }
     }
 
+    /**
+     * Parses a string and translates that string into a valid time.
+     * @param alarmTime
+     */
     public void setAlarmTime(String alarmTime) {
         StringTokenizer stringTokenizer = new StringTokenizer(alarmTime, ":");
         this.setHour(Integer.parseInt(stringTokenizer.nextToken()));
         this.setMinute(Integer.parseInt(stringTokenizer.nextToken()));
     }
 
+    /**
+     * Sets the file name of the ringtone that will be played upon alarm firing.
+     * @param alarmTone
+     */
     public void setAlarmTone(String alarmTone) {
         this.alarmTone = alarmTone;
     }
 
+    /**
+     * An Alarm has a message, E.G.: the type of medication to take.
+     * @param alarmMessage
+     */
     public void setAlarmMessage(String alarmMessage) {
         this.alarmMessage = alarmMessage;
     }
 
+    /**
+     * All alarms belong to a group and should be created by the group class. Set the association
+     * by group ID.
+     * @param id
+     */
     public void setGroupID(long id) {
         this.groupID = id;
     }
 
+    /**
+     * TODO: Make this function do something.
+     * This Function will disable the alarm.
+     */
     public void disableAlarm() {
         // Disable an alarm from the system scheduler.
     }

@@ -42,4 +42,6 @@
     <string name="setEndDate">Select End Date</string>
     <string name="repeatSelectorText">Repeat: </string>
     <string name="weeklySelectorText">Repeat on: </string>
+    <string name="title_activity_alarm_group">Create Your Alarm</string>
+    <string name="name">Name</string>
 </resources>

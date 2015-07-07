@@ -251,10 +251,10 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(context, "Alarm: " + med + " is going off.", Toast.LENGTH_LONG).show();
 
                 //TODO fix this broken attempt at an alarm sound player.
-                SoundPool.Builder soundPoolBuilder = new SoundPool.Builder();
-                soundPoolBuilder.setMaxStreams(10);
-                SoundPool soundPool = soundPoolBuilder.build();
-
+                //SoundPool.Builder soundPoolBuilder = new SoundPool.Builder();
+                //soundPoolBuilder.setMaxStreams(10);
+                //SoundPool soundPool = soundPoolBuilder.build();
+/*
                 soundPool.setOnLoadCompleteListener(new SoundPool.OnLoadCompleteListener() {
                     @Override
                     public void onLoadComplete(SoundPool soundPool, int sampleId, int status) {
@@ -266,7 +266,7 @@ public class MainActivity extends AppCompatActivity {
 
                 if (soundLoaded) {
                     soundPool.play(sound, volume, volume, 1, 0, 1f);
-                }
+                }*/
             }
         };
 
@@ -291,7 +291,7 @@ public class MainActivity extends AppCompatActivity {
         Long longTime = longHours + longMinutes;
 
         //Calculate difference between current time and future time AKA difference
-
+        // TODO: Time is depreciated. Change to something else.
         Time time = new Time();
         time.setToNow();
 
@@ -299,8 +299,7 @@ public class MainActivity extends AppCompatActivity {
         calendar.set(Calendar.MINUTE, minute);
 
         final long difference = calendar.getTimeInMillis() - time.toMillis(true);
-        Log.d("Time Difference: ", Long.toString(difference));
-
+        Log.d("Time Difference:    ", Long.toString(difference));
 
         /*
         new Intent("com.concentric.alarmIntent." + med)

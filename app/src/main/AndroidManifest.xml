@@ -18,7 +18,7 @@
         <activity
             android:name=".activity.AlarmActivity"
             android:label="@string/title_activity_main"
-            android:parentActivityName=".activity.MainActivity">
+            android:parentActivityName=".activity.MainActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.PARENT_ACTIVITY" />
 
@@ -44,12 +44,20 @@
             android:name=".activity.MedAlarm"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/title_activity_med_alarm"
-            android:theme="@style/FullscreenTheme">
+            android:theme="@style/FullscreenTheme" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity
+            android:name=".activity.AlarmGroupActivity"
+            android:label="@string/title_activity_alarm_group"
+            android:parentActivityName=".activity.MainActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="concentric.medalarm.activity.MainActivity" />
         </activity>
     </application>
 
