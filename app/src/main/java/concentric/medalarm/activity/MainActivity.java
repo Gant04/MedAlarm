@@ -179,18 +179,28 @@ public class MainActivity extends AppCompatActivity {
      * @param view The view that was clicked.
      */
     public void onClickActionDeleteAlarm(View view) {
-
+        //TODO Fix this.
     }
 
+    /**
+     * This method is called when the edit button is pressed.
+     *
+     * @param view The view that was clicked.
+     */
     public void onClickActionEditAlarm(View view) {
-
+        //TODO Fix this.
     }
 
-    public void onClickActionCreateAlarm(View v) {
+    /**
+     * This method is called when the create button is pressed.
+     *
+     * @param view The view that was clicked.
+     */
+    public void onClickActionCreateAlarm(View view) {
 
-        Intent intent = new Intent(v.getContext(), AlarmActivity.class);
+        Intent intent = new Intent(view.getContext(), AlarmActivity.class);
         startActivityForResult(intent, createAlarmRequestCode);
-        onClickActionMenu(v);
+        onClickActionMenu(view);
     }
 
     /**
@@ -205,6 +215,14 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
+
+    /**
+     * This is a method that is overridden so that we can intercept the activity result
+     *
+     * @param requestCode an int.
+     * @param resultCode  the result code which is either RESULT_OK or RESULT_CANCELED
+     * @param intent      the resulting intent that is passed from the completed activity.
+     */
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
 
@@ -227,7 +245,11 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    //TODO Move buildAndStoreAndDisplay into its own class. Somehow, eventually.
+    /**
+     * The workhorse of the app, does most of the stuff for the actual building of alarms.
+     * @param bundle takes a bundle from the onActivityResult, but can be used by a database as well.
+     * TODO Move buildAndStoreAndDisplay into its own class. Somehow, eventually.
+     */
     private void buildStoreAndDisplayAlarm(final Bundle bundle) {
         alarmList.clearChoices();
         final String med = bundle.getString("medicationName");
@@ -259,24 +281,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onReceive(Context context, Intent intent) {
                 Toast.makeText(context, "Alarm: " + med + " is going off.", Toast.LENGTH_LONG).show();
-
-                //TODO fix this broken attempt at an alarm sound player.
-                //SoundPool.Builder soundPoolBuilder = new SoundPool.Builder();
-                //soundPoolBuilder.setMaxStreams(10);
-                //SoundPool soundPool = soundPoolBuilder.build();
-/*
-                soundPool.setOnLoadCompleteListener(new SoundPool.OnLoadCompleteListener() {
-                    @Override
-                    public void onLoadComplete(SoundPool soundPool, int sampleId, int status) {
-                        soundLoaded = true;
-                    }
-                });
-
-                int sound = soundPool.load(getApplicationContext(), R.raw.alarm1, 1);
-
-                if (soundLoaded) {
-                    soundPool.play(sound, volume, volume, 1, 0, 1f);
-                }*/
+                //TODO Replace the things here with an actual activity instead of this garbage.
             }
         };
 
@@ -284,8 +289,11 @@ public class MainActivity extends AppCompatActivity {
         createAlarm(bundle);
     }
 
-    /*
-    TODO This should be moved into a different class with the build and store method from above but its here because beta ;p */
+    /**
+     * This method should only be called from the buildStoreAndDisplayMethod.
+     * It builds the actual alarm.
+     * TODO This should be moved into a different class with the build and store method from above.
+     */
     private void createAlarm(Bundle bundle) {
         final String med = bundle.getString("medicationName");
         Calendar calendar = Calendar.getInstance();
@@ -321,13 +329,16 @@ public class MainActivity extends AppCompatActivity {
         alarmManager.setExact(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
     }
 
-
-
+    /**
+     * Handle action bar item clicks here. The action bar will
+     * automatically handle clicks on the Home/Up button, so long
+     * as you specify a parent activity in AndroidManifest.xml.
+     *
+     * @param item
+     * @return true unless id != action_settings.
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
