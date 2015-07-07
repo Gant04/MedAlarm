@@ -267,12 +267,12 @@ public class AlarmActivity extends AppCompatActivity {
                         dayTable.setVisibility(View.VISIBLE);
                         break;
                     }
-                    case "Bi-Weekly": {
+                    case "Once Bi-Weekly": {
                         weeklySelectorLayout.setVisibility(View.VISIBLE);
                         biWeekly = true;
                         break;
                     }
-                    case "Weekly": {
+                    case "Once a Week": {
                         weeklySelectorLayout.setVisibility(View.VISIBLE);
                     }
 

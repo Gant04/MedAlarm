@@ -9,7 +9,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.media.AudioManager;
-import android.media.SoundPool;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -100,7 +99,7 @@ public class MainActivity extends AppCompatActivity {
     /**
      * This is the on click method for the floating action menu button
      *
-     * @param view this is a view.
+     * @param view The view that was clicked.
      */
     public void onClickActionMenu(View view) {
 
@@ -173,6 +172,12 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+
+    /**
+     * This method is called when the delete button is pressed.
+     *
+     * @param view The view that was clicked.
+     */
     public void onClickActionDeleteAlarm(View view) {
 
     }
@@ -188,6 +193,11 @@ public class MainActivity extends AppCompatActivity {
         onClickActionMenu(v);
     }
 
+    /**
+     *
+     * @param menu The menu that was clicked.
+     * @return returns a boolean set to true
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
