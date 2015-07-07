@@ -189,6 +189,9 @@ public class MainActivity extends AppCompatActivity {
      */
     public void onClickActionEditAlarm(View view) {
         //TODO Fix this.
+        Intent intent = new Intent(view.getContext(), AlarmActivity.class);
+        startActivityForResult(intent, createAlarmRequestCode);
+        onClickActionMenu(view);
     }
 
     /**

@@ -89,6 +89,9 @@ public class AlarmActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_alarm);
         Toolbar toolbar = (Toolbar)findViewById(R.id.toolbar);
+
+        toolbar.setTitle("Create Alarm"); // TODO Change when user is editing an alarm; set to the name in the database.
+
         if (toolbar != null) {
             setSupportActionBar(toolbar);
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
