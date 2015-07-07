@@ -53,9 +53,6 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        alarmListOnClickListener();
-        menuButtonOnLongClickListener();
-
         medList = new ArrayList<>();
         alarmList = (ListView) findViewById(R.id.listView);
         alarmList.setSelector(R.color.colorPrimary);
@@ -63,7 +60,8 @@ public class MainActivity extends AppCompatActivity {
         listAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_activated_1, medList);
         alarmList.setAdapter(listAdapter);
 
-
+        alarmListOnClickListener();
+        menuButtonOnLongClickListener();
 
 
 /*        Drawer result = new DrawerBuilder()
@@ -172,11 +170,14 @@ public class MainActivity extends AppCompatActivity {
         editAnimator2.setRepeatCount(0);
         editAnimator2.setDuration(200);
 
-        createButton.setVisibility(View.VISIBLE);
-
         if (alarmSelected) {
+            createButton.setVisibility(View.GONE);
             deleteButton.setVisibility(View.VISIBLE);
             editButton.setVisibility(View.VISIBLE);
+        } else {
+            createButton.setVisibility(View.VISIBLE);
+            deleteButton.setVisibility(View.GONE);
+            editButton.setVisibility(View.GONE);
         }
 
         AnimatorSet editGroup = new AnimatorSet();
@@ -344,6 +345,11 @@ public class MainActivity extends AppCompatActivity {
         calendar.set(Calendar.MINUTE, minute);
         calendar.set(Calendar.SECOND, 0);
         calendar.set(Calendar.MILLISECOND, 0);
+
+        if (calendar.getTimeInMillis() < time.toMillis(true)) ;
+        {
+            calendar.set(Calendar.DAY_OF_YEAR, calendar.get(Calendar.DAY_OF_YEAR) + 1);
+        }
 
         final long difference = calendar.getTimeInMillis() - time.toMillis(true);
         Log.d("Time Difference:    ", Long.toString(difference));
