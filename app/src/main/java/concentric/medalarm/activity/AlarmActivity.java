@@ -32,6 +32,9 @@ import concentric.medalarm.AlarmBroadcastReceiver;
 import concentric.medalarm.AlarmTimePickerDialogFragment;
 import concentric.medalarm.R;
 
+/**
+ *  Alarm Activity
+ */
 public class AlarmActivity extends AppCompatActivity {
 
     private static AlarmActivity inst;
@@ -68,12 +71,19 @@ public class AlarmActivity extends AppCompatActivity {
         return inst;
     }
 
+    /**
+     * Starting the instance
+     */
     @Override
     public void onStart() {
         super.onStart();
         inst = this;
     }
 
+    /**
+     * When the AlarmActivity is created.
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -92,7 +102,13 @@ public class AlarmActivity extends AppCompatActivity {
         addDaysToBiWeeklySpinner();
     }
 
-
+    /**
+     * For when toggle button is clicked.
+     *
+     * <p> This method is currently deprecated for the current build.
+     *
+     * @param view Takes a view
+     */
     public void onToggleClicked(View view) {
         Log.d("AlarmActivity", "On Toggle Clicked");
         if (((ToggleButton) view).isChecked()) {
@@ -122,6 +138,11 @@ public class AlarmActivity extends AppCompatActivity {
         alarmMedicationName.setText(alarmText);
     }
 
+    /**
+     * Adds items to the action bar.
+     * @param menu takes a menu.
+     * @return returns a boolean.
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -129,6 +150,13 @@ public class AlarmActivity extends AppCompatActivity {
         return true;
     }
 
+    /**
+     * Handle action bar item clicks here. The action bar will
+     * automatically handle clicks on the Home/Up button, so long
+     * as you specify a parent activity in AndroidManifest.xml.
+     * @param item takes a menu item.
+     * @return returns a boolean.
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
@@ -143,7 +171,10 @@ public class AlarmActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-
+    /**
+     * Sets the alarm from the user input.
+     * @param view takes a view.
+     */
     public void onSetAlarmTime(View view) {
         Bundle bundle = new Bundle();
         bundle.putInt("set_hour", hour);
@@ -158,6 +189,10 @@ public class AlarmActivity extends AppCompatActivity {
         fragmentTransaction.commit();
     }
 
+    /**
+     * The animation for the floating action button.
+     * @param view takes a view.
+     */
     public void onClickActionMenu(View view) {
 
         int translation = -165;
@@ -203,6 +238,9 @@ public class AlarmActivity extends AppCompatActivity {
         menuClicked = !menuClicked;
     }
 
+    /**
+     * Adds the items to the spinner list.
+     */
     private void addItemsToRepeatSpinner() {
         repeatSelection = (Spinner) findViewById(R.id.RepeatSpinner);
         List<String> list = new ArrayList<>();
@@ -219,6 +257,10 @@ public class AlarmActivity extends AppCompatActivity {
         repeatSelection.setAdapter(listAdapter);
     }
 
+    /**
+     * Adds the days  to the bi weekly spinner.
+     * TODO
+     */
     private void addDaysToBiWeeklySpinner() {
         weeklySelection = (Spinner) findViewById(R.id.weeklySpinner);
 
@@ -239,6 +281,9 @@ public class AlarmActivity extends AppCompatActivity {
         weeklySelection.setAdapter(listAdapter);
     }
 
+    /**
+     * Listener for the repeat spinner
+     */
     private void addListenerToRepeatSpinner() {
         repeatSelection = (Spinner) findViewById(R.id.RepeatSpinner);
         repeatSelection.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -294,6 +339,10 @@ public class AlarmActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * When the Create Alarm button is clicked.
+     * @param view takes a view.
+     */
     public void onClickCreateAlarm(View view) {
         Bundle alarmData = new Bundle();
         alarmData.putInt("hour", hour);
@@ -307,10 +356,13 @@ public class AlarmActivity extends AppCompatActivity {
         finish();
     }
 
+    /**
+     * When the Cancel button is clicked
+     * @param view takes a view.
+     */
     public void onClickCancelChanges(View view) {
         Intent returnIntent = new Intent();
         setResult(RESULT_CANCELED, returnIntent);
         finish();
     }
-
 }
