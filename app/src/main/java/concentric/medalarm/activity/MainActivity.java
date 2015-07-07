@@ -346,11 +346,6 @@ public class MainActivity extends AppCompatActivity {
         calendar.set(Calendar.SECOND, 0);
         calendar.set(Calendar.MILLISECOND, 0);
 
-        if (calendar.getTimeInMillis() < time.toMillis(true)) ;
-        {
-            calendar.set(Calendar.DAY_OF_YEAR, calendar.get(Calendar.DAY_OF_YEAR) + 1);
-        }
-
         final long difference = calendar.getTimeInMillis() - time.toMillis(true);
         Log.d("Time Difference:    ", Long.toString(difference));
 
