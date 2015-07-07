@@ -72,7 +72,7 @@ public class AlarmActivity extends AppCompatActivity {
     }
 
     /**
-     * Starting the instance
+     * Starting the instance.
      */
     @Override
     public void onStart() {
