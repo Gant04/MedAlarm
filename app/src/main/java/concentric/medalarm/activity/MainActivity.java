@@ -53,7 +53,6 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        alarmListOnClickListener();
         menuButtonOnLongClickListener();
 
         medList = new ArrayList<>();
@@ -62,6 +61,7 @@ public class MainActivity extends AppCompatActivity {
 
         listAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_activated_1, medList);
         alarmList.setAdapter(listAdapter);
+        alarmListOnClickListener();
 
 
 
