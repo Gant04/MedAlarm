@@ -18,6 +18,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.DecelerateInterpolator;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -69,6 +70,19 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             }
         });
+
+        // listens for when the list is clicked.
+        alarmList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view,
+                                    int position, long id) {
+                // TODO what happens when the list item is clicked?
+                Toast.makeText(getApplicationContext(),
+                        "Click ListItem Number " + id, Toast.LENGTH_LONG)
+                        .show();
+            }
+        });
+
 
 /*        Drawer result = new DrawerBuilder()
                 .withActivity(this)
@@ -171,7 +185,6 @@ public class MainActivity extends AppCompatActivity {
         menuClicked = !menuClicked;
 
     }
-
 
     /**
      * This method is called when the delete button is pressed.
