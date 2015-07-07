@@ -53,6 +53,9 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        alarmListOnClickListener();
+        menuButtonOnLongClickListener();
+
         medList = new ArrayList<>();
         alarmList = (ListView) findViewById(R.id.listView);
         alarmList.setSelector(R.color.colorPrimary);
@@ -60,28 +63,7 @@ public class MainActivity extends AppCompatActivity {
         listAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_activated_1, medList);
         alarmList.setAdapter(listAdapter);
 
-        final View menuButton = findViewById(R.id.actionMenu);
 
-        //Theres no where else for this to go. SINCE THERE IS NO onLongClick in xml.
-        menuButton.setOnLongClickListener(new View.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View v) {
-                alarmSelected = !alarmSelected;
-                return true;
-            }
-        });
-
-        // listens for when the list is clicked.
-        alarmList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view,
-                                    int position, long id) {
-                // TODO what happens when the list item is clicked?
-                Toast.makeText(getApplicationContext(),
-                        "Click ListItem Number " + id, Toast.LENGTH_LONG)
-                        .show();
-            }
-        });
 
 
 /*        Drawer result = new DrawerBuilder()
@@ -109,6 +91,35 @@ public class MainActivity extends AppCompatActivity {
         result.isDrawerOpen();*/
     }
 
+
+    /**
+     * Click listener for the AlarmList
+     */
+    private void alarmListOnClickListener() {
+        // listens for when the list is clicked.
+        alarmList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view,
+                                    int position, long id) {
+                // TODO what happens when the list item is clicked?
+                Toast.makeText(getApplicationContext(),
+                        "Click ListItem Number " + id, Toast.LENGTH_LONG)
+                        .show();
+            }
+        });
+    }
+
+    private void menuButtonOnLongClickListener() {
+        //Theres no where else for this to go. SINCE THERE IS NO onLongClick in xml.
+        final View menuButton = findViewById(R.id.actionMenu);
+        menuButton.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                alarmSelected = !alarmSelected;
+                return true;
+            }
+        });
+    }
 
     /**
      * This is the on click method for the floating action menu button
@@ -331,6 +342,8 @@ public class MainActivity extends AppCompatActivity {
 
         calendar.set(Calendar.HOUR_OF_DAY, hour);
         calendar.set(Calendar.MINUTE, minute);
+        calendar.set(Calendar.SECOND, 0);
+        calendar.set(Calendar.MILLISECOND, 0);
 
         final long difference = calendar.getTimeInMillis() - time.toMillis(true);
         Log.d("Time Difference:    ", Long.toString(difference));
