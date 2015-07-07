@@ -293,8 +293,7 @@ public class MainActivity extends AppCompatActivity {
         calendar.set(Calendar.MINUTE, minute);
 
         final long difference = calendar.getTimeInMillis() - time.toMillis(true);
-        Log.d("Time Difference: ", Long.toString(difference));
-
+        Log.d("Time Difference:    ", Long.toString(difference));
 
         /*
         new Intent("com.concentric.alarmIntent." + med)
