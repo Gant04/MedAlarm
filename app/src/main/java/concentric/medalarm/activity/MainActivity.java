@@ -308,7 +308,8 @@ public class MainActivity extends AppCompatActivity {
         BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
             @Override
             public void onReceive(Context context, Intent intent) {
-                Toast.makeText(context, "Alarm: " + med + " is going off.", Toast.LENGTH_LONG).show();
+
+                //Toast.makeText(context, "Alarm: " + med + " is going off.", Toast.LENGTH_LONG).show();
                 //TODO Replace the things here with an actual activity instead of this garbage.
             }
         };
@@ -348,6 +349,12 @@ public class MainActivity extends AppCompatActivity {
 
         final long difference = calendar.getTimeInMillis() - time.toMillis(true);
         Log.d("Time Difference:    ", Long.toString(difference));
+
+
+        if (calendar.getTimeInMillis() < time.toMillis(true)) {
+            calendar.set(Calendar.DAY_OF_YEAR, Calendar.DAY_OF_YEAR + 1);
+        }
+
 
         /*
         new Intent("com.concentric.alarmIntent." + med)
