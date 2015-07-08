@@ -8,35 +8,39 @@
         android:layout_width="fill_parent"
         android:layout_height="@dimen/toolbar_height"
         class="android.support.v7.widget.Toolbar"
-        android:id="@+id/view"
+        android:id="@+id/AlarmGroupToolbar"
         style="@style/AppTheme.ToolBar"
         android:visibility="visible"
         android:transitionGroup="false"
         android:background="@color/colorPrimary"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="false"
-        android:layout_alignParentStart="true"/>
+        android:layout_alignParentStart="true"
+        android:theme="@style/AppTheme.ToolBar"/>
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:padding="15dp"
-        android:layout_below="@+id/view">
+        android:layout_below="@+id/AlarmGroupToolbar">
 
         <EditText
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:id="@+id/editText"
-            android:text="@string/name"
             android:inputType="textCapWords"
-            android:capitalize="words"/>
+            android:capitalize="words"
+            android:hint="@string/name"/>
 
-        <Spinner
-            android:layout_width="wrap_content"
+        <android.support.v7.widget.AppCompatSpinner
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/spinner"
+            android:id="@+id/AlarmType"
             android:layout_below="@+id/editText"
-            android:layout_centerHorizontal="true"/>
+            android:layout_centerHorizontal="true"
+            android:spinnerMode="dropdown"
+            style="@style/Widget.AppCompat.Spinner.Underlined"
+            android:prompt="@string/alarmType"/>
 
     </RelativeLayout>
 

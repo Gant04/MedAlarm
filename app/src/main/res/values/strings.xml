@@ -44,4 +44,12 @@
     <string name="weeklySelectorText">Repeat on: </string>
     <string name="title_activity_alarm_group">Create Your Alarm</string>
     <string name="name">Name</string>
+    <string-array name="alarm_types">
+        <item>Select One</item>
+        <item>Daily</item>
+        <item>Weekly</item>
+        <item>Intervals</item>
+        <item>Only Once</item>
+    </string-array>
+    <string name="alarmType">Alarm Type</string>
 </resources>
