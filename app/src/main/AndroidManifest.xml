@@ -53,7 +53,7 @@
         </activity>
         <activity
             android:name=".activity.AlarmGroupActivity"
-            android:label="@string/title_activity_alarm_group"
+            android:label="@string/createalarm"
             android:exported="true"
             android:parentActivityName=".activity.MainActivity" >
             <meta-data

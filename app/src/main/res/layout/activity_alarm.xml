@@ -323,13 +323,14 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
-        android:layout_margin="20dp"
-        android:onClick="onClickActionMenu"
+                                                        android:onClick="onClickActionMenu"
         android:src="@drawable/ic_add_white_48dp"
         app:borderWidth="0dp"
         app:elevation="@dimen/fab_button_elevation"
         app:pressedTranslationZ="@dimen/fab_translation_z_pressed"
-        app:rippleColor="@color/colorPrimaryDark" />
+        app:rippleColor="@color/colorPrimaryDark"
+                                                        android:layout_marginBottom="@dimen/fab_button_margin_bottom"
+                                                        android:layout_marginRight="@dimen/fab_button_margin_right"/>
 
 
 </RelativeLayout>

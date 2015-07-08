@@ -8,6 +8,7 @@ import android.support.v7.widget.AppCompatSpinner;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,14 +20,16 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 
-import java.sql.Date;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Iterator;
 import java.util.List;
 import java.text.DateFormat;
+
 import concentric.medalarm.AlarmTimePickerDialogFragment;
+
 import android.widget.TimePicker;
+
 import concentric.medalarm.R;
 
 public class AlarmGroupActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
@@ -79,32 +82,39 @@ public class AlarmGroupActivity extends AppCompatActivity implements AdapterView
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_alarm_group, menu);
-        return true;
+        MenuInflater inflated = getMenuInflater();
+        inflated.inflate(R.menu.menu_alarm_group, menu);
+        return super.onCreateOptionsMenu(menu);
     }
 
+    /**
+     * This hook is called whenever an item in your options menu is selected. The default
+     * implementation simply returns false to have the normal processing happen (calling the
+     * item's Runnable or sending a message to its Handler as appropriate). You can use this
+     * method for any items for which you would like to do processing without those other
+     * facilities.
+     *
+     * @param item The menu item that was selected.
+     * @return boolean Return false to allow normal menu processing to proceed, true to consume it here.
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+        switch (item.getItemId()) {
+            case R.id.save:
+                // TODO: PERFORM ALARM SAVE OPERATION HERE
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
         }
-
-        return super.onOptionsItemSelected(item);
     }
 
     public static void expand(final View v) {
-/*        v.measure(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        /*v.measure(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         final int targetHeight = v.getMeasuredHeight();
 
-        v.getLayoutParams().height = 0;*/
+        v.getLayoutParams().height = 0;
         v.setVisibility(View.VISIBLE);
-        /*Animation a = new Animation()
+        Animation a = new Animation()
         {
             @Override
             protected void applyTransformation(float interpolatedTime, Transformation t) {
@@ -122,12 +132,13 @@ public class AlarmGroupActivity extends AppCompatActivity implements AdapterView
 
         // 1dp/ms
         a.setDuration((int)(targetHeight / v.getContext().getResources().getDisplayMetrics()
-                .density) / 8);
+                .density));
         v.startAnimation(a);*/
+        v.setVisibility(View.VISIBLE);
     }
 
     public static void collapse(final View v) {
-/*        final int initialHeight = v.getMeasuredHeight();
+       /*final int initialHeight = v.getMeasuredHeight();
 
         Animation a = new Animation()
         {
@@ -158,15 +169,16 @@ public class AlarmGroupActivity extends AppCompatActivity implements AdapterView
      * selected. This callback is invoked only when the newly selected
      * position is different from the previously selected position or if
      * there was no selected item.</p>
-     *
+     * <p/>
      * Impelmenters can call getItemAtPosition(position) if they need to access the
      * data associated with the selected item.
-     *
+     * <p/>
      * <p>Used in this case for when an item in the spinners have been selected</p>
+     *
      * @param parent The AdapterView where the selection happened
-     * @param view The view within the AdapterView that was clicked
-     * @param pos The position of the view in the adapter
-     * @param id The row id of the item that is selected
+     * @param view   The view within the AdapterView that was clicked
+     * @param pos    The position of the view in the adapter
+     * @param id     The row id of the item that is selected
      */
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
@@ -207,9 +219,9 @@ public class AlarmGroupActivity extends AppCompatActivity implements AdapterView
         }
     }
 
-   private void hideVisibleViews(List list) {
+    private void hideVisibleViews(List list) {
         Iterator iterator = list.iterator();
-        while(iterator.hasNext()) {
+        while (iterator.hasNext()) {
             View view = (View) iterator.next();
             if (view.getVisibility() == View.VISIBLE) collapse(view);
         }
@@ -218,8 +230,8 @@ public class AlarmGroupActivity extends AppCompatActivity implements AdapterView
     private void updateList() {
         String item = DateFormat.getTimeInstance(DateFormat.SHORT).format(dateAndTime
                 .getTime());
-        adapter.add(item);
         list.add(item);
+        adapter.notifyDataSetChanged();
     }
 
     /**
