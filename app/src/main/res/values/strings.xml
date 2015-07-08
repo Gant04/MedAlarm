@@ -52,4 +52,9 @@
         <item>Only Once</item>
     </string-array>
     <string name="alarmType">Alarm Type</string>
+
+    <string name="title_activity_full_screen_alarm">FullScreenAlarm</string>
+    <string name="alarm_stop_button">Stop</string>
+    <string name="alarm_snooze_button">Snooze</string>
+    <string name="Pill">Pill</string>
 </resources>
