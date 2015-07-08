@@ -30,7 +30,7 @@
         <EditText
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/editText"
+            android:id="@+id/alarmName"
             android:inputType="textCapWords"
             android:capitalize="words"
             android:hint="@string/name"
@@ -45,7 +45,7 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:id="@+id/AlarmType"
-            android:layout_below="@+id/editText"
+            android:layout_below="@+id/alarmName"
             android:layout_centerHorizontal="true"
             android:spinnerMode="dropdown"
             style="@style/Widget.AppCompat.Spinner.Underlined"

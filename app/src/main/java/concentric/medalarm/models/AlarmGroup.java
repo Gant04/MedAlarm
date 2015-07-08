@@ -1,8 +1,11 @@
 package concentric.medalarm.models;
 
+import android.content.Context;
 import android.util.Log;
 
 import java.sql.SQLException;
+
+import concentric.medalarm.R;
 
 public class AlarmGroup {
     public static final String TABLE_NAME = "alarmGroup";
@@ -31,7 +34,7 @@ public class AlarmGroup {
     /*
     * Create Alarm Group with Custom Ringtone.
     */
-    public AlarmGroup(long id, String groupName, String ringTone, String type, boolean offset,
+    public AlarmGroup(long id, String groupName, String ringTone, int type, boolean offset,
                       boolean enabled) {
         setId(id);
         setGroupName(groupName);
@@ -116,35 +119,13 @@ public class AlarmGroup {
     }
 
     /**
-     *
+     * Sets the alarm type
      * @param type
      * @return
      */
-    public boolean setAlarmType(String type) {
+    public void setAlarmType(int type) {
         boolean valid = false;
-        switch (type) {
-            case "Day":
-                valid = true;
-                this.type = 1;
-                break;
-            case "Week":
-                valid = true;
-                this.type = 2;
-                break;
-            case "Interval":
-                valid = true;
-                this.type = 3;
-                break;
-            case "Once":
-                valid = true;
-                this.type = 4;
-                break;
-            default:
-                Log.e(getClass().getName() + " setAlarmType", "Tried to set an invalid alarm type."
-                                                              + "\nThe type received was: " + type);
-                break;
-        }
-        return valid;
+        this.type = type;
     }
 
     // After every alarm goes off we will need to perform operations on the alarm depending on the

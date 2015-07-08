@@ -58,7 +58,7 @@ public class AlarmGroupDataSource {
      * @param enabled Is this alarm group active?
      * @return AlarmGroup object.
      */
-    public AlarmGroup createAlarmGroup(String groupName, String ringTone, String type, boolean offset,
+    public AlarmGroup createAlarmGroup(String groupName, String ringTone, int type, boolean offset,
                                    boolean enabled) {
         return createAlarmGroup(groupName, ringTone, type, offset, enabled, false, 0, 0);
     }
@@ -75,7 +75,8 @@ public class AlarmGroupDataSource {
      * @param timesRepeated The number of how many times it has gone off.
      * @return Returns a newly created AlarmGroup object.
      */
-    public AlarmGroup createAlarmGroup(String groupName, String ringTone, String type, boolean offset,
+    public AlarmGroup createAlarmGroup(String groupName, String ringTone, int type,
+                                             boolean offset,
                                        boolean enabled, boolean repeatable, int numRepeats,
                                        int timesRepeated) {
         ContentValues values = new ContentValues();

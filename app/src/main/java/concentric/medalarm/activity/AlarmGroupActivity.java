@@ -28,15 +28,20 @@ import java.text.DateFormat;
 
 import concentric.medalarm.AlarmTimePickerDialogFragment;
 
+import android.widget.TextView;
 import android.widget.TimePicker;
 
 import concentric.medalarm.R;
+import concentric.medalarm.models.AlarmGroup;
+import concentric.medalarm.models.AlarmGroupDataSource;
 
 public class AlarmGroupActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
     private List<String> list = new ArrayList<>();
+    private List<Bundle> instance = new ArrayList<>();
     private ListView listView;
     private ArrayAdapter<String> adapter;
     private Calendar dateAndTime = Calendar.getInstance();
+    private int type;
     private TimePickerDialog.OnTimeSetListener tp = new TimePickerDialog.OnTimeSetListener() {
         public void onTimeSet(TimePicker view, int hourOfDay,
                               int minute) {
@@ -101,11 +106,20 @@ public class AlarmGroupActivity extends AppCompatActivity implements AdapterView
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.save:
-                // TODO: PERFORM ALARM SAVE OPERATION HERE
+                save();
+                // TODO: Confirm Save
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    // TODO: PERFORM ALARM SAVE OPERATION HERE
+    private void save() {
+        AlarmGroupDataSource save = new AlarmGroupDataSource();
+        TextView name = (TextView) findViewById(R.id.alarmName);
+        AlarmGroup ag = save.createAlarmGroup(name.getText().toString(), "BLEH", type, false, true);
+        // TODO: Use a loop to insert alarms into the ag object.
     }
 
     public static void expand(final View v) {
@@ -182,6 +196,7 @@ public class AlarmGroupActivity extends AppCompatActivity implements AdapterView
      */
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
+        type = pos;
         String[] types = getResources().getStringArray(R.array.alarm_types);
         // Test which spinner has been toggled.
         if (types[pos].equals(parent.getItemAtPosition(pos))) { // Type Spinner
@@ -230,6 +245,7 @@ public class AlarmGroupActivity extends AppCompatActivity implements AdapterView
     private void updateList() {
         String item = DateFormat.getTimeInstance(DateFormat.SHORT).format(dateAndTime
                 .getTime());
+        // TODO: Add Create a bundle and add it to instance
         list.add(item);
         adapter.notifyDataSetChanged();
     }
