@@ -41,7 +41,8 @@ public class AlarmTimePickerDialogFragment extends DialogFragment {
         aHour = bundle.getInt("set_hour");
         aMinute = bundle.getInt("set_minute");
 
-        TimePickerDialog.OnTimeSetListener onTimeSetListener = new TimePickerDialog.OnTimeSetListener() {
+        TimePickerDialog.OnTimeSetListener onTimeSetListener = new TimePickerDialog
+                .OnTimeSetListener() {
             @Override
             public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
                 aHour = hourOfDay;

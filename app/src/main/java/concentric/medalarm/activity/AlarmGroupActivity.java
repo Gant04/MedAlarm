@@ -1,8 +1,8 @@
 package concentric.medalarm.activity;
 
 
+import android.app.TimePickerDialog;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatSpinner;
 import android.support.v7.widget.Toolbar;
@@ -15,16 +15,33 @@ import android.view.animation.Animation;
 import android.view.animation.Transformation;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.ListView;
 import android.widget.RelativeLayout;
 
+import java.sql.Date;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Iterator;
 import java.util.List;
-
+import java.text.DateFormat;
 import concentric.medalarm.AlarmTimePickerDialogFragment;
+import android.widget.TimePicker;
 import concentric.medalarm.R;
 
 public class AlarmGroupActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
+    private List<String> list = new ArrayList<>();
+    private ListView listView;
+    private ArrayAdapter<String> adapter;
+    private Calendar dateAndTime = Calendar.getInstance();
+    private TimePickerDialog.OnTimeSetListener tp = new TimePickerDialog.OnTimeSetListener() {
+        public void onTimeSet(TimePicker view, int hourOfDay,
+                              int minute) {
+            dateAndTime.set(Calendar.HOUR_OF_DAY, hourOfDay);
+            dateAndTime.set(Calendar.MINUTE, minute);
+            updateList();
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,7 +62,18 @@ public class AlarmGroupActivity extends AppCompatActivity implements AdapterView
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
 
-
+        // Time Picker Listeners
+        android.support.design.widget.FloatingActionButton dSetTime = (android.support.design
+                .widget.FloatingActionButton) findViewById(R.id.addTime);
+        dSetTime.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                new TimePickerDialog(AlarmGroupActivity.this,
+                        tp,
+                        dateAndTime.get(Calendar.HOUR_OF_DAY),
+                        dateAndTime.get(Calendar.MINUTE),
+                        false).show();
+            }
+        });
     }
 
     @Override
@@ -155,6 +183,10 @@ public class AlarmGroupActivity extends AppCompatActivity implements AdapterView
                     // TODO: Handle the selection of Daily
                     hideVisibleViews(views);
                     expand(views.get(0));
+                    listView = (ListView) findViewById(R.id.dailyAlarmList);
+                    adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1,
+                            list);
+                    listView.setAdapter(adapter);
                     break;
                 case 2:
                     // TODO: Handle the selection of Weekly
@@ -175,7 +207,7 @@ public class AlarmGroupActivity extends AppCompatActivity implements AdapterView
         }
     }
 
-    public void hideVisibleViews(List list) {
+   private void hideVisibleViews(List list) {
         Iterator iterator = list.iterator();
         while(iterator.hasNext()) {
             View view = (View) iterator.next();
@@ -183,30 +215,11 @@ public class AlarmGroupActivity extends AppCompatActivity implements AdapterView
         }
     }
 
-
-    /**
-     * Sets the alarm from the user input.
-     * @param view takes a view.
-     * @return Returns a Bundle
-     * TODO: Break this out into a Utility
-     */
-    public Bundle onSetAlarmTime(View view) {
-        Bundle bundle = new Bundle();
-
-
-        AlarmTimePickerDialogFragment timePickerDialogFragment = new AlarmTimePickerDialogFragment();
-        timePickerDialogFragment.setHandler(new Handler() {
-
-        });
-        timePickerDialogFragment.setArguments(bundle);
-        android.support.v4.app.FragmentManager fragmentManager = getSupportFragmentManager();
-        android.support.v4.app.FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.add(timePickerDialogFragment, "time_picker");
-        fragmentTransaction.commit();
-
-        //bundle.putInt("set_hour", hour);
-        //bundle.putInt("set_minute", minute);
-        return bundle;
+    private void updateList() {
+        String item = DateFormat.getTimeInstance(DateFormat.SHORT).format(dateAndTime
+                .getTime());
+        adapter.add(item);
+        list.add(item);
     }
 
     /**
