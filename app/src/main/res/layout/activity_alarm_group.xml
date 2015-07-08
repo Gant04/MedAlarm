@@ -1,4 +1,5 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
                 xmlns:tools="http://schemas.android.com/tools"
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
@@ -22,7 +23,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:padding="15dp"
-        android:layout_below="@+id/AlarmGroupToolbar">
+        android:layout_below="@+id/AlarmGroupToolbar"
+        android:id="@+id/alarmDefinition">
 
         <EditText
             android:layout_width="fill_parent"
@@ -41,6 +43,40 @@
             android:spinnerMode="dropdown"
             style="@style/Widget.AppCompat.Spinner.Underlined"
             android:prompt="@string/alarmType"/>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/AlarmType"
+            android:layout_centerHorizontal="true"
+            android:animateLayoutChanges="true"
+            android:id="@+id/DailyAlarms"
+            android:layout_marginTop="10dp"
+            android:visibility="gone">
+
+            <ListView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/listView2"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                style="@style/Widget.AppCompat.ListView"
+                />
+
+            <!-- THIS IS THE ADD BUTTON -->
+            <android.support.design.widget.FloatingActionButton
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/actionMenu"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentRight="true"
+                android:src="@drawable/ic_add_white_48dp"
+                app:borderWidth="0dp"
+                app:elevation="@dimen/fab_button_elevation"
+                app:pressedTranslationZ="@dimen/fab_translation_z_pressed"
+                app:rippleColor="@color/colorPrimaryDark" />
+        </RelativeLayout>
 
     </RelativeLayout>
 

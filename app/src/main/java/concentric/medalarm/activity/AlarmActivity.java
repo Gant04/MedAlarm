@@ -177,6 +177,7 @@ public class AlarmActivity extends AppCompatActivity {
     /**
      * Sets the alarm from the user input.
      * @param view takes a view.
+     * TODO: Break this out into a Utility
      */
     public void onSetAlarmTime(View view) {
         Bundle bundle = new Bundle();
