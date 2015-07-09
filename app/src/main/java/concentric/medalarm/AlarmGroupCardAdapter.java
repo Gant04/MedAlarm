@@ -9,6 +9,7 @@ import android.widget.TextView;
 import java.util.List;
 
 import concentric.medalarm.models.AlarmGroup;
+import concentric.medalarm.models.DBHelper;
 
 /**
  * Created by MatthewAry on 7/9/2015.
@@ -33,7 +34,12 @@ public class AlarmGroupCardAdapter extends RecyclerView.Adapter<AlarmGroupCardAd
         AlarmGroup item = alarmGroups.get(position);
         // - get element from your dataset at this position
         // - replace the contents of the view with that element
-        ViewHolder.groupName.setText();
+        ViewHolder.groupName.setText(item.getGroupName());
+
+        String alarmType[] = DBHelper.getContext().getResources().getStringArray(R.array
+                .alarm_types);
+
+        ViewHolder.groupType.setText(alarmType[item.getAlarmType()]);
 
     }
 

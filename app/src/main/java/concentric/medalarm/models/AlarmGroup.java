@@ -118,6 +118,10 @@ public class AlarmGroup {
         return id;
     }
 
+    public int getAlarmType() {
+        return type;
+    }
+
     /**
      * Sets the alarm type
      * @param type
