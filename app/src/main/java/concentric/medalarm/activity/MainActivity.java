@@ -226,8 +226,10 @@ public class MainActivity extends AppCompatActivity {
      */
     public void onClickActionCreateAlarm(View view) {
 
-        Intent intent = new Intent(view.getContext(), AlarmActivity.class);
-        startActivityForResult(intent, createAlarmRequestCode);
+        Intent intent = new Intent(view.getContext(), AlarmGroupActivity.class);
+        startActivity(intent);
+        //Intent intent = new Intent(view.getContext(), AlarmActivity.class);
+        //startActivityForResult(intent, createAlarmRequestCode);
         onClickActionMenu(view);
     }
 
