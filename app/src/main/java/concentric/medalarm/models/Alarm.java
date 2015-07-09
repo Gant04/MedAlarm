@@ -1,10 +1,8 @@
 package concentric.medalarm.models;
 
-import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
-import java.sql.SQLException;
 import java.util.StringTokenizer;
 
 /*
@@ -78,30 +76,25 @@ public class Alarm {
         return this.hour;
     }
 
+    /**
+     * Sets the hour and ensures its valid.
+     *
+     * @param hour
+     */
+    public void setHour(int hour) {
+        if (hour > 23 || hour < 0) {
+            Log.e(getClass().getName() + " setHour", "An attempt to set the hour to an invalid" +
+                    " value was made.\nHour should be between 0 and 23.\n\n" +
+                    "This function was instructed to set the hour to: " +
+                    hour + ".");
+        } else {
+            this.hour = hour;
+        }
+    }
+
     public int getMinute() {
         return this.minute;
     }
-
-    public String getAlarmTime() {
-        return Integer.toString(this.getHour()) + ":" + Integer.toString(getMinute());
-    }
-
-    public String getAlarmTone() {
-        return this.alarmTone;
-    }
-
-    public long getGroupID() {
-        return this.groupID;
-    }
-
-    public long getId() {
-        return this.id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
-
 
     public void setMinute(int minute) {
         if (minute > 59 || minute < 0) {
@@ -114,19 +107,8 @@ public class Alarm {
         }
     }
 
-    /**
-     * Sets the hour and ensures its valid.
-     * @param hour
-     */
-    public void setHour(int hour) {
-        if (hour > 23 || hour < 0) {
-            Log.e(getClass().getName() + " setHour", "An attempt to set the hour to an invalid" +
-                                                     " value was made.\nHour should be between 0 and 23.\n\n" +
-                                                     "This function was instructed to set the hour to: " +
-                                                     hour + ".");
-        } else {
-            this.hour = hour;
-        }
+    public String getAlarmTime() {
+        return Integer.toString(this.getHour()) + ":" + Integer.toString(getMinute());
     }
 
     /**
@@ -139,6 +121,10 @@ public class Alarm {
         this.setMinute(Integer.parseInt(stringTokenizer.nextToken()));
     }
 
+    public String getAlarmTone() {
+        return this.alarmTone;
+    }
+
     /**
      * Sets the file name of the ringtone that will be played upon alarm firing.
      * @param alarmTone
@@ -147,12 +133,8 @@ public class Alarm {
         this.alarmTone = alarmTone;
     }
 
-    /**
-     * An Alarm has a message, E.G.: the type of medication to take.
-     * @param alarmMessage
-     */
-    public void setAlarmMessage(String alarmMessage) {
-        this.alarmMessage = alarmMessage;
+    public long getGroupID() {
+        return this.groupID;
     }
 
     /**
@@ -162,6 +144,23 @@ public class Alarm {
      */
     public void setGroupID(long id) {
         this.groupID = id;
+    }
+
+    public long getId() {
+        return this.id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    /**
+     * An Alarm has a message, E.G.: the type of medication to take.
+     *
+     * @param alarmMessage
+     */
+    public void setAlarmMessage(String alarmMessage) {
+        this.alarmMessage = alarmMessage;
     }
 
     /**

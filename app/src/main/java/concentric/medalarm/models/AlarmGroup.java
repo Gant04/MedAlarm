@@ -1,11 +1,8 @@
 package concentric.medalarm.models;
 
-import android.content.Context;
 import android.util.Log;
 
 import java.sql.SQLException;
-
-import concentric.medalarm.R;
 
 public class AlarmGroup {
     public static final String TABLE_NAME = "alarmGroup";
@@ -49,10 +46,6 @@ public class AlarmGroup {
     */
     public AlarmGroup(String groupName, String type, boolean offset, boolean enabled) {
 
-    }
-
-    public void setId(long id) {
-        this.id = id;
     }
 
     public String getGroupName() {
@@ -116,6 +109,10 @@ public class AlarmGroup {
 
     public long getId() {
         return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 
     public int getAlarmType() {

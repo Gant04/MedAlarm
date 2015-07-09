@@ -7,9 +7,7 @@ import android.content.Intent;
 import android.media.Ringtone;
 import android.media.RingtoneManager;
 import android.net.Uri;
-import android.os.SystemClock;
 import android.support.v4.content.WakefulBroadcastReceiver;
-import android.util.Log;
 import android.widget.Toast;
 
 import concentric.medalarm.activity.AlarmActivity;
