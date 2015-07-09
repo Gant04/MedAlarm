@@ -222,7 +222,7 @@ public class AlarmGroupActivity extends AppCompatActivity implements AdapterView
      */
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
-        type = pos;
+        type = pos - 1;
         String[] types = getResources().getStringArray(R.array.alarm_types);
         // Test which spinner has been toggled.
         if (types[pos].equals(parent.getItemAtPosition(pos))) { // Type Spinner
