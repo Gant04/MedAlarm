@@ -54,8 +54,8 @@ public class AlarmGroupCardAdapter extends RecyclerView.Adapter<AlarmGroupCardAd
     // you provide access to all the views for a data item in a view holder
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        protected TextView groupName;
-        protected TextView groupType;
+        protected static TextView groupName;
+        protected static TextView groupType;
 
         public ViewHolder(View v) {
             super(v);
