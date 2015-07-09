@@ -9,11 +9,6 @@ import junit.framework.Assert;
 public class AlarmGroupTest extends AndroidTestCase {
     public void testAlarmGroup() throws Throwable {
         AlarmGroup alarmGroup = new AlarmGroup();
-        Assert.assertTrue(alarmGroup.setAlarmType("Day") == true);
-        Assert.assertTrue(alarmGroup.setAlarmType("Week") == true);
-        Assert.assertTrue(alarmGroup.setAlarmType("Interval") == true);
-        Assert.assertTrue(alarmGroup.setAlarmType("Once") == true);
-        Assert.assertTrue(alarmGroup.setAlarmType("FAIL") == false);
         alarmGroup.setEnabled(true);
         Assert.assertTrue(alarmGroup.getEnabled() == true);
         alarmGroup.setEnabled(true);
