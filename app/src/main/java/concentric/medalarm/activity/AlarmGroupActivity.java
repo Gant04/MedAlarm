@@ -1,6 +1,8 @@
 package concentric.medalarm.activity;
 
 
+import android.animation.AnimatorSet;
+import android.animation.ObjectAnimator;
 import android.app.TimePickerDialog;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -11,6 +13,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.animation.DecelerateInterpolator;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
@@ -45,60 +48,39 @@ public class AlarmGroupActivity extends AppCompatActivity implements AdapterView
         }
     };
 
-    public static void expand(final View v) {
-        /*v.measure(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        final int targetHeight = v.getMeasuredHeight();
+    public static void expand(View view) {
 
-        v.getLayoutParams().height = 0;
-        v.setVisibility(View.VISIBLE);
-        Animation a = new Animation()
-        {
-            @Override
-            protected void applyTransformation(float interpolatedTime, Transformation t) {
-                v.getLayoutParams().height = interpolatedTime == 1
-                        ? ViewGroup.LayoutParams.WRAP_CONTENT
-                        : (int)(targetHeight * interpolatedTime);
-                v.requestLayout();
-            }
+        int duration = 500; //is in ms
 
-            @Override
-            public boolean willChangeBounds() {
-                return true;
-            }
-        };
+        view.setVisibility(View.VISIBLE);
+        ObjectAnimator slide = ObjectAnimator.ofFloat(view, "translationY", -800, 0);
+        slide.setInterpolator(new DecelerateInterpolator());
+        slide.setDuration(duration);
 
-        // 1dp/ms
-        a.setDuration((int)(targetHeight / v.getContext().getResources().getDisplayMetrics()
-                .density));
-        v.startAnimation(a);*/
-        v.setVisibility(View.VISIBLE);
+        ObjectAnimator alpha = ObjectAnimator.ofFloat(view, View.ALPHA, 0, 1);
+        alpha.setDuration(duration);
+
+        AnimatorSet set = new AnimatorSet();
+        set.play(alpha).with(slide);
+        set.start();
     }
 
-    public static void collapse(final View v) {
-       /*final int initialHeight = v.getMeasuredHeight();
+    public static void collapse(final View view) {
 
-        Animation a = new Animation()
-        {
-            @Override
-            protected void applyTransformation(float interpolatedTime, Transformation t) {
-                if(interpolatedTime == 1){
-                    v.setVisibility(View.GONE);
-                }else{
-                    v.getLayoutParams().height = initialHeight - (int)(initialHeight * interpolatedTime);
-                    v.requestLayout();
-                }
-            }
+        int duration = 500; //is in ms
 
-            @Override
-            public boolean willChangeBounds() {
-                return true;
-            }
-        };
+        view.setVisibility(View.VISIBLE);
+        ObjectAnimator slide = ObjectAnimator.ofFloat(view, "translationY", 0, -800);
+        slide.setInterpolator(new DecelerateInterpolator());
+        slide.setDuration(duration);
 
-        // 1dp/ms
-        a.setDuration((int)(initialHeight / v.getContext().getResources().getDisplayMetrics().density));
-        v.startAnimation(a);*/
-        v.setVisibility(View.GONE);
+        ObjectAnimator alpha = ObjectAnimator.ofFloat(view, View.ALPHA, 1, 0);
+        alpha.setDuration(duration);
+
+        AnimatorSet set = new AnimatorSet();
+        set.play(alpha).with(slide);
+        set.start();
+        view.setVisibility(View.GONE);
     }
 
     @Override
