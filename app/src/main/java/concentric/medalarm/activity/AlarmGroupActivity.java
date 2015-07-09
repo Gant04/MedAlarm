@@ -20,6 +20,7 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Iterator;
@@ -34,10 +35,11 @@ import android.widget.TimePicker;
 import concentric.medalarm.R;
 import concentric.medalarm.models.AlarmGroup;
 import concentric.medalarm.models.AlarmGroupDataSource;
+import concentric.medalarm.models.DBHelper;
 
 public class AlarmGroupActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
     private List<String> list = new ArrayList<>();
-    private List<Bundle> instance = new ArrayList<>();
+    private List<Bundle> aTimes = new ArrayList<>();
     private ListView listView;
     private ArrayAdapter<String> adapter;
     private Calendar dateAndTime = Calendar.getInstance();
@@ -55,6 +57,9 @@ public class AlarmGroupActivity extends AppCompatActivity implements AdapterView
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_alarm_group);
+
+        // Activate Singleton
+        DBHelper.getInstance(this);
 
         // Get Toolbar
         Toolbar toolbar = (Toolbar) findViewById(R.id.AlarmGroupToolbar);
@@ -118,8 +123,29 @@ public class AlarmGroupActivity extends AppCompatActivity implements AdapterView
     private void save() {
         AlarmGroupDataSource save = new AlarmGroupDataSource();
         TextView name = (TextView) findViewById(R.id.alarmName);
+        try {
+            save.open();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         AlarmGroup ag = save.createAlarmGroup(name.getText().toString(), "BLEH", type, false, true);
         // TODO: Use a loop to insert alarms into the ag object.
+        Iterator iTimes = aTimes.iterator();
+        while(iTimes.hasNext()) {
+            Bundle aTime = (Bundle) iTimes.next();
+            int hour = aTime.getInt("hour");
+            int minute = aTime.getInt("minute");
+            boolean repeats = false;
+            int rHours = 0;
+            int rMiutes = 0;
+            if (type == 1) {
+                repeats = true;
+                rHours = 24;
+                rMiutes = 0;
+            }
+            ag.addAlarm(hour, minute, repeats, rHours, rMiutes);
+        }
+        save.close();
     }
 
     public static void expand(final View v) {
@@ -246,6 +272,10 @@ public class AlarmGroupActivity extends AppCompatActivity implements AdapterView
         String item = DateFormat.getTimeInstance(DateFormat.SHORT).format(dateAndTime
                 .getTime());
         // TODO: Add Create a bundle and add it to instance
+        Bundle bundle = new Bundle();
+        bundle.putInt("hour", dateAndTime.get(Calendar.HOUR_OF_DAY));
+        bundle.putInt("minute", dateAndTime.get(Calendar.MINUTE));
+        aTimes.add(bundle);
         list.add(item);
         adapter.notifyDataSetChanged();
     }

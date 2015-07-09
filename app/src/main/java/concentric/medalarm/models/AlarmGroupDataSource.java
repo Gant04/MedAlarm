@@ -84,6 +84,7 @@ public class AlarmGroupDataSource {
         values.put(AlarmGroup.COLUMN_NAME_ALARM_GROUP_TYPE, type);
         values.put(AlarmGroup.COLUMN_NAME_ALARM_GROUP_OFFSET, offset);
         values.put(AlarmGroup.COLUMN_NAME_ALARM_GROUP_ENABLED, enabled);
+        values.put(AlarmGroup.COLUMN_NAME_ALARM_GROUP_RINGTONE, ringTone);
         values.put(AlarmGroup.COLUMN_NAME_ALARM_REPEATABLE, repeatable);
         values.put(AlarmGroup.COLUMN_NAME_ALARM_NUMBER_OF_REPEATS, numRepeats);
         values.put(AlarmGroup.COLUMN_NAME_ALARM_TIMES_REPEATED, timesRepeated);

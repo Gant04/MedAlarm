@@ -351,7 +351,7 @@ public class AlarmActivity extends AppCompatActivity {
         Bundle alarmData = new Bundle();
         alarmData.putInt("hour", hour);
         alarmData.putInt("minute", minute);
-        alarmData.putString("medicationName", alarmMedicationName.getText().toString());
+            alarmData.putString("medicationName", alarmMedicationName.getText().toString());
 
         Intent returnIntent = new Intent();
         returnIntent.putExtras(alarmData);
