@@ -19,8 +19,16 @@
         android:elevation="4dp"
         android:theme="@style/AppTheme.ToolBar" />
 
+    <view
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        class="android.support.v7.widget.RecyclerView"
+        android:id="@+id/recycleAlarmList"
+        android:layout_below="@+id/toolbar"
+        android:scrollbars="vertical"/>
+
     <ListView
-        android:id="@+id/listView"
+        android:id="@+id/alarmGroups"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_alignParentLeft="true"
@@ -28,7 +36,8 @@
         android:layout_below="@+id/toolbar"
         android:choiceMode="singleChoice"
         android:clickable="true"
-        android:nestedScrollingEnabled="false" />
+        android:nestedScrollingEnabled="false"
+        android:visibility="gone"/>
 
     <android.support.design.widget.FloatingActionButton xmlns:app="http://schemas.android.com/apk/res-auto"
         android:id="@+id/actionCreate"

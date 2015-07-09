@@ -11,6 +11,9 @@ import android.content.IntentFilter;
 import android.media.AudioManager;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.CardView;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.text.format.Time;
 import android.util.Log;
@@ -23,12 +26,17 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Iterator;
 import java.util.List;
 
+import concentric.medalarm.AlarmGroupCardAdapter;
 import concentric.medalarm.R;
 import concentric.medalarm.TimeConverter;
+import concentric.medalarm.models.AlarmGroup;
+import concentric.medalarm.models.AlarmGroupDataSource;
 import concentric.medalarm.models.DBHelper;
 
 //TODO We should go through and check to see which of the classes we actually need/use and remove those that aren't being used.
@@ -38,9 +46,19 @@ public class MainActivity extends AppCompatActivity {
 
     private final int createAlarmRequestCode = 1;
     AlarmManager alarmManager;
-    private ListView alarmList;
-    private List<String> medList;
+
+    // RecyclerView Implementation
+    private RecyclerView mRecyclerView;
+    private RecyclerView.Adapter mRecycleAdapter;
+    private RecyclerView.LayoutManager mRecycleLayoutManager;
+
+
+    // ListView Implementation
+    private ListView alarmListView;
+    private List<String> alarmStringList;
     private ArrayAdapter<String> listAdapter;
+
+    // TODO: Do we need these?
     private boolean alarmSelected = false;
     private boolean menuClicked = false;
     private boolean soundLoaded = false;
@@ -49,18 +67,36 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        // Initialize DB Singleton
         DBHelper.getInstance(this);
+
+        // Grab Toolbar
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        medList = new ArrayList<>();
-        alarmList = (ListView) findViewById(R.id.listView);
-        alarmList.setSelector(R.color.colorPrimary);
-
-        listAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_activated_1, medList);
-        alarmList.setAdapter(listAdapter);
-
+        // Setup List View
+        alarmStringList = new ArrayList<>(); // Strings
+        alarmListView = (ListView) findViewById(R.id.alarmGroups);
+        alarmListView.setSelector(R.color.colorPrimary);
+        listAdapter = new ArrayAdapter<String>(this, android.R.layout
+                .simple_list_item_1, alarmStringList);
+        alarmListView.setAdapter(listAdapter);
         alarmListOnClickListener();
+
+    // Setup Recycler View
+        mRecyclerView = (RecyclerView) findViewById(R.id.recycleAlarmList);
+        mRecyclerView.setHasFixedSize(true);
+
+        // Layout Managers
+        mRecycleLayoutManager =  new LinearLayoutManager(this);
+        mRecyclerView.setLayoutManager(mRecycleLayoutManager);
+
+        // Adapter for Recycler View
+        //mRecycleAdapter = new AlarmGroupCardAdapter(data);
+        mRecyclerView.setAdapter(mRecycleAdapter);
+
+        // TODO: Do we need this?
         menuButtonOnLongClickListener();
 
 
@@ -89,13 +125,34 @@ public class MainActivity extends AppCompatActivity {
         result.isDrawerOpen();*/
     }
 
+    private void populateListView() {
+        // Query the database for all existing alarm groups.
+        AlarmGroupDataSource dataSource = new AlarmGroupDataSource();
+        try {
+            dataSource.open();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        List<AlarmGroup> alarmGroupList = dataSource.getAllAlarmGroups();
+        dataSource.close();
+
+        // Using a loop, load each alarm group description into the list.
+        Iterator aGroups = alarmGroupList.iterator();
+        while(aGroups.hasNext()) {
+            // TODO: ListView items layout needs to be customized.
+            //alarmStringList.add();
+        }
+        // TODO: Link Each AlarmGroup item in the list to AlarmGroup Edit activity.
+        // TODO: Add a enabled/disabled toggle to each item on the list.
+    }
+
 
     /**
      * Click listener for the AlarmList
      */
     private void alarmListOnClickListener() {
         // listens for when the list is clicked.
-        alarmList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        alarmListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id) {
@@ -264,8 +321,8 @@ public class MainActivity extends AppCompatActivity {
             }
             if (resultCode == RESULT_CANCELED) {
 
-                if (alarmList.isSelected()) {
-                    Toast.makeText(getApplicationContext(), "Edits to: " + alarmList.getSelectedItem().toString() + " were canceled.", Toast.LENGTH_SHORT);
+                if (alarmListView.isSelected()) {
+                    Toast.makeText(getApplicationContext(), "Edits to: " + alarmListView.getSelectedItem().toString() + " were canceled.", Toast.LENGTH_SHORT);
                 } else {
                     Toast.makeText(MainActivity.this, "Alarm creation canceled.", Toast.LENGTH_SHORT).show();
 
@@ -281,10 +338,10 @@ public class MainActivity extends AppCompatActivity {
      * TODO Move buildAndStoreAndDisplay into its own class. Somehow, eventually.
      */
     private void buildStoreAndDisplayAlarm(final Bundle bundle) {
-        alarmList.clearChoices();
+        alarmListView.clearChoices();
         final String med = bundle.getString("medicationName");
         Toast.makeText(getApplicationContext(), "Alarm created: " + med + ".", Toast.LENGTH_SHORT).show();
-        medList.add(med);
+        alarmStringList.add(med);
         listAdapter.notifyDataSetChanged();
 
         //this is here for the time being.
