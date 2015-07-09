@@ -6,6 +6,7 @@ import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.annotation.TargetApi;
 import android.app.Activity;
+import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Build;
 import android.os.Bundle;
@@ -14,6 +15,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.animation.DecelerateInterpolator;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import concentric.medalarm.R;
 import concentric.medalarm.activity.util.SystemUiHider;
@@ -84,6 +86,12 @@ public class FullScreenAlarm extends Activity {
         final View contentView = findViewById(R.id.fullscreen_content);
 
         this.setTitle("MedAlarm");
+
+        Intent intent = getIntent();
+        Bundle bundle = intent.getExtras();
+
+        final TextView alarmText = (TextView) findViewById(R.id.textView);
+        alarmText.setText(bundle.getString("medicationName"));
 
         // Set up an instance of SystemUiHider to control the system UI for
         // this activity.

@@ -309,6 +309,11 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onReceive(Context context, Intent intent) {
 
+                Intent alarmIntent = new Intent();
+                //alarmIntent.setClassName("concentric.medalarm.activity",FullScreenAlarm.class);
+                //alarmIntent.putExtras(bundle);
+                //alarmIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                //context.startActivity(alarmIntent);
                 //Toast.makeText(context, "Alarm: " + med + " is going off.", Toast.LENGTH_LONG).show();
                 //TODO Replace the things here with an actual activity instead of this garbage.
             }
