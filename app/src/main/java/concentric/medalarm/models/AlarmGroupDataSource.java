@@ -62,7 +62,7 @@ public class AlarmGroupDataSource {
     }
 
     /**
-     * The complete AlarmGroup constructor.
+     * The standard AlarmGroup constructor.
      * @param groupName Essentially a message, or name of this alarm group
      * @param ringTone A string reference to the ringtone that will be played upon alarm firing.
      * @param type TODO: Firm up this definition.
@@ -124,7 +124,8 @@ public class AlarmGroupDataSource {
             cursor.moveToNext();
         }
         cursor.close();
-        Log.i(getClass().getName() + " getAllAlarmGroups", "Obtained a list of all AlarmGroups");
+        Log.i(getClass().getName() + " getAllAlarmGroups", "Obtained a list of all AlarmGroups "
+                + "and found " + alarmGroups.size() + " entries.");
         return alarmGroups;
     }
 
@@ -136,7 +137,15 @@ public class AlarmGroupDataSource {
      * @return AlarmGroup object.
      */
     public AlarmGroup cursorToGroup(Cursor cursor) {
-        AlarmGroup group = new AlarmGroup();
+        AlarmGroup group = new AlarmGroup(
+                cursor.getLong(cursor.getColumnIndex(AlarmGroup.COLUMN_NAME_ALARM_GROUP_ID)),
+                cursor.getString(cursor.getColumnIndex(AlarmGroup.COLUMN_NAME_ALARM_GROUP_NAME)),
+                cursor.getString(cursor.getColumnIndex(AlarmGroup
+                        .COLUMN_NAME_ALARM_GROUP_RINGTONE)),
+                cursor.getInt(cursor.getColumnIndex(AlarmGroup.COLUMN_NAME_ALARM_GROUP_TYPE)),
+                cursor.getInt(cursor.getColumnIndex(AlarmGroup.COLUMN_NAME_ALARM_GROUP_OFFSET))>0,
+                cursor.getInt(cursor.getColumnIndex(AlarmGroup.COLUMN_NAME_ALARM_GROUP_ENABLED))>0
+        );
         Log.i(getClass().getName() + " cursorToGroup", "Gets Something...");
         return group;
     }

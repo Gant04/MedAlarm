@@ -25,7 +25,9 @@
         class="android.support.v7.widget.RecyclerView"
         android:id="@+id/recycleAlarmList"
         android:layout_below="@+id/toolbar"
-        android:scrollbars="vertical"/>
+        android:scrollbars="vertical"
+        android:paddingBottom="16dp"
+        android:clipToPadding="false"/>
 
     <ListView
         android:id="@+id/alarmGroups"

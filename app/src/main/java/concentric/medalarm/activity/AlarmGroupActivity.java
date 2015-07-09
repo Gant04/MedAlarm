@@ -107,7 +107,7 @@ public class AlarmGroupActivity extends AppCompatActivity implements AdapterView
         setContentView(R.layout.activity_alarm_group);
 
         // Activate Singleton
-        DBHelper.getInstance(this);
+        DBHelper.getInstance(getApplicationContext());
 
         // Get Toolbar
         Toolbar toolbar = (Toolbar) findViewById(R.id.AlarmGroupToolbar);
@@ -179,7 +179,7 @@ public class AlarmGroupActivity extends AppCompatActivity implements AdapterView
         AlarmGroup ag = save.createAlarmGroup(name.getText().toString(), "BLEH", type, false, true);
         // TODO: Use a loop to insert alarms into the ag object.
         Iterator iTimes = aTimes.iterator();
-        while(iTimes.hasNext()) {
+        while (iTimes.hasNext()) {
             Bundle aTime = (Bundle) iTimes.next();
             int hour = aTime.getInt("hour");
             int minute = aTime.getInt("minute");
@@ -214,7 +214,7 @@ public class AlarmGroupActivity extends AppCompatActivity implements AdapterView
      */
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
-        type = pos - 1;
+        type = pos;
         String[] types = getResources().getStringArray(R.array.alarm_types);
         // Test which spinner has been toggled.
         if (types[pos].equals(parent.getItemAtPosition(pos))) { // Type Spinner

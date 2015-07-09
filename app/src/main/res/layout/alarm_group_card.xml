@@ -1,21 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v7.widget.CardView
+    android:id="@+id/alarmGroupCard"
+    style="@style/CardView"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="center">
+    android:layout_height="wrap_content"
+    android:layout_alignParentEnd="true"
+    android:layout_marginTop="16dp"
+    android:layout_marginLeft="16dp"
+    android:layout_marginRight="16dp"
+    android:divider="@color/default_divider_color_light"
+    android:measureWithLargestChild="false"
+    android:showDividers="middle">
 
-    <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-        android:id="@+id/alarmGroupCard"
-        style="@style/CardView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_margin="16dp"
-        android:divider="@color/default_divider_color_light"
-        android:measureWithLargestChild="false"
-        android:showDividers="middle">
-
-        <TableLayout
+    <TableLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         >
@@ -39,7 +37,7 @@
                     android:elegantTextHeight="false"
                     android:focusableInTouchMode="false"
                     android:text="@string/alarmGroupName"
-                    android:textAppearance="?android:attr/textAppearanceLarge" />
+                    android:textAppearance="?android:attr/textAppearanceLarge"/>
 
                 <TextView
                     android:id="@+id/groupType"
@@ -49,7 +47,7 @@
                     android:layout_alignParentStart="true"
                     android:layout_below="@+id/groupName"
                     android:text="@string/alarmGroupType"
-                    android:textAppearance="?android:attr/textAppearanceSmall" />
+                    android:textAppearance="?android:attr/textAppearanceSmall"/>
             </RelativeLayout>
 
         </TableRow>
@@ -64,7 +62,7 @@
                 android:layout_height="1dip"
                 android:layout_weight="1"
                 android:background="@color/default_divider_color_light"
-                android:padding="2dip" />
+                android:padding="2dip"/>
         </TableRow>
 
         <TableRow
@@ -78,12 +76,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="left"
-                android:text="@string/enabled" />
+                android:text="@string/enabled"/>
         </TableRow>
     </TableLayout>
-
 </android.support.v7.widget.CardView>
-
-
-
-</RelativeLayout>

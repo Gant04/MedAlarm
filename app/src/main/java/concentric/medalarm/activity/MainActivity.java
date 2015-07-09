@@ -31,6 +31,7 @@ import java.util.Calendar;
 import java.util.Iterator;
 import java.util.List;
 
+import concentric.medalarm.AlarmGroupCardAdapter;
 import concentric.medalarm.R;
 import concentric.medalarm.TimeConverter;
 import concentric.medalarm.models.AlarmGroup;
@@ -56,6 +57,9 @@ public class MainActivity extends AppCompatActivity {
     private List<String> alarmStringList;
     private ArrayAdapter<String> listAdapter;
 
+    // List of Alarm Groups
+    List<AlarmGroup> alarmGroupList;
+
     // TODO: Do we need these?
     private boolean alarmSelected = false;
     private boolean menuClicked = false;
@@ -67,20 +71,20 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         // Initialize DB Singleton
-        DBHelper.getInstance(this);
+        DBHelper.getInstance(getApplicationContext());
 
         // Grab Toolbar
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         // Setup List View
-        alarmStringList = new ArrayList<>(); // Strings
+/*        alarmStringList = new ArrayList<>(); // Strings
         alarmListView = (ListView) findViewById(R.id.alarmGroups);
         alarmListView.setSelector(R.color.colorPrimary);
         listAdapter = new ArrayAdapter<String>(this, android.R.layout
                 .simple_list_item_1, alarmStringList);
         alarmListView.setAdapter(listAdapter);
-        alarmListOnClickListener();
+        alarmListOnClickListener();*/
 
     // Setup Recycler View
         mRecyclerView = (RecyclerView) findViewById(R.id.recycleAlarmList);
@@ -90,9 +94,15 @@ public class MainActivity extends AppCompatActivity {
         mRecycleLayoutManager =  new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(mRecycleLayoutManager);
 
+
+
         // Adapter for Recycler View
-        //mRecycleAdapter = new AlarmGroupCardAdapter(data);
-        mRecyclerView.setAdapter(mRecycleAdapter);
+        loadAlarmGroups();
+        if(alarmGroupList.size() > 0) {
+            mRecycleAdapter = new AlarmGroupCardAdapter(alarmGroupList);
+            mRecyclerView.setAdapter(mRecycleAdapter);
+        }
+
 
         // TODO: Do we need this?
         menuButtonOnLongClickListener();
@@ -123,7 +133,7 @@ public class MainActivity extends AppCompatActivity {
         result.isDrawerOpen();*/
     }
 
-    private void populateListView() {
+    private void loadAlarmGroups() {
         // Query the database for all existing alarm groups.
         AlarmGroupDataSource dataSource = new AlarmGroupDataSource();
         try {
@@ -131,15 +141,9 @@ public class MainActivity extends AppCompatActivity {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        List<AlarmGroup> alarmGroupList = dataSource.getAllAlarmGroups();
+        alarmGroupList = dataSource.getAllAlarmGroups();
         dataSource.close();
 
-        // Using a loop, load each alarm group description into the list.
-        Iterator aGroups = alarmGroupList.iterator();
-        while(aGroups.hasNext()) {
-            // TODO: ListView items layout needs to be customized.
-            //alarmStringList.add();
-        }
         // TODO: Link Each AlarmGroup item in the list to AlarmGroup Edit activity.
         // TODO: Add a enabled/disabled toggle to each item on the list.
     }
