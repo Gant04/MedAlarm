@@ -1,6 +1,7 @@
 package concentric.medalarm.activity;
 
 
+import android.animation.Animator;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.app.TimePickerDialog;
@@ -79,11 +80,29 @@ public class AlarmGroupActivity extends AppCompatActivity implements AdapterView
         AnimatorSet set = new AnimatorSet();
         set.play(alpha).with(slide);
 
+        set.addListener(new Animator.AnimatorListener() {
+            @Override
+            public void onAnimationStart(Animator animation) {
+
+            }
+
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                view.setVisibility(View.GONE);
+            }
+
+            @Override
+            public void onAnimationCancel(Animator animation) {
+
+            }
+
+            @Override
+            public void onAnimationRepeat(Animator animation) {
+
+            }
+        });
 
         set.start();
-
-
-        view.setVisibility(View.GONE);
     }
 
     @Override
