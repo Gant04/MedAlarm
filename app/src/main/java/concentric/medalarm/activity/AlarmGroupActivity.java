@@ -69,7 +69,6 @@ public class AlarmGroupActivity extends AppCompatActivity implements AdapterView
 
         int duration = 500; //is in ms
 
-        view.setVisibility(View.VISIBLE);
         ObjectAnimator slide = ObjectAnimator.ofFloat(view, "translationY", 0, -800);
         slide.setInterpolator(new DecelerateInterpolator());
         slide.setDuration(duration);
@@ -79,7 +78,11 @@ public class AlarmGroupActivity extends AppCompatActivity implements AdapterView
 
         AnimatorSet set = new AnimatorSet();
         set.play(alpha).with(slide);
+
+
         set.start();
+
+
         view.setVisibility(View.GONE);
     }
 
