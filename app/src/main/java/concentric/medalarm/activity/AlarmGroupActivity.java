@@ -14,7 +14,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.animation.DecelerateInterpolator;
+import android.view.animation.LinearInterpolator;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
@@ -55,7 +55,7 @@ public class AlarmGroupActivity extends AppCompatActivity implements AdapterView
 
         view.setVisibility(View.VISIBLE);
         ObjectAnimator slide = ObjectAnimator.ofFloat(view, "translationY", -800, 0);
-        slide.setInterpolator(new DecelerateInterpolator());
+        slide.setInterpolator(new LinearInterpolator());
         slide.setDuration(duration);
 
         ObjectAnimator alpha = ObjectAnimator.ofFloat(view, View.ALPHA, 0, 1);
@@ -70,8 +70,8 @@ public class AlarmGroupActivity extends AppCompatActivity implements AdapterView
 
         int duration = 500; //is in ms
 
-        ObjectAnimator slide = ObjectAnimator.ofFloat(view, "translationY", 0, -800);
-        slide.setInterpolator(new DecelerateInterpolator());
+        ObjectAnimator slide = ObjectAnimator.ofInt(view, "top", 0, -700);
+        slide.setInterpolator(new LinearInterpolator());
         slide.setDuration(duration);
 
         ObjectAnimator alpha = ObjectAnimator.ofFloat(view, View.ALPHA, 1, 0);
@@ -101,7 +101,6 @@ public class AlarmGroupActivity extends AppCompatActivity implements AdapterView
 
             }
         });
-
         set.start();
     }
 
