@@ -92,7 +92,8 @@
 
         </RelativeLayout>
 
-        <RelativeLayout
+        <!--This is broken FIX IT-->
+        <!--<RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:id="@+id/IntervalAlarms"
@@ -106,8 +107,8 @@
                 android:id="@+id/fragment"
                 android:layout_centerVertical="true"
                 android:layout_centerHorizontal="true"
-                tools:layout="@layout/hms_picker_view"/>"/>
-        </RelativeLayout>
+                tools:layout="@layout/hms_picker_view"/>
+        </RelativeLayout>-->
 
     </RelativeLayout>
 
