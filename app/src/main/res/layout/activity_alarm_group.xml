@@ -64,15 +64,10 @@
             android:layout_marginTop="10dp"
             android:visibility="gone">
 
-            <ListView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+            <com.baoyz.swipemenulistview.SwipeMenuListView
                 android:id="@+id/dailyAlarmList"
-                android:layout_alignParentTop="true"
-                android:layout_centerHorizontal="true"
-                style="@style/Widget.AppCompat.ListView"
-                android:layout_marginTop="15dp"
-                android:layout_marginRight="15dp"/>
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
 
             <!-- THIS IS THE ADD BUTTON -->
             <android.support.design.widget.FloatingActionButton

@@ -263,6 +263,8 @@ public class AlarmGroupActivity extends AppCompatActivity implements AdapterView
         }
     }
 
+
+
     private void updateList() {
         String item = DateFormat.getTimeInstance(DateFormat.SHORT).format(dateAndTime
                 .getTime());
