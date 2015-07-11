@@ -16,5 +16,4 @@
         android:contentDescription="delete"
         android:onClick=""
         android:src="@android:drawable/ic_menu_delete" />
-
 </LinearLayout>
