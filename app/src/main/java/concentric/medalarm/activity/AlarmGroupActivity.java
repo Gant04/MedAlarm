@@ -26,6 +26,7 @@ import android.widget.TimePicker;
 import com.baoyz.swipemenulistview.SwipeMenu;
 import com.baoyz.swipemenulistview.SwipeMenuCreator;
 import com.baoyz.swipemenulistview.SwipeMenuItem;
+import com.baoyz.swipemenulistview.SwipeMenuListView;
 
 import java.sql.SQLException;
 import java.text.DateFormat;
@@ -79,7 +80,7 @@ public class AlarmGroupActivity extends AppCompatActivity implements AdapterView
     }
 
     public void setListSlider() {
-        ListView timeList = (ListView) findViewById(R.id.dailyAlarmList);
+        SwipeMenuListView timeList = (SwipeMenuListView) findViewById(R.id.dailyAlarmList);
         SwipeMenuCreator creator = new SwipeMenuCreator() {
 
             @Override
