@@ -5,6 +5,8 @@ import android.animation.Animator;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.app.TimePickerDialog;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatSpinner;
@@ -20,6 +22,10 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.TimePicker;
+
+import com.baoyz.swipemenulistview.SwipeMenu;
+import com.baoyz.swipemenulistview.SwipeMenuCreator;
+import com.baoyz.swipemenulistview.SwipeMenuItem;
 
 import java.sql.SQLException;
 import java.text.DateFormat;
@@ -64,6 +70,54 @@ public class AlarmGroupActivity extends AppCompatActivity implements AdapterView
         AnimatorSet set = new AnimatorSet();
         set.play(alpha).with(slide);
         set.start();
+    }
+
+    private int dp2px(int dp) {
+        float scale = getResources().getDisplayMetrics().density;
+        int pixels = (int) (dp * scale + 0.5f);
+        return pixels;
+    }
+
+    public void setListSlider() {
+        ListView timeList = (ListView) findViewById(R.id.dailyAlarmList);
+        SwipeMenuCreator creator = new SwipeMenuCreator() {
+
+            @Override
+            public void create(SwipeMenu menu) {
+                // create "open" item
+                SwipeMenuItem openItem = new SwipeMenuItem(
+                        getApplicationContext());
+                // set item background
+                openItem.setBackground(new ColorDrawable(Color.rgb(0xC9, 0xC9,
+                        0xCE)));
+                // set item width
+                openItem.setWidth(dp2px(90));
+                // set item title
+                openItem.setTitle("Open");
+                // set item title fontsize
+                openItem.setTitleSize(18);
+                // set item title font color
+                openItem.setTitleColor(Color.WHITE);
+                // add to menu
+                menu.addMenuItem(openItem);
+
+                // create "delete" item
+                SwipeMenuItem deleteItem = new SwipeMenuItem(
+                        getApplicationContext());
+                // set item background
+                deleteItem.setBackground(new ColorDrawable(Color.rgb(0xF9,
+                        0x3F, 0x25)));
+                // set item width
+                deleteItem.setWidth(dp2px(90));
+                // set a icon
+                deleteItem.setIcon(R.drawable.ic_trash_white);
+                // add to menu
+                menu.addMenuItem(deleteItem);
+            }
+        };
+
+        // set creator
+        timeList.setMenuCreator(creator);
     }
 
     public static void collapse(final View view) {
