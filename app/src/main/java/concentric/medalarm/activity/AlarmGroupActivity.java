@@ -21,6 +21,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.animation.BounceInterpolator;
 import android.view.animation.DecelerateInterpolator;
 import android.view.animation.LinearInterpolator;
 import android.widget.AdapterView;
@@ -152,7 +153,7 @@ public class AlarmGroupActivity extends AppCompatActivity implements AdapterView
             }
         });
 
-        timeList.setCloseInterpolator(new DecelerateInterpolator());
+        timeList.setCloseInterpolator(new BounceInterpolator());
     }
 
     public void editButtonClick(int position) {
