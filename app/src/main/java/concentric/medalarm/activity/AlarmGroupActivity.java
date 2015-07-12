@@ -143,12 +143,11 @@ public class AlarmGroupActivity extends AppCompatActivity implements AdapterView
                     case 1:
                         //delete button
                         deleteButtonClick(position);
+                        adapter.notifyDataSetChanged();
                         return false;
                     default:
                         return true;
                 }
-
-
             }
         });
     }
@@ -170,7 +169,6 @@ public class AlarmGroupActivity extends AppCompatActivity implements AdapterView
     private void deleteButtonClick(int position){
         aTimes.remove(position);
         list.remove(position);
-        adapter.notifyDataSetChanged();
     }
 
     public static void collapse(final View view) {
