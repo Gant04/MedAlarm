@@ -102,13 +102,28 @@ public class AlarmGroupActivity extends AppCompatActivity implements AdapterView
                 // create "delete" item
                 SwipeMenuItem deleteItem = new SwipeMenuItem(
                         getApplicationContext());
+
+                SwipeMenuItem editItem = new SwipeMenuItem(getApplicationContext());
+
+                editItem.setWidth(dp2px(90));
+
+                // edit icon
+                Drawable editIcon = ResourcesCompat.getDrawable(getResources(), R.drawable.ic_edit_white_48dp, null);
+                if (editIcon != null) {
+                    editIcon.setColorFilter(new PorterDuffColorFilter(Color.rgb(255, 215, 0), PorterDuff.Mode.MULTIPLY));
+                }
+
+                editItem.setIcon(editIcon);
+                //add to menu
+                menu.addMenuItem(editItem);
+
                 // set item background
                 //deleteItem.setBackground(new ColorDrawable(Color.WHITE));
                 // set item width
                 deleteItem.setWidth(dp2px(90));
                 // set a icon
 
-                Drawable icon = ResourcesCompat.getDrawable(getResources(),R.drawable.ic_white_trash,null);
+                Drawable icon = ResourcesCompat.getDrawable(getResources(), R.drawable.ic_white_trash, null);
                 if (icon != null) {
                     icon.setColorFilter(new PorterDuffColorFilter(Color.rgb(168, 48, 49), PorterDuff.Mode.MULTIPLY));
                 }
