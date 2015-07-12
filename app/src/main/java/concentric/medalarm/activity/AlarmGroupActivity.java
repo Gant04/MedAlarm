@@ -85,20 +85,15 @@ public class AlarmGroupActivity extends AppCompatActivity implements AdapterView
 
             @Override
             public void create(SwipeMenu menu) {
-                // create "open" item
-                SwipeMenuItem openItem = new SwipeMenuItem(
-                        getApplicationContext());
-
                 // create "delete" item
                 SwipeMenuItem deleteItem = new SwipeMenuItem(
                         getApplicationContext());
                 // set item background
-                deleteItem.setBackground(new ColorDrawable(Color.rgb(0xF9,
-                        0x3F, 0x25)));
+                deleteItem.setBackground(Color.GRAY);
                 // set item width
                 deleteItem.setWidth(dp2px(90));
                 // set a icon
-                deleteItem.setIcon(R.drawable.redx);
+                deleteItem.setIcon(R.drawable.red_x);
                 // add to menu
                 menu.addMenuItem(deleteItem);
             }
