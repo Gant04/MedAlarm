@@ -110,7 +110,7 @@ public class AlarmGroupActivity extends AppCompatActivity implements AdapterView
                 // edit icon
                 Drawable editIcon = ResourcesCompat.getDrawable(getResources(), R.drawable.ic_edit_white_48dp, null);
                 if (editIcon != null) {
-                    editIcon.setColorFilter(new PorterDuffColorFilter(Color.rgb(255, 215, 0), PorterDuff.Mode.MULTIPLY));
+                    editIcon.setColorFilter(new PorterDuffColorFilter(R.color.primary, PorterDuff.Mode.MULTIPLY));
                 }
 
                 editItem.setIcon(editIcon);
@@ -125,7 +125,7 @@ public class AlarmGroupActivity extends AppCompatActivity implements AdapterView
 
                 Drawable icon = ResourcesCompat.getDrawable(getResources(), R.drawable.ic_white_trash, null);
                 if (icon != null) {
-                    icon.setColorFilter(new PorterDuffColorFilter(Color.rgb(168, 48, 49), PorterDuff.Mode.MULTIPLY));
+                    icon.setColorFilter(new PorterDuffColorFilter(R.color.primary_light, PorterDuff.Mode.MULTIPLY));
                 }
 
                 deleteItem.setIcon(icon);
