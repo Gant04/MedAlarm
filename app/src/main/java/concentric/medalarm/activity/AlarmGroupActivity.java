@@ -38,6 +38,7 @@ import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
 
@@ -53,8 +54,6 @@ public class AlarmGroupActivity extends AppCompatActivity implements AdapterView
     private ArrayAdapter<String> adapter;
     private Calendar dateAndTime = Calendar.getInstance();
     private int type;
-
-    Context context;
 
     private TimePickerDialog.OnTimeSetListener tp = new TimePickerDialog.OnTimeSetListener() {
         public void onTimeSet(TimePicker view, int hourOfDay,
@@ -87,11 +86,16 @@ public class AlarmGroupActivity extends AppCompatActivity implements AdapterView
         int pixels = (int) (dp * scale + 0.5f);
         return pixels;
     }
-
-    private void sortArrayList(List<String> list)
-    {
-        Collections.sort(list);
-    }
+//
+//    private void sortArrayList(List<String> list)
+//    {
+//        Collections.sort(list, new Comparator<String>() {
+//            @Override
+//            public int compare(String lhs, String rhs) {
+//
+//            }
+//        };
+//    }
 
     public void setListSlider() {
         SwipeMenuListView timeList = (SwipeMenuListView) findViewById(R.id.dailyAlarmList);
@@ -389,7 +393,7 @@ public class AlarmGroupActivity extends AppCompatActivity implements AdapterView
         // required interface callback.
     }
 
-    public void timePickerClicker(View view) {
+    public void timePickerClicker(View view) { //lawl
         new TimePickerDialog(AlarmGroupActivity.this,
                 tp,
                 dateAndTime.get(Calendar.HOUR_OF_DAY),
