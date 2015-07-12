@@ -35,6 +35,7 @@ import java.sql.SQLException;
 import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
@@ -82,9 +83,9 @@ public class AlarmGroupActivity extends AppCompatActivity implements AdapterView
         return pixels;
     }
 
-    private void sortListView(List<String> list)
+    private void sortArrayList(List<String> list)
     {
-
+        Collections.sort(list);
     }
 
     public void setListSlider() {
@@ -102,7 +103,7 @@ public class AlarmGroupActivity extends AppCompatActivity implements AdapterView
                 deleteItem.setWidth(dp2px(90));
                 // set a icon
 
-                Drawable icon = getApplicationContext().getDrawable(R.drawable.ic_white_trash);
+                Drawable icon = getBaseContext().getDrawable(R.drawable.ic_white_trash);
                 if (icon != null) {
                     icon.setColorFilter(new PorterDuffColorFilter(Color.rgb(168, 48, 49), PorterDuff.Mode.MULTIPLY));
                 }
@@ -335,6 +336,7 @@ public class AlarmGroupActivity extends AppCompatActivity implements AdapterView
         bundle.putInt("minute", dateAndTime.get(Calendar.MINUTE));
         aTimes.add(bundle);
         list.add(item);
+        sortArrayList(list);
         adapter.notifyDataSetChanged();
     }
 
