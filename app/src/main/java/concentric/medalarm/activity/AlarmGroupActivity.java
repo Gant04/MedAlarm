@@ -107,7 +107,7 @@ public class AlarmGroupActivity extends AppCompatActivity implements AdapterView
 
                 editItem.setWidth(dp2px(60));
 
-                int color = Color.rgb(0,151,109);
+                int color = Color.rgb(25,118,210);
 
                 // edit icon
                 Drawable editIcon = ResourcesCompat.getDrawable(getResources(), R.drawable.ic_edit_white_48dp, null);
