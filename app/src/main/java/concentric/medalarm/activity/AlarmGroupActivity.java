@@ -119,6 +119,22 @@ public class AlarmGroupActivity extends AppCompatActivity implements AdapterView
 
         // set creator
         timeList.setMenuCreator(creator);
+
+        timeList.setOnMenuItemClickListener(new SwipeMenuListView.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(int position, SwipeMenu menu, int index) {
+                switch (index) {
+                    case 0:
+                        // open
+                        break;
+                    case 1:
+                        // delete
+                        break;
+                }
+                // false : close the menu; true : not close the menu
+                return false;
+            }
+        });
     }
 
     public static void collapse(final View view) {
@@ -193,6 +209,8 @@ public class AlarmGroupActivity extends AppCompatActivity implements AdapterView
                         false).show();
             }
         });
+
+        setListSlider();
     }
 
     @Override
