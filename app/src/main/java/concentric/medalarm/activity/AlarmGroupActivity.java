@@ -1,15 +1,10 @@
 package concentric.medalarm.activity;
 
 
-import android.animation.Animator;
-import android.animation.AnimatorSet;
-import android.animation.ObjectAnimator;
 import android.app.TimePickerDialog;
-import android.content.Context;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffColorFilter;
-import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.content.res.ResourcesCompat;
@@ -21,8 +16,13 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.WindowManager;
+import android.view.animation.AccelerateInterpolator;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
+import android.view.animation.AnimationSet;
 import android.view.animation.DecelerateInterpolator;
-import android.view.animation.LinearInterpolator;
+import android.view.animation.TranslateAnimation;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
@@ -39,7 +39,6 @@ import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
 
@@ -56,6 +55,8 @@ public class AlarmGroupActivity extends AppCompatActivity implements AdapterView
     private Calendar dateAndTime = Calendar.getInstance();
     private int type;
 
+    private View view;
+
     private TimePickerDialog.OnTimeSetListener tp = new TimePickerDialog.OnTimeSetListener() {
         public void onTimeSet(TimePicker view, int hourOfDay,
                               int minute) {
@@ -64,23 +65,6 @@ public class AlarmGroupActivity extends AppCompatActivity implements AdapterView
             updateList();
         }
     };
-
-    public static void expand(View view) {
-
-        int duration = 500; //is in ms
-
-        view.setVisibility(View.VISIBLE);
-        ObjectAnimator slide = ObjectAnimator.ofFloat(view, "translationY", -800, 0);
-        slide.setInterpolator(new LinearInterpolator());
-        slide.setDuration(duration);
-
-        ObjectAnimator alpha = ObjectAnimator.ofFloat(view, View.ALPHA, 0, 1);
-        alpha.setDuration(duration);
-
-        AnimatorSet set = new AnimatorSet();
-        set.play(alpha).with(slide);
-        set.start();
-    }
 
     private int dp2px(int dp) {
         float scale = getResources().getDisplayMetrics().density;
@@ -164,8 +148,8 @@ public class AlarmGroupActivity extends AppCompatActivity implements AdapterView
         temp.set(Calendar.MINUTE, bundleTime.getInt("minute"));
         new TimePickerDialog(AlarmGroupActivity.this,
                 tp,
-                dateAndTime.get(temp.HOUR_OF_DAY),
-                dateAndTime.get(temp.MINUTE),
+                dateAndTime.get(Calendar.HOUR_OF_DAY),
+                dateAndTime.get(Calendar.MINUTE),
                 false).show();
     }
 
@@ -174,43 +158,51 @@ public class AlarmGroupActivity extends AppCompatActivity implements AdapterView
         list.remove(position);
     }
 
-    public static void collapse(final View view) {
+    public void expand(View view) {
+        TranslateAnimation translateAnimation = null;
+        translateAnimation = new TranslateAnimation(0, 0, -view.getHeight(), 0);
+        view.setVisibility(View.VISIBLE);
+        translateAnimation.setDuration(500);
+        translateAnimation.setInterpolator(new AccelerateInterpolator());
+        view.startAnimation(translateAnimation);
+    }
 
-        int duration = 500; //is in ms
+    public void collapse(final View view) {
 
-        ObjectAnimator slide = ObjectAnimator.ofInt(view, "top", 0, -700);
-        slide.setInterpolator(new LinearInterpolator());
-        slide.setDuration(duration);
+        AlphaAnimation alphaAnimation = new AlphaAnimation(1, 0);
+        alphaAnimation.setDuration(250);
 
-        ObjectAnimator alpha = ObjectAnimator.ofFloat(view, View.ALPHA, 1, 0);
-        alpha.setDuration(duration);
+        TranslateAnimation translateAnimation = new TranslateAnimation(0, 0, 0, -view.getHeight());
+        translateAnimation.setDuration(500);
+        translateAnimation.setInterpolator(new DecelerateInterpolator());
 
-        AnimatorSet set = new AnimatorSet();
-        set.play(alpha).with(slide);
+        translateAnimation.setAnimationListener(new Animation.AnimationListener() {
 
-        set.addListener(new Animator.AnimatorListener() {
             @Override
-            public void onAnimationStart(Animator animation) {
+            public void onAnimationStart(Animation animation) {
 
             }
 
             @Override
-            public void onAnimationEnd(Animator animation) {
+            public void onAnimationEnd(Animation animation) {
                 view.setVisibility(View.GONE);
             }
 
             @Override
-            public void onAnimationCancel(Animator animation) {
-
-            }
-
-            @Override
-            public void onAnimationRepeat(Animator animation) {
+            public void onAnimationRepeat(Animation animation) {
 
             }
         });
-        set.start();
+
+        AnimationSet animationSet;
+
+        animationSet = new AnimationSet(true);
+        animationSet.addAnimation(alphaAnimation);
+        animationSet.addAnimation(translateAnimation);
+
+        view.startAnimation(animationSet);
     }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -234,7 +226,8 @@ public class AlarmGroupActivity extends AppCompatActivity implements AdapterView
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
 
-
+        //Stops the keyboard from popping up utill the user clicks on a text box.
+        this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
 
         setListSlider();
     }

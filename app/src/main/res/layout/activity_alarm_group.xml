@@ -6,63 +6,63 @@
                 tools:context="concentric.medalarm.activity.AlarmGroupActivity">
 
     <view
-        android:layout_width="fill_parent"
-        android:layout_height="@dimen/toolbar_height"
-        class="android.support.v7.widget.Toolbar"
         android:id="@+id/AlarmGroupToolbar"
         style="@style/AppTheme.ToolBar"
-        android:visibility="visible"
-        android:transitionGroup="false"
-        android:background="@color/colorPrimary"
-        android:layout_alignParentTop="true"
+        class="android.support.v7.widget.Toolbar"
+        android:layout_width="fill_parent"
+        android:layout_height="@dimen/toolbar_height"
         android:layout_alignParentLeft="false"
         android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:background="@color/colorPrimary"
+        android:elevation="4dp"
         android:theme="@style/AppTheme.ToolBar"
-        android:elevation="4dp"/>
+        android:transitionGroup="false"
+        android:visibility="visible" />
 
     <RelativeLayout
+        android:id="@+id/alarmDefinition"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/AlarmGroupToolbar"
-        android:id="@+id/alarmDefinition"
         >
 
         <EditText
+            android:id="@+id/alarmName"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/alarmName"
-            android:inputType="textCapWords"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginTop="15dp"
             android:capitalize="words"
             android:hint="@string/name"
+            android:inputType="textCapWords"
             android:paddingLeft="15dp"
-            android:paddingTop="15dp"
             android:paddingRight="15dp"
-            android:layout_marginLeft="15dp"
-            android:layout_marginTop="15dp"
-            android:layout_marginRight="15dp"/>
+            android:paddingTop="15dp" />
 
         <android.support.v7.widget.AppCompatSpinner
+            android:id="@+id/AlarmType"
+            style="@style/Widget.AppCompat.Spinner.Underlined"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/AlarmType"
             android:layout_below="@+id/alarmName"
             android:layout_centerHorizontal="true"
-            android:spinnerMode="dropdown"
-            style="@style/Widget.AppCompat.Spinner.Underlined"
-            android:prompt="@string/alarmType"
             android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
             android:layout_marginTop="15dp"
-            android:layout_marginRight="15dp"/>
+            android:prompt="@string/alarmType"
+            android:spinnerMode="dropdown" />
 
         <RelativeLayout
+            android:id="@+id/DailyAlarms"
             android:layout_width="match_parent"
             android:layout_height="fill_parent"
             android:layout_below="@+id/AlarmType"
             android:layout_centerHorizontal="true"
-            android:animateLayoutChanges="true"
-            android:id="@+id/DailyAlarms"
             android:layout_marginTop="10dp"
-            android:visibility="visible">
+            android:animateLayoutChanges="true"
+            android:visibility="gone">
 
             <com.baoyz.swipemenulistview.SwipeMenuListView
                 android:id="@+id/dailyAlarmList"
@@ -78,14 +78,14 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
                 android:layout_alignParentRight="true"
+                android:layout_marginBottom="@dimen/fab_button_margin_bottom"
+                android:layout_marginRight="@dimen/fab_button_margin_right"
+                android:onClick="timePickerClicker"
                 android:src="@drawable/ic_add_white_48dp"
                 app:borderWidth="0dp"
                 app:elevation="@dimen/fab_button_elevation"
                 app:pressedTranslationZ="@dimen/fab_translation_z_pressed"
-                app:rippleColor="@color/colorPrimaryDark"
-                android:layout_marginRight="@dimen/fab_button_margin_right"
-                android:layout_marginBottom="@dimen/fab_button_margin_bottom"
-                android:onClick="timePickerClicker"/>
+                app:rippleColor="@color/colorPrimaryDark" />
 
         </RelativeLayout>
 
