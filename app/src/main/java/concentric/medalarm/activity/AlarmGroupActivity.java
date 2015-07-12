@@ -89,11 +89,11 @@ public class AlarmGroupActivity extends AppCompatActivity implements AdapterView
                 SwipeMenuItem deleteItem = new SwipeMenuItem(
                         getApplicationContext());
                 // set item background
-                deleteItem.setBackground(Color.GRAY);
+                deleteItem.setBackground(new ColorDrawable(Color.rgb(168,48,49)));
                 // set item width
                 deleteItem.setWidth(dp2px(90));
                 // set a icon
-                deleteItem.setIcon(R.drawable.red_x);
+                deleteItem.setIcon(R.drawable.trash_can);
                 // add to menu
                 menu.addMenuItem(deleteItem);
             }

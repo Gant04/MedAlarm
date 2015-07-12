@@ -62,7 +62,7 @@
             android:animateLayoutChanges="true"
             android:id="@+id/DailyAlarms"
             android:layout_marginTop="10dp"
-            android:visibility="gone">
+            android:visibility="visible">
 
             <com.baoyz.swipemenulistview.SwipeMenuListView
                 android:id="@+id/dailyAlarmList"
