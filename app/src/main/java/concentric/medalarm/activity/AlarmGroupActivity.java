@@ -86,16 +86,6 @@ public class AlarmGroupActivity extends AppCompatActivity implements AdapterView
         int pixels = (int) (dp * scale + 0.5f);
         return pixels;
     }
-//
-//    private void sortArrayList(List<String> list)
-//    {
-//        Collections.sort(list, new Comparator<String>() {
-//            @Override
-//            public int compare(String lhs, String rhs) {
-//
-//            }
-//        };
-//    }
 
     public void setListSlider() {
         SwipeMenuListView timeList = (SwipeMenuListView) findViewById(R.id.dailyAlarmList);
@@ -384,7 +374,6 @@ public class AlarmGroupActivity extends AppCompatActivity implements AdapterView
         aTimes.add(bundle);
         list.add(item);
         Collections.sort(list);
-        //sortArrayList(list);
         adapter.notifyDataSetChanged();
     }
 
