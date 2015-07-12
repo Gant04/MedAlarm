@@ -152,7 +152,7 @@ public class AlarmGroupActivity extends AppCompatActivity implements AdapterView
                         break;
                     case 1:
                         //delete button
-
+                        deleteButtonClick(position);
                         break;
                     default:
                         break;
@@ -176,6 +176,12 @@ public class AlarmGroupActivity extends AppCompatActivity implements AdapterView
                 dateAndTime.get(temp.HOUR_OF_DAY),
                 dateAndTime.get(temp.MINUTE),
                 false).show();
+    }
+
+    private void deleteButtonClick(int position){
+        aTimes.remove(position);
+        list.remove(position);
+        adapter.notifyDataSetChanged();
     }
 
     public static void collapse(final View view) {
