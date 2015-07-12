@@ -143,8 +143,10 @@ public class AlarmGroupActivity extends AppCompatActivity implements AdapterView
 
                 switch (index) {
                     case 0:
+                        //edit button
                         break;
                     case 1:
+                        //delete button
                         break;
                     default:
                         break;
