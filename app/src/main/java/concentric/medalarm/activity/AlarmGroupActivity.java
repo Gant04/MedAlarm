@@ -105,7 +105,7 @@ public class AlarmGroupActivity extends AppCompatActivity implements AdapterView
 
                 SwipeMenuItem editItem = new SwipeMenuItem(getApplicationContext());
 
-                editItem.setWidth(dp2px(90));
+                editItem.setWidth(dp2px(60));
 
                 // edit icon
                 Drawable editIcon = ResourcesCompat.getDrawable(getResources(), R.drawable.ic_edit_white_48dp, null);
@@ -117,10 +117,8 @@ public class AlarmGroupActivity extends AppCompatActivity implements AdapterView
                 //add to menu
                 menu.addMenuItem(editItem);
 
-                // set item background
-                //deleteItem.setBackground(new ColorDrawable(Color.WHITE));
                 // set item width
-                deleteItem.setWidth(dp2px(90));
+                deleteItem.setWidth(dp2px(60));
                 // set a icon
 
                 Drawable icon = ResourcesCompat.getDrawable(getResources(), R.drawable.ic_white_trash, null);
