@@ -84,7 +84,8 @@
                 app:pressedTranslationZ="@dimen/fab_translation_z_pressed"
                 app:rippleColor="@color/colorPrimaryDark"
                 android:layout_marginRight="@dimen/fab_button_margin_right"
-                android:layout_marginBottom="@dimen/fab_button_margin_bottom"/>
+                android:layout_marginBottom="@dimen/fab_button_margin_bottom"
+                android:onClick="timePickerClicker"/>
 
         </RelativeLayout>
 

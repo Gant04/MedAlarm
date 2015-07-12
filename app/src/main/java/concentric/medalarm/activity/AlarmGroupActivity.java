@@ -147,6 +147,7 @@ public class AlarmGroupActivity extends AppCompatActivity implements AdapterView
                         break;
                     case 1:
                         //delete button
+
                         break;
                     default:
                         break;
@@ -382,5 +383,9 @@ public class AlarmGroupActivity extends AppCompatActivity implements AdapterView
      */
     public void onNothingSelected(AdapterView<?> parent) {
         // required interface callback.
+    }
+
+    public void timePickerClicker(View view) {
+
     }
 }
