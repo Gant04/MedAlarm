@@ -134,22 +134,21 @@ public class AlarmGroupActivity extends AppCompatActivity implements AdapterView
         timeList.setOnMenuItemClickListener(new SwipeMenuListView.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(int position, SwipeMenu menu, int index) {
-
+                // false : close the menu; true : not close the menu
                 switch (index) {
                     case 0:
                         //edit button
                         editButtonClick(position);
-                        break;
+                        return false;
                     case 1:
                         //delete button
                         deleteButtonClick(position);
-                        break;
+                        return false;
                     default:
-                        break;
+                        return true;
                 }
 
-                // false : close the menu; true : not close the menu
-                return false;
+
             }
         });
     }
