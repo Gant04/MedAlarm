@@ -67,7 +67,8 @@
             <com.baoyz.swipemenulistview.SwipeMenuListView
                 android:id="@+id/dailyAlarmList"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+                android:layout_height="match_parent"
+                android:tint="@color/bpRed"/>
 
             <!-- THIS IS THE ADD BUTTON -->
             <android.support.design.widget.FloatingActionButton

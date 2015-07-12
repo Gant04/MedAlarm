@@ -5,6 +5,7 @@ import android.animation.Animator;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.app.TimePickerDialog;
+import android.content.Context;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffColorFilter;
@@ -51,6 +52,9 @@ public class AlarmGroupActivity extends AppCompatActivity implements AdapterView
     private ArrayAdapter<String> adapter;
     private Calendar dateAndTime = Calendar.getInstance();
     private int type;
+
+    Context context;
+
     private TimePickerDialog.OnTimeSetListener tp = new TimePickerDialog.OnTimeSetListener() {
         public void onTimeSet(TimePicker view, int hourOfDay,
                               int minute) {
@@ -103,7 +107,7 @@ public class AlarmGroupActivity extends AppCompatActivity implements AdapterView
                 deleteItem.setWidth(dp2px(90));
                 // set a icon
 
-                Drawable icon = getBaseContext().getDrawable(R.drawable.ic_white_trash);
+                Drawable icon = getDrawable(R.drawable.ic_white_trash);
                 if (icon != null) {
                     icon.setColorFilter(new PorterDuffColorFilter(Color.rgb(168, 48, 49), PorterDuff.Mode.MULTIPLY));
                 }
