@@ -6,7 +6,10 @@ import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.app.TimePickerDialog;
 import android.graphics.Color;
+import android.graphics.PorterDuff;
+import android.graphics.PorterDuffColorFilter;
 import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatSpinner;
@@ -89,11 +92,15 @@ public class AlarmGroupActivity extends AppCompatActivity implements AdapterView
                 SwipeMenuItem deleteItem = new SwipeMenuItem(
                         getApplicationContext());
                 // set item background
-                deleteItem.setBackground(new ColorDrawable(Color.rgb(168,48,49)));
+                //deleteItem.setBackground(new ColorDrawable(Color.WHITE));
                 // set item width
                 deleteItem.setWidth(dp2px(90));
                 // set a icon
-                deleteItem.setIcon(R.drawable.ic_white_trash);
+
+                Drawable icon = getApplicationContext().getDrawable(R.drawable.ic_white_trash);
+                icon.setColorFilter(new PorterDuffColorFilter(Color.rgb(168, 48, 49), PorterDuff.Mode.MULTIPLY));
+
+                deleteItem.setIcon(icon);
                 // add to menu
                 menu.addMenuItem(deleteItem);
             }
