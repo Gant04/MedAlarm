@@ -82,6 +82,11 @@ public class AlarmGroupActivity extends AppCompatActivity implements AdapterView
         return pixels;
     }
 
+    private void sortListView(List<String> list)
+    {
+
+    }
+
     public void setListSlider() {
         SwipeMenuListView timeList = (SwipeMenuListView) findViewById(R.id.dailyAlarmList);
         SwipeMenuCreator creator = new SwipeMenuCreator() {
