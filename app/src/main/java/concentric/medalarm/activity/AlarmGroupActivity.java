@@ -111,7 +111,7 @@ public class AlarmGroupActivity extends AppCompatActivity implements AdapterView
                 // set item width
                 deleteItem.setWidth(dp2px(90));
                 // set a icon
-                deleteItem.setIcon(R.drawable.ic_white_trash);
+                deleteItem.setIcon(R.drawable.redX);
                 // add to menu
                 menu.addMenuItem(deleteItem);
             }
