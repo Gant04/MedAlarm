@@ -144,6 +144,7 @@ public class AlarmGroupActivity extends AppCompatActivity implements AdapterView
                 switch (index) {
                     case 0:
                         //edit button
+
                         break;
                     case 1:
                         //delete button
@@ -219,18 +220,7 @@ public class AlarmGroupActivity extends AppCompatActivity implements AdapterView
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
 
-        // Time Picker Listeners
-        android.support.design.widget.FloatingActionButton dSetTime = (android.support.design
-                .widget.FloatingActionButton) findViewById(R.id.addTime);
-        dSetTime.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                new TimePickerDialog(AlarmGroupActivity.this,
-                        tp,
-                        dateAndTime.get(Calendar.HOUR_OF_DAY),
-                        dateAndTime.get(Calendar.MINUTE),
-                        false).show();
-            }
-        });
+
 
         setListSlider();
     }
@@ -386,6 +376,17 @@ public class AlarmGroupActivity extends AppCompatActivity implements AdapterView
     }
 
     public void timePickerClicker(View view) {
-
+        // Time Picker Listeners
+        android.support.design.widget.FloatingActionButton dSetTime = (android.support.design
+                .widget.FloatingActionButton) findViewById(R.id.addTime);
+        dSetTime.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                new TimePickerDialog(AlarmGroupActivity.this,
+                        tp,
+                        dateAndTime.get(Calendar.HOUR_OF_DAY),
+                        dateAndTime.get(Calendar.MINUTE),
+                        false).show();
+            }
+        });
     }
 }
