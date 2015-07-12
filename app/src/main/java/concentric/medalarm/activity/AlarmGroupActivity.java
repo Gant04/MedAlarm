@@ -144,7 +144,7 @@ public class AlarmGroupActivity extends AppCompatActivity implements AdapterView
                 switch (index) {
                     case 0:
                         //edit button
-
+                        editButtonClick(position);
                         break;
                     case 1:
                         //delete button
@@ -158,6 +158,20 @@ public class AlarmGroupActivity extends AppCompatActivity implements AdapterView
                 return false;
             }
         });
+    }
+
+    public void editButtonClick(int position) {
+        Calendar temp = Calendar.getInstance();
+        Bundle bundleTime = aTimes.get(position);
+        aTimes.remove(position);
+        list.remove(position);
+        temp.set(Calendar.HOUR_OF_DAY, bundleTime.getInt("hour"));
+        temp.set(Calendar.MINUTE, bundleTime.getInt("minute"));
+        new TimePickerDialog(AlarmGroupActivity.this,
+                tp,
+                dateAndTime.get(temp.HOUR_OF_DAY),
+                dateAndTime.get(temp.MINUTE),
+                false).show();
     }
 
     public static void collapse(final View view) {
