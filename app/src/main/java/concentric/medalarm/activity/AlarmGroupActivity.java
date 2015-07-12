@@ -108,7 +108,7 @@ public class AlarmGroupActivity extends AppCompatActivity implements AdapterView
                 deleteItem.setWidth(dp2px(90));
                 // set a icon
 
-                Drawable icon = ResourcesCompat.getDrawable(getResources(),R.drawable.ic_white_trash,null);
+                Drawable icon = ResourcesCompat.getDrawable(getResources(), R.drawable.ic_white_trash, null);
                 if (icon != null) {
                     icon.setColorFilter(new PorterDuffColorFilter(Color.rgb(168, 48, 49), PorterDuff.Mode.MULTIPLY));
                 }
@@ -125,6 +125,16 @@ public class AlarmGroupActivity extends AppCompatActivity implements AdapterView
         timeList.setOnMenuItemClickListener(new SwipeMenuListView.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(int position, SwipeMenu menu, int index) {
+
+                switch (index) {
+                    case 0:
+                        break;
+                    case 1:
+                        break;
+                    default:
+                        break;
+                }
+
                 // false : close the menu; true : not close the menu
                 return false;
             }
@@ -341,7 +351,8 @@ public class AlarmGroupActivity extends AppCompatActivity implements AdapterView
         bundle.putInt("minute", dateAndTime.get(Calendar.MINUTE));
         aTimes.add(bundle);
         list.add(item);
-        sortArrayList(list);
+        Collections.sort(list);
+        //sortArrayList(list);
         adapter.notifyDataSetChanged();
     }
 
