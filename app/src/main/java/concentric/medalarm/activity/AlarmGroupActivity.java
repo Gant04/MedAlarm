@@ -12,6 +12,7 @@ import android.graphics.PorterDuffColorFilter;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.support.v4.content.res.ResourcesCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatSpinner;
 import android.support.v7.widget.Toolbar;
@@ -107,7 +108,7 @@ public class AlarmGroupActivity extends AppCompatActivity implements AdapterView
                 deleteItem.setWidth(dp2px(90));
                 // set a icon
 
-                Drawable icon = getDrawable(R.drawable.ic_white_trash);
+                Drawable icon = ResourcesCompat.getDrawable(getResources(),R.drawable.ic_white_trash,null);
                 if (icon != null) {
                     icon.setColorFilter(new PorterDuffColorFilter(Color.rgb(168, 48, 49), PorterDuff.Mode.MULTIPLY));
                 }
