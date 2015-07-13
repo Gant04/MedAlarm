@@ -274,6 +274,8 @@ public class AlarmGroupActivity extends AppCompatActivity implements AdapterView
         AlarmGroup ag = save.createAlarmGroup(name.getText().toString(), "BLEH", type, false, true);
         // TODO: Use a loop to insert alarms into the ag object.
         Iterator iTimes = aTimes.iterator();
+
+        // TODO: Might want to use a better itterator pattern so that the world is not destroyed.
         while (iTimes.hasNext()) {
             Bundle aTime = (Bundle) iTimes.next();
             int hour = aTime.getInt("hour");
