@@ -1,9 +1,9 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                xmlns:app="http://schemas.android.com/apk/res-auto"
-                xmlns:tools="http://schemas.android.com/tools"
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
-                tools:context="concentric.medalarm.activity.AlarmGroupActivity">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    tools:context="concentric.medalarm.activity.AlarmGroupActivity">
 
     <view
         android:id="@+id/AlarmGroupToolbar"
@@ -24,8 +24,7 @@
         android:id="@+id/alarmDefinition"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/AlarmGroupToolbar"
-        >
+        android:layout_below="@+id/AlarmGroupToolbar">
 
         <EditText
             android:id="@+id/alarmName"
@@ -68,11 +67,10 @@
                 android:id="@+id/dailyAlarmList"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:tint="@color/bpRed"/>
+                android:tint="@color/bpRed" />
 
             <!-- THIS IS THE ADD BUTTON -->
-            <android.support.design.widget.FloatingActionButton
-                xmlns:app="http://schemas.android.com/apk/res-auto"
+            <android.support.design.widget.FloatingActionButton xmlns:app="http://schemas.android.com/apk/res-auto"
                 android:id="@+id/addTime"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

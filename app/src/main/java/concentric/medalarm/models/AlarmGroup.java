@@ -121,6 +121,7 @@ public class AlarmGroup {
 
     /**
      * Sets the alarm type
+     *
      * @param type
      * @return
      */
@@ -148,11 +149,12 @@ public class AlarmGroup {
      * addAlarm
      * This allows you to create an alarm from the AlarmGroup class.
      * TODO: Should this function do more like register an alarm with the system?
-     * @param hour      Hour it goes off.
-     * @param minute    Minute it goes off.
-     * @param repeats   If it repeats
-     * @param rHours    Hour interval it repeats.
-     * @param rMinutes  Minute interval it repeats.
+     *
+     * @param hour     Hour it goes off.
+     * @param minute   Minute it goes off.
+     * @param repeats  If it repeats
+     * @param rHours   Hour interval it repeats.
+     * @param rMinutes Minute interval it repeats.
      */
     public void addAlarm(int hour, int minute, boolean repeats, int rHours, int rMinutes) {
         long id = getId();

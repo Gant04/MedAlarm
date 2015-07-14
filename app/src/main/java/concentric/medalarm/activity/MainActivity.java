@@ -26,9 +26,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Iterator;
 import java.util.List;
 
 import concentric.medalarm.AlarmGroupCardAdapter;
@@ -45,21 +43,16 @@ public class MainActivity extends AppCompatActivity {
 
     private final int createAlarmRequestCode = 1;
     AlarmManager alarmManager;
-
+    // List of Alarm Groups
+    List<AlarmGroup> alarmGroupList;
     // RecyclerView Implementation
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mRecycleAdapter;
     private RecyclerView.LayoutManager mRecycleLayoutManager;
-
-
     // ListView Implementation
     private ListView alarmListView;
     private List<String> alarmStringList;
     private ArrayAdapter<String> listAdapter;
-
-    // List of Alarm Groups
-    List<AlarmGroup> alarmGroupList;
-
     // TODO: Do we need these?
     private boolean alarmSelected = false;
     private boolean menuClicked = false;
@@ -86,19 +79,18 @@ public class MainActivity extends AppCompatActivity {
         alarmListView.setAdapter(listAdapter);
         alarmListOnClickListener();*/
 
-    // Setup Recycler View
+        // Setup Recycler View
         mRecyclerView = (RecyclerView) findViewById(R.id.recycleAlarmList);
         mRecyclerView.setHasFixedSize(true);
 
         // Layout Managers
-        mRecycleLayoutManager =  new LinearLayoutManager(this);
+        mRecycleLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(mRecycleLayoutManager);
-
 
 
         // Adapter for Recycler View
         loadAlarmGroups();
-        if(alarmGroupList.size() > 0) {
+        if (alarmGroupList.size() > 0) {
             mRecycleAdapter = new AlarmGroupCardAdapter(alarmGroupList);
             mRecyclerView.setAdapter(mRecycleAdapter);
         }
@@ -272,9 +264,7 @@ public class MainActivity extends AppCompatActivity {
      * @param view The view that was clicked.
      */
     public void onClickActionEditAlarm(View view) {
-        //TODO Fix this.
-        Intent intent = new Intent(view.getContext(), AlarmActivity.class);
-        startActivityForResult(intent, createAlarmRequestCode);
+        //TODO Fix this
         onClickActionMenu(view);
     }
 
@@ -284,16 +274,12 @@ public class MainActivity extends AppCompatActivity {
      * @param view The view that was clicked.
      */
     public void onClickActionCreateAlarm(View view) {
-
         Intent intent = new Intent(view.getContext(), AlarmGroupActivity.class);
         startActivity(intent);
-        //Intent intent = new Intent(view.getContext(), AlarmActivity.class);
-        //startActivityForResult(intent, createAlarmRequestCode);
         onClickActionMenu(view);
     }
 
     /**
-     *
      * @param menu The menu that was clicked.
      * @return returns a boolean set to true
      */
@@ -336,8 +322,9 @@ public class MainActivity extends AppCompatActivity {
 
     /**
      * The workhorse of the app, does most of the stuff for the actual building of alarms.
+     *
      * @param bundle takes a bundle from the onActivityResult, but can be used by a database as well.
-     * TODO Move buildAndStoreAndDisplay into its own class. Somehow, eventually.
+     *               TODO Move buildAndStoreAndDisplay into its own class. Somehow, eventually.
      */
     private void buildStoreAndDisplayAlarm(final Bundle bundle) {
         alarmListView.clearChoices();

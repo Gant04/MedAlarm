@@ -86,7 +86,7 @@ public class AlarmGroupActivity extends AppCompatActivity implements AdapterView
 
                 editItem.setWidth(dp2px(60));
 
-                int color = Color.rgb(25,118,210);
+                int color = Color.rgb(25, 118, 210);
 
                 // edit icon
                 Drawable editIcon = ResourcesCompat.getDrawable(getResources(), R.drawable.ic_edit_white_48dp, null);
@@ -153,7 +153,7 @@ public class AlarmGroupActivity extends AppCompatActivity implements AdapterView
                 false).show();
     }
 
-    private void deleteButtonClick(int position){
+    private void deleteButtonClick(int position) {
         aTimes.remove(position);
         list.remove(position);
     }
@@ -262,7 +262,6 @@ public class AlarmGroupActivity extends AppCompatActivity implements AdapterView
         }
     }
 
-    // TODO: PERFORM ALARM SAVE OPERATION HERE
     private void save() {
         AlarmGroupDataSource save = new AlarmGroupDataSource();
         TextView name = (TextView) findViewById(R.id.alarmName);
@@ -271,9 +270,11 @@ public class AlarmGroupActivity extends AppCompatActivity implements AdapterView
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        // TODO: Ringtone needs to be set!
         AlarmGroup ag = save.createAlarmGroup(name.getText().toString(), "BLEH", type, false, true);
-        // TODO: Use a loop to insert alarms into the ag object.
         Iterator iTimes = aTimes.iterator();
+
+        // TODO: Might want to use a better itterator pattern so that the world is not destroyed.
         while (iTimes.hasNext()) {
             Bundle aTime = (Bundle) iTimes.next();
             int hour = aTime.getInt("hour");
@@ -354,7 +355,6 @@ public class AlarmGroupActivity extends AppCompatActivity implements AdapterView
             if (view.getVisibility() == View.VISIBLE) collapse(view);
         }
     }
-
 
 
     private void updateList() {

@@ -48,8 +48,8 @@ public class AlarmDataSource {
         }
         long insertId = database.insert(Alarm.TABLE_NAME, null, values);
         Cursor cursor = database.query(Alarm.TABLE_NAME, allColumns, Alarm.COLUMN_NAME_ALARM_ID +
-                                                                     " = " + insertId, null, null,
-                                       null, null);
+                        " = " + insertId, null, null,
+                null, null);
         cursor.moveToFirst();
         Alarm alarm = cursorToAlarm(cursor);
         cursor.close();
@@ -65,8 +65,8 @@ public class AlarmDataSource {
     public List<Alarm> getGroupAlarms(long groupID) {
         List<Alarm> alarms = new ArrayList<>();
         Cursor cursor = database.query(Alarm.TABLE_NAME, allColumns, Alarm.COLUMN_NAME_ALARM_GROUP +
-                                      " = ?", new String[] {String.valueOf(groupID)}, null, null,
-                                       null);
+                        " = ?", new String[]{String.valueOf(groupID)}, null, null,
+                null);
 
         if (cursor.getCount() > 0) {
             cursor.moveToFirst();
@@ -77,12 +77,12 @@ public class AlarmDataSource {
             }
             cursor.close();
             Log.i(getClass().getName() + " getGroupAlarms",
-                  "Obtained a list of all alarms belonging to AlarmGroup with ID: " +
-                  Long.toString(groupID));
+                    "Obtained a list of all alarms belonging to AlarmGroup with ID: " +
+                            Long.toString(groupID));
         } else {
             Log.e(getClass().getName() + " getGroupAlarms",
-                  "There are no Alarms belonging to AlarmGroup with ID: " +
-                  Long.toString(groupID));
+                    "There are no Alarms belonging to AlarmGroup with ID: " +
+                            Long.toString(groupID));
         }
         return alarms;
     }
