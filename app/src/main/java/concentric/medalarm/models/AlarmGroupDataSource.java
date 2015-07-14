@@ -135,6 +135,19 @@ public class AlarmGroupDataSource {
     }
 
     /**
+     * Allows the user to get an AlarmGroup object from an ID.
+     * @param id
+     * @return
+     */
+    public AlarmGroup getAlarmGroup(long id) {
+        String sID = Long.toString(id);
+        Cursor cursor = database.query(AlarmGroup.TABLE_NAME, allColumns, AlarmGroup
+                .COLUMN_NAME_ALARM_GROUP_ID + "=?", new String[] {sID}, null, null, null);
+        AlarmGroup alarmGroup = cursorToGroup(cursor);
+        return alarmGroup;
+    }
+
+    /**
      * TODO: Should this be private?
      * This function is used to work with data returned by the database. Converts a query into an
      * AlarmGroup object. This is a helper function.
