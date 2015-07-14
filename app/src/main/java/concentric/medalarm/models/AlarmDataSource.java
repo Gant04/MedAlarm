@@ -62,6 +62,13 @@ public class AlarmDataSource {
         database.delete(Alarm.TABLE_NAME, Alarm.COLUMN_NAME_ALARM_ID + " = " + dId, null);
     }
 
+
+    /**
+     * This method constructs an array list based on the arrayGroup.
+     *
+     * @param groupID the group id for the alarm group.
+     * @return an ArrayList of alarms.
+     */
     public List<Alarm> getGroupAlarms(long groupID) {
         List<Alarm> alarms = new ArrayList<>();
         Cursor cursor = database.query(Alarm.TABLE_NAME, allColumns, Alarm.COLUMN_NAME_ALARM_GROUP +
