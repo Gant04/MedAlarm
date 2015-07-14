@@ -95,7 +95,6 @@ public class MainActivity extends AppCompatActivity {
         mRecyclerView.setLayoutManager(mRecycleLayoutManager);
 
 
-
         // Adapter for Recycler View
         loadAlarmGroups();
         if(alarmGroupList.size() > 0) {

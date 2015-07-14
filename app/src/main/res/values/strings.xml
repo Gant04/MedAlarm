@@ -64,4 +64,7 @@
     <string name="enabled">ENABLED</string>
     <string name="alarmGroupName">Alarm Group Name</string>
     <string name="alarmGroupType">Alarm Group Type</string>
+    <string name="edit_alarm">Edit Alarm</string>
+    <string name="deleteAlarm">Delete Alarm</string>
+    <string name="expand">Expand</string>
 </resources>
