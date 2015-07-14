@@ -86,7 +86,7 @@ public class AlarmGroupActivity extends AppCompatActivity implements AdapterView
 
                 editItem.setWidth(dp2px(60));
 
-                int color = Color.rgb(25,118,210);
+                int color = Color.rgb(25, 118, 210);
 
                 // edit icon
                 Drawable editIcon = ResourcesCompat.getDrawable(getResources(), R.drawable.ic_edit_white_48dp, null);
@@ -153,7 +153,7 @@ public class AlarmGroupActivity extends AppCompatActivity implements AdapterView
                 false).show();
     }
 
-    private void deleteButtonClick(int position){
+    private void deleteButtonClick(int position) {
         aTimes.remove(position);
         list.remove(position);
     }
@@ -355,7 +355,6 @@ public class AlarmGroupActivity extends AppCompatActivity implements AdapterView
             if (view.getVisibility() == View.VISIBLE) collapse(view);
         }
     }
-
 
 
     private void updateList() {

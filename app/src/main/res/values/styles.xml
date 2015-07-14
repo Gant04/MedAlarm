@@ -14,8 +14,7 @@
         <item name="android:elevation">4dp</item>
     </style>
 
-    <style name="AppTheme.ToolBar.Popup"
-           parent="Widget.AppCompat.Light.ListPopupWindow">
+    <style name="AppTheme.ToolBar.Popup" parent="Widget.AppCompat.Light.ListPopupWindow">
         <item name="android:divider">@color/divider</item>
         <item name="android:popupBackground">@color/white</item>
     </style>

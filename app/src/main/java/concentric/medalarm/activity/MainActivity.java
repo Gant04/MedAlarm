@@ -79,19 +79,18 @@ public class MainActivity extends AppCompatActivity {
         alarmListView.setAdapter(listAdapter);
         alarmListOnClickListener();*/
 
-    // Setup Recycler View
+        // Setup Recycler View
         mRecyclerView = (RecyclerView) findViewById(R.id.recycleAlarmList);
         mRecyclerView.setHasFixedSize(true);
 
         // Layout Managers
-        mRecycleLayoutManager =  new LinearLayoutManager(this);
+        mRecycleLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(mRecycleLayoutManager);
-
 
 
         // Adapter for Recycler View
         loadAlarmGroups();
-        if(alarmGroupList.size() > 0) {
+        if (alarmGroupList.size() > 0) {
             mRecycleAdapter = new AlarmGroupCardAdapter(alarmGroupList);
             mRecyclerView.setAdapter(mRecycleAdapter);
         }
@@ -281,7 +280,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     *
      * @param menu The menu that was clicked.
      * @return returns a boolean set to true
      */
@@ -324,8 +322,9 @@ public class MainActivity extends AppCompatActivity {
 
     /**
      * The workhorse of the app, does most of the stuff for the actual building of alarms.
+     *
      * @param bundle takes a bundle from the onActivityResult, but can be used by a database as well.
-     * TODO Move buildAndStoreAndDisplay into its own class. Somehow, eventually.
+     *               TODO Move buildAndStoreAndDisplay into its own class. Somehow, eventually.
      */
     private void buildStoreAndDisplayAlarm(final Bundle bundle) {
         alarmListView.clearChoices();

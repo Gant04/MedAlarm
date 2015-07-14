@@ -42,13 +42,13 @@ public class Alarm {
      * This constructor allows an alarm to be created.
      * Only the AlarmDataSource should use this constructor.
      *
-     * @param id        Set the record id (this is for the database)
-     * @param groupID   Set the alarm's group id. (this is for the database)
-     * @param hour      Set the hour
-     * @param minute    Set the minute
-     * @param repeats   Boolean. Does this alarm repeat? Set true if it does.
-     * @param rHour     Set the repeat interval in hours
-     * @param rMinute   Set the repeat interval in minutes TODO: Investigate if this is necessary.
+     * @param id      Set the record id (this is for the database)
+     * @param groupID Set the alarm's group id. (this is for the database)
+     * @param hour    Set the hour
+     * @param minute  Set the minute
+     * @param repeats Boolean. Does this alarm repeat? Set true if it does.
+     * @param rHour   Set the repeat interval in hours
+     * @param rMinute Set the repeat interval in minutes TODO: Investigate if this is necessary.
      */
     public Alarm(long id, long groupID, int hour, int minute, boolean repeats, int rHour,
                  int rMinute) {
@@ -99,9 +99,9 @@ public class Alarm {
     public void setMinute(int minute) {
         if (minute > 59 || minute < 0) {
             Log.e(getClass().getName() + " setMinute",
-                  "An attempt to set the minutes to an invalid" +
-                  " value was made.\nMinutes should be between 0 and 59.\n\n" +
-                  "This function was instructed to set the minutes to: " + minute + ".");
+                    "An attempt to set the minutes to an invalid" +
+                            " value was made.\nMinutes should be between 0 and 59.\n\n" +
+                            "This function was instructed to set the minutes to: " + minute + ".");
         } else {
             this.minute = minute;
         }
@@ -113,6 +113,7 @@ public class Alarm {
 
     /**
      * Parses a string and translates that string into a valid time.
+     *
      * @param alarmTime
      */
     public void setAlarmTime(String alarmTime) {
@@ -127,6 +128,7 @@ public class Alarm {
 
     /**
      * Sets the file name of the ringtone that will be played upon alarm firing.
+     *
      * @param alarmTone
      */
     public void setAlarmTone(String alarmTone) {
@@ -140,6 +142,7 @@ public class Alarm {
     /**
      * All alarms belong to a group and should be created by the group class. Set the association
      * by group ID.
+     *
      * @param id
      */
     public void setGroupID(long id) {

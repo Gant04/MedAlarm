@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="concentric.medalarm" >
+    package="concentric.medalarm">
 
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
@@ -10,21 +10,19 @@
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme" >
+        android:theme="@style/AppTheme">
         <activity
             android:name=".activity.MainActivity"
-            android:label="@string/title_activity_main" >
-        </activity>
+            android:label="@string/title_activity_main"></activity>
         <activity
             android:name=".activity.ActivityDetails"
-            android:label="@string/title_activity_activity_details" >
-        </activity>
+            android:label="@string/title_activity_activity_details"></activity>
 
         <activity
             android:name=".activity.MedAlarm"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/title_activity_med_alarm"
-            android:theme="@style/FullscreenTheme" >
+            android:theme="@style/FullscreenTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -35,7 +33,7 @@
             android:name=".activity.AlarmGroupActivity"
             android:exported="true"
             android:label="@string/createalarm"
-            android:parentActivityName=".activity.MainActivity" >
+            android:parentActivityName=".activity.MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="concentric.medalarm.activity.MainActivity" />
