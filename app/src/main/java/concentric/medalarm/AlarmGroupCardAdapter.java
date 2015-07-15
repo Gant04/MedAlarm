@@ -36,26 +36,28 @@ public class AlarmGroupCardAdapter extends RecyclerView.Adapter<AlarmGroupCardAd
         AlarmGroup item = alarmGroups.get(position);
         // - get element from your dataset at this position
         // - replace the contents of the view with that element
-        ViewHolder.groupName.setText(item.getGroupName());
+        holder.groupName.setText(item.getGroupName());
 
         String alarmType[] = DBHelper.getContext().getResources().getStringArray(R.array
                 .alarm_types);
 
-        ViewHolder.groupType.setText(alarmType[item.getAlarmType()]);
+        holder.groupType.setText(alarmType[item.getAlarmType()]);
 
     }
 
     // Create new views (invoked by the layout manager)
     @Override
-    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public AlarmGroupCardAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         // create a new view
         View v = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.alarm_group_card, parent, false);
         // Optionally set the view's size, margins, paddings and layout parameters below
 
         AlarmGroupCardAdapter.ViewHolder vh = new ViewHolder(v, new AlarmGroupCardAdapter
-                .ViewHolder.alarmGroupViewHolderClicks() {
-            public
+                .ViewHolder.ViewHolderClicks() {
+            public void toggleControls(View caller) {
+
+            }
         });
         return vh;
     }
@@ -64,22 +66,31 @@ public class AlarmGroupCardAdapter extends RecyclerView.Adapter<AlarmGroupCardAd
     // Complex data items may need more than one view per item, and
     // you provide access to all the views for a data item in a view holder
 
-    public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        protected static TextView groupName;
-        protected static TextView groupType;
-        protected static TableRow itemDetails;
-        protected alarmGroupViewHolderClicks mListener;
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+        protected TextView groupName;
+        protected TextView groupType;
+        protected TableRow itemDetails;
+        protected ViewHolderClicks mListener;
 
-        public ViewHolder(View v) {
+        public ViewHolder(View v, ViewHolderClicks listener) {
             super(v);
+            mListener = listener;
             groupName = (TextView) v.findViewById(R.id.groupName);
             groupType = (TextView) v.findViewById(R.id.groupType);
+            itemDetails = (TableRow) v.findViewById(R.id.cardDetails);
 
+            itemDetails.setOnClickListener(this);
         }
 
         @Override
         public void onClick(View v) {
+            if (v.getId() == R.id.cardDetails) {
+                mListener.toggleControls(v);
+            }
+        }
 
+        public interface ViewHolderClicks {
+            void toggleControls(View caller);
         }
     }
 }
