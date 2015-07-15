@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.os.Handler;
 
 import concentric.medalarm.activity.FullScreenAlarm;
+import concentric.medalarm.models.DBHelper;
 
 /**
  * Created by mike on 7/14/15.
@@ -56,9 +57,8 @@ public class AlarmBroadcastReceiver extends BroadcastReceiver {
         newIntent.putExtras(bundle);
         newIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 
+        DBHelper dbHelper = DBHelper.getInstance(context);
+
         context.startActivity(newIntent);
-
-        new MedAlarmManager(context).setAllAlarms();
-
     }
 }
