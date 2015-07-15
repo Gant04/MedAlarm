@@ -24,12 +24,15 @@ import concentric.medalarm.models.AlarmGroupDataSource;
 public class MedAlarmManager {
 
     private Context context;
+    private long groupID;
 
     public MedAlarmManager(Context context) {
         this.context = context;
     }
 
     public void setAlarmGroupAlarms(long groupID) {
+
+        this.groupID = groupID;
 
         AlarmDataSource alarmDataSource = new AlarmDataSource();
 
@@ -42,8 +45,6 @@ public class MedAlarmManager {
         List<Alarm> alarmList = alarmDataSource.getGroupAlarms(groupID);
 
         for (Alarm alarm : alarmList) {
-            //AlarmGroupDataSource alarmGroupDataSource = new AlarmGroupDataSource();
-            //AlarmGroup alarmGroup = alarmGroupDataSource.getAlarmGroup(groupID);
 
             long id = alarm.getId();
 
@@ -206,9 +207,19 @@ public class MedAlarmManager {
         int minute = alarm.getMinute();
         int second = 0;
         int milli = 0;
+        String medicationName = "Something something should be here.";
 
 
-        //String medicationName = alarmGroup.getGroupName();
+/*        AlarmGroupDataSource alarmGroupDataSource = new AlarmGroupDataSource();
+        try {
+            alarmGroupDataSource.open();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        AlarmGroup alarmGroup = alarmGroupDataSource.getAlarmGroup(groupID);
+        String medicationName = alarmGroup.getGroupName();
+        alarmGroupDataSource.close();
+*/
 
         //Build the Bundle
         alarmBundle.putInt("hour", hour);                //add Hours
@@ -217,9 +228,9 @@ public class MedAlarmManager {
         alarmBundle.putInt("milli", milli);            //add Millis
 
         alarmBundle.putLong("id", id);                  //add Alarm ID
-        //alarmBundle.putLong("groupID", groupID);        //add Group ID
+        alarmBundle.putLong("groupID", groupID);        //add Group ID
 
-        //alarmBundle.putString("med", medicationName);    //add Medication Name
+        alarmBundle.putString("med", medicationName);    //add Medication Name
 
         return alarmBundle;
     }
