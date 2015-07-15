@@ -94,8 +94,6 @@ public class MainActivity extends AppCompatActivity {
             mRecycleAdapter = new AlarmGroupCardAdapter(alarmGroupList);
             mRecyclerView.setAdapter(mRecycleAdapter);
         }
-
-
         MedAlarmManager medAlarmManager = new MedAlarmManager(getApplicationContext());
         medAlarmManager.setAllAlarms();
 
@@ -248,7 +246,10 @@ public class MainActivity extends AppCompatActivity {
      * @param view The view that was clicked.
      */
     public void onClickActionDeleteAlarm(View view) {
-        //TODO Fix this.
+
+        MedAlarmManager medAlarmManager = new MedAlarmManager(getApplicationContext());
+        medAlarmManager.cancelAllAlarms();
+        onClickActionMenu(view);
     }
 
     /**
@@ -257,7 +258,8 @@ public class MainActivity extends AppCompatActivity {
      * @param view The view that was clicked.
      */
     public void onClickActionEditAlarm(View view) {
-        //TODO Fix this
+        MedAlarmManager medAlarmManager = new MedAlarmManager(getApplicationContext());
+        medAlarmManager.setAllAlarms();
         onClickActionMenu(view);
     }
 
@@ -296,7 +298,14 @@ public class MainActivity extends AppCompatActivity {
 
         if (requestCode == createAlarmRequestCode) {
             if (resultCode == RESULT_OK) {
+
                 loadAlarmGroups();
+
+                if (alarmGroupList.size() > 0) {
+                    mRecycleAdapter = new AlarmGroupCardAdapter(alarmGroupList);
+                    mRecyclerView.setAdapter(mRecycleAdapter);
+                }
+                mRecycleAdapter.notifyDataSetChanged();
 
                 MedAlarmManager alarmManager = new MedAlarmManager(getApplicationContext());
                 alarmManager.setAllAlarms();

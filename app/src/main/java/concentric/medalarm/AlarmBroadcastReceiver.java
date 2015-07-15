@@ -4,6 +4,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Handler;
+import android.widget.Toast;
 
 /**
  * Created by mike on 7/14/15.
@@ -46,6 +47,7 @@ public class AlarmBroadcastReceiver extends BroadcastReceiver {
      */
     @Override
     public void onReceive(Context context, Intent intent) {
-        context.startActivity(intent);
+        Toast.makeText(context, "Toast.", Toast.LENGTH_SHORT).show();
+        new MedAlarmManager(context).setAllAlarms();
     }
 }
