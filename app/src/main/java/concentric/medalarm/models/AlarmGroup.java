@@ -61,7 +61,7 @@ public class AlarmGroup {
     }
 
     public void setRingTone(String ringTone) {
-        // Check to see if the ringtone path is valid.. Maybe...
+        // TODO Check to see if the ringtone path is valid.. Maybe...
         this.ringTone = ringTone;
     }
 

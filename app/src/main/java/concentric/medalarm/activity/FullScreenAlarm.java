@@ -32,7 +32,7 @@ public class FullScreenAlarm extends Activity {
      * Whether or not the system UI should be auto-hidden after
      * {@link #AUTO_HIDE_DELAY_MILLIS} milliseconds.
      */
-    private static final boolean AUTO_HIDE = true;
+    private static final boolean AUTO_HIDE = false;
     /**
      * If {@link #AUTO_HIDE} is set, the number of milliseconds to wait after
      * user interaction before hiding the system UI.
@@ -52,16 +52,6 @@ public class FullScreenAlarm extends Activity {
     MediaPlayer mediaPlayer;
     Handler mHideHandler = new Handler();
     /**
-     * The instance of the {@link SystemUiHider} for this activity.
-     */
-    private SystemUiHider mSystemUiHider;
-    Runnable mHideRunnable = new Runnable() {
-        @Override
-        public void run() {
-            mSystemUiHider.hide();
-        }
-    };
-    /**
      * Touch listener to use for in-layout UI controls to delay hiding the
      * system UI. This is to prevent the jarring behavior of controls going away
      * while interacting with activity UI.
@@ -73,6 +63,16 @@ public class FullScreenAlarm extends Activity {
                 delayedHide(AUTO_HIDE_DELAY_MILLIS);
             }
             return false;
+        }
+    };
+    /**
+     * The instance of the {@link SystemUiHider} for this activity.
+     */
+    private SystemUiHider mSystemUiHider;
+    Runnable mHideRunnable = new Runnable() {
+        @Override
+        public void run() {
+            mSystemUiHider.hide();
         }
     };
 
@@ -91,7 +91,8 @@ public class FullScreenAlarm extends Activity {
         Bundle bundle = intent.getExtras();
 
         final TextView alarmText = (TextView) findViewById(R.id.textView);
-        alarmText.setText(bundle.getString("medicationName"));
+        alarmText.setText(bundle.getString("med"));
+
 
         // Set up an instance of SystemUiHider to control the system UI for
         // this activity.
@@ -194,11 +195,11 @@ public class FullScreenAlarm extends Activity {
         rotateAnimationB.setDuration(1000);
         rotateAnimationB.setInterpolator(new DecelerateInterpolator());
 
-        ObjectAnimator slightTurnA = ObjectAnimator.ofFloat(icon, "rotation", 0, 30);
-        slightTurnA.setDuration(1000);
+        ObjectAnimator slightTurnA = ObjectAnimator.ofFloat(icon, "rotation", 30, 30);
+        slightTurnA.setDuration(200);
 
-        ObjectAnimator slightTurnB = ObjectAnimator.ofFloat(icon, "rotation", 30, 0);
-        slightTurnB.setDuration(1000);
+        ObjectAnimator slightTurnB = ObjectAnimator.ofFloat(icon, "rotation", 30, 30);
+        slightTurnB.setDuration(200);
 
 
         final AnimatorSet animatorSet = new AnimatorSet();
@@ -238,7 +239,7 @@ public class FullScreenAlarm extends Activity {
         // Trigger the initial hide() shortly after the activity has been
         // created, to briefly hint to the user that UI controls
         // are available.
-        delayedHide(100);
+        //delayedHide(100);
     }
 
     /**

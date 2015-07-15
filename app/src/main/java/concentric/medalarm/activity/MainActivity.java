@@ -20,7 +20,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.DecelerateInterpolator;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -30,6 +29,7 @@ import java.util.Calendar;
 import java.util.List;
 
 import concentric.medalarm.AlarmGroupCardAdapter;
+import concentric.medalarm.MedAlarmManager;
 import concentric.medalarm.R;
 import concentric.medalarm.TimeConverter;
 import concentric.medalarm.models.AlarmGroup;
@@ -94,7 +94,8 @@ public class MainActivity extends AppCompatActivity {
             mRecycleAdapter = new AlarmGroupCardAdapter(alarmGroupList);
             mRecyclerView.setAdapter(mRecycleAdapter);
         }
-
+        MedAlarmManager medAlarmManager = new MedAlarmManager(getApplicationContext());
+        medAlarmManager.setAllAlarms();
 
         // TODO: Do we need this?
         menuButtonOnLongClickListener();
@@ -145,17 +146,7 @@ public class MainActivity extends AppCompatActivity {
      * Click listener for the AlarmList
      */
     private void alarmListOnClickListener() {
-        // listens for when the list is clicked.
-        alarmListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view,
-                                    int position, long id) {
-                // TODO what happens when the list item is clicked?
-                Toast.makeText(getApplicationContext(),
-                        "Click ListItem Number " + id, Toast.LENGTH_LONG)
-                        .show();
-            }
-        });
+
     }
 
     private void menuButtonOnLongClickListener() {
@@ -255,7 +246,10 @@ public class MainActivity extends AppCompatActivity {
      * @param view The view that was clicked.
      */
     public void onClickActionDeleteAlarm(View view) {
-        //TODO Fix this.
+
+        MedAlarmManager medAlarmManager = new MedAlarmManager(getApplicationContext());
+        medAlarmManager.cancelAllAlarms();
+        onClickActionMenu(view);
     }
 
     /**
@@ -264,7 +258,8 @@ public class MainActivity extends AppCompatActivity {
      * @param view The view that was clicked.
      */
     public void onClickActionEditAlarm(View view) {
-        //TODO Fix this
+        MedAlarmManager medAlarmManager = new MedAlarmManager(getApplicationContext());
+        medAlarmManager.setAllAlarms();
         onClickActionMenu(view);
     }
 
@@ -275,7 +270,7 @@ public class MainActivity extends AppCompatActivity {
      */
     public void onClickActionCreateAlarm(View view) {
         Intent intent = new Intent(view.getContext(), AlarmGroupActivity.class);
-        startActivity(intent);
+        startActivityForResult(intent, createAlarmRequestCode);
         onClickActionMenu(view);
     }
 
@@ -303,9 +298,17 @@ public class MainActivity extends AppCompatActivity {
 
         if (requestCode == createAlarmRequestCode) {
             if (resultCode == RESULT_OK) {
-                Bundle bundle = intent.getExtras();
-                buildStoreAndDisplayAlarm(bundle);
 
+                loadAlarmGroups();
+
+                if (alarmGroupList.size() > 0) {
+                    mRecycleAdapter = new AlarmGroupCardAdapter(alarmGroupList);
+                    mRecyclerView.setAdapter(mRecycleAdapter);
+                }
+                mRecycleAdapter.notifyDataSetChanged();
+
+                MedAlarmManager alarmManager = new MedAlarmManager(getApplicationContext());
+                alarmManager.setAllAlarms();
             }
             if (resultCode == RESULT_CANCELED) {
 

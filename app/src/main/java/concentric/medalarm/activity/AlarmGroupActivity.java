@@ -255,6 +255,7 @@ public class AlarmGroupActivity extends AppCompatActivity implements AdapterView
         switch (item.getItemId()) {
             case R.id.save:
                 save();
+                setResult(RESULT_OK);
                 finish();// TODO: Confirm Save
                 return true;
             default:
@@ -387,5 +388,11 @@ public class AlarmGroupActivity extends AppCompatActivity implements AdapterView
                 dateAndTime.get(Calendar.HOUR_OF_DAY),
                 dateAndTime.get(Calendar.MINUTE),
                 false).show();
+    }
+
+    @Override
+    public void onBackPressed() {
+        setResult(RESULT_CANCELED);
+        super.onBackPressed();
     }
 }

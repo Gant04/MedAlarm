@@ -18,17 +18,21 @@
             android:name=".activity.ActivityDetails"
             android:label="@string/title_activity_activity_details"></activity>
 
+        <receiver android:name="AlarmBroadcastReceiver"></receiver>
+
         <activity
             android:name=".activity.MedAlarm"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/title_activity_med_alarm"
             android:theme="@style/FullscreenTheme">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
+        <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
         </activity>
+
         <activity
             android:name=".activity.AlarmGroupActivity"
             android:exported="true"
@@ -38,11 +42,13 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="concentric.medalarm.activity.MainActivity" />
         </activity>
+
         <activity
             android:name=".activity.FullScreenAlarm"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/title_activity_full_screen_alarm"
             android:theme="@style/FullscreenTheme"></activity>
+
     </application>
 
 </manifest>

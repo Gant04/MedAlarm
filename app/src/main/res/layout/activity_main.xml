@@ -27,6 +27,8 @@
         android:layout_below="@+id/toolbar"
         android:clipToPadding="false"
         android:paddingBottom="16dp"
+        android:scrollbarAlwaysDrawVerticalTrack="true"
+        android:scrollbarThumbVertical="@drawable/custom_scroll_style"
         android:scrollbars="vertical" />
 
     <ListView
