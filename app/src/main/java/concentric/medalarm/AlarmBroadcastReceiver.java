@@ -3,8 +3,10 @@ package concentric.medalarm;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.os.Handler;
-import android.widget.Toast;
+
+import concentric.medalarm.activity.FullScreenAlarm;
 
 /**
  * Created by mike on 7/14/15.
@@ -47,7 +49,16 @@ public class AlarmBroadcastReceiver extends BroadcastReceiver {
      */
     @Override
     public void onReceive(Context context, Intent intent) {
-        Toast.makeText(context, "Toast.", Toast.LENGTH_SHORT).show();
+        //Toast.makeText(context, "Toast.", Toast.LENGTH_SHORT).show();
+
+        Bundle bundle = intent.getExtras();
+        Intent newIntent = new Intent(context, FullScreenAlarm.class);
+        newIntent.putExtras(bundle);
+        newIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+
+        context.startActivity(newIntent);
+
         new MedAlarmManager(context).setAllAlarms();
+
     }
 }

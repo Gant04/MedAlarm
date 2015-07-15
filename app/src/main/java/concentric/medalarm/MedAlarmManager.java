@@ -13,7 +13,6 @@ import java.sql.SQLException;
 import java.util.Calendar;
 import java.util.List;
 
-import concentric.medalarm.activity.FullScreenAlarm;
 import concentric.medalarm.models.Alarm;
 import concentric.medalarm.models.AlarmDataSource;
 import concentric.medalarm.models.AlarmGroup;
@@ -50,14 +49,14 @@ public class MedAlarmManager {
 
             //Checks to make sure the alarm isnt already set.
             boolean alarmCreated = (PendingIntent.getBroadcast(context,
-                    0, new Intent(context, FullScreenAlarm.class).setAction("MedAlarm.Intent." + groupID + "." + id).putExtras(alarmBundleMaker(alarm)), PendingIntent.FLAG_NO_CREATE) != null);
+                    0, new Intent(context, AlarmBroadcastReceiver.class).setAction("MedAlarm.Intent." + groupID + "." + id).putExtras(alarmBundleMaker(alarm)), PendingIntent.FLAG_NO_CREATE) != null);
 
             if (alarmCreated) {
                 Log.i(getClass().getName() + ":", "Alarm already set");
             } else {
 
                 Log.i(getClass().getName() + ":", "Creating intent with the name: " + "MedAlarm.Intent." + groupID + "." + id);
-                Intent intent = new Intent(context, FullScreenAlarm.class).setAction("MedAlarm.Intent." + groupID + "." + id);
+                Intent intent = new Intent(context, AlarmBroadcastReceiver.class).setAction("MedAlarm.Intent." + groupID + "." + id);
 
                 intent.putExtras(alarmBundleMaker(alarm));
 
@@ -126,10 +125,10 @@ public class MedAlarmManager {
 
             //Checks to make sure the alarm isnt already set.
             boolean alarmCreated = (PendingIntent.getBroadcast(context,
-                    0, new Intent(context, FullScreenAlarm.class).setAction("MedAlarm.Intent." + groupID + "." + id).putExtras(alarmBundleMaker(alarm)), PendingIntent.FLAG_NO_CREATE) != null);
+                    0, new Intent(context, AlarmBroadcastReceiver.class).setAction("MedAlarm.Intent." + groupID + "." + id).putExtras(alarmBundleMaker(alarm)), PendingIntent.FLAG_NO_CREATE) != null);
 
             if (alarmCreated) {
-                Intent alarmIntent = new Intent(context, FullScreenAlarm.class).setAction("MedAlarm.Intent." + groupID + "." + id);
+                Intent alarmIntent = new Intent(context, AlarmBroadcastReceiver.class).setAction("MedAlarm.Intent." + groupID + "." + id);
                 alarmIntent.putExtras(alarmBundleMaker(alarm));
 
                 Log.i("MedAlarm.Intent." + groupID + "." + id + ": ", "Canceled!");
