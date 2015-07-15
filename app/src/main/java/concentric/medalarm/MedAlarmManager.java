@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.text.format.Time;
 import android.util.Log;
 
+import java.sql.SQLException;
 import java.util.Calendar;
 import java.util.List;
 
@@ -31,6 +32,13 @@ public class MedAlarmManager {
     public void setAlarmGroupAlarms(long groupID) {
 
         AlarmDataSource alarmDataSource = new AlarmDataSource();
+
+        try {
+            alarmDataSource.open();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
         List<Alarm> alarmList = alarmDataSource.getGroupAlarms(groupID);
 
         for (Alarm alarm : alarmList) {
@@ -82,11 +90,20 @@ public class MedAlarmManager {
 
             }
         }
+
+        alarmDataSource.close();
     }
 
     public void setAllAlarms() {
 
         AlarmGroupDataSource alarmGroupDataSource = new AlarmGroupDataSource();
+
+        try {
+            alarmGroupDataSource.open();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
         List<AlarmGroup> alarmGroupList = alarmGroupDataSource.getAllAlarmGroups();
 
         for (AlarmGroup alarmGroup : alarmGroupList) {
@@ -94,6 +111,8 @@ public class MedAlarmManager {
                 setAlarmGroupAlarms(alarmGroup.getId());
             }
         }
+
+        alarmGroupDataSource.close();
     }
 
     public void cancelGroup(long groupID) {
@@ -121,20 +140,20 @@ public class MedAlarmManager {
         calendar.setTimeInMillis(System.currentTimeMillis());
 
         int hour, minute, second, milli;
-        hour = minute = second = milli = 0;
+
+        Bundle alarmBundle = alarmIntent.getExtras();
 
         long id, groupID;
-        id = groupID = 0;
 
         String medicationName = "";
 
-        alarmIntent.getIntExtra("hour", hour);                //add Hours
-        alarmIntent.getIntExtra("minute", minute);            //add Minutes
-        alarmIntent.getIntExtra("second", second);           //add Seconds
-        alarmIntent.getIntExtra("milli", milli);            //add Millis
+        hour = alarmBundle.getInt("hour");                //add Hours
+        minute = alarmBundle.getInt("minute");            //add Minutes
+        second = alarmBundle.getInt("second");           //add Seconds
+        milli = alarmBundle.getInt("milli");            //add Millis
 
-        alarmIntent.getLongExtra("id", id);                  //add Alarm ID
-        alarmIntent.getLongExtra("groupID", groupID);        //add Group ID
+        id = alarmBundle.getLong("id");                  //add Alarm ID
+        groupID = alarmBundle.getLong("groupID");        //add Group ID
 
         //alarmIntent.getStringExtra("med", medicationName);    //add Medication Name
 
@@ -148,13 +167,10 @@ public class MedAlarmManager {
         calendar.set(Calendar.SECOND, second);
         calendar.set(Calendar.MILLISECOND, milli);
 
+        Log.i("Time set to: ", Integer.toString(hour) + ":" + Integer.toString(minute));
+
         final long difference = calendar.getTimeInMillis() - time.toMillis(true);
         Log.d("Time Difference:    ", Long.toString(difference));
-
-
-        if (calendar.getTimeInMillis() < time.toMillis(true)) {
-            calendar.set(Calendar.DAY_OF_YEAR, Calendar.DAY_OF_YEAR + 1);
-        }
 
         PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, alarmIntent, PendingIntent.FLAG_UPDATE_CURRENT);
         AlarmManager alarmManager = (AlarmManager) (context.getSystemService(Context.ALARM_SERVICE));

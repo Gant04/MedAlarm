@@ -29,6 +29,7 @@ import java.util.Calendar;
 import java.util.List;
 
 import concentric.medalarm.AlarmGroupCardAdapter;
+import concentric.medalarm.MedAlarmManager;
 import concentric.medalarm.R;
 import concentric.medalarm.TimeConverter;
 import concentric.medalarm.models.AlarmGroup;
@@ -94,6 +95,9 @@ public class MainActivity extends AppCompatActivity {
             mRecyclerView.setAdapter(mRecycleAdapter);
         }
 
+
+        MedAlarmManager medAlarmManager = new MedAlarmManager(getApplicationContext());
+        medAlarmManager.setAllAlarms();
 
         // TODO: Do we need this?
         menuButtonOnLongClickListener();
@@ -292,9 +296,10 @@ public class MainActivity extends AppCompatActivity {
 
         if (requestCode == createAlarmRequestCode) {
             if (resultCode == RESULT_OK) {
-                mRecycleAdapter.notifyDataSetChanged();
                 loadAlarmGroups();
-                //MedAlarmManager.setAllAlarms();
+
+                MedAlarmManager alarmManager = new MedAlarmManager(getApplicationContext());
+                alarmManager.setAllAlarms();
             }
             if (resultCode == RESULT_CANCELED) {
 

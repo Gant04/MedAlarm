@@ -46,6 +46,6 @@ public class AlarmBroadcastReceiver extends BroadcastReceiver {
      */
     @Override
     public void onReceive(Context context, Intent intent) {
-
+        context.startActivity(intent);
     }
 }
