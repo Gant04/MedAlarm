@@ -20,7 +20,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.DecelerateInterpolator;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -145,17 +144,7 @@ public class MainActivity extends AppCompatActivity {
      * Click listener for the AlarmList
      */
     private void alarmListOnClickListener() {
-        // listens for when the list is clicked.
-        alarmListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view,
-                                    int position, long id) {
-                // TODO what happens when the list item is clicked?
-                Toast.makeText(getApplicationContext(),
-                        "Click ListItem Number " + id, Toast.LENGTH_LONG)
-                        .show();
-            }
-        });
+
     }
 
     private void menuButtonOnLongClickListener() {
@@ -275,7 +264,7 @@ public class MainActivity extends AppCompatActivity {
      */
     public void onClickActionCreateAlarm(View view) {
         Intent intent = new Intent(view.getContext(), AlarmGroupActivity.class);
-        startActivity(intent);
+        startActivityForResult(intent, createAlarmRequestCode);
         onClickActionMenu(view);
     }
 
@@ -303,9 +292,9 @@ public class MainActivity extends AppCompatActivity {
 
         if (requestCode == createAlarmRequestCode) {
             if (resultCode == RESULT_OK) {
-                Bundle bundle = intent.getExtras();
-                buildStoreAndDisplayAlarm(bundle);
-
+                mRecycleAdapter.notifyDataSetChanged();
+                loadAlarmGroups();
+                //MedAlarmManager.setAllAlarms();
             }
             if (resultCode == RESULT_CANCELED) {
 

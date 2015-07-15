@@ -4,8 +4,8 @@ import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.text.format.Time;
 import android.util.Log;
 
@@ -20,19 +20,28 @@ import concentric.medalarm.models.AlarmGroupDataSource;
 /**
  * Created by mike on 7/14/15.
  */
-public class MedAlarmManager extends AppCompatActivity {
+public class MedAlarmManager {
 
-    private MedAlarmManager(long groupID) {
+    private Context context;
+
+    public MedAlarmManager(Context context) {
+        this.context = context;
+    }
+
+    public void setAlarmGroupAlarms(long groupID) {
 
         AlarmDataSource alarmDataSource = new AlarmDataSource();
         List<Alarm> alarmList = alarmDataSource.getGroupAlarms(groupID);
 
-
         for (Alarm alarm : alarmList) {
+            //AlarmGroupDataSource alarmGroupDataSource = new AlarmGroupDataSource();
+            //AlarmGroup alarmGroup = alarmGroupDataSource.getAlarmGroup(groupID);
+
+
             long id = alarm.getId();
 
             //Checks to make sure the alarm isnt already set.
-            boolean alarmCreatedAlready = (PendingIntent.getBroadcast(getApplicationContext(),
+            boolean alarmCreatedAlready = (PendingIntent.getBroadcast(context,
                     0, new Intent("MedAlarm.Intent." + groupID + "." + id), PendingIntent.FLAG_NO_CREATE) != null);
 
             if (!alarmCreatedAlready) {
@@ -40,7 +49,7 @@ public class MedAlarmManager extends AppCompatActivity {
                 Log.i(getClass().getName() + ":", "Creating intent with the name: " + "MedAlarm.Intent." + groupID + "." + id);
                 Intent intent = new Intent("MedAlarm.Intent." + groupID + "." + id);
 
-                PendingIntent pendingIntent;
+                intent.setClassName(context.getPackageName(), context.getPackageName() + ".FullScreenAlarm");
 
                 Bundle alarmBundle = new Bundle();
 
@@ -50,7 +59,7 @@ public class MedAlarmManager extends AppCompatActivity {
                 int milli = 0;
 
 
-                String medicationName = null;
+                //String medicationName = alarmGroup.getGroupName();
 
                 //Build the Bundle
                 alarmBundle.putInt("hour", hour);                //add Hours
@@ -61,9 +70,13 @@ public class MedAlarmManager extends AppCompatActivity {
                 alarmBundle.putLong("id", id);                  //add Alarm ID
                 alarmBundle.putLong("groupID", groupID);        //add Group ID
 
-                alarmBundle.putString("med", medicationName);    //add Medication Name
+                //alarmBundle.putString("med", medicationName);    //add Medication Name
 
                 intent.putExtras(alarmBundle);
+
+                AlarmBroadcastReceiver alarmBroadcastReceiver = new AlarmBroadcastReceiver();
+
+                context.registerReceiver(alarmBroadcastReceiver, new IntentFilter("MedAlarm.Intent." + groupID + "." + id));
 
                 createAlarm(intent);
 
@@ -71,13 +84,14 @@ public class MedAlarmManager extends AppCompatActivity {
         }
     }
 
-    public static void setAllAlarms() {
+    public void setAllAlarms() {
+
         AlarmGroupDataSource alarmGroupDataSource = new AlarmGroupDataSource();
         List<AlarmGroup> alarmGroupList = alarmGroupDataSource.getAllAlarmGroups();
 
         for (AlarmGroup alarmGroup : alarmGroupList) {
             if (alarmGroup.getEnabled()) {
-                new MedAlarmManager(alarmGroup.getId());
+                setAlarmGroupAlarms(alarmGroup.getId());
             }
         }
     }
@@ -91,7 +105,7 @@ public class MedAlarmManager extends AppCompatActivity {
             long id = alarm.getId();
 
             //Checks to make sure the alarm isnt already set.
-            boolean alarmCreated = (PendingIntent.getBroadcast(getApplicationContext(),
+            boolean alarmCreated = (PendingIntent.getBroadcast(context,
                     0, new Intent("MedAlarm.Intent." + groupID + "." + id), PendingIntent.FLAG_NO_CREATE) != null);
 
             if (alarmCreated) {
@@ -124,11 +138,6 @@ public class MedAlarmManager extends AppCompatActivity {
 
         //alarmIntent.getStringExtra("med", medicationName);    //add Medication Name
 
-        Long longHours = TimeConverter.hoursToMillis(hour);
-        Long longMinutes = TimeConverter.minutesToMillis(minute);
-
-        Long longTime = longHours + longMinutes;
-
         //Calculate difference between current time and future time AKA difference
         // TODO: Time is depreciated. Change to something else.
         Time time = new Time();
@@ -147,16 +156,9 @@ public class MedAlarmManager extends AppCompatActivity {
             calendar.set(Calendar.DAY_OF_YEAR, Calendar.DAY_OF_YEAR + 1);
         }
 
-
-        /*
-        new Intent("com.concentric.alarmIntent." + med)
-        this allows to generate new intents on the fly.
-        */
-
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0, alarmIntent, 0);
-        AlarmManager alarmManager = (AlarmManager) (this.getSystemService(Context.ALARM_SERVICE));
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, alarmIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+        AlarmManager alarmManager = (AlarmManager) (context.getSystemService(Context.ALARM_SERVICE));
         alarmManager.setExact(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
-
 
     }
 }
