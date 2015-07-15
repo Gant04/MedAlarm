@@ -52,7 +52,7 @@ public class MedAlarmManager {
             boolean alarmCreatedAlready = (PendingIntent.getBroadcast(context,
                     0, new Intent("MedAlarm.Intent." + groupID + "." + id), PendingIntent.FLAG_NO_CREATE) != null);
 
-            if (!alarmCreatedAlready) {
+            if (alarmCreatedAlready) {
 
                 Log.i(getClass().getName() + ":", "Creating intent with the name: " + "MedAlarm.Intent." + groupID + "." + id);
                 Intent intent = new Intent("MedAlarm.Intent." + groupID + "." + id);
@@ -115,6 +115,24 @@ public class MedAlarmManager {
         alarmGroupDataSource.close();
     }
 
+    public void cancelAllAlarms() {
+        AlarmGroupDataSource alarmGroupDataSource = new AlarmGroupDataSource();
+
+        try {
+            alarmGroupDataSource.open();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        List<AlarmGroup> alarmGroupList = alarmGroupDataSource.getAllAlarmGroups();
+
+        for (AlarmGroup alarmGroup : alarmGroupList) {
+            if (alarmGroup.getEnabled()) {
+                cancelGroup(alarmGroup.getId());
+            }
+        }
+    }
+
     public void cancelGroup(long groupID) {
 
         AlarmDataSource alarmDataSource = new AlarmDataSource();
@@ -128,7 +146,11 @@ public class MedAlarmManager {
                     0, new Intent("MedAlarm.Intent." + groupID + "." + id), PendingIntent.FLAG_NO_CREATE) != null);
 
             if (alarmCreated) {
+                Intent alarmIntent = new Intent("MedAlarm.Intent." + groupID + "." + id);
 
+                Log.i("MedAlarm.Intent." + groupID + "." + id + ": ", "Canceled!");
+
+                PendingIntent.getBroadcast(context, 0, alarmIntent, PendingIntent.FLAG_UPDATE_CURRENT).cancel();
             }
 
         }
