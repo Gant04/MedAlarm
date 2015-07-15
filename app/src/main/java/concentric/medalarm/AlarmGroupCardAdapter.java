@@ -1,6 +1,5 @@
 package concentric.medalarm;
 
-import android.content.DialogInterface;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -52,10 +51,7 @@ public class AlarmGroupCardAdapter extends RecyclerView.Adapter<AlarmGroupCardAd
                 .inflate(R.layout.alarm_group_card, parent, false);
         // Optionally set the view's size, margins, paddings and layout parameters below
 
-        AlarmGroupCardAdapter.ViewHolder vh = new ViewHolder(v, new AlarmGroupCardAdapter
-                .ViewHolder.alarmGroupViewHolderClicks() {
-            public
-        });
+        ViewHolder vh = new ViewHolder(v);
         return vh;
     }
 
@@ -63,21 +59,14 @@ public class AlarmGroupCardAdapter extends RecyclerView.Adapter<AlarmGroupCardAd
     // Complex data items may need more than one view per item, and
     // you provide access to all the views for a data item in a view holder
 
-    public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    public static class ViewHolder extends RecyclerView.ViewHolder {
         protected static TextView groupName;
         protected static TextView groupType;
-        protected alarmGroupViewHolderClicks mListener;
 
         public ViewHolder(View v) {
             super(v);
             groupName = (TextView) v.findViewById(R.id.groupName);
             groupType = (TextView) v.findViewById(R.id.groupType);
-
-        }
-
-        @Override
-        public void onClick(View v) {
-
         }
     }
 }
