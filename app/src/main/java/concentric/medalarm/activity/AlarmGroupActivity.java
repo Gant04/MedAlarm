@@ -86,7 +86,7 @@ public class AlarmGroupActivity extends AppCompatActivity implements AdapterView
 
                 editItem.setWidth(dp2px(60));
 
-                int color = Color.rgb(25,118,210);
+                int color = Color.rgb(25, 118, 210);
 
                 // edit icon
                 Drawable editIcon = ResourcesCompat.getDrawable(getResources(), R.drawable.ic_edit_white_48dp, null);
@@ -153,7 +153,7 @@ public class AlarmGroupActivity extends AppCompatActivity implements AdapterView
                 false).show();
     }
 
-    private void deleteButtonClick(int position){
+    private void deleteButtonClick(int position) {
         aTimes.remove(position);
         list.remove(position);
     }
@@ -255,6 +255,7 @@ public class AlarmGroupActivity extends AppCompatActivity implements AdapterView
         switch (item.getItemId()) {
             case R.id.save:
                 save();
+                setResult(RESULT_OK);
                 finish();// TODO: Confirm Save
                 return true;
             default:
@@ -357,7 +358,6 @@ public class AlarmGroupActivity extends AppCompatActivity implements AdapterView
     }
 
 
-
     private void updateList() {
         String item = DateFormat.getTimeInstance(DateFormat.SHORT).format(dateAndTime
                 .getTime());
@@ -388,5 +388,11 @@ public class AlarmGroupActivity extends AppCompatActivity implements AdapterView
                 dateAndTime.get(Calendar.HOUR_OF_DAY),
                 dateAndTime.get(Calendar.MINUTE),
                 false).show();
+    }
+
+    @Override
+    public void onBackPressed() {
+        setResult(RESULT_CANCELED);
+        super.onBackPressed();
     }
 }

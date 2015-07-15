@@ -16,7 +16,7 @@ public class AlarmTest extends AndroidTestCase {
     private long groupId = 5;
     private long id = 2;
 
-    public void testAlarm() throws Throwable{
+    public void testAlarm() throws Throwable {
 
         // Basic Tests
         Alarm alarm = new Alarm(id, groupId, hour, minute);

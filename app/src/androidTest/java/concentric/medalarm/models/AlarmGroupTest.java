@@ -3,6 +3,7 @@ package concentric.medalarm.models;
 import android.test.AndroidTestCase;
 
 import junit.framework.Assert;
+
 /**
  * Created by MatthewAry on 6/13/2015.
  */

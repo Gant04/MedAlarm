@@ -15,9 +15,7 @@
 
     <TableLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:clickable="false"
-        android:measureWithLargestChild="false">
+        android:layout_height="match_parent">
 
         <TableRow
             android:layout_width="fill_parent"
@@ -27,11 +25,9 @@
             android:background="?attr/selectableItemBackground">
 
             <RelativeLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:padding="8dp"
-                android:layout_column="0"
-                android:clickable="false">
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="8dp">
 
                 <TextView
                     android:id="@+id/groupName"
@@ -43,7 +39,7 @@
                     android:elegantTextHeight="false"
                     android:focusableInTouchMode="false"
                     android:text="@string/alarmGroupName"
-                    android:textAppearance="?android:attr/textAppearanceLarge"/>
+                    android:textAppearance="?android:attr/textAppearanceLarge" />
 
                 <TextView
                     android:id="@+id/groupType"
@@ -80,16 +76,16 @@
                 android:id="@+id/line1"
                 android:layout_width="fill_parent"
                 android:layout_height="1dip"
+                android:layout_weight="1"
                 android:background="@color/default_divider_color_light"
-                android:padding="2dip"
-                android:layout_column="0"/>
+                android:padding="2dip"/>
         </TableRow>
 
         <TableRow
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:gravity="left"
-            >
+            android:padding="8dp">
 
             <RelativeLayout
                 android:layout_width="wrap_content"
