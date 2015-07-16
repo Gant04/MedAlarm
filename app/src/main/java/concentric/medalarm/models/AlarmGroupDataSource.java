@@ -140,6 +140,7 @@ public class AlarmGroupDataSource {
      * @return
      */
     public AlarmGroup getAlarmGroup(long id) {
+        Log.i(getClass().getName().toString() + ":", Long.toString(id));
         String sID = Long.toString(id);
         Cursor cursor = database.query(AlarmGroup.TABLE_NAME, allColumns, AlarmGroup
                 .COLUMN_NAME_ALARM_GROUP_ID + "=?", new String[] {sID}, null, null, null);

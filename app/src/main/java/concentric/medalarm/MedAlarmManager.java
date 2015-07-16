@@ -25,6 +25,7 @@ public class MedAlarmManager {
 
     private Context context;
     private long groupID;
+    private String medicationName;
 
     public MedAlarmManager(Context context) {
         this.context = context;
@@ -50,20 +51,20 @@ public class MedAlarmManager {
 
             //Checks to make sure the alarm isnt already set.
             boolean alarmCreated = (PendingIntent.getBroadcast(context,
-                    0, new Intent(context, AlarmBroadcastReceiver.class).setAction("MedAlarm.Intent." + groupID + "." + id).putExtras(alarmBundleMaker(alarm)), PendingIntent.FLAG_NO_CREATE) != null);
+                    0, new Intent(context, AlarmBroadcastReceiver.class).setAction("com.concentric.medalarm.intent." + medicationName + "." + groupID + "." + id).putExtras(alarmBundleMaker(alarm)), PendingIntent.FLAG_NO_CREATE) != null);
 
             if (alarmCreated) {
                 Log.i(getClass().getName() + ":", "Alarm already set");
             } else {
 
-                Log.i(getClass().getName() + ":", "Creating intent with the name: " + "MedAlarm.Intent." + groupID + "." + id);
-                Intent intent = new Intent(context, AlarmBroadcastReceiver.class).setAction("MedAlarm.Intent." + groupID + "." + id);
+                Log.i(getClass().getName() + ":", "Creating intent with the name: " + "com.concentric.medalarm.intent." + medicationName + "." + groupID + "." + id);
+                Intent intent = new Intent(context, AlarmBroadcastReceiver.class).setAction("com.concentric.medalarm.intent." + medicationName + "." + groupID + "." + id);
 
                 intent.putExtras(alarmBundleMaker(alarm));
 
                 AlarmBroadcastReceiver alarmBroadcastReceiver = new AlarmBroadcastReceiver();
 
-                context.registerReceiver(alarmBroadcastReceiver, new IntentFilter("MedAlarm.Intent." + groupID + "." + id));
+                context.registerReceiver(alarmBroadcastReceiver, new IntentFilter("com.concentric.medalarm.intent." + medicationName + "." + groupID + "." + id));
 
                 createAlarm(intent);
             }
@@ -86,6 +87,7 @@ public class MedAlarmManager {
 
         for (AlarmGroup alarmGroup : alarmGroupList) {
             if (alarmGroup.getEnabled()) {
+                this.medicationName = alarmGroup.getGroupName();
                 setAlarmGroupAlarms(alarmGroup.getId());
             }
         }
@@ -126,20 +128,20 @@ public class MedAlarmManager {
 
             //Checks to make sure the alarm isnt already set.
             boolean alarmCreated = (PendingIntent.getBroadcast(context,
-                    0, new Intent(context, AlarmBroadcastReceiver.class).setAction("MedAlarm.Intent." + groupID + "." + id).putExtras(alarmBundleMaker(alarm)), PendingIntent.FLAG_NO_CREATE) != null);
+                    0, new Intent(context, AlarmBroadcastReceiver.class).setAction("com.concentric.medalarm.intent." + medicationName + "." + groupID + "." + id).putExtras(alarmBundleMaker(alarm)), PendingIntent.FLAG_NO_CREATE) != null);
 
             if (alarmCreated) {
-                Intent alarmIntent = new Intent(context, AlarmBroadcastReceiver.class).setAction("MedAlarm.Intent." + groupID + "." + id);
+                Intent alarmIntent = new Intent(context, AlarmBroadcastReceiver.class).setAction("com.concentric.medalarm.intent." + medicationName + "." + groupID + "." + id);
                 alarmIntent.putExtras(alarmBundleMaker(alarm));
 
-                Log.i("MedAlarm.Intent." + groupID + "." + id + ": ", "Canceled!");
+                Log.i("com.concentric.medalarm.intent." + medicationName + "." + groupID + "." + id + ": ", "Canceled!");
                 AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
                 PendingIntent pi = PendingIntent.getBroadcast(context, 0, alarmIntent, 0);
 
                 alarmManager.cancel(pi);
 
             } else {
-                Log.i("MedAlarm.Intent." + groupID + "." + id, "Doesnt exist!");
+                Log.i("com.concentric.medalarm.intent." + medicationName + "." + groupID + "." + id, "Doesnt exist!");
             }
 
         }
@@ -194,7 +196,7 @@ public class MedAlarmManager {
 
         PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, alarmIntent, PendingIntent.FLAG_UPDATE_CURRENT);
         AlarmManager alarmManager = (AlarmManager) (context.getSystemService(Context.ALARM_SERVICE));
-        alarmManager.setExact(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
+        alarmManager.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
 
     }
 
@@ -207,19 +209,6 @@ public class MedAlarmManager {
         int minute = alarm.getMinute();
         int second = 0;
         int milli = 0;
-        String medicationName = "Something something should be here.";
-
-
-/*        AlarmGroupDataSource alarmGroupDataSource = new AlarmGroupDataSource();
-        try {
-            alarmGroupDataSource.open();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        AlarmGroup alarmGroup = alarmGroupDataSource.getAlarmGroup(groupID);
-        String medicationName = alarmGroup.getGroupName();
-        alarmGroupDataSource.close();
-*/
 
         //Build the Bundle
         alarmBundle.putInt("hour", hour);                //add Hours
