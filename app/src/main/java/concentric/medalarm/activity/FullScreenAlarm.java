@@ -17,6 +17,7 @@ import android.view.animation.DecelerateInterpolator;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import concentric.medalarm.MedAlarmManager;
 import concentric.medalarm.R;
 import concentric.medalarm.activity.util.SystemUiHider;
 
@@ -172,6 +173,7 @@ public class FullScreenAlarm extends Activity {
         //TODO FINISH THIS.
         cancel = true;
         mediaPlayer.stop();
+        new MedAlarmManager(getApplicationContext()).setAllAlarms();
         finish();
     }
 
