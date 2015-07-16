@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent">
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        style="@style/AppTheme.ToolBar"
+        android:layout_width="fill_parent"
+        android:layout_height="@dimen/abc_action_bar_default_height_material"
+        android:layout_alignParentEnd="false"
+        android:layout_alignParentLeft="false"
+        android:layout_alignParentRight="false"
+        android:layout_alignParentStart="false"
+        android:layout_toLeftOf="@android:id/home"
+        android:layout_toStartOf="@android:id/home"
+        android:background="@color/primary"
+        android:elevation="4dp"
+        android:theme="@style/AppTheme.ToolBar" />
+    <EditText
+        android:id="@+id/alarmName"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginTop="15dp"
+        android:capitalize="words"
+        android:hint="@string/name"
+        android:inputType="textCapWords"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
+        android:paddingTop="15dp" />
+
+    <!-- THIS IS THE ADD BUTTON -->
+    <android.support.design.widget.FloatingActionButton xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/addTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginBottom="@dimen/fab_button_margin_bottom"
+        android:layout_marginRight="@dimen/fab_button_margin_right"
+        android:onClick="timePickerClicker"
+        android:src="@drawable/ic_add_white_48dp"
+        app:borderWidth="0dp"
+        app:elevation="@dimen/fab_button_elevation"
+        app:pressedTranslationZ="@dimen/fab_translation_z_pressed"
+        app:rippleColor="@color/colorPrimaryDark" />
+</RelativeLayout>

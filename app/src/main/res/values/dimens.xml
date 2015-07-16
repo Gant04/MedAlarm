@@ -127,4 +127,8 @@
     <!-- Padding above and below selection dialog lists. -->
     <dimen name="dialog_list_padding_vertical_material">8dp</dimen>
 
+    <!-- Alarm Group Card dimensions -->
+    <dimen name="line_height">1dp</dimen>
+    <dimen name="control_height">40dp</dimen>
+
 </resources>

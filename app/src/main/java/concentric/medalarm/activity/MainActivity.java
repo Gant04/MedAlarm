@@ -29,7 +29,6 @@ import java.util.Calendar;
 import java.util.List;
 
 import concentric.medalarm.AlarmGroupCardAdapter;
-import concentric.medalarm.MedAlarmManager;
 import concentric.medalarm.R;
 import concentric.medalarm.TimeConverter;
 import concentric.medalarm.models.AlarmGroup;
@@ -53,6 +52,7 @@ public class MainActivity extends AppCompatActivity {
     private ListView alarmListView;
     private List<String> alarmStringList;
     private ArrayAdapter<String> listAdapter;
+
     // TODO: Do we need these?
     private boolean alarmSelected = false;
     private boolean menuClicked = false;
@@ -70,15 +70,6 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        // Setup List View
-/*        alarmStringList = new ArrayList<>(); // Strings
-        alarmListView = (ListView) findViewById(R.id.alarmGroups);
-        alarmListView.setSelector(R.color.colorPrimary);
-        listAdapter = new ArrayAdapter<String>(this, android.R.layout
-                .simple_list_item_1, alarmStringList);
-        alarmListView.setAdapter(listAdapter);
-        alarmListOnClickListener();*/
-
         // Setup Recycler View
         mRecyclerView = (RecyclerView) findViewById(R.id.recycleAlarmList);
         mRecyclerView.setHasFixedSize(true);
@@ -94,36 +85,11 @@ public class MainActivity extends AppCompatActivity {
             mRecycleAdapter = new AlarmGroupCardAdapter(alarmGroupList);
             mRecyclerView.setAdapter(mRecycleAdapter);
         }
-        MedAlarmManager medAlarmManager = new MedAlarmManager(getApplicationContext());
-        medAlarmManager.setAllAlarms();
+
 
         // TODO: Do we need this?
         menuButtonOnLongClickListener();
 
-
-/*        Drawer result = new DrawerBuilder()
-                .withActivity(this)
-                .withToolbar(toolbar)
-                .addDrawerItems(
-                        new PrimaryDrawerItem().withName("First Item"),
-                        new DividerDrawerItem(),
-                        new SecondaryDrawerItem().withName("Second Item")
-                )
-                *//*
-                .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
-                    @Override
-                    public boolean onItemClick(AdapterView<?> parent, View view, int position, long id, IDrawerItem drawerItem) {
-                        // do something with the clicked item :D
-                    }
-                })*//*
-                .build();
-
-//use the result object to get different views of the drawer or modify it's data
-//some sample calls
-        result.setSelectionByIdentifier(1);
-        result.openDrawer();
-        result.closeDrawer();
-        result.isDrawerOpen();*/
     }
 
     private void loadAlarmGroups() {
@@ -246,10 +212,7 @@ public class MainActivity extends AppCompatActivity {
      * @param view The view that was clicked.
      */
     public void onClickActionDeleteAlarm(View view) {
-
-        MedAlarmManager medAlarmManager = new MedAlarmManager(getApplicationContext());
-        medAlarmManager.cancelAllAlarms();
-        onClickActionMenu(view);
+        //TODO Fix this.
     }
 
     /**
@@ -258,8 +221,7 @@ public class MainActivity extends AppCompatActivity {
      * @param view The view that was clicked.
      */
     public void onClickActionEditAlarm(View view) {
-        MedAlarmManager medAlarmManager = new MedAlarmManager(getApplicationContext());
-        medAlarmManager.setAllAlarms();
+        //TODO Fix this
         onClickActionMenu(view);
     }
 
@@ -300,15 +262,12 @@ public class MainActivity extends AppCompatActivity {
             if (resultCode == RESULT_OK) {
 
                 loadAlarmGroups();
-
                 if (alarmGroupList.size() > 0) {
                     mRecycleAdapter = new AlarmGroupCardAdapter(alarmGroupList);
                     mRecyclerView.setAdapter(mRecycleAdapter);
                 }
                 mRecycleAdapter.notifyDataSetChanged();
-
-                MedAlarmManager alarmManager = new MedAlarmManager(getApplicationContext());
-                alarmManager.setAllAlarms();
+                //MedAlarmManager.setAllAlarms();
             }
             if (resultCode == RESULT_CANCELED) {
 
@@ -417,9 +376,7 @@ public class MainActivity extends AppCompatActivity {
         this allows to generate new intents on the fly.
         */
 
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0, new Intent("com" +
-                                                                                     ".concentric" +
-                                                                                     ".alarmIntent." + med), PendingIntent.FLAG_UPDATE_CURRENT);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0, new Intent("com.concentric.alarmIntent." + med), 0);
         alarmManager = (AlarmManager) (this.getSystemService(Context.ALARM_SERVICE));
         alarmManager.setExact(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
     }
