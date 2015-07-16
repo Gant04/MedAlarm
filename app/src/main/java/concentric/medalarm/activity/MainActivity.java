@@ -29,6 +29,7 @@ import java.util.Calendar;
 import java.util.List;
 
 import concentric.medalarm.AlarmGroupCardAdapter;
+import concentric.medalarm.MedAlarmManager;
 import concentric.medalarm.R;
 import concentric.medalarm.TimeConverter;
 import concentric.medalarm.models.AlarmGroup;
@@ -84,6 +85,7 @@ public class MainActivity extends AppCompatActivity {
         if (alarmGroupList.size() > 0) {
             mRecycleAdapter = new AlarmGroupCardAdapter(alarmGroupList);
             mRecyclerView.setAdapter(mRecycleAdapter);
+            new MedAlarmManager(getApplicationContext()).setAllAlarms();
         }
 
 
@@ -267,7 +269,7 @@ public class MainActivity extends AppCompatActivity {
                     mRecyclerView.setAdapter(mRecycleAdapter);
                 }
                 mRecycleAdapter.notifyDataSetChanged();
-                //MedAlarmManager.setAllAlarms();
+                new MedAlarmManager(getApplicationContext()).setAllAlarms();
             }
             if (resultCode == RESULT_CANCELED) {
 
