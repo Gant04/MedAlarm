@@ -18,7 +18,7 @@
         android:layout_height="match_parent">
 
         <TableRow
-            android:layout_width="fill_parent"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:clickable="true"
             android:id="@+id/cardDetails"
@@ -27,7 +27,9 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:padding="8dp">
+                android:padding="8dp"
+                android:layout_column="0"
+                android:layout_weight="1">
 
                 <TextView
                     android:id="@+id/groupName"
@@ -55,7 +57,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/expandCollapse"
-                    android:src="@drawable/ic_expand_more_black_24dp"
+                    android:src="@drawable/ic_expand_less_black_24dp"
                     style="@android:style/Widget.Material.ImageButton"
                     android:layout_alignParentEnd="true"
                     android:layout_alignParentStart="false"
@@ -70,8 +72,10 @@
 
         <TableRow
             android:layout_width="fill_parent"
-            android:layout_height="match_parent"
-            android:id="@+id/line">
+            android:layout_height="wrap_content"
+            android:id="@+id/line"
+            android:animateLayoutChanges="false"
+            android:visibility="gone">
 
             <View
                 android:id="@+id/lineItem"
@@ -88,7 +92,8 @@
             android:gravity="left"
             android:padding="8dp"
             android:id="@+id/controls"
-            >
+            android:animateLayoutChanges="false"
+            android:visibility="gone">
 
             <RelativeLayout
                 android:layout_width="wrap_content"
