@@ -94,9 +94,6 @@ public class MainActivity extends AppCompatActivity {
         int rotationBegin = 0;
         int rotationEnd = 45;
 
-        final View createButton = findViewById(R.id.actionCreate);
-        final View deleteButton = findViewById(R.id.actionDelete);
-        final View editButton = findViewById(R.id.actionEdit);
         final View menuButton = findViewById(R.id.actionMenu);
 
         ObjectAnimator menuAnimator = ObjectAnimator.ofFloat(menuButton, "rotation", rotationBegin, rotationEnd);
@@ -104,35 +101,9 @@ public class MainActivity extends AppCompatActivity {
         menuAnimator.setRepeatCount(0);
         menuAnimator.setDuration(200);
 
-        ObjectAnimator createAnimator = ObjectAnimator.ofFloat(createButton, "translationY", translationA);
-        createAnimator.setInterpolator(new DecelerateInterpolator());
-        createAnimator.setRepeatCount(0);
-        createAnimator.setDuration(200);
-
-        ObjectAnimator deleteAnimator = ObjectAnimator.ofFloat(deleteButton, "translationX", translationA);
-        deleteAnimator.setInterpolator(new DecelerateInterpolator());
-        deleteAnimator.setRepeatCount(0);
-        deleteAnimator.setDuration(200);
-
-        ObjectAnimator editAnimator1 = ObjectAnimator.ofFloat(editButton, "translationX", translationB);
-        editAnimator1.setInterpolator(new DecelerateInterpolator());
-        editAnimator1.setRepeatCount(0);
-        editAnimator1.setDuration(200);
-
-        ObjectAnimator editAnimator2 = ObjectAnimator.ofFloat(editButton, "translationY", translationB);
-        editAnimator2.setInterpolator(new DecelerateInterpolator());
-        editAnimator2.setRepeatCount(0);
-        editAnimator2.setDuration(200);
-
-        createButton.setVisibility(View.VISIBLE);
-
-        AnimatorSet editGroup = new AnimatorSet();
-        editGroup.play(editAnimator1).with(editAnimator2);
 
         AnimatorSet buttonGroup = new AnimatorSet();
-        buttonGroup.play(menuAnimator).before(createAnimator);
-        buttonGroup.play(createAnimator).before(deleteAnimator);
-        buttonGroup.play(deleteAnimator).before(editGroup);
+        buttonGroup.play(menuAnimator);
         buttonGroup.start();
     }
 
