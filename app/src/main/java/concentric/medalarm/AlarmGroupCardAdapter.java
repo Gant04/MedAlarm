@@ -1,5 +1,7 @@
 package concentric.medalarm;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.support.design.widget.TabLayout;
@@ -12,6 +14,7 @@ import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.animation.Animation;
 import android.view.animation.LinearInterpolator;
 import android.view.animation.RotateAnimation;
+import android.view.animation.Transformation;
 import android.widget.ImageButton;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -64,60 +67,49 @@ public class AlarmGroupCardAdapter extends RecyclerView.Adapter<AlarmGroupCardAd
         AlarmGroupCardAdapter.ViewHolder vh = new ViewHolder(v, new AlarmGroupCardAdapter
                 .ViewHolderClicks() {
             private boolean rotated = false;
-            private View line = v.findViewById(R.id.line);
-            private View controls = v.findViewById(R.id.controls);
+            private TableRow line = (TableRow) v.findViewById(R.id.line);
+            private TableRow controls = (TableRow) v.findViewById(R.id.controls);
             private View arrow = v.findViewById(R.id.expandCollapse);
+
 
             /**
              * Called when the table Row is clicked.
              *
              * See: http://goo.gl/gR5aZH
-             * See:
+             * Here we want to lay the ground work for the animation.
              * for details on how this works.
              * @param caller the View of item that was touched.
              */
-            public void toggleControls(View caller) {
-                ObjectAnimator cheveron = null;
-                ObjectAnimator aniControls = null;
-                ObjectAnimator aniLine = null;
-                float lineHight = (float) line.getHeight();
-                float controlHeight = (float) controls.getHeight();
+            public void toggleControls(final View caller) {
+                RotateAnimation rotate;
 
                 if (!rotated) {
-                    cheveron = ObjectAnimator.ofFloat(arrow, "rotation", 0.0f, 180f);
-                    aniControls = ObjectAnimator.ofFloat(controls, "translationY", controlHeight, 0.0f);
-                    aniLine = ObjectAnimator.ofFloat(line, "translationY", lineHight, 0.0f);
+                    rotate = new RotateAnimation(0.0f, 180f, Animation
+                            .RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
+                    line.setVisibility(View.VISIBLE);
+                    controls.setVisibility(View.VISIBLE);
                     rotated = true;
                 } else {
-                    cheveron = ObjectAnimator.ofFloat(arrow, "rotation", 180f, 0.0f);
-                    aniControls = ObjectAnimator.ofFloat(controls, "translationY", 0.0f, controlHeight);
-                    aniLine = ObjectAnimator.ofFloat(line, "translationY", 0.0f, lineHight);
+                    rotate = new RotateAnimation(180f, 0.0f, Animation
+                            .RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
+                    line.setVisibility(View.GONE);
+                    controls.setVisibility(View.GONE);
                     rotated = false;
                 }
 
-                aniControls.setDuration(300);
-                aniControls.setInterpolator(new AccelerateDecelerateInterpolator());
-                aniLine.setDuration(100);
-                aniLine.setInterpolator(new LinearInterpolator());
-                cheveron.setDuration(200);
-                cheveron.setInterpolator(new AccelerateDecelerateInterpolator());
+                rotate.setInterpolator(new AccelerateDecelerateInterpolator());
+                rotate.setDuration(200);
+                rotate.setFillAfter(true);
 
-                ImageButton button = (ImageButton) caller.findViewById(R.id.expandCollapse);
-
-                AnimatorSet s = new AnimatorSet();
-                cheveron.setRepeatCount(0);
-                aniControls.setRepeatCount(0);
-                aniLine.setRepeatCount(0);
-
-                s.play(cheveron).with(aniLine).with(aniControls);
-                s.start();
-
+                arrow.startAnimation(rotate);
 
                 Log.d(getClass().getName() + " toggleControls", "Should have animated.");
             }
         });
         return vh;
     }
+
+
 
     // Provide a reference to the views for each data item
     // Complex data items may need more than one view per item, and
