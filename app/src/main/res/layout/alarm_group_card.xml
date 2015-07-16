@@ -92,8 +92,7 @@
             android:gravity="left"
             android:padding="8dp"
             android:id="@+id/controls"
-            android:animateLayoutChanges="false"
-            android:visibility="gone">
+            android:animateLayoutChanges="false">
 
             <RelativeLayout
                 android:layout_width="wrap_content"
@@ -118,7 +117,7 @@
                     android:src="@drawable/ic_edit_black_24dp"
                     style="@android:style/Widget.Material.ImageButton"
                     android:contentDescription="@string/edit_alarm"
-                    android:background="@android:color/transparent"
+                    android:background="?attr/selectableItemBackground"
                     android:layout_toStartOf="@+id/deleteAlarm"
                     android:layout_toLeftOf="@+id/deleteAlarm"
                     android:layout_centerVertical="true"
@@ -134,7 +133,7 @@
                     android:longClickable="false"
                     style="@android:style/Widget.Material.ImageButton"
                     android:contentDescription="@string/deleteAlarm"
-                    android:background="@android:color/transparent"
+                    android:background="?attr/selectableItemBackground"
                     android:adjustViewBounds="false"
                     android:cropToPadding="false"
                     android:layout_alignParentStart="false"
@@ -142,7 +141,8 @@
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="16dp"
                     android:clickable="true"
-                    android:padding="8dp"/>
+                    android:padding="8dp"
+                    android:layout_marginRight="8dp" />
             </RelativeLayout>
 
         </TableRow>
