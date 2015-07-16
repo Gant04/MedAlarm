@@ -1,10 +1,6 @@
 package concentric.medalarm;
 
-import android.animation.Animator;
-import android.animation.AnimatorListenerAdapter;
-import android.animation.AnimatorSet;
-import android.animation.ObjectAnimator;
-import android.support.design.widget.TabLayout;
+
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -12,9 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.animation.Animation;
-import android.view.animation.LinearInterpolator;
 import android.view.animation.RotateAnimation;
-import android.view.animation.Transformation;
 import android.widget.ImageButton;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -77,12 +71,12 @@ public class AlarmGroupCardAdapter extends RecyclerView.Adapter<AlarmGroupCardAd
              *
              * See: http://goo.gl/gR5aZH
              * Here we want to lay the ground work for the animation.
+             * // TODO: Make it so that there is a real animation for the controls and line.
              * for details on how this works.
              * @param caller the View of item that was touched.
              */
             public void toggleControls(final View caller) {
                 RotateAnimation rotate;
-
                 if (!rotated) {
                     rotate = new RotateAnimation(0.0f, 180f, Animation
                             .RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
@@ -96,14 +90,11 @@ public class AlarmGroupCardAdapter extends RecyclerView.Adapter<AlarmGroupCardAd
                     controls.setVisibility(View.GONE);
                     rotated = false;
                 }
-
                 rotate.setInterpolator(new AccelerateDecelerateInterpolator());
                 rotate.setDuration(200);
                 rotate.setFillAfter(true);
 
                 arrow.startAnimation(rotate);
-
-                Log.d(getClass().getName() + " toggleControls", "Should have animated.");
             }
         });
         return vh;
@@ -119,6 +110,8 @@ public class AlarmGroupCardAdapter extends RecyclerView.Adapter<AlarmGroupCardAd
         protected TextView groupName;
         protected TextView groupType;
         protected TableRow itemDetails;
+        protected ImageButton arrow;
+        protected ImageButton edit;
         protected ViewHolderClicks mListener;
 
         public ViewHolder(View v, ViewHolderClicks listener) {
@@ -127,13 +120,17 @@ public class AlarmGroupCardAdapter extends RecyclerView.Adapter<AlarmGroupCardAd
             groupName = (TextView) v.findViewById(R.id.groupName);
             groupType = (TextView) v.findViewById(R.id.groupType);
             itemDetails = (TableRow) v.findViewById(R.id.cardDetails);
+            arrow = (ImageButton) v.findViewById(R.id.expandCollapse);
+            edit = (ImageButton) v.findViewById(R.id.editAlarm);
 
             itemDetails.setOnClickListener(this);
+            arrow.setOnClickListener(this);
+
         }
 
         @Override
         public void onClick(View v) {
-            if (v.getId() == R.id.cardDetails) {
+            if (v.getId() == R.id.cardDetails || v.getId() == R.id.expandCollapse) {
                 mListener.toggleControls(v);
             }
         }
