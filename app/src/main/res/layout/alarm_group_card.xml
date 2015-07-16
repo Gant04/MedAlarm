@@ -92,7 +92,8 @@
             android:gravity="left"
             android:padding="8dp"
             android:id="@+id/controls"
-            android:animateLayoutChanges="false">
+            android:animateLayoutChanges="false"
+            android:visibility="gone">
 
             <RelativeLayout
                 android:layout_width="wrap_content"
