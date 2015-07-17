@@ -2,12 +2,7 @@ package concentric.medalarm.activity;
 
 
 import android.app.TimePickerDialog;
-import android.graphics.Color;
-import android.graphics.PorterDuff;
-import android.graphics.PorterDuffColorFilter;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.support.v4.content.res.ResourcesCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatSpinner;
 import android.support.v7.widget.Toolbar;
@@ -29,11 +24,6 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
-import com.baoyz.swipemenulistview.SwipeMenu;
-import com.baoyz.swipemenulistview.SwipeMenuCreator;
-import com.baoyz.swipemenulistview.SwipeMenuItem;
-import com.baoyz.swipemenulistview.SwipeMenuListView;
-
 import java.sql.SQLException;
 import java.text.DateFormat;
 import java.util.ArrayList;
@@ -42,6 +32,7 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
+import concentric.medalarm.CustomListViewAdapter;
 import concentric.medalarm.R;
 import concentric.medalarm.models.AlarmGroup;
 import concentric.medalarm.models.AlarmGroupDataSource;
@@ -51,7 +42,8 @@ public class AlarmGroupActivity extends AppCompatActivity implements AdapterView
     private List<String> list = new ArrayList<>();
     private List<Bundle> aTimes = new ArrayList<>();
     private ListView listView;
-    private ArrayAdapter<String> adapter;
+
+    private CustomListViewAdapter adapter;
     private Calendar dateAndTime = Calendar.getInstance();
     private int type;
 
@@ -70,73 +62,6 @@ public class AlarmGroupActivity extends AppCompatActivity implements AdapterView
         float scale = getResources().getDisplayMetrics().density;
         int pixels = (int) (dp * scale + 0.5f);
         return pixels;
-    }
-
-    public void setListSlider() {
-        SwipeMenuListView timeList = (SwipeMenuListView) findViewById(R.id.dailyAlarmList);
-        SwipeMenuCreator creator = new SwipeMenuCreator() {
-
-            @Override
-            public void create(SwipeMenu menu) {
-                // create "delete" item
-                SwipeMenuItem deleteItem = new SwipeMenuItem(
-                        getApplicationContext());
-
-                SwipeMenuItem editItem = new SwipeMenuItem(getApplicationContext());
-
-                editItem.setWidth(dp2px(60));
-
-                int color = Color.rgb(25, 118, 210);
-
-                // edit icon
-                Drawable editIcon = ResourcesCompat.getDrawable(getResources(), R.drawable.ic_edit_white_48dp, null);
-                if (editIcon != null) {
-                    editIcon.setColorFilter(new PorterDuffColorFilter(color, PorterDuff.Mode.MULTIPLY));
-                }
-
-                editItem.setIcon(editIcon);
-                //add to menu
-                menu.addMenuItem(editItem);
-
-                // set item width
-                deleteItem.setWidth(dp2px(60));
-                // set a icon
-
-                Drawable icon = ResourcesCompat.getDrawable(getResources(), R.drawable.ic_white_trash, null);
-                if (icon != null) {
-                    icon.setColorFilter(new PorterDuffColorFilter(color, PorterDuff.Mode.MULTIPLY));
-                }
-
-                deleteItem.setIcon(icon);
-                // add to menu
-                menu.addMenuItem(deleteItem);
-            }
-        };
-
-        // set creator
-        timeList.setMenuCreator(creator);
-
-        timeList.setOnMenuItemClickListener(new SwipeMenuListView.OnMenuItemClickListener() {
-            @Override
-            public boolean onMenuItemClick(int position, SwipeMenu menu, int index) {
-                // false : close the menu; true : not close the menu
-                switch (index) {
-                    case 0:
-                        //edit button
-                        editButtonClick(position);
-                        return false;
-                    case 1:
-                        //delete button
-                        deleteButtonClick(position);
-                        adapter.notifyDataSetChanged();
-                        return false;
-                    default:
-                        return true;
-                }
-            }
-        });
-
-        timeList.setCloseInterpolator(new DecelerateInterpolator());
     }
 
     public void editButtonClick(int position) {
@@ -228,8 +153,6 @@ public class AlarmGroupActivity extends AppCompatActivity implements AdapterView
 
         //Stops the keyboard from popping up utill the user clicks on a text box.
         this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
-
-        setListSlider();
     }
 
     @Override
@@ -326,8 +249,7 @@ public class AlarmGroupActivity extends AppCompatActivity implements AdapterView
                     hideVisibleViews(views);
                     expand(views.get(0));
                     listView = (ListView) findViewById(R.id.dailyAlarmList);
-                    adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1,
-                            list);
+                    adapter = new CustomListViewAdapter(list, this);
                     listView.setAdapter(adapter);
                     break;
                 case 2:

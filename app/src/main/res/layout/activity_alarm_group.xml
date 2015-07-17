@@ -61,13 +61,12 @@
             android:layout_centerHorizontal="true"
             android:layout_marginTop="10dp"
             android:animateLayoutChanges="true"
-            android:visibility="gone">
+            android:visibility="visible">
 
-            <com.baoyz.swipemenulistview.SwipeMenuListView
+            <ListView
                 android:id="@+id/dailyAlarmList"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:tint="@color/bpRed" />
+                android:layout_height="match_parent" />
 
             <!-- THIS IS THE ADD BUTTON -->
             <android.support.design.widget.FloatingActionButton xmlns:app="http://schemas.android.com/apk/res-auto"
