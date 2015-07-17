@@ -90,6 +90,8 @@ public class AlarmGroupDataSource {
         values.put(AlarmGroup.COLUMN_NAME_ALARM_GROUP_REPEATABLE, repeatable);
         values.put(AlarmGroup.COLUMN_NAME_ALARM_GROUP_NUMBER_OF_REPEATS, numRepeats);
         values.put(AlarmGroup.COLUMN_NAME_ALARM_GROUP_TIMES_REPEATED, timesRepeated);
+        // TODO: Fix this.
+        values.put(AlarmGroup.COLUMN_NAME_ALARM_GROUP_VIBRATES, false);
         long insertId = database.insert(AlarmGroup.TABLE_NAME, null, values);
         Cursor cursor = database.query(AlarmGroup.TABLE_NAME, allColumns,
                 AlarmGroup.COLUMN_NAME_ALARM_GROUP_ID +
@@ -163,7 +165,6 @@ public class AlarmGroupDataSource {
         return database.delete(AlarmGroup.TABLE_NAME, AlarmGroup.COLUMN_NAME_ALARM_GROUP_ID + " " +
                 "=?", new String[] { String.valueOf(id)});
     }
-
 
     /**
      * TODO: Should this be private?
