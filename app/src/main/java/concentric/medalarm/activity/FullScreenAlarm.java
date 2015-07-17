@@ -60,6 +60,16 @@ public class FullScreenAlarm extends Activity {
     MediaPlayer mediaPlayer;
     Handler mHideHandler = new Handler();
     /**
+     * The instance of the {@link SystemUiHider} for this activity.
+     */
+    private SystemUiHider mSystemUiHider;
+    Runnable mHideRunnable = new Runnable() {
+        @Override
+        public void run() {
+            mSystemUiHider.hide();
+        }
+    };
+    /**
      * Touch listener to use for in-layout UI controls to delay hiding the
      * system UI. This is to prevent the jarring behavior of controls going away
      * while interacting with activity UI.
@@ -71,16 +81,6 @@ public class FullScreenAlarm extends Activity {
                 delayedHide(AUTO_HIDE_DELAY_MILLIS);
             }
             return false;
-        }
-    };
-    /**
-     * The instance of the {@link SystemUiHider} for this activity.
-     */
-    private SystemUiHider mSystemUiHider;
-    Runnable mHideRunnable = new Runnable() {
-        @Override
-        public void run() {
-            mSystemUiHider.hide();
         }
     };
 
@@ -212,6 +212,8 @@ public class FullScreenAlarm extends Activity {
                 Toast.LENGTH_LONG);
         toast.show();
 
+        mNotifyMgr.cancel(Integer.parseInt(Long.toString(getIntent().getExtras().getLong("groupID"))));
+
         mediaPlayer.stop();
         finish();
     }
@@ -229,11 +231,11 @@ public class FullScreenAlarm extends Activity {
         rotateAnimationB.setDuration(1000);
         rotateAnimationB.setInterpolator(new DecelerateInterpolator());
 
-        ObjectAnimator slightTurnA = ObjectAnimator.ofFloat(icon, "rotation", 30, 30);
-        slightTurnA.setDuration(200);
+        ObjectAnimator slightTurnA = ObjectAnimator.ofFloat(icon, "rotation", 30, 60);
+        slightTurnA.setDuration(75);
 
-        ObjectAnimator slightTurnB = ObjectAnimator.ofFloat(icon, "rotation", 30, 30);
-        slightTurnB.setDuration(200);
+        ObjectAnimator slightTurnB = ObjectAnimator.ofFloat(icon, "rotation", 60, 30);
+        slightTurnB.setDuration(75);
 
 
         final AnimatorSet animatorSet = new AnimatorSet();
