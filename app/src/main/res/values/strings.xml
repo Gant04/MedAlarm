@@ -67,4 +67,5 @@
     <string name="edit_alarm">Edit Alarm</string>
     <string name="deleteAlarm">Delete Alarm</string>
     <string name="expand">Expand</string>
+    <string name="title_activity_edit__daily__alarm">Edit Daily Alarm</string>
 </resources>
