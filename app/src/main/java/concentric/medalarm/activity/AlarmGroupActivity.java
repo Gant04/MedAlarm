@@ -33,6 +33,7 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
+import concentric.medalarm.AlarmRingtoneManager;
 import concentric.medalarm.CustomListViewAdapter;
 import concentric.medalarm.R;
 import concentric.medalarm.models.AlarmGroup;
@@ -133,6 +134,9 @@ public class AlarmGroupActivity extends AppCompatActivity implements AdapterView
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_alarm_group);
+
+        AlarmRingtoneManager alarmRingtoneManager = AlarmRingtoneManager.getInstance
+                (getApplicationContext());
 
         // Get Toolbar
         Toolbar toolbar = (Toolbar) findViewById(R.id.AlarmGroupToolbar);
