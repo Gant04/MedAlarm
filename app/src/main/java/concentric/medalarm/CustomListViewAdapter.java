@@ -120,8 +120,8 @@ public class CustomListViewAdapter extends BaseAdapter implements ListAdapter {
         editBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                list.remove(position);
                 timePickerClicker(v);
+                list.remove(position);
                 notifyDataSetChanged();
             }
         });
