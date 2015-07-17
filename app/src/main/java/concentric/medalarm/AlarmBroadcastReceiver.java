@@ -56,7 +56,6 @@ public class AlarmBroadcastReceiver extends BroadcastReceiver {
         Intent newIntent = new Intent(context, FullScreenAlarm.class);
         newIntent.putExtras(bundle);
         newIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-
         DBHelper dbHelper = DBHelper.getInstance(context);
 
         context.startActivity(newIntent);

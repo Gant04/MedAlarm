@@ -6,16 +6,21 @@ import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.annotation.TargetApi;
 import android.app.Activity;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.v4.app.NotificationCompat;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.Window;
 import android.view.animation.DecelerateInterpolator;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import concentric.medalarm.MedAlarmManager;
 import concentric.medalarm.R;
@@ -48,6 +53,8 @@ public class FullScreenAlarm extends Activity {
      * The flags to pass to {@link SystemUiHider#getInstance}.
      */
     private static final int HIDER_FLAGS = SystemUiHider.FLAG_HIDE_NAVIGATION;
+    NotificationCompat.Builder mBuilder;
+    NotificationManager mNotifyMgr;
     ImageView icon;
     boolean cancel;
     MediaPlayer mediaPlayer;
@@ -80,16 +87,17 @@ public class FullScreenAlarm extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
 
         setContentView(R.layout.activity_full_screen_alarm);
 
         final View controlsView = findViewById(R.id.fullscreen_content_controls);
         final View contentView = findViewById(R.id.fullscreen_content);
 
-        this.setTitle("MedAlarm");
-
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
+
+        this.setTitle("MedAlarm");
 
         final TextView alarmText = (TextView) findViewById(R.id.textView);
         alarmText.setText(bundle.getString("med"));
@@ -162,10 +170,28 @@ public class FullScreenAlarm extends Activity {
         mediaPlayer = MediaPlayer.create(this, R.raw.alarm2);
         mediaPlayer.start();
         mediaPlayer.setLooping(true);
-
-
         AnimatePill();
 
+        mBuilder =
+                new NotificationCompat.Builder(this)
+                        .setSmallIcon(R.drawable.web_hi_res_512_pill)
+                        .setContentTitle("MedAlarm")
+                        .setContentText("Medication Reminder: " + bundle.getString("med"))
+                        .setAutoCancel(true);
+
+        Intent resultIntent = new Intent(this, FullScreenAlarm.class);
+        PendingIntent resultPendingIntent =
+                PendingIntent.getActivity(
+                        this,
+                        0,
+                        resultIntent,
+                        PendingIntent.FLAG_UPDATE_CURRENT
+                );
+        mBuilder.setContentIntent(resultPendingIntent);
+
+        mNotifyMgr =
+                (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+        mNotifyMgr.notify(Integer.parseInt(Long.toString(bundle.getLong("groupID"))), mBuilder.build());
 
     }
 
@@ -173,6 +199,7 @@ public class FullScreenAlarm extends Activity {
         //TODO FINISH THIS.
         cancel = true;
         mediaPlayer.stop();
+        mNotifyMgr.cancel(Integer.parseInt(Long.toString(getIntent().getExtras().getLong("groupID"))));
         new MedAlarmManager(getApplicationContext()).setAllAlarms();
         finish();
     }
@@ -180,6 +207,11 @@ public class FullScreenAlarm extends Activity {
     public void snoozeClickListener(View view) {
         //TODO FINISH THIS.
         cancel = true;
+        Toast toast = Toast.makeText(getApplicationContext(), "Alarm for \"" +
+                        (getIntent().getExtras().getString("med")) + "\" snoozed for 5 minutes.",
+                Toast.LENGTH_LONG);
+        toast.show();
+
         mediaPlayer.stop();
         finish();
     }

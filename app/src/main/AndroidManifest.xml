@@ -44,6 +44,7 @@
             android:name=".activity.FullScreenAlarm"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/title_activity_full_screen_alarm"
+            android:launchMode="singleTop"
             android:theme="@style/FullscreenTheme" />
         <activity
             android:name=".activity.Edit_Daily_Alarm"
