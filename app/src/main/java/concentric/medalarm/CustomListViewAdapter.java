@@ -152,5 +152,6 @@ public class CustomListViewAdapter extends BaseAdapter implements ListAdapter {
         list.add(item);
         Collections.sort(list);
         //adapter.notifyDataSetChanged();
+        notifyDataSetChanged();
     }
 }

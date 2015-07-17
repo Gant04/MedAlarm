@@ -12,14 +12,18 @@ public class AlarmGroup {
     public static final String COLUMN_NAME_ALARM_GROUP_TYPE = "type";
     public static final String COLUMN_NAME_ALARM_GROUP_OFFSET = "offset";
     public static final String COLUMN_NAME_ALARM_GROUP_ENABLED = "enabled";
-    public static final String COLUMN_NAME_ALARM_REPEATABLE = "repeatable";
-    public static final String COLUMN_NAME_ALARM_NUMBER_OF_REPEATS = "numberOfRepeats";
-    public static final String COLUMN_NAME_ALARM_TIMES_REPEATED = "timesRepeated";
+    public static final String COLUMN_NAME_ALARM_GROUP_REPEATABLE = "repeatable";
+    public static final String COLUMN_NAME_ALARM_GROUP_NUMBER_OF_REPEATS = "numberOfRepeats";
+    public static final String COLUMN_NAME_ALARM_GROUP_TIMES_REPEATED = "timesRepeated";
+    public static final String COLUMN_NAME_ALARM_GROUP_VIBRATES = "vibrates";
 
     private String groupName;
     private String ringTone;
     private long id;
     private int type = 0;
+    private int numOfRepeats;
+    private int timesRepeated;
+    private boolean repeatable = false;
     private boolean offset = false;
     private boolean enabled = false;
     private boolean vibrate = false;
@@ -144,6 +148,49 @@ public class AlarmGroup {
         // Disable all alarms in the group
     }
 
+    public int getType() {
+        return type;
+    }
+
+    public void setType(int type) {
+        this.type = type;
+    }
+
+    public int getNumOfRepeats() {
+        return numOfRepeats;
+    }
+
+    public void setNumOfRepeats(int numOfRepeats) {
+        this.numOfRepeats = numOfRepeats;
+    }
+
+    public int getTimesRepeated() {
+        return timesRepeated;
+    }
+
+    public void setTimesRepeated(int timesRepeated) {
+        this.timesRepeated = timesRepeated;
+    }
+
+    public boolean isRepeatable() {
+        return repeatable;
+    }
+
+    public void setRepeatable(boolean repeatable) {
+        this.repeatable = repeatable;
+    }
+
+    public boolean isOffset() {
+        return offset;
+    }
+
+    public boolean isEnabled() {
+        return enabled;
+    }
+
+    public boolean isVibrate() {
+        return vibrate;
+    }
 
     /**
      * addAlarm

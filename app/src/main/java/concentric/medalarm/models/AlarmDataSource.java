@@ -95,12 +95,41 @@ public class AlarmDataSource {
     }
 
     private Alarm cursorToAlarm(Cursor cursor) {
-        Alarm alarm = new Alarm(
-                cursor.getLong(cursor.getColumnIndex(Alarm.COLUMN_NAME_ALARM_ID)),
-                cursor.getLong(cursor.getColumnIndex(Alarm.COLUMN_NAME_ALARM_GROUP)),
-                cursor.getInt(cursor.getColumnIndex(Alarm.COLUMN_NAME_ALARM_TIME_HOUR)),
-                cursor.getInt(cursor.getColumnIndex(Alarm.COLUMN_NAME_ALARM_TIME_MINUTE))
-        );
+        Alarm alarm = new Alarm();
+        alarm.setId(cursor.getLong(cursor.getColumnIndex(Alarm.COLUMN_NAME_ALARM_ID)));
+        alarm.setGroupID(cursor.getLong(cursor.getColumnIndex(Alarm.COLUMN_NAME_ALARM_GROUP)));
+        alarm.setHour(cursor.getInt(cursor.getColumnIndex(Alarm.COLUMN_NAME_ALARM_TIME_HOUR)));
+        alarm.setMinute(cursor.getInt(cursor.getColumnIndex(Alarm.COLUMN_NAME_ALARM_TIME_MINUTE)));
+        alarm.setrHour(cursor.getInt(cursor.getColumnIndex(Alarm.COLUMN_NAME_ALARM_REPEATS_HOURS)));
+        alarm.setrMinute(cursor.getInt(cursor.getColumnIndex(Alarm.COLUMN_NAME_ALARM_REPEATS_MINUTES)));
         return alarm;
     }
+
+    private ContentValues populateContent(Alarm item) {
+        ContentValues values = new ContentValues();
+        values.put(Alarm.COLUMN_NAME_ALARM_ID, item.getId());
+        values.put(Alarm.COLUMN_NAME_ALARM_GROUP, item.getGroupID());
+        values.put(Alarm.COLUMN_NAME_ALARM_TIME_HOUR, item.getHour());
+        values.put(Alarm.COLUMN_NAME_ALARM_TIME_MINUTE, item.getMinute());
+        values.put(Alarm.COLUMN_NAME_ALARM_REPEATS_HOURS, item.getrHour());
+        values.put(Alarm.COLUMN_NAME_ALARM_REPEATS_MINUTES, item.getrMinute());
+        return values;
+    }
+
+    public long createAlarm(Alarm item) {
+        ContentValues values = populateContent(item);
+        return database.insert(Alarm.TABLE_NAME, null, values);
+    }
+
+    public long updateAlarm(Alarm alarm) {
+        ContentValues values = populateContent(alarm);
+        return database.update(Alarm.TABLE_NAME, values, Alarm.COLUMN_NAME_ALARM_ID + " =?", new
+                String[] {String.valueOf(alarm.getId())});
+    }
+
+    public int deleteAlarm(long id) {
+        return database.delete(Alarm.TABLE_NAME, Alarm.COLUMN_NAME_ALARM_ID + " =?", new String[] {
+                String.valueOf(id)});
+    }
+
 }

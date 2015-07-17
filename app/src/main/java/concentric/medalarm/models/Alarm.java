@@ -1,5 +1,7 @@
 package concentric.medalarm.models;
 
+import android.content.ContentValues;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
@@ -30,12 +32,6 @@ public class Alarm {
     private int minute;
     private int rHour;
     private int rMinute;
-
-    private String alarmTone;
-    private String alarmMessage;
-    private SQLiteDatabase database;
-    private DBHelper dbHelper;
-
 
     /**
      * Non-Default Alarm Constructor
@@ -122,19 +118,6 @@ public class Alarm {
         this.setMinute(Integer.parseInt(stringTokenizer.nextToken()));
     }
 
-    public String getAlarmTone() {
-        return this.alarmTone;
-    }
-
-    /**
-     * Sets the file name of the ringtone that will be played upon alarm firing.
-     *
-     * @param alarmTone
-     */
-    public void setAlarmTone(String alarmTone) {
-        this.alarmTone = alarmTone;
-    }
-
     public long getGroupID() {
         return this.groupID;
     }
@@ -157,21 +140,20 @@ public class Alarm {
         this.id = id;
     }
 
-    /**
-     * An Alarm has a message, E.G.: the type of medication to take.
-     *
-     * @param alarmMessage
-     */
-    public void setAlarmMessage(String alarmMessage) {
-        this.alarmMessage = alarmMessage;
+
+    public int getrHour() {
+        return rHour;
     }
 
-    /**
-     * TODO: Make this function do something.
-     * This Function will disable the alarm.
-     */
-    public void disableAlarm() {
-        // Disable an alarm from the system scheduler.
+    public void setrHour(int rHour) {
+        this.rHour = rHour;
     }
 
+    public int getrMinute() {
+        return rMinute;
+    }
+
+    public void setrMinute(int rMinute) {
+        this.rMinute = rMinute;
+    }
 }
