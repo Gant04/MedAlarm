@@ -84,7 +84,7 @@ public class CustomListViewAdapter extends BaseAdapter implements ListAdapter {
      * parent View (GridView, ListView...) will apply default layout parameters unless you use
      * {@link LayoutInflater#inflate(int, ViewGroup, boolean)}
      * to specify a root view and to prevent attachment to the root.
-     *
+     *ma
      * @param position    The position of the item within the adapter's data set of the item whose view
      *                    we want.
      * @param convertView The old view to reuse, if possible. Note: You should check that this view
