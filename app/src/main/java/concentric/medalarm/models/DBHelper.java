@@ -35,9 +35,10 @@ public class DBHelper extends SQLiteOpenHelper {
                     AlarmGroup.COLUMN_NAME_ALARM_GROUP_TYPE + " INTEGER NOT NULL, " +
                     AlarmGroup.COLUMN_NAME_ALARM_GROUP_RINGTONE + " TEXT NOT NULL, " +
                     AlarmGroup.COLUMN_NAME_ALARM_GROUP_OFFSET + " BOOLEAN NOT NULL, " +
-                    AlarmGroup.COLUMN_NAME_ALARM_REPEATABLE + " BOOLEAN NOT NULL, " +
-                    AlarmGroup.COLUMN_NAME_ALARM_NUMBER_OF_REPEATS + " INTEGER, " +
-                    AlarmGroup.COLUMN_NAME_ALARM_TIMES_REPEATED + " INTEGER" + ");";
+                    AlarmGroup.COLUMN_NAME_ALARM_GROUP_REPEATABLE + " BOOLEAN NOT NULL, " +
+                    AlarmGroup.COLUMN_NAME_ALARM_GROUP_VIBRATES + " BOOLEAN NOT NULL, " +
+                    AlarmGroup.COLUMN_NAME_ALARM_GROUP_NUMBER_OF_REPEATS + " INTEGER, " +
+                    AlarmGroup.COLUMN_NAME_ALARM_GROUP_TIMES_REPEATED + " INTEGER" + ");";
 
     private DBHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);

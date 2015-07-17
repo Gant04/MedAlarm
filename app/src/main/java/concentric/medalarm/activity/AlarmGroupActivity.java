@@ -209,9 +209,6 @@ public class AlarmGroupActivity extends AppCompatActivity implements AdapterView
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_alarm_group);
 
-        // Activate Singleton
-        DBHelper.getInstance(getApplicationContext());
-
         // Get Toolbar
         Toolbar toolbar = (Toolbar) findViewById(R.id.AlarmGroupToolbar);
         setSupportActionBar(toolbar);

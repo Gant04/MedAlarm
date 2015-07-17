@@ -1,18 +1,26 @@
 package concentric.medalarm.activity;
 
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
 import concentric.medalarm.R;
 
-public class Edit_Daily_Alarm extends ActionBarActivity {
+public class Edit_Daily_Alarm extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit__daily__alarm);
+
+        // Get Toolbar
+        Toolbar toolbar = (Toolbar) findViewById(R.id.Toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+
     }
 
     @Override

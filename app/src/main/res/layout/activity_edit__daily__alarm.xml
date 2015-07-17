@@ -4,7 +4,7 @@
     tools:context="concentric.medalarm.activity.Edit_Daily_Alarm">
 
     <android.support.v7.widget.Toolbar
-        android:id="@+id/toolbar"
+        android:id="@+id/Toolbar"
         style="@style/AppTheme.ToolBar"
         android:layout_width="fill_parent"
         android:layout_height="@dimen/abc_action_bar_default_height_material"
