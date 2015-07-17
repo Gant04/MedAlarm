@@ -1,8 +1,10 @@
 package concentric.medalarm.activity;
 
+import android.animation.Animator;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -11,6 +13,8 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.animation.AccelerateDecelerateInterpolator;
+import android.view.animation.AccelerateInterpolator;
 import android.view.animation.DecelerateInterpolator;
 
 import java.sql.SQLException;
@@ -86,25 +90,62 @@ public class MainActivity extends AppCompatActivity {
      *
      * @param view The view that was clicked.
      */
-    public void onClickActionMenu(View view) {
+    public void onClickActionCreateAlarmAnim(View view) {
 
-        int translationA = -165;
-        int translationB = -135;
-
-        int rotationBegin = 0;
-        int rotationEnd = 45;
+        int center = 0;
+        int right = -45;
+        int left = 45;
 
         final View menuButton = findViewById(R.id.actionMenu);
 
-        ObjectAnimator menuAnimator = ObjectAnimator.ofFloat(menuButton, "rotation", rotationBegin, rotationEnd);
-        menuAnimator.setInterpolator(new DecelerateInterpolator());
-        menuAnimator.setRepeatCount(0);
-        menuAnimator.setDuration(200);
+        ObjectAnimator rotateRight = ObjectAnimator.ofFloat(menuButton, "rotation", center, right);
+        rotateRight.setInterpolator(new AccelerateInterpolator());
+        rotateRight.setRepeatCount(0);
+        rotateRight.setDuration(100);
+
+        ObjectAnimator rotateLeft = ObjectAnimator.ofFloat(menuButton, "rotation", right, left);
+        rotateLeft.setInterpolator(new AccelerateDecelerateInterpolator());
+        rotateLeft.setRepeatCount(0);
+        rotateLeft.setDuration(200);
+
+        ObjectAnimator rotateCenter = ObjectAnimator.ofFloat(menuButton, "rotation", left, center);
+        rotateCenter.setInterpolator(new DecelerateInterpolator());
+        rotateCenter.setRepeatCount(0);
+        rotateCenter.setDuration(100);
 
 
         AnimatorSet buttonGroup = new AnimatorSet();
-        buttonGroup.play(menuAnimator);
+        buttonGroup.play(rotateRight).before(rotateLeft);
+        buttonGroup.play(rotateLeft).before(rotateCenter);
+
+        final View tmpView = view;
+
+        buttonGroup.addListener(new Animator.AnimatorListener() {
+            @Override
+            public void onAnimationStart(Animator animation) {
+
+            }
+
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                onClickActionCreateAlarm(tmpView);
+            }
+
+            @Override
+            public void onAnimationCancel(Animator animation) {
+
+            }
+
+            @Override
+            public void onAnimationRepeat(Animator animation) {
+
+            }
+        });
+
+
         buttonGroup.start();
+        MediaPlayer mediaPlayer = MediaPlayer.create(this, R.raw.bell);
+        mediaPlayer.start();
     }
 
     /**
@@ -115,7 +156,6 @@ public class MainActivity extends AppCompatActivity {
     public void onClickActionCreateAlarm(View view) {
         Intent intent = new Intent(view.getContext(), AlarmGroupActivity.class);
         startActivityForResult(intent, createAlarmRequestCode);
-        onClickActionMenu(view);
     }
 
     /**
