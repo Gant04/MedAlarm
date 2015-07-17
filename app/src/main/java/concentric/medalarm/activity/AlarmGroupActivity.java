@@ -23,6 +23,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 import java.sql.SQLException;
 import java.text.DateFormat;
@@ -36,7 +37,6 @@ import concentric.medalarm.CustomListViewAdapter;
 import concentric.medalarm.R;
 import concentric.medalarm.models.AlarmGroup;
 import concentric.medalarm.models.AlarmGroupDataSource;
-import concentric.medalarm.models.DBHelper;
 
 public class AlarmGroupActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
     private List<String> list = new ArrayList<>();
@@ -143,6 +143,8 @@ public class AlarmGroupActivity extends AppCompatActivity implements AdapterView
         AppCompatSpinner spinner = (AppCompatSpinner) findViewById(R.id.AlarmType);
         spinner.setOnItemSelectedListener(this);
 
+        ArrayAdapter<CharSequence> test = ArrayAdapter.createFromResource(this,R.array.alarm_types,android.R.layout.simple_spinner_dropdown_item);
+
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array
                 .alarm_types, android.R.layout.simple_spinner_dropdown_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -174,9 +176,15 @@ public class AlarmGroupActivity extends AppCompatActivity implements AdapterView
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.save:
-                save();
-                setResult(RESULT_OK);
-                finish();// TODO: Confirm Save
+                TextView name = (TextView) findViewById(R.id.alarmName);
+                if (!name.getText().toString().isEmpty()){
+                    save();
+                    setResult(RESULT_OK);
+                    finish();// TODO: Confirm Save
+                }
+                else {
+                    Toast.makeText(this,"Medication name cannot be empty.",Toast.LENGTH_LONG).show();
+                }
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -192,25 +200,30 @@ public class AlarmGroupActivity extends AppCompatActivity implements AdapterView
             e.printStackTrace();
         }
         // TODO: Ringtone needs to be set!
-        AlarmGroup ag = save.createAlarmGroup(name.getText().toString(), "BLEH", type, false, true);
-        Iterator iTimes = aTimes.iterator();
+        if (!name.getText().toString().isEmpty()){
+            AlarmGroup ag = save.createAlarmGroup(name.getText().toString(), "BLEH", type, false, true);
+            Iterator iTimes = aTimes.iterator();
 
-        // TODO: Might want to use a better itterator pattern so that the world is not destroyed.
-        while (iTimes.hasNext()) {
-            Bundle aTime = (Bundle) iTimes.next();
-            int hour = aTime.getInt("hour");
-            int minute = aTime.getInt("minute");
-            boolean repeats = false;
-            int rHours = 0;
-            int rMiutes = 0;
-            if (type == 1) {
-                repeats = true;
-                rHours = 24;
-                rMiutes = 0;
+            // TODO: Might want to use a better itterator pattern so that the world is not destroyed.
+            while (iTimes.hasNext()) {
+                Bundle aTime = (Bundle) iTimes.next();
+                int hour = aTime.getInt("hour");
+                int minute = aTime.getInt("minute");
+                boolean repeats = false;
+                int rHours = 0;
+                int rMiutes = 0;
+                if (type == 1) {
+                    repeats = true;
+                    rHours = 24;
+                    rMiutes = 0;
+                }
+                ag.addAlarm(hour, minute, repeats, rHours, rMiutes);
             }
-            ag.addAlarm(hour, minute, repeats, rHours, rMiutes);
+            save.close();
         }
-        save.close();
+        else {
+            Toast.makeText(this,"Medication name cannot be empty.",Toast.LENGTH_LONG).show();
+        }
     }
 
     /**

@@ -9,28 +9,44 @@
         android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/edit_btn"
         android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="false"
         android:layout_alignTop="@+id/edit_btn"
+        android:layout_marginBottom="5dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="5dp"
         android:layout_toLeftOf="@+id/edit_btn"
         android:layout_toStartOf="@+id/edit_btn"
-        android:paddingLeft="8dp"
+        android:gravity="center"
+        android:singleLine="true"
+        android:textSize="@dimen/abc_text_size_large_material"
         android:textStyle="bold" />
 
     <ImageButton
         android:id="@+id/delete_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
-        android:layout_marginRight="5dp"
-        android:src="@drawable/ic_white_trash" />
+        android:layout_marginBottom="5dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginTop="5dp"
+        android:contentDescription="@string/delete"
+        android:src="@drawable/ic_white_trash"
+        android:visibility="invisible" />
 
     <ImageButton
         android:id="@+id/edit_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
-        android:layout_marginRight="10dp"
+        android:layout_margin="5dp"
         android:layout_toLeftOf="@id/delete_btn"
-        android:src="@drawable/ic_edit_white_48dp" />
+        android:layout_toStartOf="@id/delete_btn"
+        android:contentDescription="@string/edit"
+        android:src="@drawable/ic_edit_white_48dp"
+        android:visibility="invisible" />
 
 </RelativeLayout>

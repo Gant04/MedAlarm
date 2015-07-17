@@ -1,5 +1,8 @@
 package concentric.medalarm;
 
+import android.animation.Animator;
+import android.animation.AnimatorSet;
+import android.animation.ObjectAnimator;
 import android.app.TimePickerDialog;
 import android.content.Context;
 import android.os.Bundle;
@@ -7,6 +10,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AccelerateInterpolator;
 import android.widget.BaseAdapter;
 import android.widget.ImageButton;
 import android.widget.ListAdapter;
@@ -27,6 +31,8 @@ public class CustomListViewAdapter extends BaseAdapter implements ListAdapter {
 
     private Calendar dateAndTime = Calendar.getInstance();
     private List<String> list = new ArrayList<>();
+    private List<Boolean> booleanList;
+    private List<View> viewList;
     private Context context;
     private TimePickerDialog.OnTimeSetListener tp = new TimePickerDialog.OnTimeSetListener() {
         public void onTimeSet(TimePicker view, int hourOfDay,
@@ -43,6 +49,7 @@ public class CustomListViewAdapter extends BaseAdapter implements ListAdapter {
     public CustomListViewAdapter(List<String> list, Context context) {
         this.list = list;
         this.context = context;
+        this.viewList = new ArrayList<>(list.size());
     }
 
     /**
@@ -98,6 +105,15 @@ public class CustomListViewAdapter extends BaseAdapter implements ListAdapter {
      */
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
+
+        if (list.size() > viewList.size()) {
+            List<View> viewList = new ArrayList<>(list.size());
+            for (View aView : this.viewList) {
+                viewList.add(aView);
+            }
+            this.viewList = viewList;
+        }
+
         View view = convertView;
         if (view == null) {
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -109,24 +125,175 @@ public class CustomListViewAdapter extends BaseAdapter implements ListAdapter {
         ImageButton deleteBtn = (ImageButton) view.findViewById(R.id.delete_btn);
         ImageButton editBtn = (ImageButton) view.findViewById(R.id.edit_btn);
 
+        view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                for (View aView : viewList) {
+                    if (!v.equals(aView)) {
+                        buttonAnimOut(aView.findViewById(R.id.delete_btn), aView.findViewById(R.id.edit_btn));
+                    }
+                }
+                buttonAnimIn(v.findViewById(R.id.delete_btn), v.findViewById(R.id.edit_btn));
+            }
+        });
+
+        for (View aView : viewList) {
+            if (!view.equals(aView)) {
+                aView.findViewById(R.id.delete_btn).setVisibility(View.INVISIBLE);
+                aView.findViewById(R.id.edit_btn).setVisibility(View.INVISIBLE);
+            }
+        }
+
+        view.findViewById(R.id.delete_btn).setVisibility(View.VISIBLE);
+        view.findViewById(R.id.edit_btn).setVisibility(View.VISIBLE);
+
+
+
         deleteBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //do something
-                list.remove(position); //or some other task
-                notifyDataSetChanged();
+                if (v.getVisibility() == View.VISIBLE) {
+                    list.remove(position); //or some other task
+                    notifyDataSetChanged();
+                }
             }
         });
         editBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                timePickerClicker(v);
-                list.remove(position);
-                notifyDataSetChanged();
+                if (v.getVisibility() == View.VISIBLE) {
+                    timePickerClicker(v);
+                    list.remove(position);
+                    notifyDataSetChanged();
+                }
             }
         });
 
+        viewList.add(position, view);
         return view;
+    }
+
+    private void buttonAnimIn(final View delete, final View edit) {
+        ObjectAnimator deleteButton = ObjectAnimator.ofFloat(delete, "translationX", 1000, 0);
+        deleteButton.setInterpolator(new AccelerateInterpolator());
+        deleteButton.setRepeatCount(0);
+        deleteButton.setDuration(500);
+
+        ObjectAnimator editButton = ObjectAnimator.ofFloat(edit, "translationX", 1000, 0);
+        editButton.setInterpolator(new AccelerateInterpolator());
+        editButton.setRepeatCount(0);
+        editButton.setDuration(500);
+
+        AnimatorSet buttonSet = new AnimatorSet();
+        buttonSet.play(editButton).before(deleteButton);
+
+        deleteButton.addListener(new Animator.AnimatorListener() {
+            @Override
+            public void onAnimationStart(Animator animation) {
+                delete.setVisibility(View.VISIBLE);
+            }
+
+            @Override
+            public void onAnimationEnd(Animator animation) {
+
+            }
+
+            @Override
+            public void onAnimationCancel(Animator animation) {
+
+            }
+
+            @Override
+            public void onAnimationRepeat(Animator animation) {
+
+            }
+        });
+
+        editButton.addListener(new Animator.AnimatorListener() {
+            @Override
+            public void onAnimationStart(Animator animation) {
+                edit.setVisibility(View.VISIBLE);
+            }
+
+            @Override
+            public void onAnimationEnd(Animator animation) {
+
+            }
+
+            @Override
+            public void onAnimationCancel(Animator animation) {
+
+            }
+
+            @Override
+            public void onAnimationRepeat(Animator animation) {
+
+            }
+        });
+
+        buttonSet.start();
+    }
+
+    private void buttonAnimOut(final View delete, final View edit) {
+        ObjectAnimator deleteButton = ObjectAnimator.ofFloat(delete, "translationX", 0, 1000);
+        deleteButton.setInterpolator(new AccelerateInterpolator());
+        deleteButton.setRepeatCount(0);
+        deleteButton.setDuration(500);
+
+        ObjectAnimator editButton = ObjectAnimator.ofFloat(edit, "translationX", 0, 1000);
+        editButton.setInterpolator(new AccelerateInterpolator());
+        editButton.setRepeatCount(0);
+        editButton.setDuration(500);
+
+        AnimatorSet buttonSet = new AnimatorSet();
+        buttonSet.play(deleteButton).before(editButton);
+
+        deleteButton.addListener(new Animator.AnimatorListener() {
+            @Override
+            public void onAnimationStart(Animator animation) {
+
+            }
+
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                delete.setVisibility(View.INVISIBLE);
+            }
+
+            @Override
+            public void onAnimationCancel(Animator animation) {
+
+            }
+
+            @Override
+            public void onAnimationRepeat(Animator animation) {
+
+            }
+        });
+
+        editButton.addListener(new Animator.AnimatorListener() {
+            @Override
+            public void onAnimationStart(Animator animation) {
+                edit.setVisibility(View.INVISIBLE);
+            }
+
+            @Override
+            public void onAnimationEnd(Animator animation) {
+
+            }
+
+            @Override
+            public void onAnimationCancel(Animator animation) {
+
+            }
+
+            @Override
+            public void onAnimationRepeat(Animator animation) {
+
+            }
+        });
+
+        buttonSet.start();
     }
 
     public void timePickerClicker(View view) { //lawl
