@@ -3,6 +3,7 @@ package concentric.medalarm;
 import android.app.TimePickerDialog;
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,15 +23,19 @@ import java.util.List;
  * Created by mike on 7/16/15.
  */
 public class CustomListViewAdapter extends BaseAdapter implements ListAdapter {
+    Bundle theBundle = new Bundle();
 
-    Calendar dateAndTime;
+    private Calendar dateAndTime = Calendar.getInstance();
     private List<String> list = new ArrayList<>();
     private Context context;
     private TimePickerDialog.OnTimeSetListener tp = new TimePickerDialog.OnTimeSetListener() {
         public void onTimeSet(TimePicker view, int hourOfDay,
                               int minute) {
+            Log.d(getClass().getName() + " onTimeSet", "setting the time I think");
             dateAndTime.set(Calendar.HOUR_OF_DAY, hourOfDay);
             dateAndTime.set(Calendar.MINUTE, minute);
+            //theBundle.putInt("hour", dateAndTime.get(Calendar.HOUR_OF_DAY));
+            //theBundle.putInt("minute", dateAndTime.get(Calendar.MINUTE));
             updateList();
         }
     };
@@ -125,10 +130,11 @@ public class CustomListViewAdapter extends BaseAdapter implements ListAdapter {
     }
 
     public void timePickerClicker(View view) { //lawl
+        Log.d(getClass().getName() + " timePickerClicker", "Time floater happening");
         new TimePickerDialog(context,
                 tp,
-                dateAndTime.get(Calendar.HOUR_OF_DAY),
-                dateAndTime.get(Calendar.MINUTE),
+                dateAndTime.get(Calendar.HOUR_OF_DAY),//theBundle.getInt("hour"),
+                dateAndTime.get(Calendar.MINUTE),//theBundle.getInt("minute"),
                 false).show();
     }
 
@@ -137,11 +143,14 @@ public class CustomListViewAdapter extends BaseAdapter implements ListAdapter {
                 .getTime());
         // TODO: Add Create a bundle and add it to instance
         Bundle bundle = new Bundle();
+        Log.d(getClass().getName() + " updateList", "list updated");
+//        theBundle.putInt("hour", dateAndTime.get(Calendar.HOUR_OF_DAY));
+//        theBundle.putInt("minute", dateAndTime.get(Calendar.MINUTE));
         bundle.putInt("hour", dateAndTime.get(Calendar.HOUR_OF_DAY));
         bundle.putInt("minute", dateAndTime.get(Calendar.MINUTE));
-        aTimes.add(bundle);
+        //aTimes.add(bundle);
         list.add(item);
         Collections.sort(list);
-        adapter.notifyDataSetChanged();
+        //adapter.notifyDataSetChanged();
     }
 }
