@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
+    <android.widget.TextView
         android:id="@+id/list_item_string"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -22,7 +22,7 @@
         android:textSize="@dimen/abc_text_size_large_material"
         android:textStyle="bold" />
 
-    <ImageButton
+    <android.widget.ImageButton
         android:id="@+id/delete_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -37,7 +37,7 @@
         android:src="@drawable/ic_white_trash"
         android:visibility="invisible" />
 
-    <ImageButton
+    <android.widget.ImageButton
         android:id="@+id/edit_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
