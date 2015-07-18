@@ -85,24 +85,6 @@
 
         </RelativeLayout>
 
-        <!--This is broken FIX IT-->
-        <!--<RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:id="@+id/IntervalAlarms"
-            android:layout_below="@+id/AlarmType"
-            android:visibility="gone">
-
-            <fragment
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:name="com.doomonafireball.betterpickers.hmspicker.HmsPickerDialogFragment"
-                android:id="@+id/fragment"
-                android:layout_centerVertical="true"
-                android:layout_centerHorizontal="true"
-                tools:layout="@layout/hms_picker_view"/>
-        </RelativeLayout>-->
-
     </RelativeLayout>
 
 </RelativeLayout>

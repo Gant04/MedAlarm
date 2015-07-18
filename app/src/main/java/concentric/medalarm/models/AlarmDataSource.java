@@ -72,9 +72,7 @@ public class AlarmDataSource {
     public List<Alarm> getGroupAlarms(long groupID) {
         List<Alarm> alarms = new ArrayList<>();
         Cursor cursor = database.query(Alarm.TABLE_NAME, allColumns, Alarm.COLUMN_NAME_ALARM_GROUP +
-                        " = ?", new String[]{String.valueOf(groupID)}, null, null,
-                null);
-
+                        " = ?", new String[]{String.valueOf(groupID)}, null, null, null);
         if (cursor.getCount() > 0) {
             cursor.moveToFirst();
             while (!cursor.isAfterLast()) {
@@ -83,15 +81,35 @@ public class AlarmDataSource {
                 cursor.moveToNext();
             }
             cursor.close();
-            Log.i(getClass().getName() + " getGroupAlarms",
-                    "Obtained a list of all alarms belonging to AlarmGroup with ID: " +
-                            Long.toString(groupID));
         } else {
             Log.e(getClass().getName() + " getGroupAlarms",
                     "There are no Alarms belonging to AlarmGroup with ID: " +
                             Long.toString(groupID));
         }
         return alarms;
+    }
+
+    public void deleteGroupAlarms(long groupID, DBHelper dbHelper) {
+        this.dbHelper = dbHelper;
+        deleteGroupAlarms(groupID);
+    }
+
+    public void deleteGroupAlarms(long groupID) {
+        Cursor cursor = database.query(Alarm.TABLE_NAME, allColumns, Alarm.COLUMN_NAME_ALARM_GROUP +
+                        " = ?", new String[]{String.valueOf(groupID)}, null, null, null);
+
+        if (cursor.getCount() > 0) {
+            cursor.moveToFirst();
+            while (!cursor.isAfterLast()) {
+                deleteAlarm(cursor.getLong(cursor.getColumnIndex(Alarm.COLUMN_NAME_ALARM_ID)));
+                cursor.moveToNext();
+            }
+            cursor.close();
+        } else {
+            Log.e(getClass().getName() + " getGroupAlarms",
+                    "There are no Alarms belonging to AlarmGroup with ID: " +
+                            Long.toString(groupID));
+        }
     }
 
     private Alarm cursorToAlarm(Cursor cursor) {
