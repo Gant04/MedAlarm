@@ -106,13 +106,13 @@ public class CustomListViewAdapter extends BaseAdapter implements ListAdapter {
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
 
-        if (list.size() > viewList.size()) {
-            List<View> viewList = new ArrayList<>(list.size());
-            for (View aView : this.viewList) {
-                viewList.add(aView);
-            }
-            this.viewList = viewList;
-        }
+//        if (list.size() > viewList.size()) {
+//            List<View> viewList = new ArrayList<>(list.size());
+//            for (View aView : this.viewList) {
+//                viewList.add(aView);
+//            }
+//            this.viewList = viewList;
+//        }
 
         View view = convertView;
         if (view == null) {
@@ -125,24 +125,24 @@ public class CustomListViewAdapter extends BaseAdapter implements ListAdapter {
         ImageButton deleteBtn = (ImageButton) view.findViewById(R.id.delete_btn);
         ImageButton editBtn = (ImageButton) view.findViewById(R.id.edit_btn);
 
-        view.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                for (View aView : viewList) {
-                    if (!v.equals(aView)) {
-                        buttonAnimOut(aView.findViewById(R.id.delete_btn), aView.findViewById(R.id.edit_btn));
-                    }
-                }
-                buttonAnimIn(v.findViewById(R.id.delete_btn), v.findViewById(R.id.edit_btn));
-            }
-        });
-
-        for (View aView : viewList) {
-            if (!view.equals(aView)) {
-                aView.findViewById(R.id.delete_btn).setVisibility(View.INVISIBLE);
-                aView.findViewById(R.id.edit_btn).setVisibility(View.INVISIBLE);
-            }
-        }
+//        view.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                for (View aView : viewList) {
+//                    if (!v.equals(aView)) {
+//                        buttonAnimOut(aView.findViewById(R.id.delete_btn), aView.findViewById(R.id.edit_btn));
+//                    }
+//                }
+//                buttonAnimIn(v.findViewById(R.id.delete_btn), v.findViewById(R.id.edit_btn));
+//            }
+//        });
+//
+//        for (View aView : viewList) {
+//            if (!view.equals(aView)) {
+//                aView.findViewById(R.id.delete_btn).setVisibility(View.INVISIBLE);
+//                aView.findViewById(R.id.edit_btn).setVisibility(View.INVISIBLE);
+//            }
+//        }
 
         view.findViewById(R.id.delete_btn).setVisibility(View.VISIBLE);
         view.findViewById(R.id.edit_btn).setVisibility(View.VISIBLE);
