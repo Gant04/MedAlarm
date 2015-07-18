@@ -1,16 +1,13 @@
 package concentric.medalarm.activity;
 
-import android.content.Intent;
+
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.EditText;
-
 import java.sql.SQLException;
-
 import concentric.medalarm.R;
 import concentric.medalarm.models.AlarmGroup;
 import concentric.medalarm.models.AlarmGroupDataSource;
@@ -27,6 +24,7 @@ public class Edit_Daily_Alarm extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+        // Load in alarm details
         AlarmGroupDataSource db = new AlarmGroupDataSource();
         try {
             db.open();
@@ -36,6 +34,8 @@ public class Edit_Daily_Alarm extends AppCompatActivity {
         Bundle extras = getIntent().getExtras();
         alarmGroup = db.getAlarmGroup(extras.getLong("groupID"));
         db.close();
+
+        // Set alarm details
         EditText name = (EditText) findViewById(R.id.alarmName);
         name.setText(alarmGroup.getGroupName());
 

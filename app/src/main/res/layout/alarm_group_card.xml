@@ -122,7 +122,6 @@
                     android:layout_toStartOf="@+id/deleteAlarm"
                     android:layout_toLeftOf="@+id/deleteAlarm"
                     android:layout_centerVertical="true"
-                    android:cropToPadding="false"
                     android:clickable="true"
                     android:padding="8dp"/>
 
