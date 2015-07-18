@@ -48,8 +48,16 @@ public class AlarmGroup {
     /*
     * Create Alarm Group with default Ringtone.
     */
-    public AlarmGroup(String groupName, String type, boolean offset, boolean enabled) {
-
+    public AlarmGroup(String groupName, String ringTone, int type, boolean offset, boolean
+            enabled, boolean repeatable, int numRepeats, int timesRepeated) {
+        setGroupName(groupName);
+        setRingTone(ringTone);
+        setAlarmType(type);
+        setOffset(offset);
+        setEnabled(enabled);
+        setRepeatable(repeatable);
+        setNumOfRepeats(numRepeats);
+        setTimesRepeated(timesRepeated);
     }
 
     public String getGroupName() {

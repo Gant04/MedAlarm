@@ -30,7 +30,7 @@ public class DBHelper extends SQLiteOpenHelper {
     private final String SQL_CREATE_ALARM_GROUP =
             "CREATE TABLE " + AlarmGroup.TABLE_NAME +
                     "(" + AlarmGroup.COLUMN_NAME_ALARM_GROUP_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
-                    AlarmGroup.COLUMN_NAME_ALARM_GROUP_NAME + " TEXT," +
+                    AlarmGroup.COLUMN_NAME_ALARM_GROUP_NAME + " TEXT, " +
                     AlarmGroup.COLUMN_NAME_ALARM_GROUP_ENABLED + " BOOLEAN NOT NULL, " +
                     AlarmGroup.COLUMN_NAME_ALARM_GROUP_TYPE + " INTEGER NOT NULL, " +
                     AlarmGroup.COLUMN_NAME_ALARM_GROUP_RINGTONE + " TEXT NOT NULL, " +
@@ -38,7 +38,7 @@ public class DBHelper extends SQLiteOpenHelper {
                     AlarmGroup.COLUMN_NAME_ALARM_GROUP_REPEATABLE + " BOOLEAN NOT NULL, " +
                     AlarmGroup.COLUMN_NAME_ALARM_GROUP_VIBRATES + " BOOLEAN NOT NULL, " +
                     AlarmGroup.COLUMN_NAME_ALARM_GROUP_NUMBER_OF_REPEATS + " INTEGER, " +
-                    AlarmGroup.COLUMN_NAME_ALARM_GROUP_TIMES_REPEATED + " INTEGER" + ");";
+                    AlarmGroup.COLUMN_NAME_ALARM_GROUP_TIMES_REPEATED + " INTEGER " + ");";
 
     private DBHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);

@@ -78,9 +78,17 @@ public class AlarmGroupDataSource {
      * @return Returns a newly created AlarmGroup object.
      */
     public AlarmGroup createAlarmGroup(String groupName, String ringTone, int type,
-                                       boolean offset,
-                                       boolean enabled, boolean repeatable, int numRepeats,
-                                       int timesRepeated) {
+                                       boolean offset, boolean enabled, boolean repeatable, int
+                                               numRepeats, int timesRepeated) {
+        AlarmGroup newAlarmGroup = new AlarmGroup(groupName, ringTone, type, offset, enabled,
+                repeatable,numRepeats, timesRepeated);
+        long id = createAlarmGroup(newAlarmGroup);
+        newAlarmGroup.setId(id);
+        return newAlarmGroup;
+
+
+
+/*
         ContentValues values = new ContentValues();
         values.put(AlarmGroup.COLUMN_NAME_ALARM_GROUP_NAME, groupName);
         values.put(AlarmGroup.COLUMN_NAME_ALARM_GROUP_TYPE, type);
@@ -90,7 +98,7 @@ public class AlarmGroupDataSource {
         values.put(AlarmGroup.COLUMN_NAME_ALARM_GROUP_REPEATABLE, repeatable);
         values.put(AlarmGroup.COLUMN_NAME_ALARM_GROUP_NUMBER_OF_REPEATS, numRepeats);
         values.put(AlarmGroup.COLUMN_NAME_ALARM_GROUP_TIMES_REPEATED, timesRepeated);
-        // TODO: Fix this.
+        // TODO: Fix this. The vibrate should be set somehow somewhere.
         values.put(AlarmGroup.COLUMN_NAME_ALARM_GROUP_VIBRATES, false);
         long insertId = database.insert(AlarmGroup.TABLE_NAME, null, values);
         Cursor cursor = database.query(AlarmGroup.TABLE_NAME, allColumns,
@@ -99,7 +107,7 @@ public class AlarmGroupDataSource {
         cursor.moveToFirst();
         AlarmGroup group = cursorToGroup(cursor);
         Log.i(getClass().getName() + " createAlarmGroup", "Alarm group creation");
-        return group;
+        return group;*/
     }
 
     /**
@@ -123,8 +131,8 @@ public class AlarmGroupDataSource {
      */
     public List<AlarmGroup> getAllAlarmGroups() {
         List<AlarmGroup> alarmGroups = new ArrayList<>();
-        Cursor cursor = database.query(AlarmGroup.TABLE_NAME, allColumns,
-                null, null, null, null, null);
+        Cursor cursor = database.query(AlarmGroup.TABLE_NAME, allColumns, null, null, null, null,
+                null);
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
             AlarmGroup group = cursorToGroup(cursor);
@@ -143,15 +151,19 @@ public class AlarmGroupDataSource {
      * @return
      */
     public AlarmGroup getAlarmGroup(long id) {
-        Cursor cursor = database.rawQuery("SELECT * FROM " + AlarmGroup.TABLE_NAME + " WHERE " +
-                AlarmGroup.COLUMN_NAME_ALARM_GROUP_ID + " = " + id, null);
-        AlarmGroup alarmGroup = cursorToGroup(cursor);
+        Cursor cursor = database.query(AlarmGroup.TABLE_NAME, allColumns,
+                AlarmGroup.COLUMN_NAME_ALARM_GROUP_ID + " = " + id, null, null, null, null);
+        cursor.moveToFirst();
+        AlarmGroup alarmGroup = null;
+        if (cursor.getCount() > 0) {
+           alarmGroup = cursorToGroup(cursor);
+        }
         return alarmGroup;
     }
 
     public long createAlarmGroup(AlarmGroup item) {
         ContentValues values = populateContent(item);
-        return database.insert(Alarm.TABLE_NAME, null, values);
+        return database.insert(AlarmGroup.TABLE_NAME, null, values);
     }
 
     public long updateAlarmGroup(AlarmGroup item) {
@@ -178,24 +190,23 @@ public class AlarmGroupDataSource {
         AlarmGroup group = new AlarmGroup();
         group.setId(cursor.getLong(cursor.getColumnIndex(AlarmGroup.COLUMN_NAME_ALARM_GROUP_ID)));
         group.setGroupName(cursor.getString(cursor.getColumnIndex(AlarmGroup
-                 .COLUMN_NAME_ALARM_GROUP_NAME)));
+                .COLUMN_NAME_ALARM_GROUP_NAME)));
         group.setOffset(cursor.getInt(cursor.getColumnIndex(AlarmGroup
-                 .COLUMN_NAME_ALARM_GROUP_OFFSET)) > 0);
+                .COLUMN_NAME_ALARM_GROUP_OFFSET)) > 0);
         group.setEnabled(cursor.getInt(cursor.getColumnIndex(AlarmGroup
-                 .COLUMN_NAME_ALARM_GROUP_ENABLED)) > 0);
+                .COLUMN_NAME_ALARM_GROUP_ENABLED)) > 0);
         group.setAlarmType(cursor.getInt(cursor.getColumnIndex(AlarmGroup
-                 .COLUMN_NAME_ALARM_GROUP_TYPE)));
+                .COLUMN_NAME_ALARM_GROUP_TYPE)));
         group.setRepeatable(cursor.getInt(cursor.getColumnIndex(AlarmGroup
                 .COLUMN_NAME_ALARM_GROUP_REPEATABLE)) > 0);
         group.setRingTone(cursor.getString(cursor.getColumnIndex(AlarmGroup
-                 .COLUMN_NAME_ALARM_GROUP_RINGTONE)));
+                .COLUMN_NAME_ALARM_GROUP_RINGTONE)));
         group.setNumOfRepeats(cursor.getInt(cursor.getColumnIndex(AlarmGroup
-                 .COLUMN_NAME_ALARM_GROUP_NUMBER_OF_REPEATS)));
+                .COLUMN_NAME_ALARM_GROUP_NUMBER_OF_REPEATS)));
         group.setTimesRepeated(cursor.getInt(cursor.getColumnIndex(AlarmGroup
-                 .COLUMN_NAME_ALARM_GROUP_TIMES_REPEATED)));
+                .COLUMN_NAME_ALARM_GROUP_TIMES_REPEATED)));
         group.setVibrate(cursor.getInt(cursor.getColumnIndex(AlarmGroup
-                 .COLUMN_NAME_ALARM_GROUP_VIBRATES)) > 0);
-        Log.i(getClass().getName() + " cursorToGroup", "Gets Something...");
+                .COLUMN_NAME_ALARM_GROUP_VIBRATES)) > 0);
         return group;
     }
 

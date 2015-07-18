@@ -5,11 +5,17 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.EditText;
+
+import java.sql.SQLException;
 
 import concentric.medalarm.R;
+import concentric.medalarm.models.AlarmGroup;
+import concentric.medalarm.models.AlarmGroupDataSource;
 
 public class Edit_Daily_Alarm extends AppCompatActivity {
-
+    AlarmGroup alarmGroup;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -20,6 +26,16 @@ public class Edit_Daily_Alarm extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+        AlarmGroupDataSource db = new AlarmGroupDataSource();
+        try {
+            db.open();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        alarmGroup = db.getAlarmGroup(getIntent().getIntExtra("groupID", 0));
+        db.close();
+        EditText name = (EditText) findViewById(R.id.alarmName);
+        name.setText(alarmGroup.getGroupName());
 
     }
 

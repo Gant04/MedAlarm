@@ -64,7 +64,7 @@ public class MainActivity extends AppCompatActivity {
         // Adapter for Recycler View
         loadAlarmGroups();
         if (alarmGroupList.size() > 0) {
-            mRecycleAdapter = new AlarmGroupCardAdapter(alarmGroupList);
+            mRecycleAdapter = new AlarmGroupCardAdapter(MainActivity.this, alarmGroupList);
             mRecyclerView.setAdapter(mRecycleAdapter);
             new MedAlarmManager(getApplicationContext()).setAllAlarms();
         }
@@ -185,7 +185,7 @@ public class MainActivity extends AppCompatActivity {
 
                 loadAlarmGroups();
                 if (alarmGroupList.size() > 0) {
-                    mRecycleAdapter = new AlarmGroupCardAdapter(alarmGroupList);
+                    mRecycleAdapter = new AlarmGroupCardAdapter(MainActivity.this, alarmGroupList);
                     mRecyclerView.setAdapter(mRecycleAdapter);
                 }
                 mRecycleAdapter.notifyDataSetChanged();

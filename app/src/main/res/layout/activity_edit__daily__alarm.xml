@@ -21,8 +21,23 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/toolbar"
-        android:layout_alignParentBottom="true"></RelativeLayout>
+        android:layout_alignParentBottom="true"
+        android:layout_below="@+id/Toolbar">
+        <EditText
+            android:id="@+id/alarmName"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginTop="5dp"
+            android:capitalize="words"
+            android:hint="@string/name"
+            android:inputType="textCapWords"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp"
+            android:paddingTop="15dp"
+            />
+    </RelativeLayout>
 
     <android.support.design.widget.FloatingActionButton xmlns:app="http://schemas.android.com/apk/res-auto"
         android:id="@+id/addTime"
