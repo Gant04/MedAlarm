@@ -37,6 +37,11 @@
             android:paddingRight="15dp"
             android:paddingTop="15dp"
             />
+        <ListView
+            android:id="@+id/dailyAlarmList"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/alarmName"/>
     </RelativeLayout>
 
     <android.support.design.widget.FloatingActionButton xmlns:app="http://schemas.android.com/apk/res-auto"
