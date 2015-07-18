@@ -14,10 +14,12 @@
         android:theme="@style/AppTheme" >
         <activity
             android:name=".activity.MainActivity"
-            android:label="@string/title_activity_main" />
+            android:label="@string/title_activity_main"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activity.ActivityDetails"
-            android:label="@string/title_activity_activity_details" />
+            android:label="@string/title_activity_activity_details"
+            android:screenOrientation="portrait" />
 
         <receiver android:name=".AlarmBroadcastReceiver" />
 
@@ -31,7 +33,8 @@
             android:name=".activity.MedAlarm"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/title_activity_med_alarm"
-            android:theme="@style/FullscreenTheme" >
+            android:screenOrientation="portrait"
+            android:theme="@style/FullscreenTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -42,7 +45,8 @@
             android:name=".activity.AlarmGroupActivity"
             android:exported="true"
             android:label="@string/createalarm"
-            android:parentActivityName=".activity.MainActivity" >
+            android:parentActivityName=".activity.MainActivity"
+            android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="concentric.medalarm.activity.MainActivity" />
@@ -53,11 +57,13 @@
             android:label="@string/title_activity_full_screen_alarm"
             android:launchMode="singleTop"
             android:noHistory="true"
+            android:screenOrientation="portrait"
             android:theme="@style/FullscreenTheme" />
         <activity
             android:name=".activity.Edit_Daily_Alarm"
             android:label="@string/title_activity_edit__daily__alarm"
-            android:parentActivityName=".activity.MainActivity" >
+            android:parentActivityName=".activity.MainActivity"
+            android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="concentric.medalarm.activity.MainActivity" />
