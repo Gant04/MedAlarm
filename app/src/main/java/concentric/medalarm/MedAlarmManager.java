@@ -54,7 +54,8 @@ public class MedAlarmManager {
                     0, new Intent(context, AlarmBroadcastReceiver.class).setAction("com.concentric.medalarm.intent." + medicationName + "." + groupID + "." + id).putExtras(alarmBundleMaker(alarm)), PendingIntent.FLAG_NO_CREATE) != null);
 
             if (alarmCreated) {
-                Log.i(getClass().getName() + ":", "Alarm already set");
+                Log.i(getClass().getName() + ":", "Alarm already set: Resetting");
+
             } else {
 
                 Log.i(getClass().getName() + ":", "Creating intent with the name: " + "com.concentric.medalarm.intent." + medicationName + "." + groupID + "." + id);
@@ -197,7 +198,6 @@ public class MedAlarmManager {
         PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, alarmIntent, PendingIntent.FLAG_UPDATE_CURRENT);
         AlarmManager alarmManager = (AlarmManager) (context.getSystemService(Context.ALARM_SERVICE));
         alarmManager.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
-
     }
 
     private Bundle alarmBundleMaker(Alarm alarm) {

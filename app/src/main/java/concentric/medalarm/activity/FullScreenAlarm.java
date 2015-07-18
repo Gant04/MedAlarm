@@ -17,7 +17,6 @@ import android.support.v4.app.NotificationCompat;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
-import android.view.animation.DecelerateInterpolator;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -25,6 +24,7 @@ import android.widget.Toast;
 import concentric.medalarm.MedAlarmManager;
 import concentric.medalarm.R;
 import concentric.medalarm.activity.util.SystemUiHider;
+import concentric.medalarm.models.DBHelper;
 
 /**
  * An example full-screen activity that shows and hides the system UI (i.e.
@@ -60,16 +60,6 @@ public class FullScreenAlarm extends Activity {
     MediaPlayer mediaPlayer;
     Handler mHideHandler = new Handler();
     /**
-     * The instance of the {@link SystemUiHider} for this activity.
-     */
-    private SystemUiHider mSystemUiHider;
-    Runnable mHideRunnable = new Runnable() {
-        @Override
-        public void run() {
-            mSystemUiHider.hide();
-        }
-    };
-    /**
      * Touch listener to use for in-layout UI controls to delay hiding the
      * system UI. This is to prevent the jarring behavior of controls going away
      * while interacting with activity UI.
@@ -83,11 +73,22 @@ public class FullScreenAlarm extends Activity {
             return false;
         }
     };
+    /**
+     * The instance of the {@link SystemUiHider} for this activity.
+     */
+    private SystemUiHider mSystemUiHider;
+    Runnable mHideRunnable = new Runnable() {
+        @Override
+        public void run() {
+            mSystemUiHider.hide();
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
+        DBHelper dbHelper = DBHelper.getInstance(getApplicationContext());
 
         setContentView(R.layout.activity_full_screen_alarm);
 
@@ -222,27 +223,28 @@ public class FullScreenAlarm extends Activity {
 
         icon = (ImageView) findViewById(R.id.fullscreen_content);
         icon.setImageResource(R.drawable.web_hi_res_512_pill);
+//        ObjectAnimator rotateAnimationA = ObjectAnimator.ofFloat(icon, "translationY", 0, 180);
+//        rotateAnimationA.setDuration(1000);
+//        rotateAnimationA.setInterpolator(new DecelerateInterpolator());
+//
+//        ObjectAnimator rotateAnimationB = ObjectAnimator.ofFloat(icon, "translationY", 180, 0);
+//        rotateAnimationB.setDuration(1000);
+//        rotateAnimationB.setInterpolator(new DecelerateInterpolator());
 
-        ObjectAnimator rotateAnimationA = ObjectAnimator.ofFloat(icon, "translationY", 0, 180);
-        rotateAnimationA.setDuration(1000);
-        rotateAnimationA.setInterpolator(new DecelerateInterpolator());
-
-        ObjectAnimator rotateAnimationB = ObjectAnimator.ofFloat(icon, "translationY", 180, 0);
-        rotateAnimationB.setDuration(1000);
-        rotateAnimationB.setInterpolator(new DecelerateInterpolator());
-
-        ObjectAnimator slightTurnA = ObjectAnimator.ofFloat(icon, "rotation", 30, 60);
+        ObjectAnimator slightTurnA = ObjectAnimator.ofFloat(icon, "rotation", 45f, 0f);
         slightTurnA.setDuration(75);
 
-        ObjectAnimator slightTurnB = ObjectAnimator.ofFloat(icon, "rotation", 60, 30);
+        ObjectAnimator slightTurnB = ObjectAnimator.ofFloat(icon, "rotation", 0f, 45f);
         slightTurnB.setDuration(75);
 
 
         final AnimatorSet animatorSet = new AnimatorSet();
 
-        animatorSet.play(rotateAnimationA).with(slightTurnA);
+/*        animatorSet.play(rotateAnimationA).with(slightTurnA);
         animatorSet.play(rotateAnimationB).with(slightTurnB);
-        animatorSet.play(rotateAnimationA).before(rotateAnimationB);
+        animatorSet.play(rotateAnimationA).before(rotateAnimationB);*/
+        animatorSet.play(slightTurnA).before(slightTurnB);
+
 
         animatorSet.addListener(new AnimatorListenerAdapter() {
             @Override

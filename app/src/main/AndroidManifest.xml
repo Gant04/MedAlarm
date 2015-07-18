@@ -21,6 +21,12 @@
 
         <receiver android:name=".AlarmBroadcastReceiver" />
 
+        <receiver android:name=".AlarmBootReceiver">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED"></action>
+            </intent-filter>
+        </receiver>
+
         <activity
             android:name=".activity.MedAlarm"
             android:configChanges="orientation|keyboardHidden|screenSize"
@@ -46,6 +52,7 @@
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/title_activity_full_screen_alarm"
             android:launchMode="singleTop"
+            android:noHistory="true"
             android:theme="@style/FullscreenTheme" />
         <activity
             android:name=".activity.Edit_Daily_Alarm"
