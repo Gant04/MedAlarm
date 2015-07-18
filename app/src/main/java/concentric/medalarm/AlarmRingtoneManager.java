@@ -6,6 +6,7 @@ import android.media.RingtoneManager;
 import android.util.Log;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -15,7 +16,7 @@ public class AlarmRingtoneManager {
 
     private static AlarmRingtoneManager ourInstance;
     private static Context context;
-    private static Map<String,String> ringtoneList;
+    private static List<Map<String,String>> ringtoneList;
 
     public static AlarmRingtoneManager getInstance(Context someContext) {
 
@@ -27,7 +28,7 @@ public class AlarmRingtoneManager {
         return ourInstance;
     }
 
-    public static Map<String,String> getRingtoneList() {
+    public static List<Map<String,String>> getRingtoneList() {
         return ringtoneList;
     }
 
@@ -35,7 +36,11 @@ public class AlarmRingtoneManager {
 
         this.context = context;
 
-        ringtoneList = new HashMap<>();
+//        ringtoneList = new HashMap<>();
+        ringtoneList = (List<Map<String, String>>) new HashMap<String, String>();
+
+        Map<String, String> tempRingtoneList = new HashMap<>();
+
         RingtoneManager ringtoneManager = new RingtoneManager(context);
         ringtoneManager.setType(RingtoneManager.TYPE_ALL);
         Cursor cursor = ringtoneManager.getCursor();
@@ -45,7 +50,9 @@ public class AlarmRingtoneManager {
             Log.i("Ringtone:",notificationTitle);
             String notificationUri = cursor.getString(RingtoneManager.URI_COLUMN_INDEX);
             Log.i("Ringtone URI:",notificationUri);
-            ringtoneList.put(notificationTitle, notificationUri);
+            tempRingtoneList.put(notificationTitle, notificationUri);
+
+            ringtoneList.add(tempRingtoneList);
         }
     }
 }
