@@ -104,10 +104,30 @@ public class AlarmGroupCardAdapter extends RecyclerView.Adapter<AlarmGroupCardAd
                 arrow.startAnimation(rotate);
             }
 
+            /**
+             * Sends user to the edit alarm activity.
+             * @param groupID
+             */
             public void editAlarm(long groupID) {
                 Intent intent = new Intent(parentContext, Edit_Daily_Alarm.class);
                 intent.putExtra("groupID", groupID);
                 parentContext.startActivity(intent);
+            }
+
+            /**
+             * Disables and deletes the alarm group.
+             * @param groupID
+             */
+            public void deleteAlarm(long groupID) {
+
+            }
+
+            /**
+             * Disables the alarm group.
+             * @param groupID
+             */
+            public void disableAlarm(long groupID) {
+
             }
         });
         return vh;
@@ -152,14 +172,16 @@ public class AlarmGroupCardAdapter extends RecyclerView.Adapter<AlarmGroupCardAd
             } else if (v.getId() == R.id.editAlarm) { // Edit
                 mListener.editAlarm(groupID);
             } else if (v.getId() == R.id.deleteAlarm) { // Delete
-
+                mListener.deleteAlarm(groupID);
             } else if (v.getId() == R.id.enabled) { // Disable
-
+                mListener.disableAlarm(groupID);
             }
         }
     }
     public interface ViewHolderClicks {
         void toggleControls(View caller);
         void editAlarm(long groupID);
+        void deleteAlarm(long groupID);
+        void disableAlarm(long groupID);
     }
 }
