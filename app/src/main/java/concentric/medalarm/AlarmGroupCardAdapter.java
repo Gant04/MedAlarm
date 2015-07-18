@@ -43,7 +43,7 @@ public class AlarmGroupCardAdapter extends RecyclerView.Adapter<AlarmGroupCardAd
 
     // Replace the contents of a view (invoked by the layout manager)
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
+    public void onBindViewHolder(final ViewHolder holder, final int position) {
         AlarmGroup item = alarmGroups.get(position);
         // - get element from your dataset at this position
         // - replace the contents of the view with that element
@@ -54,6 +54,7 @@ public class AlarmGroupCardAdapter extends RecyclerView.Adapter<AlarmGroupCardAd
                 .alarm_types);
 
         holder.groupType.setText(alarmType[item.getAlarmType()]);
+
     }
 
     // Create new views (invoked by the layout manager)
@@ -81,7 +82,7 @@ public class AlarmGroupCardAdapter extends RecyclerView.Adapter<AlarmGroupCardAd
              * for details on how this works.
              * @param caller the View of item that was touched.
              */
-            public void toggleControls(final View caller) {
+            public void toggleControls(View caller) {
                 RotateAnimation rotate;
                 if (!rotated) {
                     rotate = new RotateAnimation(0.0f, 180f, Animation
@@ -101,6 +102,12 @@ public class AlarmGroupCardAdapter extends RecyclerView.Adapter<AlarmGroupCardAd
                 rotate.setFillAfter(true);
 
                 arrow.startAnimation(rotate);
+            }
+
+            public void editAlarm(long groupID) {
+                Intent intent = new Intent(parentContext, Edit_Daily_Alarm.class);
+                intent.putExtra("groupID", groupID);
+                parentContext.startActivity(intent);
             }
         });
         return vh;
@@ -136,8 +143,6 @@ public class AlarmGroupCardAdapter extends RecyclerView.Adapter<AlarmGroupCardAd
             arrow.setOnClickListener(this);
             edit.setOnClickListener(this);
             delete.setOnClickListener(this);
-
-
         }
 
         @Override
@@ -145,9 +150,7 @@ public class AlarmGroupCardAdapter extends RecyclerView.Adapter<AlarmGroupCardAd
             if (v.getId() == R.id.cardDetails || v.getId() == R.id.expandCollapse) { // Expand
                 mListener.toggleControls(v);
             } else if (v.getId() == R.id.editAlarm) { // Edit
-                Intent intent = new Intent(parentContext, Edit_Daily_Alarm.class);
-                intent.putExtra("groupID", groupID);
-                parentContext.startActivity(intent);
+                mListener.editAlarm(groupID);
             } else if (v.getId() == R.id.deleteAlarm) { // Delete
 
             } else if (v.getId() == R.id.enabled) { // Disable
@@ -157,5 +160,6 @@ public class AlarmGroupCardAdapter extends RecyclerView.Adapter<AlarmGroupCardAd
     }
     public interface ViewHolderClicks {
         void toggleControls(View caller);
+        void editAlarm(long groupID);
     }
 }

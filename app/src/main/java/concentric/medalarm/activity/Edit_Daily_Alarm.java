@@ -1,5 +1,6 @@
 package concentric.medalarm.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -32,7 +33,8 @@ public class Edit_Daily_Alarm extends AppCompatActivity {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        alarmGroup = db.getAlarmGroup(getIntent().getIntExtra("groupID", 0));
+        Bundle extras = getIntent().getExtras();
+        alarmGroup = db.getAlarmGroup(extras.getLong("groupID"));
         db.close();
         EditText name = (EditText) findViewById(R.id.alarmName);
         name.setText(alarmGroup.getGroupName());
