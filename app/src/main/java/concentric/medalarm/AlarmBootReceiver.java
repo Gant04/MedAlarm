@@ -3,15 +3,15 @@ package concentric.medalarm;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.os.Bundle;
 import android.os.Handler;
 
-import concentric.medalarm.activity.FullScreenAlarm;
+import concentric.medalarm.models.DBHelper;
 
 /**
- * Created by mike on 7/14/15.
+ * Created by mike on 7/18/15.
  */
-public class AlarmBroadcastReceiver extends BroadcastReceiver {
+public class AlarmBootReceiver extends BroadcastReceiver {
+
     /**
      * This method is called when the BroadcastReceiver is receiving an Intent
      * broadcast.  During this time you can use the other methods on
@@ -49,15 +49,9 @@ public class AlarmBroadcastReceiver extends BroadcastReceiver {
      */
     @Override
     public void onReceive(Context context, Intent intent) {
-        //Boot Receiver
         if (intent.getAction().equals("android.intent.action.BOOT_COMPLETED")) {
-
-        } else {
-            Bundle bundle = intent.getExtras();
-            Intent newIntent = new Intent(context, FullScreenAlarm.class);
-            newIntent.putExtras(bundle);
-            newIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            context.startActivity(newIntent);
+            DBHelper dbHelper = DBHelper.getInstance(context);
+            new MedAlarmManager(context).setAllAlarms();
         }
     }
 }

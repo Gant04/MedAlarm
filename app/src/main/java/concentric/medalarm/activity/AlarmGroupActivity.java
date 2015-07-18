@@ -19,7 +19,6 @@ import android.view.animation.AnimationSet;
 import android.view.animation.DecelerateInterpolator;
 import android.view.animation.TranslateAnimation;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.TimePicker;
@@ -146,16 +145,21 @@ public class AlarmGroupActivity extends AppCompatActivity implements AdapterView
         // Populate Spinner
         AppCompatSpinner spinner = (AppCompatSpinner) findViewById(R.id.AlarmType);
         spinner.setOnItemSelectedListener(this);
-
-        ArrayAdapter<CharSequence> test = ArrayAdapter.createFromResource(this,R.array.alarm_types,android.R.layout.simple_spinner_dropdown_item);
+//Code below is for the spinner that was removed for submission.
+/*        ArrayAdapter<CharSequence> test = ArrayAdapter.createFromResource(this,R.array.alarm_types,android.R.layout.simple_spinner_dropdown_item);
 
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array
                 .alarm_types, android.R.layout.simple_spinner_dropdown_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner.setAdapter(adapter);
+        spinner.setAdapter(adapter);*/
+        //end code removed.
 
         //Stops the keyboard from popping up utill the user clicks on a text box.
         this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+
+        listView = (ListView) findViewById(R.id.dailyAlarmList);
+        adapter = new CustomListViewAdapter(list, this);
+        listView.setAdapter(adapter);
     }
 
     @Override
