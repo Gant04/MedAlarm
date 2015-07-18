@@ -189,8 +189,14 @@ public class AlarmGroupDataSource {
     }
 
     private ContentValues populateContent(AlarmGroup item) {
+        return populateContent(item, false);
+    }
+
+    private ContentValues populateContent(AlarmGroup item, boolean newEntry) {
         ContentValues values = new ContentValues();
-        values.put(AlarmGroup.COLUMN_NAME_ALARM_GROUP_ID, item.getId());
+        if (newEntry) {
+            values.put(AlarmGroup.COLUMN_NAME_ALARM_GROUP_ID, item.getId());
+        }
         values.put(AlarmGroup.COLUMN_NAME_ALARM_GROUP_NAME, item.getGroupName());
         values.put(AlarmGroup.COLUMN_NAME_ALARM_GROUP_RINGTONE, item.getRingTone());
         values.put(AlarmGroup.COLUMN_NAME_ALARM_GROUP_TYPE, item.getAlarmType());
