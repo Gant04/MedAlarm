@@ -151,7 +151,7 @@ public class AlarmGroupCardAdapter extends RecyclerView.Adapter<AlarmGroupCardAd
                 rotated = false;
 
                 // notify user
-                Toast.makeText(parentContext, "Card deleted", Toast.LENGTH_SHORT).show();
+                Toast.makeText(parentContext, "Alarm deleted", Toast.LENGTH_SHORT).show();
             }
 
             /**
@@ -218,6 +218,11 @@ public class AlarmGroupCardAdapter extends RecyclerView.Adapter<AlarmGroupCardAd
                 @Override
                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                     mListener.disableAlarm(groupID);
+                    if (isChecked) {
+                        Toast.makeText(parentContext, "Alarm Enabled", Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(parentContext, "Alarm Disabled", Toast.LENGTH_SHORT).show();
+                    }
                 }
             });
         }

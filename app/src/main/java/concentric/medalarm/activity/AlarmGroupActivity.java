@@ -128,11 +128,9 @@ public class AlarmGroupActivity extends AppCompatActivity implements AdapterView
         });
 
         AnimationSet animationSet;
-
         animationSet = new AnimationSet(true);
         animationSet.addAnimation(alphaAnimation);
         animationSet.addAnimation(translateAnimation);
-
         view.startAnimation(animationSet);
     }
 
@@ -175,7 +173,7 @@ public class AlarmGroupActivity extends AppCompatActivity implements AdapterView
         // Populate Spinner
         AppCompatSpinner spinner = (AppCompatSpinner) findViewById(R.id.AlarmType);
         spinner.setOnItemSelectedListener(this);
-//Code below is for the spinner that was removed for submission.
+        //Code below is for the spinner that was removed for submission.
 /*        ArrayAdapter<CharSequence> test = ArrayAdapter.createFromResource(this,R.array.alarm_types,android.R.layout.simple_spinner_dropdown_item);
 
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array
