@@ -117,7 +117,6 @@ public class CustomListViewAdapter extends BaseAdapter implements ListAdapter {
         view.findViewById(R.id.edit_btn).setVisibility(View.VISIBLE);
 
 
-
         deleteBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -129,7 +128,6 @@ public class CustomListViewAdapter extends BaseAdapter implements ListAdapter {
             }
         });
         editBtn.setOnClickListener(new View.OnClickListener() {
-
             @Override
             public void onClick(View v) {
                 if (v.getVisibility() == View.VISIBLE) {

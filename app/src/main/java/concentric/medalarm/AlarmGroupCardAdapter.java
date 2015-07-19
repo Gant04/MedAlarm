@@ -126,6 +126,9 @@ public class AlarmGroupCardAdapter extends RecyclerView.Adapter<AlarmGroupCardAd
              * @param groupID
              */
             public void deleteAlarm(long groupID, int position) {
+                MedAlarmManager ma = new MedAlarmManager(parentContext.getApplicationContext());
+                ma.cancelGroup(groupID);
+
                 // delete from DB
                 AlarmGroupDataSource group = new AlarmGroupDataSource();
                 try {
