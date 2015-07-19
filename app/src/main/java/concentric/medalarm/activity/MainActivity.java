@@ -16,6 +16,7 @@ import android.view.View;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.animation.AccelerateInterpolator;
 import android.view.animation.DecelerateInterpolator;
+import android.widget.Toast;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -33,6 +34,7 @@ import concentric.medalarm.models.DBHelper;
 public class MainActivity extends AppCompatActivity {
 
     private final int createAlarmRequestCode = 1;
+    private final int editAlarmRequestCode = 2;
     // List of Alarm Groups
     List<AlarmGroup> alarmGroupList;
     // RecyclerView Implementation
@@ -190,12 +192,23 @@ public class MainActivity extends AppCompatActivity {
                 }
                 mRecycleAdapter.notifyDataSetChanged();
                 new MedAlarmManager(getApplicationContext()).setAllAlarms();
+            } else if (resultCode == RESULT_CANCELED) {
+                Toast.makeText(getApplicationContext(), "Alarm creation cancelled.", Toast.LENGTH_LONG).show();
             }
-            if (resultCode == RESULT_CANCELED) {
-
+        } else if (requestCode == editAlarmRequestCode) {
+            if (resultCode == RESULT_OK) {
+                loadAlarmGroups();
+                if (alarmGroupList.size() > 0) {
+                    mRecycleAdapter = new AlarmGroupCardAdapter(MainActivity.this, alarmGroupList);
+                    mRecyclerView.setAdapter(mRecycleAdapter);
                 }
+                mRecycleAdapter.notifyDataSetChanged();
+                new MedAlarmManager(getApplicationContext()).setAllAlarms();
+            } else if (resultCode == RESULT_CANCELED) {
+                Toast.makeText(getApplicationContext(), "Alarm edit cancelled.", Toast.LENGTH_LONG).show();
             }
         }
+    }
 
     /**
      * Handle action bar item clicks here. The action bar will

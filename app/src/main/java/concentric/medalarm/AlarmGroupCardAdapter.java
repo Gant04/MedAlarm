@@ -1,11 +1,10 @@
 package concentric.medalarm;
 
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -140,7 +139,7 @@ public class AlarmGroupCardAdapter extends RecyclerView.Adapter<AlarmGroupCardAd
             public void editAlarm(long groupID) {
                 Intent intent = new Intent(parentContext, Edit_Daily_Alarm.class);
                 intent.putExtra("groupID", groupID);
-                parentContext.startActivity(intent);
+                ((Activity) parentContext).startActivityForResult(intent, 2);
             }
 
             /**
@@ -198,6 +197,19 @@ public class AlarmGroupCardAdapter extends RecyclerView.Adapter<AlarmGroupCardAd
     }
 
     /**
+     * View holder clicks
+     */
+    public interface ViewHolderClicks {
+        void toggleControls(View caller);
+
+        void editAlarm(long groupID);
+
+        void deleteAlarm(long groupID, int position);
+
+        void disableAlarm(long groupID);
+    }
+
+    /**
      * Provide a reference to the views for each data item
      * Complex data items may need more than one view per item, and
      * you provide access to all the views for a data item in a view holder
@@ -216,7 +228,8 @@ public class AlarmGroupCardAdapter extends RecyclerView.Adapter<AlarmGroupCardAd
 
         /**
          * The holder that has the view
-         * @param v View
+         *
+         * @param v        View
          * @param listener ViewHolderClicks
          */
         public ViewHolder(View v, ViewHolderClicks listener) {
@@ -264,15 +277,5 @@ public class AlarmGroupCardAdapter extends RecyclerView.Adapter<AlarmGroupCardAd
                 mListener.disableAlarm(groupID);
             }
         }
-    }
-
-    /**
-     * View holder clicks
-     */
-    public interface ViewHolderClicks {
-        void toggleControls(View caller);
-        void editAlarm(long groupID);
-        void deleteAlarm(long groupID, int position);
-        void disableAlarm(long groupID);
     }
 }

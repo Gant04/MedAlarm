@@ -28,6 +28,7 @@ import java.util.List;
 
 import concentric.medalarm.AlarmRingtoneManager;
 import concentric.medalarm.CustomListViewAdapter;
+import concentric.medalarm.MedAlarmManager;
 import concentric.medalarm.R;
 import concentric.medalarm.models.Alarm;
 import concentric.medalarm.models.AlarmDataSource;
@@ -252,7 +253,10 @@ public class Edit_Daily_Alarm extends AppCompatActivity {
         }
         // TODO: Ringtone needs to be set!
         if (!name.getText().toString().isEmpty()){
+            new MedAlarmManager(getApplicationContext()).cancelGroup(alarmGroup.getId());
+
             save.deleteGroup(alarmGroup.getId());
+
             AlarmGroup ag = save.createAlarmGroup(name.getText().toString(), toneURI.toString(), type, false, true);
             Iterator iTimes = aTimes.iterator();
 
