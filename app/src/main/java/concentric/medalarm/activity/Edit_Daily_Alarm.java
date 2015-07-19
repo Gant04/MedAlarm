@@ -2,6 +2,7 @@ package concentric.medalarm.activity;
 
 
 import android.app.TimePickerDialog;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -9,8 +10,10 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
@@ -23,6 +26,7 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
+import concentric.medalarm.AlarmRingtoneManager;
 import concentric.medalarm.CustomListViewAdapter;
 import concentric.medalarm.R;
 import concentric.medalarm.models.Alarm;
@@ -38,6 +42,8 @@ public class Edit_Daily_Alarm extends AppCompatActivity {
     private ListView listView;
     private CustomListViewAdapter adapter;
     private Calendar dateAndTime = Calendar.getInstance();
+    private Uri toneURI;
+    private int type = 1;
 
     private TimePickerDialog.OnTimeSetListener tp = new TimePickerDialog.OnTimeSetListener() {
         public void onTimeSet(TimePicker view, int hourOfDay,
@@ -91,6 +97,28 @@ public class Edit_Daily_Alarm extends AppCompatActivity {
         listView = (ListView) findViewById(R.id.dailyAlarmList);
         adapter = new CustomListViewAdapter(list, this);
         listView.setAdapter(adapter);
+
+        AlarmRingtoneManager.getInstance(getApplicationContext());
+
+        final List<Uri> toneURI_List = AlarmRingtoneManager.getURI_List();
+        final List<String> toneList = AlarmRingtoneManager.getToneNameList();
+
+        final ArrayAdapter<String> toneAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, toneList);
+        Spinner ringtoneSpinner = (Spinner) findViewById(R.id.ringtoneSpinner);
+        ringtoneSpinner.setAdapter(toneAdapter);
+
+        ringtoneSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                toneURI = toneURI_List.get(position);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
     }
 
     /**
