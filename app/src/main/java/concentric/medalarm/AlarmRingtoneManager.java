@@ -18,6 +18,10 @@ public class AlarmRingtoneManager {
     private static List<String> toneNameList;
     private static List<Uri> URI_List;
 
+    /**
+     * The AlarmRingtoneManager
+     * @param context takes the context
+     */
     private AlarmRingtoneManager(Context context) {
         toneNameList = new ArrayList<>();
         URI_List = new ArrayList<>();

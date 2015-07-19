@@ -45,8 +45,9 @@ public class DBHelper extends SQLiteOpenHelper {
     }
 
     /**
-     * @param context
-     * @return
+     * The DBHelper
+     * @param context takes a context
+     * @return instance
      */
     public static DBHelper getInstance(Context context) {
         if (instance == null) {
@@ -61,7 +62,8 @@ public class DBHelper extends SQLiteOpenHelper {
     }
 
     /**
-     * @return
+     * The DBHelper
+     * @return instance or null
      */
     public static DBHelper getInstance() {
         if (instance == null) {
@@ -78,7 +80,8 @@ public class DBHelper extends SQLiteOpenHelper {
     }
 
     /**
-     * @param db
+     * The onCreate
+     * @param db takes a db
      */
     @Override
     public void onCreate(SQLiteDatabase db) {
@@ -87,9 +90,10 @@ public class DBHelper extends SQLiteOpenHelper {
     }
 
     /**
-     * @param db
-     * @param oldVersion
-     * @param newVersion
+     * The onUpgrade
+     * @param db takes a db
+     * @param oldVersion takes the oldVersion
+     * @param newVersion takes the newVersion
      */
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
