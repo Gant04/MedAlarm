@@ -141,6 +141,11 @@ public class AlarmGroupCardAdapter extends RecyclerView.Adapter<AlarmGroupCardAd
                 alarmGroups.remove(position);
                 adapter.notifyItemRemoved(position);
 
+                // collapse card drop down
+                line.setVisibility(View.GONE);
+                controls.setVisibility(View.GONE);
+                rotated = false;
+
                 // notify user
                 Toast.makeText(parentContext, "Card deleted", Toast.LENGTH_SHORT).show();
             }
