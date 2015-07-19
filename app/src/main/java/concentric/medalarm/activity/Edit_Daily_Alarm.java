@@ -49,12 +49,11 @@ public class Edit_Daily_Alarm extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit__daily__alarm);
-
         // Get Toolbar
         Toolbar toolbar = (Toolbar) findViewById(R.id.Toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
+        setTitle(alarmGroup.getGroupName());
         // Load in alarm details
         AlarmGroupDataSource db = new AlarmGroupDataSource();
         AlarmDataSource dba = new AlarmDataSource();
