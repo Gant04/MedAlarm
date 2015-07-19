@@ -8,11 +8,13 @@ import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Vibrator;
 import android.support.v4.app.NotificationCompat;
 import android.view.MotionEvent;
 import android.view.View;
@@ -25,6 +27,7 @@ import java.io.IOException;
 
 import concentric.medalarm.MedAlarmManager;
 import concentric.medalarm.R;
+import concentric.medalarm.TimeConverter;
 import concentric.medalarm.activity.util.SystemUiHider;
 import concentric.medalarm.models.DBHelper;
 
@@ -60,17 +63,8 @@ public class FullScreenAlarm extends Activity {
     ImageView icon;
     boolean cancel;
     MediaPlayer mediaPlayer;
+    Vibrator vibrator;
     Handler mHideHandler = new Handler();
-    /**
-     * The instance of the {@link SystemUiHider} for this activity.
-     */
-    private SystemUiHider mSystemUiHider;
-    Runnable mHideRunnable = new Runnable() {
-        @Override
-        public void run() {
-            mSystemUiHider.hide();
-        }
-    };
     /**
      * Touch listener to use for in-layout UI controls to delay hiding the
      * system UI. This is to prevent the jarring behavior of controls going away
@@ -83,6 +77,23 @@ public class FullScreenAlarm extends Activity {
                 delayedHide(AUTO_HIDE_DELAY_MILLIS);
             }
             return false;
+        }
+    };
+    private Handler handler = new Handler();
+    /**
+     * The instance of the {@link SystemUiHider} for this activity.
+     */
+    private SystemUiHider mSystemUiHider;
+    Runnable mHideRunnable = new Runnable() {
+        @Override
+        public void run() {
+            mSystemUiHider.hide();
+        }
+    };
+    private Runnable autoSnooze = new Runnable() {
+        @Override
+        public void run() {
+            onBackPressed();
         }
     };
 
@@ -210,15 +221,23 @@ public class FullScreenAlarm extends Activity {
                 (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
         mNotifyMgr.notify(Integer.parseInt(Long.toString(bundle.getLong("groupID"))), mBuilder.build());
 
+        vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+        long[] pattern = {0, 100, 1000, 300, 200, 100, 500, 200, 100};
+        vibrator.vibrate(pattern, 0);
+        handler.postDelayed(autoSnooze, TimeConverter.minutesToMillis(2));
+
     }
 
     public void stopClickListener(View view) {
         //TODO FINISH THIS.
         cancel = true;
+        vibrator.cancel();
         mediaPlayer.stop();
         mediaPlayer.release();
         mNotifyMgr.cancel(Integer.parseInt(Long.toString(getIntent().getExtras().getLong("groupID"))));
         new MedAlarmManager(getApplicationContext()).setAllAlarms();
+
+
         finish();
     }
 
@@ -234,6 +253,7 @@ public class FullScreenAlarm extends Activity {
 
         mediaPlayer.stop();
         mediaPlayer.release();
+        vibrator.cancel();
         finish();
     }
 
