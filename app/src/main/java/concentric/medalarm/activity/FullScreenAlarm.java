@@ -6,10 +6,12 @@ import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.annotation.TargetApi;
 import android.app.Activity;
+import android.app.AlarmManager;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.media.MediaPlayer;
 import android.os.Build;
 import android.os.Bundle;
@@ -25,6 +27,7 @@ import android.widget.Toast;
 
 import java.io.IOException;
 
+import concentric.medalarm.AlarmBroadcastReceiver;
 import concentric.medalarm.MedAlarmManager;
 import concentric.medalarm.R;
 import concentric.medalarm.TimeConverter;
@@ -65,17 +68,6 @@ public class FullScreenAlarm extends Activity {
     MediaPlayer mediaPlayer;
     Vibrator vibrator;
     Handler mHideHandler = new Handler();
-    private Handler handler = new Handler();
-    /**
-     * The instance of the {@link SystemUiHider} for this activity.
-     */
-    private SystemUiHider mSystemUiHider;
-    Runnable mHideRunnable = new Runnable() {
-        @Override
-        public void run() {
-            mSystemUiHider.hide();
-        }
-    };
     /**
      * Touch listener to use for in-layout UI controls to delay hiding the
      * system UI. This is to prevent the jarring behavior of controls going away
@@ -88,6 +80,17 @@ public class FullScreenAlarm extends Activity {
                 delayedHide(AUTO_HIDE_DELAY_MILLIS);
             }
             return false;
+        }
+    };
+    private Handler handler = new Handler();
+    /**
+     * The instance of the {@link SystemUiHider} for this activity.
+     */
+    private SystemUiHider mSystemUiHider;
+    Runnable mHideRunnable = new Runnable() {
+        @Override
+        public void run() {
+            mSystemUiHider.hide();
         }
     };
     private Runnable autoSnooze = new Runnable() {
@@ -255,7 +258,13 @@ public class FullScreenAlarm extends Activity {
         vibrator.cancel();
         handler.removeCallbacks(autoSnooze);
 
-        new MedAlarmManager(getApplicationContext()).setSingleAlarm(getIntent().getExtras(), 1);
+        Intent intent = new Intent(getApplicationContext(), AlarmBroadcastReceiver.class).setAction("com.concentric.medalarm.intent.repeatAlarm.");
+        intent.putExtras(getIntent().getExtras());
+        AlarmBroadcastReceiver alarmBroadcastReceiver = new AlarmBroadcastReceiver();
+        getApplicationContext().registerReceiver(alarmBroadcastReceiver, new IntentFilter("com.concentric.medalarm.intent.repeatAlarm"));
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(getApplicationContext(), 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+        AlarmManager alarmManager = (AlarmManager) (getApplicationContext().getSystemService(Context.ALARM_SERVICE));
+        alarmManager.set(AlarmManager.RTC_WAKEUP, System.currentTimeMillis() + TimeConverter.minutesToMillis(5), pendingIntent);
 
         finish();
     }
