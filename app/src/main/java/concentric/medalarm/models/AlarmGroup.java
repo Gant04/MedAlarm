@@ -32,9 +32,15 @@ public class AlarmGroup {
         // Do nothing.
     }
 
-    /*
-    * Create Alarm Group with Custom Ringtone.
-    */
+    /**
+     * Create Alarm Group with Custom Ringtone.
+     * @param id takes an id
+     * @param groupName takes a groupName
+     * @param ringTone takes a ringTone
+     * @param type takes a type
+     * @param offset takes an offset
+     * @param enabled takes an enabled
+     */
     public AlarmGroup(long id, String groupName, String ringTone, int type, boolean offset,
                       boolean enabled) {
         setId(id);
@@ -45,9 +51,17 @@ public class AlarmGroup {
         setEnabled(enabled);
     }
 
-    /*
-    * Create Alarm Group with default Ringtone.
-    */
+    /**
+     * Create Alarm Group with default Ringtone.
+     * @param groupName takes groupName
+     * @param ringTone takes ringTone
+     * @param type takes type
+     * @param offset takes offset
+     * @param enabled takes enabled
+     * @param repeatable takes repeatable
+     * @param numRepeats take numRepeates
+     * @param timesRepeated take timesRepeated
+     */
     public AlarmGroup(String groupName, String ringTone, int type, boolean offset, boolean
             enabled, boolean repeatable, int numRepeats, int timesRepeated) {
         setGroupName(groupName);

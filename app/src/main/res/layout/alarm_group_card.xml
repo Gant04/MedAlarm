@@ -109,7 +109,9 @@
                     style="@style/Widget.AppCompat.CompoundButton.Switch"
                     android:layout_gravity="left"
                     android:layout_centerVertical="true"
-                    android:padding="8dp"/>
+                    android:padding="8dp"
+                    android:clickable="true"
+                    android:visibility="gone"/>
 
                 <ImageButton
                     android:layout_width="wrap_content"

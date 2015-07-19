@@ -45,6 +45,11 @@ public class Edit_Daily_Alarm extends AppCompatActivity {
            // updateList();
         }
     };
+
+    /**
+     * The onCreate - creates the activity
+     * @param savedInstanceState takes a savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,7 +58,6 @@ public class Edit_Daily_Alarm extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.Toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        setTitle(alarmGroup.getGroupName());
         // Load in alarm details
         AlarmGroupDataSource db = new AlarmGroupDataSource();
         AlarmDataSource dba = new AlarmDataSource();
@@ -68,7 +72,7 @@ public class Edit_Daily_Alarm extends AppCompatActivity {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
+        setTitle(alarmGroup.getGroupName());
         // Set alarm details
         EditText name = (EditText) findViewById(R.id.alarmName);
         name.setText(alarmGroup.getGroupName());
@@ -87,6 +91,11 @@ public class Edit_Daily_Alarm extends AppCompatActivity {
         listView.setAdapter(adapter);
     }
 
+    /**
+     * The onCreateOptionsMenu
+     * @param menu takes a menu
+     * @return returns true
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -94,6 +103,11 @@ public class Edit_Daily_Alarm extends AppCompatActivity {
         return true;
     }
 
+    /**
+     * The onOptionsItemSelected
+     * @param item takes an item
+     * @return a super
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
@@ -109,6 +123,9 @@ public class Edit_Daily_Alarm extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    /**
+     * Updates the list
+     */
     private void updateList() {
         String item = DateFormat.getTimeInstance(DateFormat.SHORT).format(dateAndTime
                 .getTime());
@@ -141,18 +158,30 @@ public class Edit_Daily_Alarm extends AppCompatActivity {
                 false).show();
     }
 
+    /**
+     * Go back to previous screen
+     */
     @Override
     public void onBackPressed() {
         setResult(RESULT_CANCELED);
         super.onBackPressed();
     }
 
+    /**
+     * Changes dp to px for display
+     * @param dp takes a dp
+     * @return pixels
+     */
     private int dp2px(int dp) {
         float scale = getResources().getDisplayMetrics().density;
         int pixels = (int) (dp * scale + 0.5f);
         return pixels;
     }
 
+    /**
+     * When the editButton is clicked
+     * @param position takes the position
+     */
     public void editButtonClick(int position) {
         Calendar temp = Calendar.getInstance();
         Bundle bundleTime = aTimes.get(position);
@@ -167,6 +196,10 @@ public class Edit_Daily_Alarm extends AppCompatActivity {
                 false).show();
     }
 
+    /**
+     * When the delete button is clicked
+     * @param position takes a position
+     */
     private void deleteButtonClick(int position) {
         aTimes.remove(position);
         list.remove(position);
