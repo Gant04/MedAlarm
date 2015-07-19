@@ -45,7 +45,7 @@
 
         <Spinner
             android:id="@+id/ringtoneSpinner"
-            android:layout_width="wrap_content"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_alignLeft="@+id/alarmName"
             android:layout_alignStart="@+id/alarmName"
