@@ -226,4 +226,15 @@ public class MedAlarmManager {
 
         return alarmBundle;
     }
+
+    public void setSingleAlarm(Bundle bundle, int timeDelayinMinutes) {
+        Calendar calendar = Calendar.getInstance();
+
+        Intent intent = new Intent();
+        intent.putExtras(bundle);
+
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+        AlarmManager alarmManager = (AlarmManager) (context.getSystemService(Context.ALARM_SERVICE));
+        alarmManager.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis() + TimeConverter.minutesToMillis(timeDelayinMinutes), pendingIntent);
+    }
 }
