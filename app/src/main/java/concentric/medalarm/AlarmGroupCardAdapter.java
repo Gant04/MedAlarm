@@ -137,11 +137,12 @@ public class AlarmGroupCardAdapter extends RecyclerView.Adapter<AlarmGroupCardAd
                 group.close();
 
                 // updating UI
+                adapter.notifyDataSetChanged();
                 alarmGroups.remove(position);
                 adapter.notifyItemRemoved(position);
 
                 // notify user
-                Toast.makeText(parentContext, "Card deleted", Toast.LENGTH_LONG).show();
+                Toast.makeText(parentContext, "Card deleted", Toast.LENGTH_SHORT).show();
             }
 
             /**
