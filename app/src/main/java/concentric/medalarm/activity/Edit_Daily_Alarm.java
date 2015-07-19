@@ -58,7 +58,6 @@ public class Edit_Daily_Alarm extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.Toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        setTitle(alarmGroup.getGroupName());
         // Load in alarm details
         AlarmGroupDataSource db = new AlarmGroupDataSource();
         AlarmDataSource dba = new AlarmDataSource();
@@ -73,7 +72,7 @@ public class Edit_Daily_Alarm extends AppCompatActivity {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
+        setTitle(alarmGroup.getGroupName());
         // Set alarm details
         EditText name = (EditText) findViewById(R.id.alarmName);
         name.setText(alarmGroup.getGroupName());

@@ -144,11 +144,9 @@ public class AlarmGroupActivity extends AppCompatActivity implements AdapterView
         });
 
         AnimationSet animationSet;
-
         animationSet = new AnimationSet(true);
         animationSet.addAnimation(alphaAnimation);
         animationSet.addAnimation(translateAnimation);
-
         view.startAnimation(animationSet);
     }
 
