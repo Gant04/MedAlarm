@@ -36,6 +36,16 @@ public class AlarmDataSource {
         dbHelper.close();
     }
 
+    /**
+     * Creating the alarm
+     * @param groupID takes the groupID
+     * @param hour takes the hour
+     * @param minute takes the minute
+     * @param repeats takes if alarm repeats boolean
+     * @param rHours takes repeats hours
+     * @param rMinutes takes repeats minutes
+     * @return the created alarm
+     */
     public Alarm createAlarm(long groupID, int hour, int minute, boolean repeats, int rHours,
                              int rMinutes) {
         ContentValues values = new ContentValues();
@@ -56,6 +66,10 @@ public class AlarmDataSource {
         return alarm;
     }
 
+    /**
+     * The deleteAlarm
+     * @param alarm takes in the alarm
+     */
     public void deleteAlarm(Alarm alarm) {
         long dId = alarm.getId();
         Log.e(getClass().getName() + " deleteAlarm", "Deleting alarm with id of " + dId);
@@ -89,11 +103,20 @@ public class AlarmDataSource {
         return alarms;
     }
 
+    /**
+     * The deleteGtoupAlarms (unimplemented)
+     * @param groupID takes groupID
+     * @param dbHelper takes dbHelper
+     */
     public void deleteGroupAlarms(long groupID, DBHelper dbHelper) {
         this.dbHelper = dbHelper;
         deleteGroupAlarms(groupID);
     }
 
+    /**
+     * The deleteGroupAlarms
+     * @param groupID takes a groupID
+     */
     public void deleteGroupAlarms(long groupID) {
         Cursor cursor = database.query(Alarm.TABLE_NAME, allColumns, Alarm.COLUMN_NAME_ALARM_GROUP +
                         " = ?", new String[]{String.valueOf(groupID)}, null, null, null);
@@ -112,6 +135,11 @@ public class AlarmDataSource {
         }
     }
 
+    /**
+     * The cursor to the Alarm
+     * @param cursor takes in a cursor
+     * @return returns the alarm
+     */
     private Alarm cursorToAlarm(Cursor cursor) {
         Alarm alarm = new Alarm();
         alarm.setId(cursor.getLong(cursor.getColumnIndex(Alarm.COLUMN_NAME_ALARM_ID)));
@@ -123,6 +151,11 @@ public class AlarmDataSource {
         return alarm;
     }
 
+    /**
+     * The populate content
+     * @param item takes in an item
+     * @return returns values
+     */
     private ContentValues populateContent(Alarm item) {
         ContentValues values = new ContentValues();
         values.put(Alarm.COLUMN_NAME_ALARM_ID, item.getId());
@@ -134,17 +167,32 @@ public class AlarmDataSource {
         return values;
     }
 
+    /**
+     * The Create alarm (unimplemented)
+     * @param item takes an item
+     * @return database
+     */
     public long createAlarm(Alarm item) {
         ContentValues values = populateContent(item);
         return database.insert(Alarm.TABLE_NAME, null, values);
     }
 
+    /**
+     * The updatedAlarm (unimplemented)
+     * @param alarm takes an alarm
+     * @return database
+     */
     public long updateAlarm(Alarm alarm) {
         ContentValues values = populateContent(alarm);
         return database.update(Alarm.TABLE_NAME, values, Alarm.COLUMN_NAME_ALARM_ID + " =?", new
                 String[] {String.valueOf(alarm.getId())});
     }
 
+    /**
+     * The delete alarm
+     * @param id takes an id
+     * @return database
+     */
     public int deleteAlarm(long id) {
         return database.delete(Alarm.TABLE_NAME, Alarm.COLUMN_NAME_ALARM_ID + " =?", new String[] {
                 String.valueOf(id)});
