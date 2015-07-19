@@ -7,12 +7,18 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TimePicker;
 
 import java.sql.SQLException;
+import java.text.DateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
+import java.util.Iterator;
 import java.util.List;
 
 import concentric.medalarm.CustomListViewAdapter;
@@ -25,6 +31,8 @@ import concentric.medalarm.models.AlarmGroupDataSource;
 public class Edit_Daily_Alarm extends AppCompatActivity {
     private AlarmGroup alarmGroup;
     private List<Alarm> alarms;
+    private List<String> list = new ArrayList<>();
+    private List<Bundle> aTimes = new ArrayList<>();
     private ListView listView;
     private CustomListViewAdapter adapter;
     private Calendar dateAndTime = Calendar.getInstance();
@@ -66,6 +74,18 @@ public class Edit_Daily_Alarm extends AppCompatActivity {
         EditText name = (EditText) findViewById(R.id.alarmName);
         name.setText(alarmGroup.getGroupName());
 
+        Iterator iterate = alarms.iterator();
+        while(iterate.hasNext()) {
+            Alarm item = (Alarm) iterate.next();
+            list.add(item.getAlarmTime());
+            Bundle bItem = new Bundle();
+            bItem.putInt("hour", item.getHour());
+            bItem.putInt("minute", item.getrMinute());
+            aTimes.add(bItem);
+        }
+        listView = (ListView) findViewById(R.id.dailyAlarmList);
+        adapter = new CustomListViewAdapter(list, this);
+        listView.setAdapter(adapter);
     }
 
     @Override
@@ -88,5 +108,68 @@ public class Edit_Daily_Alarm extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private void updateList() {
+        String item = DateFormat.getTimeInstance(DateFormat.SHORT).format(dateAndTime
+                .getTime());
+        // TODO: Add Create a bundle and add it to instance
+        Bundle bundle = new Bundle();
+        bundle.putInt("hour", dateAndTime.get(Calendar.HOUR_OF_DAY));
+        bundle.putInt("minute", dateAndTime.get(Calendar.MINUTE));
+        aTimes.add(bundle);
+        list.add(item);
+        Collections.sort(list);
+        adapter.notifyDataSetChanged();
+    }
+
+    /**
+     * Callback method to be invoked when the selection disappears from this
+     * view. The selection can disappear for instance when touch is activated
+     * or when the adapter becomes empty.
+     *
+     * @param parent The AdapterView that now contains no selected item.
+     */
+    public void onNothingSelected(AdapterView<?> parent) {
+        // required interface callback.
+    }
+
+    public void timePickerClicker(View view) { //lawl
+        new TimePickerDialog(Edit_Daily_Alarm.this,
+                tp,
+                dateAndTime.get(Calendar.HOUR_OF_DAY),
+                dateAndTime.get(Calendar.MINUTE),
+                false).show();
+    }
+
+    @Override
+    public void onBackPressed() {
+        setResult(RESULT_CANCELED);
+        super.onBackPressed();
+    }
+
+    private int dp2px(int dp) {
+        float scale = getResources().getDisplayMetrics().density;
+        int pixels = (int) (dp * scale + 0.5f);
+        return pixels;
+    }
+
+    public void editButtonClick(int position) {
+        Calendar temp = Calendar.getInstance();
+        Bundle bundleTime = aTimes.get(position);
+        aTimes.remove(position);
+        list.remove(position);
+        temp.set(Calendar.HOUR_OF_DAY, bundleTime.getInt("hour"));
+        temp.set(Calendar.MINUTE, bundleTime.getInt("minute"));
+        new TimePickerDialog(Edit_Daily_Alarm.this,
+                tp,
+                dateAndTime.get(Calendar.HOUR_OF_DAY),
+                dateAndTime.get(Calendar.MINUTE),
+                false).show();
+    }
+
+    private void deleteButtonClick(int position) {
+        aTimes.remove(position);
+        list.remove(position);
     }
 }
