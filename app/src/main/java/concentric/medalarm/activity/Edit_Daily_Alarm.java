@@ -252,6 +252,7 @@ public class Edit_Daily_Alarm extends AppCompatActivity {
         }
         // TODO: Ringtone needs to be set!
         if (!name.getText().toString().isEmpty()){
+            save.deleteGroup(alarmGroup.getId());
             AlarmGroup ag = save.createAlarmGroup(name.getText().toString(), toneURI.toString(), type, false, true);
             Iterator iTimes = aTimes.iterator();
 

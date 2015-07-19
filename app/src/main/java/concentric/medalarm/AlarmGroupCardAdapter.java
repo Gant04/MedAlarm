@@ -75,8 +75,9 @@ public class AlarmGroupCardAdapter extends RecyclerView.Adapter<AlarmGroupCardAd
         String alarmType[] = DBHelper.getContext().getResources().getStringArray(R.array
                 .alarm_types);
 
-        holder.groupType.setText(alarmType[item.getAlarmType()]);
-
+        //holder.groupType.setText(alarmType[item.getAlarmType()]);
+        // TODO: Fix this hack
+        holder.groupType.setText("Daily");
     }
 
     /**
