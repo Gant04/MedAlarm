@@ -55,7 +55,7 @@ public class MedAlarmManager {
                     0, new Intent(context, AlarmBroadcastReceiver.class).setAction("com.concentric.medalarm.intent." + medicationName + "." + groupID + "." + id).putExtras(alarmBundleMaker(alarm)), PendingIntent.FLAG_NO_CREATE) != null);
 
             if (alarmCreated) {
-                Log.i(getClass().getName() + ":", "Alarm already set: Resetting");
+                Log.i(getClass().getName() + ":", "Alarm already set.");
 
             } else {
 
