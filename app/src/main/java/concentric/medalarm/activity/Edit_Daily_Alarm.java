@@ -86,15 +86,14 @@ public class Edit_Daily_Alarm extends AppCompatActivity {
         EditText name = (EditText) findViewById(R.id.alarmName);
         name.setText(alarmGroup.getGroupName());
 
-        Iterator iterate = alarms.iterator();
-        while(iterate.hasNext()) {
-            Alarm item = (Alarm) iterate.next();
-            list.add(item.getAlarmTime());
-            Bundle bItem = new Bundle();
-            bItem.putInt("hour", item.getHour());
-            bItem.putInt("minute", item.getrMinute());
-            aTimes.add(bItem);
+        for (Alarm alarm : alarms) {
+            list.add(alarm.getAlarmTime());
+            Bundle bundle = new Bundle();
+            bundle.putInt("hour", alarm.getHour());
+            bundle.putInt("minute", alarm.getrMinute());
+            aTimes.add(bundle);
         }
+
         listView = (ListView) findViewById(R.id.dailyAlarmList);
         adapter = new CustomListViewAdapter(list, this);
         listView.setAdapter(adapter);
