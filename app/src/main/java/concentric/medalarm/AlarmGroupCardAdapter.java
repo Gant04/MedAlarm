@@ -15,11 +15,16 @@ import android.view.animation.RotateAnimation;
 import android.widget.ImageButton;
 import android.widget.TableRow;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import java.sql.SQLException;
 import java.util.List;
 
 import concentric.medalarm.activity.Edit_Daily_Alarm;
+import concentric.medalarm.models.Alarm;
+import concentric.medalarm.models.AlarmDataSource;
 import concentric.medalarm.models.AlarmGroup;
+import concentric.medalarm.models.AlarmGroupDataSource;
 import concentric.medalarm.models.DBHelper;
 
 /**
@@ -28,6 +33,7 @@ import concentric.medalarm.models.DBHelper;
 public class AlarmGroupCardAdapter extends RecyclerView.Adapter<AlarmGroupCardAdapter.ViewHolder> {
     private List<AlarmGroup> alarmGroups;
     private Context parentContext;
+    private AlarmGroupCardAdapter adapter = this;
 
     // Provide a suitable constructor (depends on the kind of dataset)
     public AlarmGroupCardAdapter(Context context, List<AlarmGroup> dataSet) {
@@ -49,6 +55,7 @@ public class AlarmGroupCardAdapter extends RecyclerView.Adapter<AlarmGroupCardAd
         // - replace the contents of the view with that element
         holder.groupName.setText(item.getGroupName());
         holder.groupID = item.getId();
+        holder.position = position;
 
         String alarmType[] = DBHelper.getContext().getResources().getStringArray(R.array
                 .alarm_types);
@@ -118,8 +125,23 @@ public class AlarmGroupCardAdapter extends RecyclerView.Adapter<AlarmGroupCardAd
              * Disables and deletes the alarm group.
              * @param groupID
              */
-            public void deleteAlarm(long groupID) {
+            public void deleteAlarm(long groupID, int position) {
+                // delete from DB
+                AlarmGroupDataSource group = new AlarmGroupDataSource();
+                try {
+                    group.open();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+                group.deleteGroup(groupID);
+                group.close();
 
+                // updating UI
+                alarmGroups.remove(position);
+                adapter.notifyItemRemoved(position);
+
+                // notify user
+                Toast.makeText(parentContext, "Card deleted", Toast.LENGTH_LONG).show();
             }
 
             /**
@@ -148,6 +170,7 @@ public class AlarmGroupCardAdapter extends RecyclerView.Adapter<AlarmGroupCardAd
         protected ImageButton delete;
         protected ViewHolderClicks mListener;
         protected long groupID;
+        protected int position;
 
         public ViewHolder(View v, ViewHolderClicks listener) {
             super(v);
@@ -172,7 +195,7 @@ public class AlarmGroupCardAdapter extends RecyclerView.Adapter<AlarmGroupCardAd
             } else if (v.getId() == R.id.editAlarm) { // Edit
                 mListener.editAlarm(groupID);
             } else if (v.getId() == R.id.deleteAlarm) { // Delete
-                mListener.deleteAlarm(groupID);
+                mListener.deleteAlarm(groupID, position);
             } else if (v.getId() == R.id.enabled) { // Disable
                 mListener.disableAlarm(groupID);
             }
@@ -181,7 +204,7 @@ public class AlarmGroupCardAdapter extends RecyclerView.Adapter<AlarmGroupCardAd
     public interface ViewHolderClicks {
         void toggleControls(View caller);
         void editAlarm(long groupID);
-        void deleteAlarm(long groupID);
+        void deleteAlarm(long groupID, int position);
         void disableAlarm(long groupID);
     }
 }
