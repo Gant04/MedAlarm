@@ -32,6 +32,10 @@ public class MedAlarmManager {
         this.context = context;
     }
 
+    /**
+     * The Set Alarm Group Alarms
+     * @param groupID takes a long for the groupID
+     */
     public void setAlarmGroupAlarms(long groupID) {
 
         this.groupID = groupID;
@@ -75,6 +79,9 @@ public class MedAlarmManager {
         alarmDataSource.close();
     }
 
+    /**
+     * Set all the alarms
+     */
     public void setAllAlarms() {
 
         AlarmGroupDataSource alarmGroupDataSource = new AlarmGroupDataSource();
@@ -98,6 +105,9 @@ public class MedAlarmManager {
         alarmGroupDataSource.close();
     }
 
+    /**
+     * Cancel all the alarms (unimplemented)
+     */
     public void cancelAllAlarms() {
         AlarmGroupDataSource alarmGroupDataSource = new AlarmGroupDataSource();
 
@@ -116,6 +126,10 @@ public class MedAlarmManager {
         }
     }
 
+    /**
+     * The Cancel group
+     * @param groupID takes in the groupID
+     */
     public void cancelGroup(long groupID) {
 
         AlarmDataSource alarmDataSource = new AlarmDataSource();
@@ -151,6 +165,10 @@ public class MedAlarmManager {
         alarmDataSource.close();
     }
 
+    /**
+     * The createAlarm Group
+     * @param alarmIntent takes in the Intent alarmIntent
+     */
     private void createAlarm(final Intent alarmIntent) {
 
         Calendar calendar = Calendar.getInstance();
@@ -202,6 +220,11 @@ public class MedAlarmManager {
         alarmManager.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
     }
 
+    /**
+     * The alarmBundleMaker
+     * @param alarm takes in the Alarm alarm
+     * @return the alarmBundle
+     */
     private Bundle alarmBundleMaker(Alarm alarm) {
 
         Bundle alarmBundle = new Bundle();
@@ -227,6 +250,11 @@ public class MedAlarmManager {
         return alarmBundle;
     }
 
+    /**
+     * The setSingleAlarm (unimplemented)
+     * @param bundle takes in a bundle
+     * @param timeDelayinMinutes takes in timeDelayinMinutes
+     */
     public void setSingleAlarm(Bundle bundle, int timeDelayinMinutes) {
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(System.currentTimeMillis());

@@ -8,16 +8,18 @@ public class TimeConverter {
     private static long minMilli = 60000;   // 60,000 milliseconds in a minute
 
     /**
-     * @param minute
-     * @return
+     * Converts minutes to milliseconds
+     * @param minute takes in the minutes
+     * @return number of milliseconds
      */
     public static long minutesToMillis(int minute) {
         return (minute * minMilli);
     }
 
     /**
-     * @param hours
-     * @return
+     * Converts hours to milliseconds (unimplemented)
+     * @param hours takes in the hours
+     * @return number of milliseconds
      */
     public static long hoursToMillis(int hours) {
         return (hours * 60 * minMilli);

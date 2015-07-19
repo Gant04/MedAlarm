@@ -18,6 +18,11 @@ public class DropDownAnim extends Animation {
         this.down = down;
     }
 
+    /**
+     * The Apply Transformation
+     * @param interpolatedTime takes a float interpolatedTime
+     * @param t takes a Transformation
+     */
     @Override
     protected void applyTransformation(float interpolatedTime, Transformation t) {
         int newHeight;
@@ -30,6 +35,13 @@ public class DropDownAnim extends Animation {
         view.requestLayout();
     }
 
+    /**
+     * The Initialized
+     * @param width takes int width
+     * @param height takes int height
+     * @param parentWidth takes int parentWidth
+     * @param parentHeight takes int parentHeight
+     */
     @Override
     public void initialize(int width, int height, int parentWidth,
                            int parentHeight) {
