@@ -21,8 +21,6 @@ import java.sql.SQLException;
 import java.util.List;
 
 import concentric.medalarm.activity.Edit_Daily_Alarm;
-import concentric.medalarm.models.Alarm;
-import concentric.medalarm.models.AlarmDataSource;
 import concentric.medalarm.models.AlarmGroup;
 import concentric.medalarm.models.AlarmGroupDataSource;
 import concentric.medalarm.models.DBHelper;
