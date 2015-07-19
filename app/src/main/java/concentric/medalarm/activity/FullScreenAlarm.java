@@ -65,6 +65,17 @@ public class FullScreenAlarm extends Activity {
     MediaPlayer mediaPlayer;
     Vibrator vibrator;
     Handler mHideHandler = new Handler();
+    private Handler handler = new Handler();
+    /**
+     * The instance of the {@link SystemUiHider} for this activity.
+     */
+    private SystemUiHider mSystemUiHider;
+    Runnable mHideRunnable = new Runnable() {
+        @Override
+        public void run() {
+            mSystemUiHider.hide();
+        }
+    };
     /**
      * Touch listener to use for in-layout UI controls to delay hiding the
      * system UI. This is to prevent the jarring behavior of controls going away
@@ -77,17 +88,6 @@ public class FullScreenAlarm extends Activity {
                 delayedHide(AUTO_HIDE_DELAY_MILLIS);
             }
             return false;
-        }
-    };
-    private Handler handler = new Handler();
-    /**
-     * The instance of the {@link SystemUiHider} for this activity.
-     */
-    private SystemUiHider mSystemUiHider;
-    Runnable mHideRunnable = new Runnable() {
-        @Override
-        public void run() {
-            mSystemUiHider.hide();
         }
     };
     private Runnable autoSnooze = new Runnable() {
@@ -236,8 +236,7 @@ public class FullScreenAlarm extends Activity {
         mediaPlayer.release();
         mNotifyMgr.cancel(Integer.parseInt(Long.toString(getIntent().getExtras().getLong("groupID"))));
         new MedAlarmManager(getApplicationContext()).setAllAlarms();
-
-
+        handler.removeCallbacks(autoSnooze);
         finish();
     }
 
@@ -254,6 +253,10 @@ public class FullScreenAlarm extends Activity {
         mediaPlayer.stop();
         mediaPlayer.release();
         vibrator.cancel();
+        handler.removeCallbacks(autoSnooze);
+
+        new MedAlarmManager(getApplicationContext()).setSingleAlarm(getIntent().getExtras(), 1);
+
         finish();
     }
 

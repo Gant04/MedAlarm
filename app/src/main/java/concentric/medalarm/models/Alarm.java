@@ -74,8 +74,7 @@ public class Alarm {
 
     /**
      * Sets the hour and ensures its valid.
-     *
-     * @param hour
+     * @param hour takes an hour
      */
     public void setHour(int hour) {
         if (hour > 23 || hour < 0) {
@@ -92,6 +91,10 @@ public class Alarm {
         return this.minute;
     }
 
+    /**
+     * Sets the minute and ensures it is valid.
+     * @param minute takes a minute
+     */
     public void setMinute(int minute) {
         if (minute > 59 || minute < 0) {
             Log.e(getClass().getName() + " setMinute",

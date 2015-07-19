@@ -35,19 +35,33 @@ public class AlarmGroupCardAdapter extends RecyclerView.Adapter<AlarmGroupCardAd
     private Context parentContext;
     private AlarmGroupCardAdapter adapter = this;
 
-    // Provide a suitable constructor (depends on the kind of dataset)
+    /**
+     * AlarmGroupCardAdapter constructor
+     *
+     * @param context takes a context
+     * @param dataSet takes a dataSet
+     */
     public AlarmGroupCardAdapter(Context context, List<AlarmGroup> dataSet) {
         alarmGroups = dataSet;
         parentContext = context;
     }
 
-    // Return the size of your dataset (invoked by the layout manager)
+    /**
+     * Return the size of your dataset (invoked by the layout manager)
+     *
+     * @return the size of the alarmGroup
+     */
     @Override
     public int getItemCount() {
         return alarmGroups.size();
     }
 
-    // Replace the contents of a view (invoked by the layout manager)
+    /**
+     * Replace the contents of a view (invoked by the layout manager)
+     *
+     * @param holder takes a ViewHolder
+     * @param position takes the position
+     */
     @Override
     public void onBindViewHolder(final ViewHolder holder, final int position) {
         AlarmGroup item = alarmGroups.get(position);
@@ -65,7 +79,13 @@ public class AlarmGroupCardAdapter extends RecyclerView.Adapter<AlarmGroupCardAd
 
     }
 
-    // Create new views (invoked by the layout manager)
+    /**
+     * Create new views (invoked by the layout manager)
+     *
+     * @param parent takes the ViewGroup
+     * @param viewType takes the viewType
+     * @return the ViewHolder
+     */
     @Override
     public AlarmGroupCardAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         // create a new view
@@ -176,12 +196,11 @@ public class AlarmGroupCardAdapter extends RecyclerView.Adapter<AlarmGroupCardAd
         return vh;
     }
 
-
-
-    // Provide a reference to the views for each data item
-    // Complex data items may need more than one view per item, and
-    // you provide access to all the views for a data item in a view holder
-
+    /**
+     * Provide a reference to the views for each data item
+     * Complex data items may need more than one view per item, and
+     * you provide access to all the views for a data item in a view holder
+     */
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         protected TextView groupName;
         protected TextView groupType;
@@ -227,6 +246,11 @@ public class AlarmGroupCardAdapter extends RecyclerView.Adapter<AlarmGroupCardAd
             });
         }
 
+        /**
+         * Registers the onClick for the main activity cards
+         *
+         * @param v takes a view
+         */
         @Override
         public void onClick(View v) {
             if (v.getId() == R.id.cardDetails || v.getId() == R.id.expandCollapse) { // Expand
@@ -240,6 +264,10 @@ public class AlarmGroupCardAdapter extends RecyclerView.Adapter<AlarmGroupCardAd
             }
         }
     }
+
+    /**
+     * View holder clicks
+     */
     public interface ViewHolderClicks {
         void toggleControls(View caller);
         void editAlarm(long groupID);
