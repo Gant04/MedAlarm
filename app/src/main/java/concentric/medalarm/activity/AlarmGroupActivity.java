@@ -72,6 +72,10 @@ public class AlarmGroupActivity extends AppCompatActivity implements AdapterView
         return pixels;
     }
 
+    /**
+     * The editButtonClick
+     * @param position takes the position
+     */
     public void editButtonClick(int position) {
         Calendar temp = Calendar.getInstance();
         Bundle bundleTime = aTimes.get(position);
@@ -86,11 +90,19 @@ public class AlarmGroupActivity extends AppCompatActivity implements AdapterView
                 false).show();
     }
 
+    /**
+     * The deleteButtonClick
+     * @param position takes a position
+     */
     private void deleteButtonClick(int position) {
         aTimes.remove(position);
         list.remove(position);
     }
 
+    /**
+     * The expand
+     * @param view takes a view
+     */
     public void expand(View view) {
         TranslateAnimation translateAnimation = null;
         translateAnimation = new TranslateAnimation(0, 0, -view.getHeight(), 0);
@@ -100,6 +112,10 @@ public class AlarmGroupActivity extends AppCompatActivity implements AdapterView
         view.startAnimation(translateAnimation);
     }
 
+    /**
+     * The collapse
+     * @param view takes a view
+     */
     public void collapse(final View view) {
 
         AlphaAnimation alphaAnimation = new AlphaAnimation(1, 0);
@@ -137,6 +153,10 @@ public class AlarmGroupActivity extends AppCompatActivity implements AdapterView
     }
 
 
+    /**
+     * The onCreate
+     * @param savedInstanceState takes the savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -175,8 +195,8 @@ public class AlarmGroupActivity extends AppCompatActivity implements AdapterView
         // Populate Spinner
         AppCompatSpinner spinner = (AppCompatSpinner) findViewById(R.id.AlarmType);
         spinner.setOnItemSelectedListener(this);
-//Code below is for the spinner that was removed for submission.
-/*        ArrayAdapter<CharSequence> test = ArrayAdapter.createFromResource(this,R.array.alarm_types,android.R.layout.simple_spinner_dropdown_item);
+        //Code below is for the spinner that was removed for submission.
+        /*ArrayAdapter<CharSequence> test = ArrayAdapter.createFromResource(this,R.array.alarm_types,android.R.layout.simple_spinner_dropdown_item);
 
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array
                 .alarm_types, android.R.layout.simple_spinner_dropdown_item);
@@ -184,7 +204,7 @@ public class AlarmGroupActivity extends AppCompatActivity implements AdapterView
         spinner.setAdapter(adapter);*/
         //end code removed.
 
-        //Stops the keyboard from popping up utill the user clicks on a text box.
+        //Stops the keyboard from popping up until the user clicks on a text box.
         this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
 
         listView = (ListView) findViewById(R.id.dailyAlarmList);
@@ -192,6 +212,11 @@ public class AlarmGroupActivity extends AppCompatActivity implements AdapterView
         listView.setAdapter(adapter);
     }
 
+    /**
+     * The onCreateOptionsMenu
+     * @param menu takes a menu
+     * @return a super
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -229,6 +254,9 @@ public class AlarmGroupActivity extends AppCompatActivity implements AdapterView
         }
     }
 
+    /**
+     * When the save icon is pressed, saves information to the DB
+     */
     private void save() {
         AlarmGroupDataSource save = new AlarmGroupDataSource();
         TextView name = (TextView) findViewById(R.id.alarmName);
@@ -319,6 +347,10 @@ public class AlarmGroupActivity extends AppCompatActivity implements AdapterView
         }
     }
 
+    /**
+     * The hideVisibleViews
+     * @param list takes a list
+     */
     private void hideVisibleViews(List list) {
         Iterator iterator = list.iterator();
         while (iterator.hasNext()) {
@@ -327,7 +359,9 @@ public class AlarmGroupActivity extends AppCompatActivity implements AdapterView
         }
     }
 
-
+    /**
+     * Updates the list after edits are made
+     */
     private void updateList() {
         String item = DateFormat.getTimeInstance(DateFormat.SHORT).format(dateAndTime
                 .getTime());
@@ -360,6 +394,9 @@ public class AlarmGroupActivity extends AppCompatActivity implements AdapterView
                 false).show();
     }
 
+    /**
+     * Goes back to previous activity
+     */
     @Override
     public void onBackPressed() {
         setResult(RESULT_CANCELED);
