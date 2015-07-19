@@ -12,7 +12,9 @@ import android.view.ViewGroup;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.animation.Animation;
 import android.view.animation.RotateAnimation;
+import android.widget.CompoundButton;
 import android.widget.ImageButton;
+import android.widget.Switch;
 import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -56,6 +58,7 @@ public class AlarmGroupCardAdapter extends RecyclerView.Adapter<AlarmGroupCardAd
         holder.groupName.setText(item.getGroupName());
         holder.groupID = item.getId();
         holder.position = position;
+        holder.aSwitch.setEnabled(item.getEnabled());
 
         String alarmType[] = DBHelper.getContext().getResources().getStringArray(R.array
                 .alarm_types);
@@ -158,7 +161,18 @@ public class AlarmGroupCardAdapter extends RecyclerView.Adapter<AlarmGroupCardAd
              * @param groupID
              */
             public void disableAlarm(long groupID) {
+                MedAlarmManager ma = new MedAlarmManager(parentContext.getApplicationContext());
+                ma.cancelGroup(groupID);
+                AlarmGroupDataSource db = new AlarmGroupDataSource();
+                try {
+                    db.open();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
 
+                AlarmGroup item = db.getAlarmGroup(groupID);
+                item.setEnabled(false);
+                db.updateAlarmGroup(item);
             }
         });
         return vh;
@@ -178,9 +192,15 @@ public class AlarmGroupCardAdapter extends RecyclerView.Adapter<AlarmGroupCardAd
         protected ImageButton edit;
         protected ImageButton delete;
         protected ViewHolderClicks mListener;
+        protected Switch aSwitch;
         protected long groupID;
         protected int position;
 
+        /**
+         * The holder that has the view
+         * @param v View
+         * @param listener ViewHolderClicks
+         */
         public ViewHolder(View v, ViewHolderClicks listener) {
             super(v);
             mListener = listener;
@@ -190,11 +210,18 @@ public class AlarmGroupCardAdapter extends RecyclerView.Adapter<AlarmGroupCardAd
             arrow = (ImageButton) v.findViewById(R.id.expandCollapse);
             edit = (ImageButton) v.findViewById(R.id.editAlarm);
             delete = (ImageButton) v.findViewById(R.id.deleteAlarm);
+            aSwitch = (Switch) v.findViewById(R.id.enabled);
 
             itemDetails.setOnClickListener(this);
             arrow.setOnClickListener(this);
             edit.setOnClickListener(this);
             delete.setOnClickListener(this);
+            aSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                    mListener.disableAlarm(groupID);
+                }
+            });
         }
 
         @Override
