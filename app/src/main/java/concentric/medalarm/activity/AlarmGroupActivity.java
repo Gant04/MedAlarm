@@ -2,6 +2,8 @@ package concentric.medalarm.activity;
 
 
 import android.app.TimePickerDialog;
+import android.media.MediaPlayer;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatSpinner;
@@ -19,7 +21,9 @@ import android.view.animation.AnimationSet;
 import android.view.animation.DecelerateInterpolator;
 import android.view.animation.TranslateAnimation;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
@@ -42,6 +46,10 @@ public class AlarmGroupActivity extends AppCompatActivity implements AdapterView
     private List<String> list = new ArrayList<>();
     private List<Bundle> aTimes = new ArrayList<>();
     private ListView listView;
+
+    //for tone playing
+    private MediaPlayer mediaPlayer;
+    private Uri toneURI;
 
     private CustomListViewAdapter adapter;
     private Calendar dateAndTime = Calendar.getInstance();
@@ -134,8 +142,30 @@ public class AlarmGroupActivity extends AppCompatActivity implements AdapterView
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_alarm_group);
 
-        AlarmRingtoneManager alarmRingtoneManager = AlarmRingtoneManager.getInstance
-                (getApplicationContext());
+        AlarmRingtoneManager.getInstance(getApplicationContext());
+
+        final List<Uri> toneURI_List = AlarmRingtoneManager.getURI_List();
+        final List<String> toneList = AlarmRingtoneManager.getToneNameList();
+
+        final ArrayAdapter<String> toneAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, toneList);
+        Spinner ringtoneSpinner = (Spinner) findViewById(R.id.ringtoneSpinner);
+        ringtoneSpinner.setAdapter(toneAdapter);
+
+        mediaPlayer = new MediaPlayer();
+
+        ringtoneSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                Log.i("Tone Selected: ", toneList.get(position) + ", Tone URI: " + toneURI_List.get(position));
+                toneURI = toneURI_List.get(position);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
 
         // Get Toolbar
         Toolbar toolbar = (Toolbar) findViewById(R.id.AlarmGroupToolbar);
@@ -209,7 +239,7 @@ public class AlarmGroupActivity extends AppCompatActivity implements AdapterView
         }
         // TODO: Ringtone needs to be set!
         if (!name.getText().toString().isEmpty()){
-            AlarmGroup ag = save.createAlarmGroup(name.getText().toString(), "BLEH", type, false, true);
+            AlarmGroup ag = save.createAlarmGroup(name.getText().toString(), toneURI.toString(), type, false, true);
             Iterator iTimes = aTimes.iterator();
 
             // TODO: Might want to use a better itterator pattern so that the world is not destroyed.

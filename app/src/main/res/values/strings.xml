@@ -71,4 +71,5 @@
     <string name="deleteAlarm">Delete Alarm</string>
     <string name="expand">Expand</string>
     <string name="title_activity_edit__daily__alarm">Edit Daily Alarm</string>
+    <string name="ringtoneplaybutton">Play</string>
 </resources>

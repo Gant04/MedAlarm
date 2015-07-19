@@ -26,6 +26,7 @@ public class MedAlarmManager {
     private Context context;
     private long groupID;
     private String medicationName;
+    private String toneURI;
 
     public MedAlarmManager(Context context) {
         this.context = context;
@@ -89,6 +90,7 @@ public class MedAlarmManager {
         for (AlarmGroup alarmGroup : alarmGroupList) {
             if (alarmGroup.getEnabled()) {
                 this.medicationName = alarmGroup.getGroupName();
+                this.toneURI = alarmGroup.getRingTone();
                 setAlarmGroupAlarms(alarmGroup.getId());
             }
         }
@@ -220,6 +222,7 @@ public class MedAlarmManager {
         alarmBundle.putLong("groupID", groupID);        //add Group ID
 
         alarmBundle.putString("med", medicationName);    //add Medication Name
+        alarmBundle.putString("alarmTone", toneURI);
 
         return alarmBundle;
     }
