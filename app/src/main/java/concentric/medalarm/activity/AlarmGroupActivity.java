@@ -175,7 +175,6 @@ public class AlarmGroupActivity extends AppCompatActivity implements AdapterView
 
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                Log.i("Tone Selected: ", toneList.get(position) + ", Tone URI: " + toneURI_List.get(position));
                 toneURI = toneURI_List.get(position);
             }
 

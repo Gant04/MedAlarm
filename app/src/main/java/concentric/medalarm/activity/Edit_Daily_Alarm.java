@@ -11,7 +11,9 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 import java.sql.SQLException;
 import java.text.DateFormat;
@@ -203,5 +205,39 @@ public class Edit_Daily_Alarm extends AppCompatActivity {
     private void deleteButtonClick(int position) {
         aTimes.remove(position);
         list.remove(position);
+    }
+
+    /**
+     * When the save icon is pressed, saves information to the DB
+     */
+    private void save() {
+        AlarmGroupDataSource save = new AlarmGroupDataSource();
+        TextView name = (TextView) findViewById(R.id.alarmName);
+        try {
+            save.open();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        // TODO: Ringtone needs to be set!
+        if (!name.getText().toString().isEmpty()){
+            AlarmGroup ag = save.createAlarmGroup(name.getText().toString(), toneURI.toString(), type, false, true);
+            Iterator iTimes = aTimes.iterator();
+
+            // TODO: Might want to use a better itterator pattern so that the world is not destroyed.
+            while (iTimes.hasNext()) {
+                Bundle aTime = (Bundle) iTimes.next();
+                int hour = aTime.getInt("hour");
+                int minute = aTime.getInt("minute");
+                boolean repeats = false;
+                int rHours = 0;
+                int rMiutes = 0;
+
+                ag.addAlarm(hour, minute, repeats, rHours, rMiutes);
+            }
+            save.close();
+        }
+        else {
+            Toast.makeText(this, "Medication name cannot be empty.", Toast.LENGTH_LONG).show();
+        }
     }
 }

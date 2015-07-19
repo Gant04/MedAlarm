@@ -229,6 +229,7 @@ public class MedAlarmManager {
 
     public void setSingleAlarm(Bundle bundle, int timeDelayinMinutes) {
         Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(System.currentTimeMillis());
 
         Intent intent = new Intent();
         intent.putExtras(bundle);
