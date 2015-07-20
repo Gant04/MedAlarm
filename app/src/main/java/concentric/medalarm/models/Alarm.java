@@ -5,6 +5,8 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
+import java.text.DateFormat;
+import java.util.Calendar;
 import java.util.StringTokenizer;
 
 /*
@@ -32,6 +34,7 @@ public class Alarm {
     private int minute;
     private int rHour;
     private int rMinute;
+    private Calendar dateAndTime = Calendar.getInstance();
 
     /**
      * Non-Default Alarm Constructor
@@ -107,7 +110,10 @@ public class Alarm {
     }
 
     public String getAlarmTime() {
-        return Integer.toString(this.getHour()) + ":" + Integer.toString(getMinute());
+        dateAndTime.set(Calendar.HOUR_OF_DAY, getHour());
+        dateAndTime.set(Calendar.MINUTE, getMinute());
+        return DateFormat.getTimeInstance(DateFormat.SHORT).format(dateAndTime
+                .getTime());
     }
 
     /**

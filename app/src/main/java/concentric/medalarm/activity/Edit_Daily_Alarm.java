@@ -52,7 +52,7 @@ public class Edit_Daily_Alarm extends AppCompatActivity {
                               int minute) {
             dateAndTime.set(Calendar.HOUR_OF_DAY, hourOfDay);
             dateAndTime.set(Calendar.MINUTE, minute);
-           // updateList();
+            updateList();
         }
     };
 
@@ -250,8 +250,6 @@ public class Edit_Daily_Alarm extends AppCompatActivity {
         // TODO: Ringtone needs to be set!
         if (!name.getText().toString().isEmpty()){
             new MedAlarmManager(getApplicationContext()).cancelGroup(alarmGroup.getId());
-
-
 
             db.deleteGroup(alarmGroup.getId());
 
