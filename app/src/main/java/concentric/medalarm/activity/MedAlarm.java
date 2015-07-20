@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Looper;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
@@ -14,6 +15,7 @@ import android.view.animation.RotateAnimation;
 import android.widget.ImageView;
 
 import concentric.medalarm.AlarmBootReceiver;
+import concentric.medalarm.AlarmRingtoneManager;
 import concentric.medalarm.R;
 import concentric.medalarm.activity.util.SystemUiHider;
 
@@ -48,6 +50,16 @@ public class MedAlarm extends Activity {
     private static final int HIDER_FLAGS = SystemUiHider.FLAG_HIDE_NAVIGATION;
     Handler mHideHandler = new Handler();
     /**
+     * The instance of the {@link SystemUiHider} for this activity.
+     */
+    private SystemUiHider mSystemUiHider;
+    Runnable mHideRunnable = new Runnable() {
+        @Override
+        public void run() {
+            mSystemUiHider.hide();
+        }
+    };
+    /**
      * Touch listener to use for in-layout UI controls to delay hiding the
      * system UI. This is to prevent the jarring behavior of controls going away
      * while interacting with activity UI.
@@ -59,16 +71,6 @@ public class MedAlarm extends Activity {
                 delayedHide(AUTO_HIDE_DELAY_MILLIS);
             }
             return false;
-        }
-    };
-    /**
-     * The instance of the {@link SystemUiHider} for this activity.
-     */
-    private SystemUiHider mSystemUiHider;
-    Runnable mHideRunnable = new Runnable() {
-        @Override
-        public void run() {
-            mSystemUiHider.hide();
         }
     };
 
@@ -84,45 +86,90 @@ public class MedAlarm extends Activity {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_med_alarm);
 
-        RotateAnimation rotateAnimation;
-        rotateAnimation = new RotateAnimation(0.0f, -3f * 360f, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
-        rotateAnimation.setDuration(1000);
-        rotateAnimation.setRepeatCount(0);
-        rotateAnimation.setAnimationListener(new Animation.AnimationListener() {
+        registerBootReceiver();
+        initRingtones();
+        rotateAnimation();
+
+    }
+
+    /**
+     * This private method registers and enables the AlarmBootReceiver with the android system
+     * it also prevents the receiver from being killed. This is all done through a seperate thread.
+     */
+    private void registerBootReceiver() {
+        Thread bootReceiver = new Thread() {
             @Override
-            public void onAnimationStart(Animation animation) {
+            public void run() {
+                ComponentName receiver = new ComponentName(getApplicationContext(), AlarmBootReceiver.class);
+                PackageManager pm = getApplicationContext().getPackageManager();
+
+                pm.setComponentEnabledSetting(receiver,
+                        PackageManager.COMPONENT_ENABLED_STATE_ENABLED,
+                        PackageManager.DONT_KILL_APP);
+            }
+        };
+
+        bootReceiver.start();
+    }
+
+    /**
+     * This private method calls and Initalizes the AlarmRingtoneManager Singleton
+     * through a seperate thread.
+     */
+    private void initRingtones() {
+        Thread ringtoneLoader = new Thread() {
+            @Override
+            public void run() {
+                Looper.prepare();
+                AlarmRingtoneManager.getInstance(getApplicationContext());
+            }
+        };
+
+        ringtoneLoader.start();
+    }
+
+    /**
+     * This private method completes the rotation animation for the application boot.
+     * This is completed in a thread.
+     */
+    private void rotateAnimation() {
+        Thread pillAnimationThread = new Thread() {
+            @Override
+            public void run() {
+
+                RotateAnimation rotateAnimation;
+                rotateAnimation = new RotateAnimation(0.0f, -3f * 360f, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
+                rotateAnimation.setDuration(1000);
+                rotateAnimation.setRepeatCount(0);
+                rotateAnimation.setAnimationListener(new Animation.AnimationListener() {
+                    @Override
+                    public void onAnimationStart(Animation animation) {
+                    }
+
+                    @Override
+                    public void onAnimationEnd(Animation animation) {
+                        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                        startActivity(intent);
+                        finish();
+                    }
+
+                    @Override
+                    public void onAnimationRepeat(Animation animation) {
+
+                    }
+                });
+
+                ImageView icon = (ImageView) findViewById(R.id.fullscreen_content);
+                icon.setImageResource(R.drawable.web_hi_res_512_pill);
+
+                final ImageView logo = (ImageView) findViewById(R.id.imageView);
+                logo.setImageResource(R.drawable.medalarm_logo);
+
+                icon.startAnimation(rotateAnimation);
 
             }
-
-            @Override
-            public void onAnimationEnd(Animation animation) {
-                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                startActivity(intent);
-                finish();
-            }
-
-            @Override
-            public void onAnimationRepeat(Animation animation) {
-
-            }
-        });
-
-        ImageView icon = (ImageView) findViewById(R.id.fullscreen_content);
-        icon.setImageResource(R.drawable.web_hi_res_512_pill);
-
-        final ImageView logo = (ImageView) findViewById(R.id.imageView);
-        logo.setImageResource(R.drawable.medalarm_logo);
-
-        icon.startAnimation(rotateAnimation);
-
-        ComponentName receiver = new ComponentName(getApplicationContext(), AlarmBootReceiver.class);
-        PackageManager pm = getApplicationContext().getPackageManager();
-
-        pm.setComponentEnabledSetting(receiver,
-                PackageManager.COMPONENT_ENABLED_STATE_ENABLED,
-                PackageManager.DONT_KILL_APP);
-
-
+        };
+        pillAnimationThread.start();
     }
 
     /**
