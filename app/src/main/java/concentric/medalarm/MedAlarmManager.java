@@ -34,6 +34,7 @@ public class MedAlarmManager {
 
     /**
      * The Set Alarm Group Alarms
+     *
      * @param groupID takes a long for the groupID
      */
     public void setAlarmGroupAlarms(long groupID) {
@@ -128,6 +129,7 @@ public class MedAlarmManager {
 
     /**
      * The Cancel group
+     *
      * @param groupID takes in the groupID
      */
     public void cancelGroup(long groupID) {
@@ -177,6 +179,7 @@ public class MedAlarmManager {
 
     /**
      * The createAlarm Group
+     *
      * @param alarmIntent takes in the Intent alarmIntent
      */
     private void createAlarm(final Intent alarmIntent) {
@@ -231,6 +234,7 @@ public class MedAlarmManager {
 
     /**
      * The alarmBundleMaker
+     *
      * @param alarm takes in the Alarm alarm
      * @return the alarmBundle
      */
@@ -261,7 +265,8 @@ public class MedAlarmManager {
 
     /**
      * The setSingleAlarm (unimplemented)
-     * @param bundle takes in a bundle
+     *
+     * @param bundle             takes in a bundle
      * @param timeDelayinMinutes takes in timeDelayinMinutes
      */
     public void setSingleAlarm(Bundle bundle, int timeDelayinMinutes) {

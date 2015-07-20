@@ -9,6 +9,7 @@ public class TimeConverter {
 
     /**
      * Converts minutes to milliseconds
+     *
      * @param minute takes in the minutes
      * @return number of milliseconds
      */
@@ -18,6 +19,7 @@ public class TimeConverter {
 
     /**
      * Converts hours to milliseconds (unimplemented)
+     *
      * @param hours takes in the hours
      * @return number of milliseconds
      */

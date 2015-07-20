@@ -10,6 +10,7 @@ import concentric.medalarm.R;
 public class ActivityDetails extends AppCompatActivity {
     /**
      * The OnCreate for the ActivityDetails
+     *
      * @param savedInstanceState takes the saved instance state
      */
     @Override
@@ -20,6 +21,7 @@ public class ActivityDetails extends AppCompatActivity {
 
     /**
      * The OnCreateOptionsMenu
+     *
      * @param menu takes a menu
      * @return true
      */
@@ -32,6 +34,7 @@ public class ActivityDetails extends AppCompatActivity {
 
     /**
      * The onOptionsItemSelected
+     *
      * @param item takes an item
      * @return returns a super
      */

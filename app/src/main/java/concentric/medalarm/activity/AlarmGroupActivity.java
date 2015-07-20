@@ -74,6 +74,7 @@ public class AlarmGroupActivity extends AppCompatActivity implements AdapterView
 
     /**
      * The editButtonClick
+     *
      * @param position takes the position
      */
     public void editButtonClick(int position) {
@@ -92,6 +93,7 @@ public class AlarmGroupActivity extends AppCompatActivity implements AdapterView
 
     /**
      * The deleteButtonClick
+     *
      * @param position takes a position
      */
     private void deleteButtonClick(int position) {
@@ -101,6 +103,7 @@ public class AlarmGroupActivity extends AppCompatActivity implements AdapterView
 
     /**
      * The expand
+     *
      * @param view takes a view
      */
     public void expand(View view) {
@@ -114,6 +117,7 @@ public class AlarmGroupActivity extends AppCompatActivity implements AdapterView
 
     /**
      * The collapse
+     *
      * @param view takes a view
      */
     public void collapse(final View view) {
@@ -153,6 +157,7 @@ public class AlarmGroupActivity extends AppCompatActivity implements AdapterView
 
     /**
      * The onCreate
+     *
      * @param savedInstanceState takes the savedInstanceState
      */
     @Override
@@ -211,6 +216,7 @@ public class AlarmGroupActivity extends AppCompatActivity implements AdapterView
 
     /**
      * The onCreateOptionsMenu
+     *
      * @param menu takes a menu
      * @return a super
      */
@@ -237,13 +243,12 @@ public class AlarmGroupActivity extends AppCompatActivity implements AdapterView
         switch (item.getItemId()) {
             case R.id.save:
                 TextView name = (TextView) findViewById(R.id.alarmName);
-                if (!name.getText().toString().isEmpty()){
+                if (!name.getText().toString().isEmpty()) {
                     save();
                     setResult(RESULT_OK);
                     finish();// TODO: Confirm Save
-                }
-                else {
-                    Toast.makeText(this,"Medication name cannot be empty.",Toast.LENGTH_LONG).show();
+                } else {
+                    Toast.makeText(this, "Medication name cannot be empty.", Toast.LENGTH_LONG).show();
                 }
                 return true;
             default:
@@ -263,7 +268,7 @@ public class AlarmGroupActivity extends AppCompatActivity implements AdapterView
             e.printStackTrace();
         }
         // TODO: Ringtone needs to be set!
-        if (!name.getText().toString().isEmpty()){
+        if (!name.getText().toString().isEmpty()) {
             AlarmGroup ag = save.createAlarmGroup(name.getText().toString(), toneURI.toString(), type, false, true);
             Iterator iTimes = aTimes.iterator();
 
@@ -283,9 +288,8 @@ public class AlarmGroupActivity extends AppCompatActivity implements AdapterView
                 ag.addAlarm(hour, minute, repeats, rHours, rMiutes);
             }
             save.close();
-        }
-        else {
-            Toast.makeText(this,"Medication name cannot be empty.",Toast.LENGTH_LONG).show();
+        } else {
+            Toast.makeText(this, "Medication name cannot be empty.", Toast.LENGTH_LONG).show();
         }
     }
 
@@ -346,6 +350,7 @@ public class AlarmGroupActivity extends AppCompatActivity implements AdapterView
 
     /**
      * The hideVisibleViews
+     *
      * @param list takes a list
      */
     private void hideVisibleViews(List list) {

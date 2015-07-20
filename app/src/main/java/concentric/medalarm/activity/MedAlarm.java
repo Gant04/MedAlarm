@@ -26,39 +26,30 @@ import concentric.medalarm.activity.util.SystemUiHider;
  * @see SystemUiHider
  */
 public class MedAlarm extends Activity {
+
     /**
      * Whether or not the system UI should be auto-hidden after
      * {@link #AUTO_HIDE_DELAY_MILLIS} milliseconds.
      */
     private static final boolean AUTO_HIDE = true;
-
     /**
      * If {@link #AUTO_HIDE} is set, the number of milliseconds to wait after
      * user interaction before hiding the system UI.
      */
     private static final int AUTO_HIDE_DELAY_MILLIS = 3000;
-
     /**
      * If set, will toggle the system UI visibility upon interaction. Otherwise,
      * will show the system UI visibility upon interaction.
      */
     private static final boolean TOGGLE_ON_CLICK = true;
-
     /**
      * The flags to pass to {@link SystemUiHider#getInstance}.
      */
     private static final int HIDER_FLAGS = SystemUiHider.FLAG_HIDE_NAVIGATION;
+    Boolean animationComplete = false;
+    Boolean ringtonesLoaded = false;
+    Boolean bootRegistered = false;
     Handler mHideHandler = new Handler();
-    /**
-     * The instance of the {@link SystemUiHider} for this activity.
-     */
-    private SystemUiHider mSystemUiHider;
-    Runnable mHideRunnable = new Runnable() {
-        @Override
-        public void run() {
-            mSystemUiHider.hide();
-        }
-    };
     /**
      * Touch listener to use for in-layout UI controls to delay hiding the
      * system UI. This is to prevent the jarring behavior of controls going away
@@ -71,6 +62,16 @@ public class MedAlarm extends Activity {
                 delayedHide(AUTO_HIDE_DELAY_MILLIS);
             }
             return false;
+        }
+    };
+    /**
+     * The instance of the {@link SystemUiHider} for this activity.
+     */
+    private SystemUiHider mSystemUiHider;
+    Runnable mHideRunnable = new Runnable() {
+        @Override
+        public void run() {
+            mSystemUiHider.hide();
         }
     };
 
@@ -106,6 +107,7 @@ public class MedAlarm extends Activity {
                 pm.setComponentEnabledSetting(receiver,
                         PackageManager.COMPONENT_ENABLED_STATE_ENABLED,
                         PackageManager.DONT_KILL_APP);
+                bootRegistered = true;
             }
         };
 
@@ -122,6 +124,7 @@ public class MedAlarm extends Activity {
             public void run() {
                 Looper.prepare();
                 AlarmRingtoneManager.getInstance(getApplicationContext());
+                ringtonesLoaded = true;
             }
         };
 
@@ -137,10 +140,17 @@ public class MedAlarm extends Activity {
             @Override
             public void run() {
 
-                RotateAnimation rotateAnimation;
+                final RotateAnimation rotateAnimation;
                 rotateAnimation = new RotateAnimation(0.0f, -3f * 360f, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
                 rotateAnimation.setDuration(1000);
                 rotateAnimation.setRepeatCount(0);
+
+                final ImageView icon = (ImageView) findViewById(R.id.fullscreen_content);
+                icon.setImageResource(R.drawable.web_hi_res_512_pill);
+
+                final ImageView logo = (ImageView) findViewById(R.id.imageView);
+                logo.setImageResource(R.drawable.medalarm_logo);
+
                 rotateAnimation.setAnimationListener(new Animation.AnimationListener() {
                     @Override
                     public void onAnimationStart(Animation animation) {
@@ -148,9 +158,15 @@ public class MedAlarm extends Activity {
 
                     @Override
                     public void onAnimationEnd(Animation animation) {
-                        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                        startActivity(intent);
-                        finish();
+                        animationComplete = true;
+
+                        if (bootRegistered && animationComplete && ringtonesLoaded) {
+                            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                            startActivity(intent);
+                            finish();
+                        } else {
+                            icon.startAnimation(rotateAnimation);
+                        }
                     }
 
                     @Override
@@ -158,12 +174,6 @@ public class MedAlarm extends Activity {
 
                     }
                 });
-
-                ImageView icon = (ImageView) findViewById(R.id.fullscreen_content);
-                icon.setImageResource(R.drawable.web_hi_res_512_pill);
-
-                final ImageView logo = (ImageView) findViewById(R.id.imageView);
-                logo.setImageResource(R.drawable.medalarm_logo);
 
                 icon.startAnimation(rotateAnimation);
 

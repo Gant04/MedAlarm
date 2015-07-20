@@ -20,8 +20,9 @@ public class DropDownAnim extends Animation {
 
     /**
      * The Apply Transformation
+     *
      * @param interpolatedTime takes a float interpolatedTime
-     * @param t takes a Transformation
+     * @param t                takes a Transformation
      */
     @Override
     protected void applyTransformation(float interpolatedTime, Transformation t) {
@@ -37,9 +38,10 @@ public class DropDownAnim extends Animation {
 
     /**
      * The Initialized
-     * @param width takes int width
-     * @param height takes int height
-     * @param parentWidth takes int parentWidth
+     *
+     * @param width        takes int width
+     * @param height       takes int height
+     * @param parentWidth  takes int parentWidth
      * @param parentHeight takes int parentHeight
      */
     @Override

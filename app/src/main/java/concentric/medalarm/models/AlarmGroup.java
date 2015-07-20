@@ -34,12 +34,13 @@ public class AlarmGroup {
 
     /**
      * Create Alarm Group with Custom Ringtone.
-     * @param id takes an id
+     *
+     * @param id        takes an id
      * @param groupName takes a groupName
-     * @param ringTone takes a ringTone
-     * @param type takes a type
-     * @param offset takes an offset
-     * @param enabled takes an enabled
+     * @param ringTone  takes a ringTone
+     * @param type      takes a type
+     * @param offset    takes an offset
+     * @param enabled   takes an enabled
      */
     public AlarmGroup(long id, String groupName, String ringTone, int type, boolean offset,
                       boolean enabled) {
@@ -53,13 +54,14 @@ public class AlarmGroup {
 
     /**
      * Create Alarm Group with default Ringtone.
-     * @param groupName takes groupName
-     * @param ringTone takes ringTone
-     * @param type takes type
-     * @param offset takes offset
-     * @param enabled takes enabled
-     * @param repeatable takes repeatable
-     * @param numRepeats take numRepeates
+     *
+     * @param groupName     takes groupName
+     * @param ringTone      takes ringTone
+     * @param type          takes type
+     * @param offset        takes offset
+     * @param enabled       takes enabled
+     * @param repeatable    takes repeatable
+     * @param numRepeats    take numRepeates
      * @param timesRepeated take timesRepeated
      */
     public AlarmGroup(String groupName, String ringTone, int type, boolean offset, boolean
@@ -91,16 +93,6 @@ public class AlarmGroup {
         this.ringTone = ringTone;
     }
 
-    public void setOffset(boolean toggle) {
-        if (this.offset && toggle) {
-            Log.i(getClass().getName() + " setOffset", "Offset was already true!");
-        } else if (!this.offset & !toggle) {
-            Log.i(getClass().getName() + " setOffset", "Offset was already false!");
-        } else {
-            offset = toggle;
-        }
-    }
-
     public boolean getOffset(boolean toggle) {
         return offset;
     }
@@ -109,28 +101,8 @@ public class AlarmGroup {
         return enabled;
     }
 
-    public void setEnabled(boolean toggle) {
-        if (this.enabled && toggle) {
-            Log.i(getClass().getName() + " setEnabled", "Enabled was already true!");
-        } else if (!this.enabled & !toggle) {
-            Log.i(getClass().getName() + " setEnabled", "Enabled was already false!");
-        } else {
-            enabled = toggle;
-        }
-    }
-
     public boolean getVibrate() {
         return vibrate;
-    }
-
-    public void setVibrate(boolean vibrate) {
-        if (this.vibrate && vibrate) {
-            Log.i(getClass().getName() + " setVibrate", "Vibrate was already true!");
-        } else if (!this.vibrate & !vibrate) {
-            Log.i(getClass().getName() + " setVibrate", "Vibrate was already false!");
-        } else {
-            this.vibrate = vibrate;
-        }
     }
 
     public long getId() {
@@ -206,12 +178,42 @@ public class AlarmGroup {
         return offset;
     }
 
+    public void setOffset(boolean toggle) {
+        if (this.offset && toggle) {
+            Log.i(getClass().getName() + " setOffset", "Offset was already true!");
+        } else if (!this.offset & !toggle) {
+            Log.i(getClass().getName() + " setOffset", "Offset was already false!");
+        } else {
+            offset = toggle;
+        }
+    }
+
     public boolean isEnabled() {
         return enabled;
     }
 
+    public void setEnabled(boolean toggle) {
+        if (this.enabled && toggle) {
+            Log.i(getClass().getName() + " setEnabled", "Enabled was already true!");
+        } else if (!this.enabled & !toggle) {
+            Log.i(getClass().getName() + " setEnabled", "Enabled was already false!");
+        } else {
+            enabled = toggle;
+        }
+    }
+
     public boolean isVibrate() {
         return vibrate;
+    }
+
+    public void setVibrate(boolean vibrate) {
+        if (this.vibrate && vibrate) {
+            Log.i(getClass().getName() + " setVibrate", "Vibrate was already true!");
+        } else if (!this.vibrate & !vibrate) {
+            Log.i(getClass().getName() + " setVibrate", "Vibrate was already false!");
+        } else {
+            this.vibrate = vibrate;
+        }
     }
 
     /**

@@ -38,11 +38,12 @@ public class AlarmDataSource {
 
     /**
      * Creating the alarm
-     * @param groupID takes the groupID
-     * @param hour takes the hour
-     * @param minute takes the minute
-     * @param repeats takes if alarm repeats boolean
-     * @param rHours takes repeats hours
+     *
+     * @param groupID  takes the groupID
+     * @param hour     takes the hour
+     * @param minute   takes the minute
+     * @param repeats  takes if alarm repeats boolean
+     * @param rHours   takes repeats hours
      * @param rMinutes takes repeats minutes
      * @return the created alarm
      */
@@ -68,6 +69,7 @@ public class AlarmDataSource {
 
     /**
      * The deleteAlarm
+     *
      * @param alarm takes in the alarm
      */
     public void deleteAlarm(Alarm alarm) {
@@ -86,7 +88,7 @@ public class AlarmDataSource {
     public List<Alarm> getGroupAlarms(long groupID) {
         List<Alarm> alarms = new ArrayList<>();
         Cursor cursor = database.query(Alarm.TABLE_NAME, allColumns, Alarm.COLUMN_NAME_ALARM_GROUP +
-                        " = ?", new String[]{String.valueOf(groupID)}, null, null, null);
+                " = ?", new String[]{String.valueOf(groupID)}, null, null, null);
         if (cursor.getCount() > 0) {
             cursor.moveToFirst();
             while (!cursor.isAfterLast()) {
@@ -105,7 +107,8 @@ public class AlarmDataSource {
 
     /**
      * The deleteGtoupAlarms (unimplemented)
-     * @param groupID takes groupID
+     *
+     * @param groupID  takes groupID
      * @param dbHelper takes dbHelper
      */
     public void deleteGroupAlarms(long groupID, DBHelper dbHelper) {
@@ -115,11 +118,12 @@ public class AlarmDataSource {
 
     /**
      * The deleteGroupAlarms
+     *
      * @param groupID takes a groupID
      */
     public void deleteGroupAlarms(long groupID) {
         Cursor cursor = database.query(Alarm.TABLE_NAME, allColumns, Alarm.COLUMN_NAME_ALARM_GROUP +
-                        " = ?", new String[]{String.valueOf(groupID)}, null, null, null);
+                " = ?", new String[]{String.valueOf(groupID)}, null, null, null);
 
         if (cursor.getCount() > 0) {
             cursor.moveToFirst();
@@ -137,6 +141,7 @@ public class AlarmDataSource {
 
     /**
      * The cursor to the Alarm
+     *
      * @param cursor takes in a cursor
      * @return returns the alarm
      */
@@ -153,6 +158,7 @@ public class AlarmDataSource {
 
     /**
      * The populate content
+     *
      * @param item takes in an item
      * @return returns values
      */
@@ -169,6 +175,7 @@ public class AlarmDataSource {
 
     /**
      * The Create alarm (unimplemented)
+     *
      * @param item takes an item
      * @return database
      */
@@ -179,22 +186,24 @@ public class AlarmDataSource {
 
     /**
      * The updatedAlarm (unimplemented)
+     *
      * @param alarm takes an alarm
      * @return database
      */
     public long updateAlarm(Alarm alarm) {
         ContentValues values = populateContent(alarm);
         return database.update(Alarm.TABLE_NAME, values, Alarm.COLUMN_NAME_ALARM_ID + " =?", new
-                String[] {String.valueOf(alarm.getId())});
+                String[]{String.valueOf(alarm.getId())});
     }
 
     /**
      * The delete alarm
+     *
      * @param id takes an id
      * @return database
      */
     public int deleteAlarm(long id) {
-        return database.delete(Alarm.TABLE_NAME, Alarm.COLUMN_NAME_ALARM_ID + " =?", new String[] {
+        return database.delete(Alarm.TABLE_NAME, Alarm.COLUMN_NAME_ALARM_ID + " =?", new String[]{
                 String.valueOf(id)});
     }
 
