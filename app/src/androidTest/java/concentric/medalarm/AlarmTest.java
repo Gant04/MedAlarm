@@ -1,10 +1,14 @@
-package concentric.medalarm.models;
+package concentric.medalarm;
 
 import android.test.AndroidTestCase;
 
 import junit.framework.Assert;
 
 import java.util.List;
+
+import concentric.medalarm.models.Alarm;
+import concentric.medalarm.models.AlarmDataSource;
+import concentric.medalarm.models.DBHelper;
 
 /**
  * Created by MatthewAry on 6/13/2015.
