@@ -38,7 +38,7 @@ public class Edit_Daily_Alarm extends AppCompatActivity {
     private AlarmGroup alarmGroup;
     AlarmGroupDataSource db;
     AlarmDataSource dba;
-    private List<Alarm> alarms;
+    private List<Alarm> alarms = new ArrayList<>();
     private List<String> list = new ArrayList<>();
     private List<Bundle> aTimes = new ArrayList<>();
     private ListView listView;

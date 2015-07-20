@@ -140,7 +140,7 @@ public class AlarmGroupCardAdapter extends RecyclerView.Adapter<AlarmGroupCardAd
             public void editAlarm(long groupID) {
                 Intent intent = new Intent(parentContext, Edit_Daily_Alarm.class);
                 intent.putExtra("groupID", groupID);
-                ((Activity) parentContext).startActivityForResult(intent, 2);
+                ((Activity) parentContext).startActivity(intent);
             }
 
             /**
