@@ -1,4 +1,4 @@
-package concentric.medalarm.models;
+package concentric.medalarm;
 
 import junit.framework.TestCase;
 
