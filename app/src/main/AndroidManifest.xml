@@ -59,6 +59,7 @@
             android:launchMode="singleTop"
             android:noHistory="true"
             android:screenOrientation="portrait"
+            android:showOnLockScreen="true"
             android:theme="@style/FullscreenTheme" />
         <activity
             android:name=".activity.Edit_Daily_Alarm"

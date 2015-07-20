@@ -10,6 +10,7 @@ import android.os.Looper;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
+import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.RotateAnimation;
 import android.widget.ImageView;
@@ -18,6 +19,7 @@ import concentric.medalarm.AlarmBootReceiver;
 import concentric.medalarm.AlarmRingtoneManager;
 import concentric.medalarm.R;
 import concentric.medalarm.activity.util.SystemUiHider;
+import concentric.medalarm.models.DBHelper;
 
 /**
  * An example full-screen activity that shows and hides the system UI (i.e.
@@ -49,7 +51,18 @@ public class MedAlarm extends Activity {
     Boolean animationComplete = false;
     Boolean ringtonesLoaded = false;
     Boolean bootRegistered = false;
+    Boolean dbLoaded = false;
     Handler mHideHandler = new Handler();
+    /**
+     * The instance of the {@link SystemUiHider} for this activity.
+     */
+    private SystemUiHider mSystemUiHider;
+    Runnable mHideRunnable = new Runnable() {
+        @Override
+        public void run() {
+            mSystemUiHider.hide();
+        }
+    };
     /**
      * Touch listener to use for in-layout UI controls to delay hiding the
      * system UI. This is to prevent the jarring behavior of controls going away
@@ -62,16 +75,6 @@ public class MedAlarm extends Activity {
                 delayedHide(AUTO_HIDE_DELAY_MILLIS);
             }
             return false;
-        }
-    };
-    /**
-     * The instance of the {@link SystemUiHider} for this activity.
-     */
-    private SystemUiHider mSystemUiHider;
-    Runnable mHideRunnable = new Runnable() {
-        @Override
-        public void run() {
-            mSystemUiHider.hide();
         }
     };
 
@@ -87,9 +90,15 @@ public class MedAlarm extends Activity {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_med_alarm);
 
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON |
+                WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD |
+                WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED |
+                WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON);
+
         registerBootReceiver();
         initRingtones();
         rotateAnimation();
+        regesterDBhelper();
 
     }
 
@@ -112,6 +121,17 @@ public class MedAlarm extends Activity {
         };
 
         bootReceiver.start();
+    }
+
+    private void regesterDBhelper() {
+        Thread dbHelper = new Thread() {
+            @Override
+            public void run() {
+                DBHelper dbInstance = DBHelper.getInstance(getApplicationContext());
+                dbLoaded = true;
+            }
+        };
+        dbHelper.start();
     }
 
     /**
@@ -160,7 +180,7 @@ public class MedAlarm extends Activity {
                     public void onAnimationEnd(Animation animation) {
                         animationComplete = true;
 
-                        if (bootRegistered && animationComplete && ringtonesLoaded) {
+                        if (bootRegistered && animationComplete && ringtonesLoaded && dbLoaded) {
                             Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                             startActivity(intent);
                             finish();

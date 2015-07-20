@@ -7,8 +7,10 @@ import android.animation.ObjectAnimator;
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.AlarmManager;
+import android.app.KeyguardManager;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
+import android.app.admin.DevicePolicyManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
@@ -21,6 +23,7 @@ import android.support.v4.app.NotificationCompat;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
+import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -67,7 +70,19 @@ public class FullScreenAlarm extends Activity {
     boolean cancel;
     MediaPlayer mediaPlayer;
     Vibrator vibrator;
+    boolean locked = false;
     Handler mHideHandler = new Handler();
+    private Handler handler = new Handler();
+    /**
+     * The instance of the {@link SystemUiHider} for this activity.
+     */
+    private SystemUiHider mSystemUiHider;
+    Runnable mHideRunnable = new Runnable() {
+        @Override
+        public void run() {
+            mSystemUiHider.hide();
+        }
+    };
     /**
      * Touch listener to use for in-layout UI controls to delay hiding the
      * system UI. This is to prevent the jarring behavior of controls going away
@@ -80,17 +95,6 @@ public class FullScreenAlarm extends Activity {
                 delayedHide(AUTO_HIDE_DELAY_MILLIS);
             }
             return false;
-        }
-    };
-    private Handler handler = new Handler();
-    /**
-     * The instance of the {@link SystemUiHider} for this activity.
-     */
-    private SystemUiHider mSystemUiHider;
-    Runnable mHideRunnable = new Runnable() {
-        @Override
-        public void run() {
-            mSystemUiHider.hide();
         }
     };
     private Runnable autoSnooze = new Runnable() {
@@ -107,6 +111,14 @@ public class FullScreenAlarm extends Activity {
         DBHelper dbHelper = DBHelper.getInstance(getApplicationContext());
 
         setContentView(R.layout.activity_full_screen_alarm);
+
+        KeyguardManager km = (KeyguardManager) getSystemService(Context.KEYGUARD_SERVICE);
+        locked = km.inKeyguardRestrictedInputMode();
+
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON |
+                WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED |
+                WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON);
+
 
         final View controlsView = findViewById(R.id.fullscreen_content_controls);
         final View contentView = findViewById(R.id.fullscreen_content);
@@ -241,6 +253,11 @@ public class FullScreenAlarm extends Activity {
         new MedAlarmManager(getApplicationContext()).setAllAlarms();
         handler.removeCallbacks(autoSnooze);
         finish();
+
+        if (locked) {
+            DevicePolicyManager mDPM;
+            mDPM = (DevicePolicyManager) getSystemService(Context.DEVICE_POLICY_SERVICE);
+        }
     }
 
     public void snoozeClickListener(View view) {
@@ -265,6 +282,11 @@ public class FullScreenAlarm extends Activity {
         PendingIntent pendingIntent = PendingIntent.getBroadcast(getApplicationContext(), 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
         AlarmManager alarmManager = (AlarmManager) (getApplicationContext().getSystemService(Context.ALARM_SERVICE));
         alarmManager.set(AlarmManager.RTC_WAKEUP, System.currentTimeMillis() + TimeConverter.minutesToMillis(5), pendingIntent);
+
+        if (locked) {
+            DevicePolicyManager mDPM;
+            mDPM = (DevicePolicyManager) getSystemService(Context.DEVICE_POLICY_SERVICE);
+        }
 
         finish();
     }
