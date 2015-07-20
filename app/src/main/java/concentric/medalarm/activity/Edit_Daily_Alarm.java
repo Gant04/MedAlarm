@@ -36,6 +36,8 @@ import concentric.medalarm.models.AlarmGroupDataSource;
 
 public class Edit_Daily_Alarm extends AppCompatActivity {
     private AlarmGroup alarmGroup;
+    AlarmGroupDataSource db;
+    AlarmDataSource dba;
     private List<Alarm> alarms;
     private List<String> list = new ArrayList<>();
     private List<Bundle> aTimes = new ArrayList<>();
@@ -62,21 +64,22 @@ public class Edit_Daily_Alarm extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit__daily__alarm);
+
+
+        db = new AlarmGroupDataSource();
+        dba = new AlarmDataSource();
+
         // Get Toolbar
         Toolbar toolbar = (Toolbar) findViewById(R.id.Toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         // Load in alarm details
-        AlarmGroupDataSource db = new AlarmGroupDataSource();
-        AlarmDataSource dba = new AlarmDataSource();
         try {
             db.open();
             Bundle extras = getIntent().getExtras();
             alarmGroup = db.getAlarmGroup(extras.getLong("groupID"));
-            db.close();
             dba.open();
             alarms = dba.getGroupAlarms(alarmGroup.getId());
-            dba.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -243,20 +246,17 @@ public class Edit_Daily_Alarm extends AppCompatActivity {
      * When the save icon is pressed, saves information to the DB
      */
     private void save() {
-        AlarmGroupDataSource save = new AlarmGroupDataSource();
         TextView name = (TextView) findViewById(R.id.alarmName);
-        try {
-            save.open();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
         // TODO: Ringtone needs to be set!
         if (!name.getText().toString().isEmpty()){
             new MedAlarmManager(getApplicationContext()).cancelGroup(alarmGroup.getId());
 
-            save.deleteGroup(alarmGroup.getId());
 
-            AlarmGroup ag = save.createAlarmGroup(name.getText().toString(), toneURI.toString(), type, false, true);
+
+            db.deleteGroup(alarmGroup.getId());
+
+            AlarmGroup ag = db.createAlarmGroup(name.getText().toString(), toneURI.toString(),
+                    type, false, true);
 
             // TODO: Might want to use a better itterator pattern so that the world is not destroyed.
 
@@ -268,7 +268,8 @@ public class Edit_Daily_Alarm extends AppCompatActivity {
                 int rMiutes = 0;
                 ag.addAlarm(hour, minute, repeats, rHours, rMiutes);
             }
-            save.close();
+            db.close();
+            dba.close();
         }
         else {
             Toast.makeText(this, "Medication name cannot be empty.", Toast.LENGTH_LONG).show();

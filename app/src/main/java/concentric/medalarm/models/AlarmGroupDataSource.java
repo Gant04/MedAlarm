@@ -101,7 +101,24 @@ public class AlarmGroupDataSource {
 
     public void deleteGroup(long id) {
         Log.w(getClass().getName() + " deleteGroup", "Deleting AlarmGroup ID" + id + ".");
-        database.delete(AlarmGroup.TABLE_NAME, Alarm.COLUMN_NAME_ALARM_ID + " = " + id, null);
+        AlarmDataSource ads = new AlarmDataSource();
+        try {
+            ads.open();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        ads.deleteGroupAlarms(id);
+        ads.close();
+        if (!database.isOpen()){
+            try {
+                open();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        database.delete(AlarmGroup.TABLE_NAME, AlarmGroup.COLUMN_NAME_ALARM_GROUP_ID + " =?", new
+                String[]{String.valueOf(id)});
         Log.i(getClass().getName() + " deleteGroup", "Alarm group deletion");
     }
 
@@ -155,11 +172,6 @@ public class AlarmGroupDataSource {
                 " =?", new String[]{String.valueOf(item.getId())});
     }
 
-    public int deleteAlarm(long id) {
-        AlarmDataSource alarmDB = new AlarmDataSource();
-        return database.delete(AlarmGroup.TABLE_NAME, AlarmGroup.COLUMN_NAME_ALARM_GROUP_ID + " " +
-                "=?", new String[] { String.valueOf(id)});
-    }
 
     /**
      * TODO: Should this be private?

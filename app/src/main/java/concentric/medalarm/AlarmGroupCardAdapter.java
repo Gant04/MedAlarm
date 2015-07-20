@@ -191,6 +191,7 @@ public class AlarmGroupCardAdapter extends RecyclerView.Adapter<AlarmGroupCardAd
                 AlarmGroup item = db.getAlarmGroup(groupID);
                 item.setEnabled(false);
                 db.updateAlarmGroup(item);
+                db.close();
             }
         });
         return vh;
