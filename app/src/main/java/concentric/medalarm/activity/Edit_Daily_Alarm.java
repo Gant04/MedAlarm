@@ -88,6 +88,7 @@ public class Edit_Daily_Alarm extends AppCompatActivity {
 
         for (Alarm alarm : alarms) {
             list.add(alarm.getAlarmTime());
+
             Bundle bundle = new Bundle();
             bundle.putInt("hour", alarm.getHour());
             bundle.putInt("minute", alarm.getrMinute());

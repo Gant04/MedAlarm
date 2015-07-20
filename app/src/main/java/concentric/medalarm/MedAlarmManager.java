@@ -132,6 +132,15 @@ public class MedAlarmManager {
      */
     public void cancelGroup(long groupID) {
 
+        AlarmGroupDataSource alarmGroupDataSource = new AlarmGroupDataSource();
+        try {
+            alarmGroupDataSource.open();
+            this.medicationName = alarmGroupDataSource.getAlarmGroup(groupID).getGroupName();
+            alarmGroupDataSource.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
         AlarmDataSource alarmDataSource = new AlarmDataSource();
         try {
             alarmDataSource.open();
@@ -142,6 +151,7 @@ public class MedAlarmManager {
 
         for (Alarm alarm : alarmList) {
             long id = alarm.getId();
+
 
             //Checks to make sure the alarm isnt already set.
             boolean alarmCreated = (PendingIntent.getBroadcast(context,
@@ -158,7 +168,7 @@ public class MedAlarmManager {
                 alarmManager.cancel(pi);
 
             } else {
-                Log.i("com.concentric.medalarm.intent." + medicationName + "." + groupID + "." + id, "Doesnt exist!");
+                Log.wtf("com.concentric.medalarm.intent." + medicationName + "." + groupID + "." + id, "Unable to delete!!!");
             }
 
         }
