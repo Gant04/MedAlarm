@@ -184,7 +184,6 @@ public class MainActivity extends AppCompatActivity {
 
         if (requestCode == createAlarmRequestCode) {
             if (resultCode == RESULT_OK) {
-
                 loadAlarmGroups();
                 if (alarmGroupList.size() > 0) {
                     mRecycleAdapter = new AlarmGroupCardAdapter(MainActivity.this, alarmGroupList);

@@ -122,6 +122,13 @@ public class AlarmDataSource {
      * @param groupID takes a groupID
      */
     public void deleteGroupAlarms(long groupID) {
+        if (!database.isOpen()){
+            try {
+                open();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
         Cursor cursor = database.query(Alarm.TABLE_NAME, allColumns, Alarm.COLUMN_NAME_ALARM_GROUP +
                 " = ?", new String[]{String.valueOf(groupID)}, null, null, null);
 

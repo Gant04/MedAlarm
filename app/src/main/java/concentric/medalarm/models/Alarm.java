@@ -99,18 +99,11 @@ public class Alarm {
      * @param minute takes a minute
      */
     public void setMinute(int minute) {
-        if (minute > 59 || minute < 0) {
-            Log.e(getClass().getName() + " setMinute",
-                    "An attempt to set the minutes to an invalid" +
-                            " value was made.\nMinutes should be between 0 and 59.\n\n" +
-                            "This function was instructed to set the minutes to: " + minute + ".");
-        } else {
-            this.minute = minute;
-        }
+        this.minute = minute;
     }
 
     public String getAlarmTime() {
-        dateAndTime.set(Calendar.HOUR_OF_DAY, getHour());
+        dateAndTime.set(Calendar.HOUR, getHour());
         dateAndTime.set(Calendar.MINUTE, getMinute());
         return DateFormat.getTimeInstance(DateFormat.SHORT).format(dateAndTime
                 .getTime());
