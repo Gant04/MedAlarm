@@ -69,7 +69,8 @@ public class AlarmGroupCardAdapter extends RecyclerView.Adapter<AlarmGroupCardAd
         holder.groupName.setText(item.getGroupName());
         holder.groupID = item.getId();
         holder.position = position;
-        holder.aSwitch.setEnabled(item.getEnabled());
+        holder.aSwitch.setChecked(item.getEnabled());
+        holder.name = item.getGroupName();
 
         String alarmType[] = DBHelper.getContext().getResources().getStringArray(R.array
                 .alarm_types);
@@ -146,7 +147,7 @@ public class AlarmGroupCardAdapter extends RecyclerView.Adapter<AlarmGroupCardAd
              * Disables and deletes the alarm group.
              * @param groupID
              */
-            public void deleteAlarm(long groupID, int position) {
+            public void deleteAlarm(long groupID, int position, String name) {
                 MedAlarmManager ma = new MedAlarmManager(parentContext.getApplicationContext());
                 ma.cancelGroup(groupID);
 
@@ -171,7 +172,8 @@ public class AlarmGroupCardAdapter extends RecyclerView.Adapter<AlarmGroupCardAd
                 rotated = false;
 
                 // notify user
-                Toast.makeText(parentContext, "Alarm deleted", Toast.LENGTH_SHORT).show();
+                Toast.makeText(parentContext, "Alarm " + name + " Deleted", Toast.LENGTH_SHORT)
+                        .show();
             }
 
             /**
@@ -193,6 +195,26 @@ public class AlarmGroupCardAdapter extends RecyclerView.Adapter<AlarmGroupCardAd
                 db.updateAlarmGroup(item);
                 db.close();
             }
+
+            /**
+             * Enables the alarm group.
+             * @param groupID
+             */
+            public void enableAlarm(long groupID) {
+                MedAlarmManager ma = new MedAlarmManager(parentContext.getApplicationContext());
+                ma.setAlarmGroupAlarms(groupID);
+                AlarmGroupDataSource db = new AlarmGroupDataSource();
+                try {
+                    db.open();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+
+                AlarmGroup item = db.getAlarmGroup(groupID);
+                item.setEnabled(true);
+                db.updateAlarmGroup(item);
+                db.close();
+            }
         });
         return vh;
     }
@@ -205,9 +227,11 @@ public class AlarmGroupCardAdapter extends RecyclerView.Adapter<AlarmGroupCardAd
 
         void editAlarm(long groupID);
 
-        void deleteAlarm(long groupID, int position);
+        void deleteAlarm(long groupID, int position, String name);
 
         void disableAlarm(long groupID);
+
+        void enableAlarm(long groupID);
     }
 
     /**
@@ -226,6 +250,7 @@ public class AlarmGroupCardAdapter extends RecyclerView.Adapter<AlarmGroupCardAd
         protected Switch aSwitch;
         protected long groupID;
         protected int position;
+        protected String name;
 
         /**
          * The holder that has the view
@@ -251,11 +276,14 @@ public class AlarmGroupCardAdapter extends RecyclerView.Adapter<AlarmGroupCardAd
             aSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 @Override
                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                    mListener.disableAlarm(groupID);
                     if (isChecked) {
-                        Toast.makeText(parentContext, "Alarm Enabled", Toast.LENGTH_SHORT).show();
+                        mListener.enableAlarm(groupID);
+                        Toast.makeText(parentContext, "Alarm " + name + " Enabled", Toast
+                                .LENGTH_SHORT).show();
                     } else {
-                        Toast.makeText(parentContext, "Alarm Disabled", Toast.LENGTH_SHORT).show();
+                        mListener.disableAlarm(groupID);
+                        Toast.makeText(parentContext, "Alarm " + name + " Disabled", Toast
+                                .LENGTH_SHORT).show();
                     }
                 }
             });
@@ -273,9 +301,7 @@ public class AlarmGroupCardAdapter extends RecyclerView.Adapter<AlarmGroupCardAd
             } else if (v.getId() == R.id.editAlarm) { // Edit
                 mListener.editAlarm(groupID);
             } else if (v.getId() == R.id.deleteAlarm) { // Delete
-                mListener.deleteAlarm(groupID, position);
-            } else if (v.getId() == R.id.enabled) { // Disable
-                mListener.disableAlarm(groupID);
+                mListener.deleteAlarm(groupID, position, name);
             }
         }
     }
