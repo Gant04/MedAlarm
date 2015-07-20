@@ -23,7 +23,6 @@ import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
-import java.util.Iterator;
 import java.util.List;
 
 import concentric.medalarm.AlarmRingtoneManager;
@@ -258,17 +257,15 @@ public class Edit_Daily_Alarm extends AppCompatActivity {
             save.deleteGroup(alarmGroup.getId());
 
             AlarmGroup ag = save.createAlarmGroup(name.getText().toString(), toneURI.toString(), type, false, true);
-            Iterator iTimes = aTimes.iterator();
 
             // TODO: Might want to use a better itterator pattern so that the world is not destroyed.
-            while (iTimes.hasNext()) {
-                Bundle aTime = (Bundle) iTimes.next();
+
+            for (Bundle aTime : aTimes) {
                 int hour = aTime.getInt("hour");
                 int minute = aTime.getInt("minute");
                 boolean repeats = false;
                 int rHours = 0;
                 int rMiutes = 0;
-
                 ag.addAlarm(hour, minute, repeats, rHours, rMiutes);
             }
             save.close();
