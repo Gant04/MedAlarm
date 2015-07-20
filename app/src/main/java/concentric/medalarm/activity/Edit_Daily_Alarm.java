@@ -52,7 +52,7 @@ public class Edit_Daily_Alarm extends AppCompatActivity {
                               int minute) {
             dateAndTime.set(Calendar.HOUR_OF_DAY, hourOfDay);
             dateAndTime.set(Calendar.MINUTE, minute);
-           // updateList();
+            updateList();
         }
     };
 
