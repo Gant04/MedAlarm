@@ -12,12 +12,18 @@
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="top|center"
+        android:layout_gravity="top|center|fill_vertical"
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
         android:layout_marginTop="80dp"
+        android:baselineAligned="false"
+        android:includeFontPadding="false"
         android:text="Large Text"
+        android:textAlignment="center"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:textColor="#ffffff"
-        android:textSize="36dp"
+        android:textSize="36sp"
         android:textStyle="bold|italic" />
 
     <ImageView
